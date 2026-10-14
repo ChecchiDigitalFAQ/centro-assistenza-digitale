@@ -4,22 +4,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Centro Assistenza Digitale IIS Arturo Checchi</title>
+<title>Arturo - Centro Assistenza Digitale</title>
 
 <style>
 
 body{
-    font-family: Arial, sans-serif;
-    background:#f4f7fb;
     margin:0;
-    padding:0;
+    background:#f4f7fb;
+    font-family:Arial, sans-serif;
 }
 
 .header{
     background:#0056b3;
     color:white;
-    padding:40px 20px;
     text-align:center;
+    padding:30px 20px;
+}
+
+.header h1{
+    margin:0;
 }
 
 .container{
@@ -28,15 +31,43 @@ body{
     padding:20px;
 }
 
-.chatbox{
+.chat{
     background:white;
     border-radius:15px;
-    padding:25px;
     box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    overflow:hidden;
+}
+
+.messages{
+    min-height:400px;
+    padding:20px;
+}
+
+.bot{
+    background:#eef5ff;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:15px;
+    border-left:5px solid #0056b3;
+}
+
+.user{
+    background:#dff3df;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:15px;
+    text-align:right;
+}
+
+.input-area{
+    display:flex;
+    gap:10px;
+    padding:20px;
+    border-top:1px solid #ddd;
 }
 
 input{
-    width:100%;
+    flex:1;
     padding:12px;
     border:1px solid #ccc;
     border-radius:8px;
@@ -44,84 +75,183 @@ input{
 }
 
 button{
-    margin-top:10px;
     background:#0056b3;
     color:white;
     border:none;
-    padding:12px 20px;
     border-radius:8px;
+    padding:12px 20px;
     cursor:pointer;
 }
 
 button:hover{
-    background:#003f84;
-}
-
-.risposta{
-    margin-top:20px;
-    padding:15px;
-    background:#eef5ff;
-    border-left:5px solid #0056b3;
-    border-radius:5px;
+    background:#004090;
 }
 
 </style>
-
-<script>
-
-function cercaFaq(){
-
-var testo=document.getElementById("domanda").value.toLowerCase();
-var risposta="";
-
-if(testo.includes("teams")){
-
-risposta="<div class='risposta'><strong>💻 Accesso Teams</strong><br><br>Per accedere a Microsoft Teams utilizza le credenziali Microsoft 365 dell'Istituto.<br><br><a href='https://teams.microsoft.com' target='_blank'>Apri Microsoft Teams</a></div>";
-
-}
-
-else if(testo.includes("orario") || testo.includes("segreteria")){
-
-risposta="<div class='risposta'><strong>🏫 Orari Segreteria</strong><br><br>La Segreteria è aperta al pubblico dalle ore 08:00 alle ore 12:00.</div>";
-
-}
-
-else{
-
-risposta="<div class='risposta'>❌ Nessuna risposta trovata.</div>";
-
-}
-
-document.getElementById("risultato").innerHTML=risposta;
-
-}
-
-</script>
-
 </head>
 
 <body>
 
 <div class="header">
-<h1>🎓 Centro Assistenza Digitale</h1>
-<p>IIS Arturo Checchi</p>
+<h1>🤖 Arturo</h1>
+<p>Centro Assistenza Digitale IIS Arturo Checchi</p>
 </div>
 
 <div class="container">
 
-<div class="chatbox">
+<div class="chat">
 
-<h2>🤖 Come posso aiutarti?</h2>
+<div class="messages" id="messages">
 
-<input type="text" id="domanda" placeholder="Scrivi Teams, Segreteria...">
+<div class="bot">
+👋 Ciao! Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.<br><br>
+Come posso aiutarti oggi?
+</div>
 
-<button onclick="cercaFaq()">Cerca</button>
+</div>
 
-<div id="risultato"></div>
+<div class="input-area">
+
+<input type="text" id="domanda" placeholder="Scrivi la tua domanda...">
+
+<button onclick="rispondi()">Invia</button>
 
 </div>
 
 </div>
+
+</div>
+
+<script>
+
+function aggiungiMessaggio(tipo,testo){
+
+let box=document.getElementById("messages");
+
+let div=document.createElement("div");
+
+div.className=tipo;
+
+div.innerHTML=testo;
+
+box.appendChild(div);
+
+box.scrollTop=box.scrollHeight;
+
+}
+
+function rispondi(){
+
+let input=document.getElementById("domanda");
+
+let testo=input.value.trim();
+
+if(testo==="") return;
+
+aggiungiMessaggio("user",testo);
+
+let domanda=testo.toLowerCase();
+
+let risposta="";
+
+if(
+domanda.includes("ciao") ||
+domanda.includes("salve") ||
+domanda.includes("buongiorno") ||
+domanda.includes("buonasera")
+){
+
+risposta="👋 Ciao! Sono Arturo. Come posso aiutarti?";
+
+}
+
+else if(
+domanda.includes("chi sei") ||
+domanda.includes("come ti chiami") ||
+domanda.includes("nome")
+){
+
+risposta="🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.";
+
+}
+
+else if(
+domanda.includes("cosa sai fare") ||
+domanda.includes("come puoi aiutarmi")
+){
+
+risposta="🎓 Posso aiutarti con Teams, Microsoft 365, Registro Elettronico Argo, Segreteria, Sicurezza, Collaboratori DS e altri servizi dell'Istituto.";
+
+}
+
+else if(
+domanda.includes("grazie")
+){
+
+risposta="😊 È stato un piacere aiutarti. Se hai altre domande sono qui!";
+
+}
+
+else if(
+domanda.includes("teams")
+){
+
+risposta="💻 Posso aiutarti con Microsoft Teams.<br><br>✅ Accesso a Teams<br>✅ Problemi di accesso<br>✅ Password Microsoft 365";
+
+}
+
+else if(
+domanda.includes("argo") ||
+domanda.includes("registro elettronico")
+){
+
+risposta="📚 Posso aiutarti con Argo.<br><br>Sei un docente, uno studente o un genitore/famiglia?";
+
+}
+
+else if(
+domanda.includes("segreteria")
+){
+
+risposta="🏫 Posso aiutarti con la Segreteria.<br><br>Hai bisogno di informazioni su orari, contatti o modulistica?";
+
+}
+
+else{
+
+let risposteGeneriche=[
+
+"😊 Mi dispiace, ma posso aiutarti esclusivamente con servizi e informazioni dell'IIS Arturo Checchi.",
+
+"🤖 Non conosco questo argomento. Sono specializzato nei servizi scolastici dell'Istituto.",
+
+"🎓 Prova a chiedermi informazioni su Teams, Argo, Segreteria, Sicurezza, Microsoft 365 o altri servizi scolastici."
+
+];
+
+risposta=risposteGeneriche[Math.floor(Math.random()*risposteGeneriche.length)];
+
+}
+
+setTimeout(function(){
+
+aggiungiMessaggio("bot",risposta);
+
+},500);
+
+input.value="";
+
+}
+
+document.getElementById("domanda").addEventListener("keypress",function(event){
+
+if(event.key==="Enter"){
+rispondi();
+}
+
+});
+
+</script>
 
 </body>
 </html>
