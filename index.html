@@ -123,7 +123,17 @@ Come posso aiutarti oggi?
 </div>
 
 <script>
+let faqDatabase = [];
 
+fetch("faq.json")
+.then(response => response.json())
+.then(data => {
+    faqDatabase = data;
+    console.log("FAQ caricate:", faqDatabase);
+})
+.catch(error => {
+    console.error("Errore caricamento FAQ:", error);
+});
 function aggiungiMessaggio(tipo,testo){
 
 let box=document.getElementById("messages");
