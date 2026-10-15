@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Arturo Admin</title>
+
+<style>
+
+body{
+    font-family:Segoe UI, sans-serif;
+    background:#eef3f8;
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+
+h1{
+    color:#0056b3;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:600;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+textarea{
+    min-height:120px;
+}
+
+button{
+    background:#0056b3;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+#output{
+    margin-top:25px;
+    background:#f8f8f8;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:15px;
+    white-space:pre-wrap;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>🤖 Arturo Admin</h1>
+
+<p>
+Primo prototipo per la gestione della Knowledge Base.
+</p>
+
+<label>ID</label>
+<input id="id">
+
+<label>Intento</label>
+<input id="intento">
+
+<label>Domanda</label>
+<input id="domanda">
+
+<label>Trigger (separati da ; )</label>
+<input id="trigger">
+
+<label>Risposta</label>
+<textarea id="risposta"></textarea>
+
+<button onclick="genera()">
+Genera FAQ
+</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+
+function genera(){
+
+let json = {
+
+  id:
+  document.getElementById("id").value,
+
+  intento:
+  document.getElementById("intento").value,
+
+  domanda:
+  document.getElementById("domanda").value,
+
+  trigger:
+  document.getElementById("trigger").value
+              .split(";"),
+
+  risposta:
+  document.getElementById("risposta").value
+
+};
+
+document.getElementById("output")
+.textContent =
+JSON.stringify(json,null,2);
+
+}
+
+</script>
+
+</body>
+</html>
