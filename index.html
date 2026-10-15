@@ -1,242 +1,141 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Arturo - Centro Assistenza Digitale</title>
-
-<style>
-
 body{
     margin:0;
-    background:#f4f7fb;
-    font-family:Arial,sans-serif;
+    background:#eef2f7;
+    font-family:'Segoe UI', Arial, sans-serif;
 }
 
 .header{
-    background:#0056b3;
+    background:linear-gradient(135deg,#003b7a,#0056b3);
     color:white;
     text-align:center;
-    padding:25px;
+    padding:30px 20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
+}
+
+.logo{
+    width:120px;
+    background:white;
+    border-radius:15px;
+    padding:8px;
+    margin-bottom:10px;
+}
+
+.header h1{
+    margin:10px 0 5px 0;
+    font-size:2rem;
+}
+
+.header p{
+    margin:0;
+    opacity:0.95;
+    font-size:1rem;
 }
 
 .container{
-    max-width:900px;
-    margin:20px auto;
+    max-width:1000px;
+    margin:25px auto;
     padding:15px;
 }
 
 .chat{
     background:white;
-    border-radius:15px;
+    border-radius:20px;
     overflow:hidden;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    box-shadow:0 8px 30px rgba(0,0,0,0.10);
 }
 
 .messages{
-    min-height:450px;
+    min-height:500px;
     padding:20px;
+    background:#f8fafc;
 }
 
 .bot{
     background:#eef5ff;
     border-left:5px solid #0056b3;
-    padding:15px;
-    border-radius:12px;
+    padding:16px;
+    border-radius:14px;
     margin-bottom:15px;
+    max-width:80%;
 }
 
 .user{
-    background:#dff0df;
-    padding:15px;
-    border-radius:12px;
+    background:#dff3df;
+    padding:16px;
+    border-radius:14px;
     margin-bottom:15px;
+    margin-left:auto;
+    max-width:80%;
     text-align:right;
 }
 
 .input-area{
     display:flex;
     gap:10px;
-    border-top:1px solid #ddd;
+    border-top:1px solid #d9d9d9;
     padding:15px;
+    background:white;
 }
 
 input{
     flex:1;
-    padding:12px;
-    border:2px solid #333;
-    border-radius:8px;
+    padding:14px;
+    border:2px solid #cfd8e3;
+    border-radius:12px;
     font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#0056b3;
 }
 
 button{
     background:#0056b3;
     color:white;
     border:none;
-    border-radius:8px;
-    padding:12px 20px;
+    border-radius:12px;
+    padding:14px 24px;
     cursor:pointer;
+    font-weight:600;
 }
 
 button:hover{
     background:#004090;
 }
 
-</style>
-</head>
-
-<body>
-
-<div class="header">
-<h1>🤖 Arturo</h1>
-<p>Centro Assistenza Digitale dell'IIS Arturo Checchi</p>
-</div>
-
-<div class="container">
-
-<div class="chat">
-
-<div class="messages" id="messages">
-
-<div class="bot">
-👋 Ciao! Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.<br><br>
-Come posso aiutarti oggi?
-</div>
-
-</div>
-
-<div class="input-area">
-
-<input
-type="text"
-id="domanda"
-placeholder="Scrivi la tua domanda..."
->
-
-<button onclick="rispondi()">
-Invia
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-let faqDatabase = [];
-
-fetch("faq.json")
-.then(response => response.json())
-.then(data => {
-    faqDatabase = data;
-    console.log("FAQ caricate", faqDatabase);
-})
-.catch(error => {
-    console.error(error);
-});
-
-function aggiungiMessaggio(tipo,testo){
-
-    let box=document.getElementById("messages");
-
-    let div=document.createElement("div");
-
-    div.className=tipo;
-
-    div.innerHTML=testo;
-
-    box.appendChild(div);
-
-    box.scrollTop=box.scrollHeight;
+.quick-links{
+    margin-top:15px;
 }
 
-function rispondi(){
-
-    let input=document.getElementById("domanda");
-
-    let testo=input.value.trim();
-
-    if(testo==="") return;
-
-    aggiungiMessaggio("user",testo);
-
-    let domanda=testo.toLowerCase();
-
-    let risposta=null;
-
-    for(let faq of faqDatabase){
-
-        for(let keyword of faq.keywords){
-
-            if(domanda.includes(keyword.toLowerCase())){
-
-                risposta =
-                    faq.responses[
-                        Math.floor(
-                            Math.random() *
-                            faq.responses.length
-                        )
-                    ];
-
-                break;
-            }
-
-        }
-
-        if(risposta!==null){
-            break;
-        }
-
-    }
-
-    if(risposta===null){
-
-        let risposteGeneriche=[
-
-            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà essere utilizzata per migliorare il Centro Assistenza Digitale.",
-
-            "🤖 Al momento non dispongo di informazioni su questo argomento. Prova a riformulare la domanda oppure a chiedere informazioni sui servizi scolastici.",
-
-            "🎓 Sono specializzato nei servizi dell'IIS Arturo Checchi. Al momento non ho una risposta per questa domanda."
-
-        ];
-
-        risposta =
-            risposteGeneriche[
-                Math.floor(
-                    Math.random() *
-                    risposteGeneriche.length
-                )
-            ];
-
-    }
-
-    setTimeout(function(){
-
-        aggiungiMessaggio(
-            "bot",
-            risposta
-        );
-
-    },500);
-
-    input.value="";
+.quick-links span{
+    display:inline-block;
+    background:white;
+    color:#003b7a;
+    margin:5px;
+    padding:8px 12px;
+    border-radius:25px;
+    font-size:.9rem;
+    font-weight:600;
 }
 
-document
-.getElementById("domanda")
-.addEventListener("keypress",function(event){
+@media(max-width:768px){
 
-    if(event.key==="Enter"){
-        rispondi();
+    .logo{
+        width:90px;
     }
 
-});
+    .bot,
+    .user{
+        max-width:100%;
+    }
 
-</script>
+    .input-area{
+        flex-direction:column;
+    }
 
-</body>
-</html>
+    button{
+        width:100%;
+    }
+
+}
