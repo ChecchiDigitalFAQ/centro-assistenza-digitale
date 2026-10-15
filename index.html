@@ -8,81 +8,118 @@
 
 <style>
 
-body{
-    margin:0;
-    background:#eef2f7;
-    font-family:'Segoe UI',Arial,sans-serif;
-    color:#222;
+*{
+    box-sizing:border-box;
 }
 
-.header{
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#eef3f8;
+    color:#1f2937;
+}
+
+/* HERO */
+
+.hero{
     background:linear-gradient(135deg,#003b7a,#0056b3);
-    color:white;
+    position:relative;
+    overflow:hidden;
+    padding:50px 20px 80px;
     text-align:center;
-    padding:40px 20px;
-    box-shadow:0 4px 15px rgba(0,0,0,.15);
+    color:white;
+}
+
+.hero::before{
+    content:"";
+    width:400px;
+    height:400px;
+    background:rgba(255,255,255,0.08);
+    border-radius:50%;
+    position:absolute;
+    top:-200px;
+    right:-150px;
+}
+
+.hero::after{
+    content:"";
+    width:250px;
+    height:250px;
+    background:rgba(255,255,255,0.05);
+    border-radius:50%;
+    position:absolute;
+    bottom:-120px;
+    left:-80px;
 }
 
 .logo{
-    width:110px;
+    width:120px;
     background:white;
-    border-radius:20px;
     padding:10px;
-    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    border-radius:22px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    position:relative;
+    z-index:2;
 }
 
-.header h1{
-    margin:20px 0 10px 0;
-    font-size:3rem;
+.hero h1{
+    font-size:64px;
+    margin:25px 0 10px;
+    position:relative;
+    z-index:2;
 }
 
-.subtitle{
-    font-size:1.2rem;
-    font-weight:600;
-    margin-bottom:20px;
-}
-
-.description{
+.hero p{
     max-width:850px;
     margin:auto;
-    line-height:1.8;
-    font-size:1.05rem;
+    font-size:20px;
+    line-height:1.6;
+    position:relative;
+    z-index:2;
+}
+
+.tagline{
+    margin-top:20px;
+    font-size:18px;
     opacity:.95;
 }
 
+/* CHAT */
+
 .container{
     max-width:1100px;
-    margin:30px auto;
-    padding:15px;
+    margin:-40px auto 30px;
+    padding:0 20px;
+    position:relative;
+    z-index:10;
 }
 
 .chat{
     background:white;
-    border-radius:24px;
+    border-radius:28px;
     overflow:hidden;
-    box-shadow:0 8px 30px rgba(0,0,0,.10);
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
 }
 
 .messages{
     min-height:550px;
     padding:25px;
-    background:#fafcff;
 }
 
 .bot{
-    background:#eef5ff;
+    background:#f0f7ff;
     border-left:5px solid #0056b3;
     padding:18px;
-    border-radius:16px;
-    margin-bottom:15px;
+    border-radius:18px;
+    margin-bottom:18px;
     max-width:85%;
 }
 
 .user{
-    background:#dff3df;
+    background:#e8f7e8;
     padding:18px;
-    border-radius:16px;
-    margin-bottom:15px;
+    border-radius:18px;
+    margin-bottom:18px;
     margin-left:auto;
     max-width:85%;
     text-align:right;
@@ -90,17 +127,17 @@ body{
 
 .input-area{
     display:flex;
-    gap:10px;
+    gap:12px;
     padding:18px;
-    border-top:1px solid #e2e8f0;
+    border-top:1px solid #e5e7eb;
     background:white;
 }
 
 input{
     flex:1;
-    padding:15px;
-    border:2px solid #d0d7e2;
-    border-radius:14px;
+    padding:16px;
+    border:2px solid #dbe3ef;
+    border-radius:16px;
     font-size:16px;
 }
 
@@ -110,14 +147,14 @@ input:focus{
 }
 
 button{
+    border:none;
     background:#0056b3;
     color:white;
-    border:none;
-    border-radius:14px;
-    padding:15px 25px;
+    padding:16px 28px;
+    border-radius:16px;
     cursor:pointer;
-    font-size:16px;
     font-weight:600;
+    font-size:15px;
 }
 
 button:hover{
@@ -126,15 +163,19 @@ button:hover{
 
 .footer{
     text-align:center;
-    color:#666;
-    margin-top:20px;
-    font-size:.9rem;
+    color:#6b7280;
+    margin-top:15px;
+    font-size:14px;
 }
 
 @media(max-width:768px){
 
-    .header h1{
-        font-size:2.2rem;
+    .hero h1{
+        font-size:46px;
+    }
+
+    .hero p{
+        font-size:18px;
     }
 
     .logo{
@@ -160,7 +201,7 @@ button:hover{
 
 <body>
 
-<div class="header">
+<div class="hero">
 
 <img
 src="logo checchi-Photoroom.png-Photoroom.png"
@@ -170,12 +211,8 @@ class="logo"
 
 <h1>🤖 Arturo</h1>
 
-<div class="subtitle">
-Centro Assistenza Digition">
-Arturo è l'assistente digitale dell'IIS Arturo Checchi.
-Può aiutarti a trovare informazioni, servizi, documenti, procedure e indicazioni relative alle attività dell'Istituto.
-<br><br>
-Puoi formulare la tua richiesta in modo naturale, come se stessi parlando con una persona.
+<p>
+Assistente Digitale dell'Iualsiasi informazione riguardante l'Istituto.
 </div>
 
 </div>
@@ -188,13 +225,13 @@ Puoi formulare la tua richiesta in modo naturale, come se stessi parlando con un
 
 <div class="bot">
 
-<strong>Benvenuto!</strong><br><br>
+👋 <strong>Benvenuto!</strong><br><br>
 
-Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.<br><br>
+Sono <strong>Arturo</strong>, l'assistente digitale dell'IIS Arturo Checchi.<br><br>
 
-Posso aiutarti a trovare informazioni relative alla vita scolastica, ai servizi dell'Istituto, alla modulistica, alle piattaforme digitali, alle procedure amministrative e ad altri argomenti collegati all'IIS Arturo Checchi.<br><br>
+Puoi chiedermi informazioni riguardanti l'Istituto, i servizi scolastici, la segreteria, le piattaforme digitali, la modulistica, la sicurezza e molto altro.<br><br>
 
-Scrivi la tua domanda qui sotto per iniziare.
+Scrivi la tua domanda per iniziare.
 
 </div>
 
@@ -260,9 +297,9 @@ function rispondi(){
 
     aggiungiMessaggio("user",testo);
 
-    let domanda = testo.toLowerCase();
+    let domanda=testo.toLowerCase();
 
-    let risposta = null;
+    let risposta=null;
 
     for(let faq of faqDatabase){
 
@@ -273,7 +310,8 @@ function rispondi(){
                 risposta =
                     faq.responses[
                         Math.floor(
-                            Math.random()*faq.responses.length
+                            Math.random() *
+                            faq.responses.length
                         )
                     ];
 
@@ -290,18 +328,18 @@ function rispondi(){
 
         let risposteGeneriche=[
 
-            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà essere utilizzata per migliorare il Centro Assistenza Digitale.",
+            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà contribuire a migliorare il Centro Assistenza Digitale.",
 
             "🤖 Al momento non dispongo di informazioni su questo argomento. Prova a riformulare la domanda.",
 
-            "🎓 Sono specializzato nei servizi dell'IIS Arturo Checchi. Non ho ancora una risposta per questa domanda."
-
+            "🎓 Non ho ancora una risposta per questa richiesta, ma sto continuando ad evolvermi."
         ];
 
         risposta =
             risposteGeneriche[
                 Math.floor(
-                    Math.random()*risposteGeneriche.length
+                    Math.random() *
+                    risposteGeneriche.length
                 )
             ];
     }
