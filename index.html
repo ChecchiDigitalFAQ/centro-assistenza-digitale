@@ -320,7 +320,67 @@ function ricercaRapida(testo){
 
     rispondi();
 }
+function richiestaPrivacy(domanda){
 
+    domanda = domanda.toLowerCase();
+
+    const consentite = [
+
+        "mail della scuola",
+        "mail dell'istituto",
+        "email della scuola",
+        "email dell'istituto",
+        "telefono della scuola",
+        "telefono dell'istituto",
+        "pec della scuola",
+        "pec dell'istituto",
+        "mail istituzionale",
+        "email istituzionale",
+        "come è composta la mail",
+        "come e composta la mail",
+        "formato della mail",
+        "contatti della scuola",
+        "contatti dell'istituto"
+
+    ];
+
+    for(let voce of consentite){
+
+        if(domanda.includes(voce)){
+            return false;
+        }
+
+    }
+
+    const sensibili = [
+
+        "mail di ",
+        "email di ",
+        "telefono di ",
+        "cellulare di ",
+        "numero di telefono di ",
+        "dove lavora ",
+        "in quale plesso lavora ",
+        "fascicolo di ",
+        "cartella di ",
+        "documenti di ",
+        "codice fiscale di ",
+        "dati personali di ",
+        "scarica la cartella",
+        "scarica il fascicolo"
+
+    ];
+
+    for(let voce of sensibili){
+
+        if(domanda.includes(voce)){
+            return true;
+        }
+
+    }
+
+    return false;
+}
 function rispondi(){
 
     let input=document.getElementById("domanda");
@@ -332,6 +392,21 @@ function rispondi(){
     aggiungiMessaggio("user",testo);
 
     let domanda=testo.toLowerCase();
+if(richiestaPrivacy(domanda)){
+
+    setTimeout(function(){
+
+        aggiungiMessaggio(
+            "bot",
+            "🔒 Non posso accedere, consultare o fornire dati personali, informazioni riservate o documentazione riferita a studenti, famiglie o personale dell'Istituto. Posso fornire esclusivamente informazioni generali sui servizi, sui contatti istituzionali e sulle procedure scolastiche."
+        );
+
+    },500);
+
+    input.value="";
+
+    return;
+}
 
     let risposta=null;
 
