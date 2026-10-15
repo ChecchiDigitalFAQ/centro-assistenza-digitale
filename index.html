@@ -163,7 +163,28 @@ aggiungiMessaggio("user",testo);
 let domanda=testo.toLowerCase();
 
 let risposta="";
+let trovata = false;
 
+for(let faq of faqDatabase){
+
+    for(let keyword of faq.keywords){
+
+        if(domanda.includes(keyword.toLowerCase())){
+
+            risposta = faq.responses[
+                Math.floor(Math.random() * faq.responses.length)
+            ];
+
+            trovata = true;
+
+            break;
+        }
+    }
+
+    if(trovata){
+        break;
+    }
+}
 if(
 domanda.includes("ciao") ||
 domanda.includes("salve") ||
