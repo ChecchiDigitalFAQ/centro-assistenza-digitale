@@ -11,48 +11,44 @@
 body{
     margin:0;
     background:#f4f7fb;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 .header{
     background:#0056b3;
     color:white;
     text-align:center;
-    padding:30px 20px;
-}
-
-.header h1{
-    margin:0;
+    padding:25px;
 }
 
 .container{
     max-width:900px;
-    margin:30px auto;
-    padding:20px;
+    margin:20px auto;
+    padding:15px;
 }
 
 .chat{
     background:white;
     border-radius:15px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
     overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 .messages{
-    min-height:400px;
+    min-height:450px;
     padding:20px;
 }
 
 .bot{
     background:#eef5ff;
+    border-left:5px solid #0056b3;
     padding:15px;
     border-radius:12px;
     margin-bottom:15px;
-    border-left:5px solid #0056b3;
 }
 
 .user{
-    background:#dff3df;
+    background:#dff0df;
     padding:15px;
     border-radius:12px;
     margin-bottom:15px;
@@ -62,14 +58,14 @@ body{
 .input-area{
     display:flex;
     gap:10px;
-    padding:20px;
     border-top:1px solid #ddd;
+    padding:15px;
 }
 
 input{
     flex:1;
     padding:12px;
-    border:1px solid #ccc;
+    border:2px solid #333;
     border-radius:8px;
     font-size:16px;
 }
@@ -94,7 +90,7 @@ button:hover{
 
 <div class="header">
 <h1>🤖 Arturo</h1>
-<p>Centro Assistenza Digitale IIS Arturo Checchi</p>
+<p>Centro Assistenza Digitale dell'IIS Arturo Checchi</p>
 </div>
 
 <div class="container">
@@ -112,9 +108,15 @@ Come posso aiutarti oggi?
 
 <div class="input-area">
 
-<input type="text" id="domanda" placeholder="Scrivi la tua domanda...">
+<input
+type="text"
+id="domanda"
+placeholder="Scrivi la tua domanda..."
+>
 
-<button onclick="rispondi()">Invia</button>
+<button onclick="rispondi()">
+Invia
+</button>
 
 </div>
 
@@ -123,162 +125,114 @@ Come posso aiutarti oggi?
 </div>
 
 <script>
+
 let faqDatabase = [];
 
 fetch("faq.json")
 .then(response => response.json())
 .then(data => {
     faqDatabase = data;
-    console.log("FAQ caricate:", faqDatabase);
+    console.log("FAQ caricate", faqDatabase);
 })
 .catch(error => {
-    console.error("Errore caricamento FAQ:", error);
+    console.error(error);
 });
+
 function aggiungiMessaggio(tipo,testo){
 
-let box=document.getElementById("messages");
+    let box=document.getElementById("messages");
 
-let div=document.createElement("div");
+    let div=document.createElement("div");
 
-div.className=tipo;
+    div.className=tipo;
 
-div.innerHTML=testo;
+    div.innerHTML=testo;
 
-box.appendChild(div);
+    box.appendChild(div);
 
-box.scrollTop=box.scrollHeight;
-
+    box.scrollTop=box.scrollHeight;
 }
 
 function rispondi(){
 
-let input=document.getElementById("domanda");
+    let input=document.getElementById("domanda");
 
-let testo=input.value.trim();
+    let testo=input.value.trim();
 
-if(testo==="") return;
+    if(testo==="") return;
 
-aggiungiMessaggio("user",testo);
+    aggiungiMessaggio("user",testo);
 
-let domanda=testo.toLowerCase();
+    let domanda=testo.toLowerCase();
 
-let risposta="";
-let trovata = false;
+    let risposta=null;
 
-for(let faq of faqDatabase){
+    for(let faq of faqDatabase){
 
-    for(let keyword of faq.keywords){
+        for(let keyword of faq.keywords){
 
-        if(domanda.includes(keyword.toLowerCase())){
+            if(domanda.includes(keyword.toLowerCase())){
 
-            risposta = faq.responses[
-                Math.floor(Math.random() * faq.responses.length)
-            ];
+                risposta =
+                    faq.responses[
+                        Math.floor(
+                            Math.random() *
+                            faq.responses.length
+                        )
+                    ];
 
-            trovata = true;
+                break;
+            }
 
+        }
+
+        if(risposta!==null){
             break;
         }
+
     }
 
-    if(trovata){
-        break;
+    if(risposta===null){
+
+        let risposteGeneriche=[
+
+            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà essere utilizzata per migliorare il Centro Assistenza Digitale.",
+
+            "🤖 Al momento non dispongo di informazioni su questo argomento. Prova a riformulare la domanda oppure a chiedere informazioni sui servizi scolastici.",
+
+            "🎓 Sono specializzato nei servizi dell'IIS Arturo Checchi. Al momento non ho una risposta per questa domanda."
+
+        ];
+
+        risposta =
+            risposteGeneriche[
+                Math.floor(
+                    Math.random() *
+                    risposteGeneriche.length
+                )
+            ];
+
     }
-}
-if(
-domanda.includes("ciao") ||
-domanda.includes("salve") ||
-domanda.includes("buongiorno") ||
-domanda.includes("buonasera")
-){
 
-risposta="👋 Ciao! Sono Arturo. Come posso aiutarti?";
+    setTimeout(function(){
 
-}
+        aggiungiMessaggio(
+            "bot",
+            risposta
+        );
 
-else if(
-domanda.includes("chi sei") ||
-domanda.includes("come ti chiami") ||
-domanda.includes("nome")
-){
+    },500);
 
-risposta="🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.";
-
+    input.value="";
 }
 
-else if(
-domanda.includes("cosa sai fare") ||
-domanda.includes("come puoi aiutarmi")
-){
+document
+.getElementById("domanda")
+.addEventListener("keypress",function(event){
 
-risposta="🎓 Posso aiutarti con Teams, Microsoft 365, Registro Elettronico Argo, Segreteria, Sicurezza, Collaboratori DS e altri servizi dell'Istituto.";
-
-}
-
-else if(
-domanda.includes("grazie")
-){
-
-risposta="😊 È stato un piacere aiutarti. Se hai altre domande sono qui!";
-
-}
-
-else if(
-domanda.includes("teams")
-){
-
-risposta="💻 Posso aiutarti con Microsoft Teams.<br><br>✅ Accesso a Teams<br>✅ Problemi di accesso<br>✅ Password Microsoft 365";
-
-}
-
-else if(
-domanda.includes("argo") ||
-domanda.includes("registro elettronico")
-){
-
-risposta="📚 Posso aiutarti con Argo.<br><br>Sei un docente, uno studente o un genitore/famiglia?";
-
-}
-
-else if(
-domanda.includes("segreteria")
-){
-
-risposta="🏫 Posso aiutarti con la Segreteria.<br><br>Hai bisogno di informazioni su orari, contatti o modulistica?";
-
-}
-
-else{
-
-let risposteGeneriche=[
-
-"😊 Mi dispiace, ma posso aiutarti esclusivamente con servizi e informazioni dell'IIS Arturo Checchi.",
-
-"🤖 Non conosco questo argomento. Sono specializzato nei servizi scolastici dell'Istituto.",
-
-"🎓 Prova a chiedermi informazioni su Teams, Argo, Segreteria, Sicurezza, Microsoft 365 o altri servizi scolastici."
-
-];
-
-risposta=risposteGeneriche[Math.floor(Math.random()*risposteGeneriche.length)];
-
-}
-
-setTimeout(function(){
-
-aggiungiMessaggio("bot",risposta);
-
-},500);
-
-input.value="";
-
-}
-
-document.getElementById("domanda").addEventListener("keypress",function(event){
-
-if(event.key==="Enter"){
-rispondi();
-}
+    if(event.key==="Enter"){
+        rispondi();
+    }
 
 });
 
