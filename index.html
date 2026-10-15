@@ -352,25 +352,34 @@ function richiestaPrivacy(domanda){
 
     }
 
-    const sensibili = [
+   const sensibili = [
 
-        "mail di ",
-        "email di ",
-        "telefono di ",
-        "cellulare di ",
-        "numero di telefono di ",
-        "dove lavora ",
-        "in quale plesso lavora ",
-        "fascicolo di ",
-        "cartella di ",
-        "documenti di ",
-        "codice fiscale di ",
-        "dati personali di ",
-        "scarica la cartella",
-        "scarica il fascicolo"
+    "mail di",
+    "email di",
+    "indirizzo email",
+    "indirizzo mail",
 
-    ];
+    "telefono di",
+    "numero di telefono",
+    "cellulare di",
 
+    "dove lavora",
+    "dove insegna",
+    "in quale plesso",
+    "plesso di servizio",
+    "sede di servizio",
+
+    "fascicolo",
+    "cartella",
+    "documenti personali",
+
+    "codice fiscale",
+    "dati personali",
+
+    "pratica dello studente",
+    "pratica dell'alunno"
+
+];
     for(let voce of sensibili){
 
         if(domanda.includes(voce)){
@@ -378,6 +387,43 @@ function richiestaPrivacy(domanda){
         }
 
     }
+const parolePersona = [
+
+    "alunno",
+    "studente",
+    "docente",
+    "professore",
+    "prof.ssa",
+    "prof",
+    "insegnante",
+    "personale",
+    "dipendente"
+
+];
+
+for(let parola of parolePersona){
+
+    if(domanda.includes(parola)){
+
+        if(
+            domanda.includes("mail") ||
+            domanda.includes("email") ||
+            domanda.includes("telefono") ||
+            domanda.includes("cellulare") ||
+            domanda.includes("plesso") ||
+            domanda.includes("lavora") ||
+            domanda.includes("insegna") ||
+            domanda.includes("fascicolo") ||
+            domanda.includes("cartella") ||
+            domanda.includes("documenti") ||
+            domanda.includes("codice fiscale")
+        ){
+            return true;
+        }
+
+    }
+
+}
 
     return false;
 }
