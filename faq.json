@@ -7,26 +7,124 @@
       "🎓 Ciao! Sono Arturo e sono qui per aiutarti."
     ]
   },
+
   {
-  "keywords": ["chi sei", "come ti chiami", "qual è il tuo nome"],
-  "responses": [
-    "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
-"🎓 Sono Arturo, l'assistente digitale dell'Istituto.",
-"👋 Mi chiamo Arturo e posso aiutarti a trovare servizi e informazioni scolastiche."
-  ]
-},
+    "keywords": ["chi sei", "come ti chiami", "qual è il tuo nome", "quale è il tuo nome"],
+    "responses": [
+      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "🎓 Sono Arturo, l'assistente digitale dell'Istituto.",
+      "👋 Mi chiamo Arturo e posso aiutarti a trovare servizi e informazioni scolastiche."
+    ]
+  },
+
+  {
+    "keywords": ["cognome", "qual è il tuo cognome", "quale è il tuo cognome"],
+    "responses": [
+      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi, l'Istituto per cui sono stato creato."
+    ]
+  },
+
+  {
+    "keywords": ["quanti anni hai", "età", "eta"],
+    "responses": [
+      "😊 Non ho un'età come le persone. Sono sempre disponibile per aiutarti a trovare informazioni e servizi scolastici."
+    ]
+  },
+
+  {
+    "keywords": ["dove sei nato", "nato", "luogo di nascita"],
+    "responses": [
+      "🤖 Non sono nato in un luogo preciso. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["chi ti ha creato", "chi ti ha fatto", "chi ti ha programmato"],
+    "responses": [
+      "🎓 Sono stato creato per aiutare studenti, famiglie, docenti e personale dell'IIS Arturo Checchi a trovare rapidamente informazioni e servizi."
+    ]
+  },
+
+  {
+    "keywords": ["cosa sai fare", "a cosa servi", "come puoi aiutarmi"],
+    "responses": [
+      "🤖 Posso aiutarti con Microsoft 365, Teams, Registro Elettronico Argo, Segreteria, Sicurezza, Titoli di Viaggio, Collaboratori del Dirigente e altri servizi dell'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["come stai", "come va", "tutto bene"],
+    "responses": [
+      "😄 Sempre operativo e pronto ad aiutarti.",
+      "😊 Tutto bene! Sto aspettando la tua prossima domanda.",
+      "🤖 Sempre disponibile per aiutarti."
+    ]
+  },
+
   {
     "keywords": ["grazie", "ti ringrazio"],
     "responses": [
       "😊 È stato un piacere aiutarti.",
-      "👍 Felice di esserti stato utile!",
-      "🎓 Grazie a te e buona giornata!"
+      "👍 Felice di esserti stato utile.",
+      "🎓 Grazie a te e buona giornata."
     ]
   },
+
+  {
+    "keywords": ["arrivederci", "a presto", "ciao ciao"],
+    "responses": [
+      "👋 Arrivederci! Se avrai bisogno di aiuto sarò qui.",
+      "😊 A presto e buona giornata.",
+      "🎓 Grazie per aver utilizzato il Centro Assistenza Digitale."
+    ]
+  },
+
   {
     "keywords": ["teams", "microsoft teams"],
     "responses": [
       "💻 Posso aiutarti con Microsoft Teams. Hai problemi di accesso, password o installazione?"
+    ]
+  },
+
+  {
+    "keywords": ["microsoft 365", "office 365", "office", "outlook", "onedrive"],
+    "responses": [
+      "💼 Posso aiutarti con Microsoft 365. Specifica se hai bisogno di assistenza per Outlook, OneDrive, Teams o credenziali Microsoft 365."
+    ]
+  },
+
+  {
+    "keywords": ["argo", "registro elettronico"],
+    "responses": [
+      "📚 Posso aiutarti con il Registro Elettronico Argo. Sei un docente, uno studente oppure un genitore/famiglia?"
+    ]
+  },
+
+  {
+    "keywords": ["segreteria"],
+    "responses": [
+      "🏫 Posso aiutarti con la Segreteria. Hai bisogno di informazioni su orari, contatti, modulistica o procedure amministrative?"
+    ]
+  },
+
+  {
+    "keywords": ["sicurezza", "corso sicurezza", "formazione sicurezza"],
+    "responses": [
+      "🦺 Posso aiutarti con la formazione e la documentazione relativa alla Salute e Sicurezza sul Lavoro."
+    ]
+  },
+
+  {
+    "keywords": ["collaboratori ds", "collaboratore ds", "dirigente scolastico"],
+    "responses": [
+      "👥 Posso aiutarti con le informazioni relative ai Collaboratori del Dirigente Scolastico e agli appuntamenti."
+    ]
+  },
+
+  {
+    "keywords": ["titolo di viaggio", "titoli di viaggio", "abbonamento studenti"],
+    "responses": [
+      "🎫 Posso aiutarti con le informazioni relative ai Titoli di Viaggio e alle autorizzazioni per il trasporto."
     ]
   }
 ]
