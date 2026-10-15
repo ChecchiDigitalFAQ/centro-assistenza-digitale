@@ -14,91 +14,79 @@
 
 body{
     margin:0;
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Segoe UI', Arial, sans-serif;
     background:#eef3f8;
     color:#1f2937;
 }
 
-/* HERO */
-
 .hero{
     background:linear-gradient(135deg,#003b7a,#0056b3);
-    position:relative;
-    overflow:hidden;
-    padding:50px 20px 80px;
-    text-align:center;
     color:white;
-}
-
-.hero::before{
-    content:"";
-    width:400px;
-    height:400px;
-    background:rgba(255,255,255,0.08);
-    border-radius:50%;
-    position:absolute;
-    top:-200px;
-    right:-150px;
-}
-
-.hero::after{
-    content:"";
-    width:250px;
-    height:250px;
-    background:rgba(255,255,255,0.05);
-    border-radius:50%;
-    position:absolute;
-    bottom:-120px;
-    left:-80px;
+    text-align:center;
+    padding:30px 20px;
 }
 
 .logo{
     width:120px;
     background:white;
+    border-radius:18px;
     padding:10px;
-    border-radius:22px;
-    box-shadow:0 10px 25px rgba(0,0,0,.15);
-    position:relative;
-    z-index:2;
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
 }
 
 .hero h1{
-    font-size:64px;
-    margin:25px 0 10px;
-    position:relative;
-    z-index:2;
+    margin:15px 0 8px;
+    font-size:56px;
 }
 
-.hero p{
-    max-width:850px;
-    margin:auto;
-    font-size:20px;
-    line-height:1.6;
-    position:relative;
-    z-index:2;
+.subtitle{
+    font-size:24px;
+    font-weight:600;
 }
 
-.tagline{
-    margin-top:20px;
-    font-size:18px;
-    opacity:.95;
+.description{
+    max-width:900px;
+    margin:20px auto 0;
+    line-height:1.7;
+    font-size:17px;
 }
 
-/* CHAT */
+.quick-search{
+    max-width:1200px;
+    margin:20px auto 0;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+.quick-search button{
+    border:none;
+    background:white;
+    color:#0056b3;
+    padding:12px 18px;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.quick-search button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
 
 .container{
-    max-width:1100px;
-    margin:-40px auto 30px;
-    padding:0 20px;
-    position:relative;
-    z-index:10;
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 15px;
 }
 
 .chat{
     background:white;
-    border-radius:28px;
+    border-radius:24px;
     overflow:hidden;
-    box-shadow:0 20px 40px rgba(0,0,0,.12);
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
 }
 
 .messages{
@@ -107,22 +95,24 @@ body{
 }
 
 .bot{
-    background:#f0f7ff;
+    background:#eef5ff;
     border-left:5px solid #0056b3;
     padding:18px;
-    border-radius:18px;
-    margin-bottom:18px;
+    border-radius:16px;
+    margin-bottom:15px;
     max-width:85%;
+    line-height:1.7;
 }
 
 .user{
-    background:#e8f7e8;
+    background:#e8f8e8;
     padding:18px;
-    border-radius:18px;
-    margin-bottom:18px;
+    border-radius:16px;
+    margin-bottom:15px;
     margin-left:auto;
     max-width:85%;
     text-align:right;
+    line-height:1.7;
 }
 
 .input-area{
@@ -130,13 +120,12 @@ body{
     gap:12px;
     padding:18px;
     border-top:1px solid #e5e7eb;
-    background:white;
 }
 
 input{
     flex:1;
     padding:16px;
-    border:2px solid #dbe3ef;
+    border:2px solid #d9e2ec;
     border-radius:16px;
     font-size:16px;
 }
@@ -146,36 +135,36 @@ input:focus{
     border-color:#0056b3;
 }
 
-button{
+button.send{
     border:none;
     background:#0056b3;
     color:white;
     padding:16px 28px;
     border-radius:16px;
-    cursor:pointer;
+    font-size:16px;
     font-weight:600;
-    font-size:15px;
+    cursor:pointer;
 }
 
-button:hover{
+button.send:hover{
     background:#004090;
 }
 
 .footer{
     text-align:center;
+    margin:15px 0;
     color:#6b7280;
-    margin-top:15px;
     font-size:14px;
 }
 
 @media(max-width:768px){
 
     .hero h1{
-        font-size:46px;
+        font-size:42px;
     }
 
-    .hero p{
-        font-size:18px;
+    .subtitle{
+        font-size:20px;
     }
 
     .logo{
@@ -191,7 +180,7 @@ button:hover{
         flex-direction:column;
     }
 
-    button{
+    button.send{
         width:100%;
     }
 }
@@ -203,59 +192,94 @@ button:hover{
 
 <div class="hero">
 
-<img
-src="logo checchi-Photoroom.png-Photoroom.png"
-alt="Logo IIS Arturo Checchi"
-class="logo"
->
+    logo checchi-Photoroom.png-Photoroom.png
 
-<h1>🤖 Arturo</h1>
+    <h1>🤖 Arturo</h1>
 
-<p>
-Assistente Digitale dell'Iualsiasi informazione riguardante l'Istituto.
-</div>
+    <div class="subtitle">
+        Centro Assistenza Digitale
+    </div>
+
+    <div class="description">
+
+        Arturo è l'assistente digitale dell'IIS Arturo Checchi.
+
+        <br><br>
+
+        Può aiutarti a trovare informazioni, documenti, servizi e procedure relative alla vita scolastica dell'Istituto.
+
+        <br><br>
+
+        Scrivi la tua domanda oppure utilizza una delle ricerche rapide qui sotto.
+
+    </div>
+
+    <div class="quick-search">
+
+        <button onclick="ricercaRapida('recupero password')">🔑 Recupero Password</button>
+
+        <button onclick="ricercaRapida('microsoft teams')">💻 Microsoft Teams</button>
+
+        <button onclick="ricercaRapida('registro elettronico argo')">📖 Registro Argo</button>
+
+        <button onclick="ricercaRapida('segreteria')">🏢 Segreteria</button>
+
+        <button onclick="ricercaRapida('modulistica')">📝 Modulistica</button>
+
+        <button onclick="ricercaRapida('sicurezza')">🦺 Sicurezza</button>
+
+        <button onclick="ricercaRapida('collaboratori ds')">👥 Collaboratori DS</button>
+
+        <button onclick="ricercaRapida('trasferimento da altro istituto')">🎓 Trasferimento</button>
+
+        <button onclick="ricercaRapida('cambio sezione')">🔄 Cambio Sezione</button>
+
+        <button onclick="ricercaRapida('richieste varie')">📌 Richieste Varie</button>
+
+    </div>
 
 </div>
 
 <div class="container">
 
-<div class="chat">
+    <div class="chat">
 
-<div class="messages" id="messages">
+        <div class="messages" id="messages">
 
-<div class="bot">
+            <div class="bot">
 
-👋 <strong>Benvenuto!</strong><br><br>
+                <strong>👋 Benvenuto!</strong>
 
-Sono <strong>Arturo</strong>, l'assistente digitale dell'IIS Arturo Checchi.<br><br>
+                <br><br>
 
-Puoi chiedermi informazioni riguardanti l'Istituto, i servizi scolastici, la segreteria, le piattaforme digitali, la modulistica, la sicurezza e molto altro.<br><br>
+                Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.
 
-Scrivi la tua domanda per iniziare.
+                <br><br>
 
-</div>
+                Come posso aiutarti oggi?
 
-</div>
+            </div>
 
-<div class="input-area">
+        </div>
 
-<input
-type="text"
-id="domanda"
-placeholder="Scrivi qui la tua domanda..."
->
+        <div class="input-area">
 
-<button onclick="rispondi()">
-Invia
-</button>
+            <input
+                type="text"
+                id="domanda"
+                placeholder="Scrivi qui la tua domanda...">
 
-</div>
+            <button class="send" onclick="rispondi()">
+                Invia
+            </button>
 
-</div>
+        </div>
 
-<div class="footer">
-Arturo • Centro Assistenza Digitale • IIS Arturo Checchi
-</div>
+    </div>
+
+    <div class="footer">
+        Arturo • Centro Assistenza Digitale • IIS Arturo Checchi
+    </div>
 
 </div>
 
@@ -287,6 +311,13 @@ function aggiungiMessaggio(tipo,testo){
     box.scrollTop=box.scrollHeight;
 }
 
+function ricercaRapida(testo){
+
+    document.getElementById("domanda").value=testo;
+
+    rispondi();
+}
+
 function rispondi(){
 
     let input=document.getElementById("domanda");
@@ -307,11 +338,10 @@ function rispondi(){
 
             if(domanda.includes(keyword.toLowerCase())){
 
-                risposta =
+                risposta=
                     faq.responses[
                         Math.floor(
-                            Math.random() *
-                            faq.responses.length
+                            Math.random()*faq.responses.length
                         )
                     ];
 
@@ -328,18 +358,18 @@ function rispondi(){
 
         let risposteGeneriche=[
 
-            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà contribuire a migliorare il Centro Assistenza Digitale.",
+            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà contribuire a migliorare Arturo.",
 
             "🤖 Al momento non dispongo di informazioni su questo argomento. Prova a riformulare la domanda.",
 
-            "🎓 Non ho ancora una risposta per questa richiesta, ma sto continuando ad evolvermi."
+            "🎓 Non ho ancora una risposta per questa richiesta, ma continuo ad evolvermi."
+
         ];
 
-        risposta =
+        risposta=
             risposteGeneriche[
                 Math.floor(
-                    Math.random() *
-                    risposteGeneriche.length
+                    Math.random()*risposteGeneriche.length
                 )
             ];
     }
