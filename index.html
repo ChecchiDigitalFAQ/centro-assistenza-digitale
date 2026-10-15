@@ -12,107 +12,134 @@ body{
     margin:0;
     background:#eef2f7;
     font-family:'Segoe UI',Arial,sans-serif;
+    color:#222;
 }
 
 .header{
     background:linear-gradient(135deg,#003b7a,#0056b3);
     color:white;
     text-align:center;
-    padding:30px 20px;
+    padding:40px 20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
 }
 
 .logo{
-    width:120px;
+    width:110px;
     background:white;
-    border-radius:15px;
-    padding:8px;
+    border-radius:20px;
+    padding:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
 .header h1{
-    margin:15px 0 5px 0;
+    margin:20px 0 10px 0;
+    font-size:3rem;
+}
+
+.subtitle{
+    font-size:1.2rem;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.description{
+    max-width:850px;
+    margin:auto;
+    line-height:1.8;
+    font-size:1.05rem;
+    opacity:.95;
 }
 
 .container{
-    max-width:1000px;
-    margin:25px auto;
+    max-width:1100px;
+    margin:30px auto;
     padding:15px;
 }
 
 .chat{
     background:white;
-    border-radius:20px;
+    border-radius:24px;
     overflow:hidden;
-    box-shadow:0 8px 30px rgba(0,0,0,.1);
+    box-shadow:0 8px 30px rgba(0,0,0,.10);
 }
 
 .messages{
-    min-height:500px;
-    padding:20px;
+    min-height:550px;
+    padding:25px;
+    background:#fafcff;
 }
 
 .bot{
     background:#eef5ff;
     border-left:5px solid #0056b3;
-    padding:15px;
-    border-radius:12px;
+    padding:18px;
+    border-radius:16px;
     margin-bottom:15px;
-    max-width:80%;
+    max-width:85%;
 }
 
 .user{
     background:#dff3df;
-    padding:15px;
-    border-radius:12px;
+    padding:18px;
+    border-radius:16px;
     margin-bottom:15px;
-    max-width:80%;
     margin-left:auto;
+    max-width:85%;
     text-align:right;
 }
 
 .input-area{
     display:flex;
     gap:10px;
-    padding:15px;
-    border-top:1px solid #ddd;
+    padding:18px;
+    border-top:1px solid #e2e8f0;
+    background:white;
 }
 
 input{
     flex:1;
-    padding:14px;
+    padding:15px;
     border:2px solid #d0d7e2;
-    border-radius:12px;
+    border-radius:14px;
     font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#0056b3;
 }
 
 button{
     background:#0056b3;
     color:white;
     border:none;
-    border-radius:12px;
-    padding:14px 20px;
+    border-radius:14px;
+    padding:15px 25px;
     cursor:pointer;
+    font-size:16px;
+    font-weight:600;
 }
 
 button:hover{
     background:#004090;
 }
 
-.quick-links{
-    margin-top:15px;
-}
-
-.quick-links span{
-    display:inline-block;
-    background:white;
-    color:#0056b3;
-    padding:8px 12px;
-    border-radius:20px;
-    margin:4px;
-    font-size:14px;
-    font-weight:600;
+.footer{
+    text-align:center;
+    color:#666;
+    margin-top:20px;
+    font-size:.9rem;
 }
 
 @media(max-width:768px){
+
+    .header h1{
+        font-size:2.2rem;
+    }
+
+    .logo{
+        width:90px;
+    }
 
     .bot,
     .user{
@@ -126,10 +153,6 @@ button:hover{
     button{
         width:100%;
     }
-
-    .logo{
-        width:90px;
-    }
 }
 
 </style>
@@ -140,19 +163,19 @@ button:hover{
 <div class="header">
 
 <img
-src="logo%20checchi-Photoroom.png-Photoroom.png"
+src="logo checchi-Photoroom.png-Photoroom.png"
+alt="Logo IIS Arturo Checchi"
 class="logo"
-alt="IIS Arturo Checchi"
 >
 
 <h1>🤖 Arturo</h1>
 
-<p>
-Centro Assclass="quick-links">
-<span>💻 Microsoft 365</span>
-<span>📚 Argo</span>
-<span>🏫 Segreteria</span>
-<span>🦺 Sicurezza</span>
+<div class="subtitle">
+Centro Assistenza Digition">
+Arturo è l'assistente digitale dell'IIS Arturo Checchi.
+Può aiutarti a trovare informazioni, servizi, documenti, procedure e indicazioni relative alle attività dell'Istituto.
+<br><br>
+Puoi formulare la tua richiesta in modo naturale, come se stessi parlando con una persona.
 </div>
 
 </div>
@@ -165,21 +188,13 @@ Centro Assclass="quick-links">
 
 <div class="bot">
 
-🤖 <strong>Benvenuto!</strong><br><br>
+<strong>Benvenuto!</strong><br><br>
 
 Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.<br><br>
 
-Posso aiutarti con:
+Posso aiutarti a trovare informazioni relative alla vita scolastica, ai servizi dell'Istituto, alla modulistica, alle piattaforme digitali, alle procedure amministrative e ad altri argomenti collegati all'IIS Arturo Checchi.<br><br>
 
-<ul>
-<li>💻 Microsoft 365</li>
-<li>📚 Registro Elettronico Argo</li>
-<li>🏫 Segreteria</li>
-<li>🦺 Salute e Sicurezza</li>
-<li>🎫 Titoli di Viaggio</li>
-</ul>
-
-Scrivi pure la tua domanda qui sotto.
+Scrivi la tua domanda qui sotto per iniziare.
 
 </div>
 
@@ -190,7 +205,7 @@ Scrivi pure la tua domanda qui sotto.
 <input
 type="text"
 id="domanda"
-placeholder="Scrivi la tua domanda..."
+placeholder="Scrivi qui la tua domanda..."
 >
 
 <button onclick="rispondi()">
@@ -199,6 +214,10 @@ Invia
 
 </div>
 
+</div>
+
+<div class="footer">
+Arturo • Centro Assistenza Digitale • IIS Arturo Checchi
 </div>
 
 </div>
@@ -254,8 +273,7 @@ function rispondi(){
                 risposta =
                     faq.responses[
                         Math.floor(
-                            Math.random() *
-                            faq.responses.length
+                            Math.random()*faq.responses.length
                         )
                     ];
 
@@ -283,8 +301,7 @@ function rispondi(){
         risposta =
             risposteGeneriche[
                 Math.floor(
-                    Math.random() *
-                    risposteGeneriche.length
+                    Math.random()*risposteGeneriche.length
                 )
             ];
     }
