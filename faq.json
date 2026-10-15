@@ -1,2 +1,32 @@
 [
+  {
+    "keywords": ["ciao", "salve", "buongiorno", "buonasera"],
+    "responses": [
+      "👋 Ciao! Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "😊 Benvenuto! Sono Arturo. Come posso aiutarti oggi?",
+      "🎓 Ciao! Sono Arturo e sono qui per aiutarti."
+    ]
+  },
+  {
+    "keywords": ["chi sei", "come ti chiami", "qual è il tuo nome"],
+    "responses": [
+      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "🎓 Sono Arturo, l'assistente digitale dell'Istituto.",
+      "👋 Mi chiamo Arturo e posso aiutarti a trovare servizi e informazioni scolastiche."
+    ]
+  },
+  {
+    "keywords": ["grazie", "ti ringrazio"],
+    "responses": [
+      "😊 È stato un piacere aiutarti.",
+      "👍 Felice di esserti stato utile!",
+      "🎓 Grazie a te e buona giornata!"
+    ]
+  },
+  {
+    "keywords": ["teams", "microsoft teams"],
+    "responses": [
+      "💻 Posso aiutarti con Microsoft Teams. Hai problemi di accesso, password o installazione?"
+    ]
+  }
 ]
