@@ -10,7 +10,9 @@
   {
   "keywords": ["chi sei", "come ti chiami", "qual è il tuo nome"],
   "responses": [
-    "🚀 TEST DATABASE FAQ"
+    "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+"🎓 Sono Arturo, l'assistente digitale dell'Istituto.",
+"👋 Mi chiamo Arturo e posso aiutarti a trovare servizi e informazioni scolastiche."
   ]
 },
   {
