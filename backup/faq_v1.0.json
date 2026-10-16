@@ -324,10 +324,14 @@
     "sito scuola",
     "sito istituto",
     "sito web",
-    "portale scuola"
+    "portale scuola",
+    "portale istituto",
+    "sito checchi",
+    "homepage scuola",
+    "indirizzo sito"
   ],
   "responses": [
-    "🌐 Per informazioni, servizi e comunicazioni ufficiali puoi consultare il sito istituzionale dell'IIS Arturo Checchi."
+    "🌐 Sito istituzionale IIS Arturo Checchi: https://www.istitutochecchi.edu.it"
   ]
 }
 ]
