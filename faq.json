@@ -332,12 +332,18 @@
 },
   {
   "keywords": [
+    "indirizzi",
+    "indirizzi di studio",
+    "corsi",
+    "offerta formativa",
+    "scuole",
+    "percorsi",
+    "percorsi di studio",
+    "insegnamenti",
     "quali indirizzi avete",
-    "quali indirizzi di studio ci sono",
     "che indirizzi ci sono al checchi",
     "cosa si studia al checchi",
-    "quali corsi fate",
-    "offerta formativa"
+    "quali corsi fate"
   ],
   "responses": [
     "🎓 L'IIS Arturo Checchi offre percorsi liceali, tecnici e professionali. Posso fornirti informazioni sui percorsi Linguistico, Scientifico, Scientifico Sportivo, Scientifico Scienze Applicate, AFM, RIM, Moda, Calzaturiero e Manutenzione e Assistenza Tecnica."
