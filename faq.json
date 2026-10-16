@@ -167,13 +167,6 @@
   },
 
   {
-    "keywords": ["telefono della scuola","telefono istituto","numero della scuola"],
-    "responses": [
-      "☎️ I recapiti telefonici dell'IIS Arturo Checchi sono disponibili nella sezione Contatti del sito istituzionale."
-    ]
-  },
-
-  {
     "keywords": ["mail istituzionale","email istituzionale","come è composta la mail istituzionale","come e composta la mail istituzionale","formato mail istituzionale"],
     "responses": [
       "📧 Le caselle istituzionali vengono assegnate dall'Istituto. Generalmente l'indirizzo utilizza il nominativo dell'utente seguito dal dominio istituzionale della scuola."
