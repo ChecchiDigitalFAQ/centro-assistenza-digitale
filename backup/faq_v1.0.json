@@ -1,0 +1,333 @@
+[
+  {
+    "keywords": ["ciao","salve","buongiorno","buonasera","ehi","hey","ciao arturo"],
+    "responses": [
+      "👋 Ciao! Sono Arturo. Come posso aiutarti?",
+      "😊 Benvenuto! Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "🎓 Ciao! Come posso esserti utile oggi?"
+    ]
+  },
+
+  {
+    "keywords": ["ci sei","sei presente","mi senti","sei online","arturo ci sei"],
+    "responses": [
+      "✅ Sì, sono qui. Dimmi pure come posso aiutarti.",
+      "👋 Certamente! Sono a tua disposizione. Scrivi pure la tua domanda.",
+      "🤖 Eccomi! Come posso esserti utile oggi?",
+      "😊 Sì, sono qui. Dimmi pure di cosa hai bisogno."
+    ]
+  },
+
+  {
+    "keywords": ["chi c'è","c'è qualcuno","ce qualcuno","c'è nessuno"],
+    "responses": [
+      "🤖 Ci sono io, Arturo. Come posso aiutarti?",
+      "👋 Eccomi. Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "✅ Sono qui e pronto ad aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["chi sei","come ti chiami","qual è il tuo nome","quale è il tuo nome","tuo nome","come posso chiamarti","come ti devo chiamare","presentati"],
+    "responses": [
+      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure relative all'Istituto.",
+      "🎓 Sono Arturo, l'assistente digitale dell'IIS Arturo Checchi.",
+      "👋 Mi chiamo Arturo e sono qui per aiutarti a trovare informazioni e servizi scolastici."
+    ]
+  },
+
+  {
+    "keywords": ["cognome","qual è il tuo cognome","quale è il tuo cognome","cognome arturo","hai un cognome"],
+    "responses": [
+      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["quanti anni hai","qual è la tua età","quale è la tua età","eta","età","quando sei nato"],
+    "responses": [
+      "😊 Non ho un'età come le persone. Sono un assistente digitale e sono sempre disponibile ad aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["dove sei nato","da dove vieni","da dove provieni","dove vivi"],
+    "responses": [
+      "🤖 Non provengo da un luogo specifico. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+  "keywords": [
+    "chi ti ha creato",
+    "chi ti ha fatto",
+    "chi ti ha programmato",
+    "come sei nato",
+    "chi c'è dietro di te",
+    "chi ti ha sviluppato"
+  ],
+  "responses": [
+    "🤖 Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi. Sono stato creato per aiutare studenti, famiglie, docenti e personale a trovare facilmente informazioni, documenti, servizi e procedure dell'Istituto. Dietro la mia nascita, il mio sviluppo e il mio continuo miglioramento c'è il lavoro del Tecnico Informatico dell'IIS Arturo Checchi, Luca Vorraro, che continua ad aggiornarmi e ad arricchire le mie conoscenze. Se non trovo una risposta alla tua richiesta, la tua domanda potrà contribuire a farmi crescere e migliorare."
+  ]
+},
+
+  {
+    "keywords": ["cosa sai fare","come puoi aiutarmi","a cosa servi","che cosa fai"],
+    "responses": [
+      "🤖 Posso aiutarti a trovare informazioni, servizi, documenti, modulistica e procedure dell'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["come stai","come va","tutto bene","come te la passi"],
+    "responses": [
+      "😄 Sempre operativo e pronto ad aiutarti.",
+      "😊 Tutto bene! Sto aspettando la tua prossima domanda.",
+      "🤖 Sempre disponibile per supportarti."
+    ]
+  },
+
+  {
+    "keywords": ["grazie","ti ringrazio","grazie mille","molto gentile","ottimo","perfetto"],
+    "responses": [
+      "😊 È stato un piacere aiutarti.",
+      "👍 Felice di esserti stato utile.",
+      "🎓 Grazie a te e buona giornata."
+    ]
+  },
+
+  {
+    "keywords": ["arrivederci","a presto","ciao ciao","alla prossima","ci vediamo"],
+    "responses": [
+      "👋 Arrivederci! Se avrai bisogno di aiuto sarò qui.",
+      "😊 A presto e buona giornata.",
+      "🎓 Grazie per aver utilizzato il Centro Assistenza Digitale."
+    ]
+  },
+
+  {
+    "keywords": ["buon lavoro"],
+    "responses": [
+      "😊 Grazie! Farò del mio meglio per aiutarti.",
+      "👍 Grazie, è un piacere poterti essere utile.",
+      "🤖 Grazie! Sono sempre disponibile per supportarti."
+    ]
+  },
+
+  {
+    "keywords": ["buonanotte"],
+    "responses": [
+      "🌙 Buonanotte! Se avrai bisogno di aiuto, sarò qui.",
+      "😊 Buonanotte e a presto.",
+      "🤖 Riposati bene. Io resterò disponibile quando avrai bisogno."
+    ]
+  },
+
+  {
+    "keywords": ["hai una famiglia","sei sposato","hai figli","hai parenti"],
+    "responses": [
+      "😊 La mia famiglia è composta dagli studenti, dalle famiglie, dai docenti e dal personale dell'IIS Arturo Checchi che assisto ogni giorno."
+    ]
+  },
+
+  {
+    "keywords": ["sei umano","sei una persona","sei reale","sei un robot"],
+    "responses": [
+      "🤖 Sono un assistente digitale. Non sono una persona reale, ma sono stato progettato per aiutarti a trovare informazioni e servizi dell'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["raccontami una barzelletta","fammi ridere","racconta una battuta"],
+    "responses": [
+      "😄 Preferisco concentrarmi sui servizi e sulle informazioni dell'IIS Arturo Checchi. Se hai bisogno di supporto scolastico sarò felice di aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["sei intelligente","sei bravo","quanto sei intelligente"],
+    "responses": [
+      "🤖 Cerco di essere abbastanza intelligente da aiutarti a trovare rapidamente informazioni e servizi dell'IIS Arturo Checchi.",
+      "😊 Sto imparando continuamente nuove informazioni sull'Istituto per aiutarti meglio."
+    ]
+  },
+
+  {
+    "keywords": ["mail istituzionale","email istituzionale","come è composta la mail istituzionale","come e composta la mail istituzionale","formato mail istituzionale"],
+    "responses": [
+      "📧 Le caselle istituzionali vengono assegnate dall'Istituto. Generalmente l'indirizzo utilizza il nominativo dell'utente seguito dal dominio istituzionale della scuola."
+    ]
+  },
+
+  {
+    "keywords": ["password","recupero password","ho dimenticato la password","reset password","credenziali perse"],
+    "responses": [
+      "🔑 In caso di smarrimento delle credenziali è possibile richiedere assistenza seguendo le procedure previste dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["teams","microsoft teams","accesso teams","login teams"],
+    "responses": [
+      "💻 Microsoft Teams è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["outlook","posta istituzionale","email istituzionale outlook"],
+    "responses": [
+      "📬 La posta istituzionale è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["onedrive","spazio cloud","archiviazione microsoft"],
+    "responses": [
+      "☁️ OneDrive è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["argo","registro elettronico","accesso argo","login argo"],
+    "responses": [
+      "📚 Il Registro Elettronico Argo è accessibile tramite le credenziali fornite dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["password argo","credenziali argo","recupero argo"],
+    "responses": [
+      "📚 Per il recupero delle credenziali Argo è possibile rivolgersi agli uffici competenti."
+    ]
+  },
+
+  {
+    "keywords": ["segreteria","orari segreteria","contatti segreteria"],
+    "responses": [
+      "🏫 Posso aiutarti con la Segreteria. Hai bisogno di informazioni su orari, contatti, modulistica o procedure amministrative?"
+    ]
+  },
+
+  {
+    "keywords": ["sicurezza","corso sicurezza","formazione sicurezza"],
+    "responses": [
+      "🦺 Posso aiutarti con la formazione e la documentazione relativa alla Salute e Sicurezza sul Lavoro."
+    ]
+  },
+
+  {
+    "keywords": ["collaboratori ds","collaboratore ds","dirigente scolastico","vicepreside","staff dirigenza"],
+    "responses": [
+      "👥 Posso aiutarti con le informazioni relative ai Collaboratori del Dirigente Scolastico e agli appuntamenti."
+    ]
+  },
+
+  {
+    "keywords": ["titolo di viaggio","titoli di viaggio","abbonamento studenti"],
+    "responses": [
+      "🎫 Posso aiutarti con le informazioni relative ai Titoli di Viaggio e alle autorizzazioni per il trasporto."
+    ]
+  },
+
+  {
+    "keywords": ["meteo","calcio","politica","ricetta","ricette","film","criptovalute"],
+    "responses": [
+      "😊 Mi dispiace, ma sono stato progettato per fornire informazioni e assistenza relative ai servizi e alle attività dell'IIS Arturo Checchi.",
+      "🤖 Posso aiutarti con procedure, documenti, piattaforme digitali e servizi dell'Istituto.",
+      "🎓 Le mie competenze riguardano esclusivamente l'IIS Arturo Checchi e le sue attività."
+    ]
+  },
+  {
+  "keywords": [
+    "mail della scuola",
+    "email della scuola",
+    "mail istituto",
+    "email istituto",
+    "indirizzo email scuola",
+    "contatti email"
+  ],
+  "responses": [
+    "📧 L'indirizzo e-mail dell'IIS Arturo Checchi è FIIS00300C@istruzione.it."
+  ]
+},
+{
+  "keywords": [
+    "pec",
+    "pec scuola",
+    "pec istituto",
+    "posta certificata",
+    "pec dell'istituto",
+    "indirizzo pec"
+  ],
+  "responses": [
+    "📨 La PEC dell'IIS Arturo Checchi è FIIS00300C@pec.istruzione.it."
+  ]
+},
+{
+  "keywords": [
+    "telefono",
+    "telefono scuola",
+    "numero scuola",
+    "numero telefono",
+    "contatti telefonici",
+    "telefono istituto"
+  ],
+  "responses": [
+    "☎️ Puoi contattare l'IIS Arturo Checchi ai numeri +39 0571 20889 oppure +39 0571 22292."
+  ]
+},
+{
+  "keywords": [
+    "indirizzo scuola",
+    "dove si trova la scuola",
+    "sede scuola",
+    "dove siete",
+    "indirizzo istituto"
+  ],
+  "responses": [
+    "📍 L'IIS Arturo Checchi si trova in Viale Gramsci 7, 50054 Fucecchio (FI)."
+  ]
+},
+{
+  "keywords": [
+    "codice meccanografico",
+    "meccanografico",
+    "codice scuola"
+  ],
+  "responses": [
+    "🏫 Il codice meccanografico dell'IIS Arturo Checchi è FIIS00300C."
+  ]
+},
+{
+  "keywords": [
+    "codice fiscale",
+    "cf scuola",
+    "partita iva scuola"
+  ],
+  "responses": [
+    "🧾 Il codice fiscale dell'IIS Arturo Checchi è 91002540481."
+  ]
+},
+{
+  "keywords": [
+    "contatti",
+    "come contatto la scuola",
+    "recapiti scuola",
+    "informazioni di contatto"
+  ],
+  "responses": [
+    "📞 IIS Arturo Checchi - Viale Gramsci 7, 50054 Fucecchio (FI). Telefono: +39 0571 20889 / +39 0571 22292 - E-mail: FIIS00300C@istruzione.it - PEC: FIIS00300C@pec.istruzione.it."
+  ]
+},
+{
+  "keywords": [
+    "sito scuola",
+    "sito istituto",
+    "sito web",
+    "portale scuola"
+  ],
+  "responses": [
+    "🌐 Per informazioni, servizi e comunicazioni ufficiali puoi consultare il sito istituzionale dell'IIS Arturo Checchi."
+  ]
+}
+]

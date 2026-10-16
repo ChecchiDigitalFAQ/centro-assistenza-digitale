@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Arturo - Centro Assistenza Digitale</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:#eef3f8;
+    color:#1f2937;
+}
+
+.hero{
+    background:linear-gradient(135deg,#003b7a,#0056b3);
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+}
+
+.logo{
+    width:120px;
+    background:white;
+    border-radius:18px;
+    padding:10px;
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+.hero h1{
+    margin:15px 0 8px;
+    font-size:56px;
+}
+
+.subtitle{
+    font-size:24px;
+    font-weight:600;
+}
+
+.description{
+    max-width:900px;
+    margin:20px auto 0;
+    line-height:1.7;
+    font-size:17px;
+}
+
+.quick-search{
+    max-width:1200px;
+    margin:20px auto 0;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+.quick-search button{
+    border:none;
+    background:white;
+    color:#0056b3;
+    padding:12px 18px;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.quick-search button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.container{
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.chat{
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.messages{
+    min-height:550px;
+    padding:25px;
+}
+
+.bot{
+    background:#eef5ff;
+    border-left:5px solid #0056b3;
+    padding:18px;
+    border-radius:16px;
+    margin-bottom:15px;
+    max-width:85%;
+    line-height:1.7;
+}
+
+.user{
+    background:#e8f8e8;
+    padding:18px;
+    border-radius:16px;
+    margin-bottom:15px;
+    margin-left:auto;
+    max-width:85%;
+    text-align:right;
+    line-height:1.7;
+}
+
+.input-area{
+    display:flex;
+    gap:12px;
+    padding:18px;
+    border-top:1px solid #e5e7eb;
+}
+
+input{
+    flex:1;
+    padding:16px;
+    border:2px solid #d9e2ec;
+    border-radius:16px;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    border-color:#0056b3;
+}
+
+button.send{
+    border:none;
+    background:#0056b3;
+    color:white;
+    padding:16px 28px;
+    border-radius:16px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button.send:hover{
+    background:#004090;
+}
+
+.footer{
+    text-align:center;
+    margin:15px 0;
+    color:#6b7280;
+    font-size:14px;
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .subtitle{
+        font-size:20px;
+    }
+
+    .logo{
+        width:90px;
+    }
+
+    .bot,
+    .user{
+        max-width:100%;
+    }
+
+    .input-area{
+        flex-direction:column;
+    }
+
+    button.send{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+   <img
+src="logo%20checchi-Photoroom.png-Photoroom.png"
+class="logo"
+alt="Logo IIS Arturo Checchi">
+
+    <h1>🤖 Arturo</h1>
+
+    <div class="subtitle">
+        Centro Assistenza Digitale
+    </div>
+
+    <div class="description">
+
+        Arturo è l'assistente digitale dell'IIS Arturo Checchi.
+
+        <br><br>
+
+        Può aiutarti a trovare informazioni, documenti, servizi e procedure relative alla vita scolastica dell'Istituto.
+
+        <br><br>
+
+        Scrivi la tua domanda oppure utilizza una delle ricerche rapide qui sotto.
+
+    </div>
+
+    <div class="quick-search">
+
+        <button onclick="ricercaRapida('recupero password')">🔑 Recupero Password</button>
+
+        <button onclick="ricercaRapida('microsoft teams')">💻 Microsoft Teams</button>
+
+        <button onclick="ricercaRapida('registro elettronico argo')">📖 Registro Argo</button>
+
+        <button onclick="ricercaRapida('segreteria')">🏢 Segreteria</button>
+
+        <button onclick="ricercaRapida('modulistica')">📝 Modulistica</button>
+
+        <button onclick="ricercaRapida('sicurezza')">🦺 Sicurezza</button>
+
+        <button onclick="ricercaRapida('collaboratori ds')">👥 Collaboratori DS</button>
+
+        <button onclick="ricercaRapida('trasferimento da altro istituto')">🎓 Trasferimento</button>
+
+        <button onclick="ricercaRapida('cambio sezione')">🔄 Cambio Sezione</button>
+
+        <button onclick="ricercaRapida('richieste varie')">📌 Richieste Varie</button>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="chat">
+
+        <div class="messages" id="messages">
+
+            <div class="bot">
+
+                <strong>👋 Benvenuto!</strong>
+
+                <br><br>
+
+                Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.
+
+                <br><br>
+
+                Come posso aiutarti oggi?
+
+            </div>
+
+        </div>
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="domanda"
+                placeholder="Scrivi qui la tua domanda...">
+
+            <button class="send" onclick="rispondi()">
+                Invia
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Arturo • Centro Assistenza Digitale • IIS Arturo Checchi
+    </div>
+
+</div>
+
+<script>
+
+let faqDatabase = [];
+
+fetch("faq.json")
+.then(response => response.json())
+.then(data => {
+    faqDatabase = data;
+})
+.catch(error => {
+    console.error(error);
+});
+function distanzaLevenshtein(a, b){
+
+    const matrix = [];
+
+    for(let i = 0; i <= b.length; i++){
+        matrix[i] = [i];
+    }
+
+    for(let j = 0; j <= a.length; j++){
+        matrix[0][j] = j;
+    }
+
+    for(let i = 1; i <= b.length; i++){
+
+        for(let j = 1; j <= a.length; j++){
+
+            if(b.charAt(i - 1) == a.charAt(j - 1)){
+
+                matrix[i][j] = matrix[i - 1][j - 1];
+
+            }else{
+
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    Math.min(
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    )
+                );
+
+            }
+
+        }
+
+    }
+
+    return matrix[b.length][a.length];
+}
+
+function simile(a,b){
+
+    a = a.toLowerCase().trim();
+    b = b.toLowerCase().trim();
+
+    let distanza =
+        distanzaLevenshtein(a,b);
+
+    let lunghezza =
+        Math.max(a.length,b.length);
+
+    let percentuale =
+        1 - (distanza / lunghezza);
+
+    return percentuale >= 0.80;
+}
+function aggiungiMessaggio(tipo,testo){
+
+    let box=document.getElementById("messages");
+
+    let div=document.createElement("div");
+
+    div.className=tipo;
+
+    div.innerHTML=testo;
+
+    box.appendChild(div);
+
+    box.scrollTop=box.scrollHeight;
+}
+
+function ricercaRapida(testo){
+
+    document.getElementById("domanda").value=testo;
+
+    rispondi();
+}
+function richiestaPrivacy(domanda){
+
+    domanda = domanda.toLowerCase();
+
+    const consentite = [
+
+        "mail della scuola",
+        "mail dell'istituto",
+        "email della scuola",
+        "email dell'istituto",
+        "telefono della scuola",
+        "telefono dell'istituto",
+        "pec della scuola",
+        "pec dell'istituto",
+        "mail istituzionale",
+        "email istituzionale",
+        "come è composta la mail",
+        "come e composta la mail",
+        "formato della mail",
+        "contatti della scuola",
+        "contatti dell'istituto"
+
+    ];
+
+    for(let voce of consentite){
+
+        if(domanda.includes(voce)){
+            return false;
+        }
+
+    }
+
+   const sensibili = [
+
+    "mail di",
+    "email di",
+    "indirizzo email",
+    "indirizzo mail",
+
+    "telefono di",
+    "numero di telefono",
+    "cellulare di",
+
+    "dove lavora",
+    "dove insegna",
+    "in quale plesso",
+    "plesso di servizio",
+    "sede di servizio",
+
+    "fascicolo",
+    "cartella",
+    "documenti personali",
+    "dati personali",
+
+    "pratica dello studente",
+    "pratica dell'alunno"
+
+];
+    for(let voce of sensibili){
+
+        if(domanda.includes(voce)){
+            return true;
+        }
+
+    }
+const parolePersona = [
+
+    "alunno",
+    "studente",
+    "docente",
+    "professore",
+    "prof.ssa",
+    "prof",
+    "insegnante",
+    "personale",
+    "dipendente"
+
+];
+
+for(let parola of parolePersona){
+
+    if(domanda.includes(parola)){
+
+        if(
+            domanda.includes("mail") ||
+            domanda.includes("email") ||
+            domanda.includes("telefono") ||
+            domanda.includes("cellulare") ||
+            domanda.includes("plesso") ||
+            domanda.includes("lavora") ||
+            domanda.includes("insegna") ||
+            domanda.includes("fascicolo") ||
+            domanda.includes("cartella") ||
+            domanda.includes("documenti")
+           
+        ){
+            return true;
+        }
+
+    }
+
+}
+
+    return false;
+}
+function rispondi(){
+
+    let input=document.getElementById("domanda");
+
+    let testo=input.value.trim();
+
+    if(testo==="") return;
+
+    aggiungiMessaggio("user",testo);
+
+    let domanda=testo.toLowerCase();
+if(richiestaPrivacy(domanda)){
+
+    setTimeout(function(){
+
+        aggiungiMessaggio(
+            "bot",
+            "🔒 Non posso accedere, consultare o fornire dati personali, informazioni riservate o documentazione riferita a studenti, famiglie o personale dell'Istituto. Posso fornire esclusivamente informazioni generali sui servizi, sui contatti istituzionali e sulle procedure scolastiche."
+        );
+
+    },500);
+
+    input.value="";
+
+    return;
+}
+
+    let risposta=null;
+
+    for(let faq of faqDatabase){
+
+    for(let keyword of faq.keywords){
+
+        if(
+            domanda.includes(keyword.toLowerCase())
+            ||
+            simile(domanda, keyword)
+        ){
+
+            risposta =
+                faq.responses[
+                    Math.floor(
+                        Math.random() * faq.responses.length
+                    )
+                ];
+
+            break;
+
+        }
+
+    }
+
+    if(risposta !== null){
+        break;
+    }
+
+}
+    if(risposta===null){
+
+        let risposteGeneriche=[
+
+            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà contribuire a migliorare Arturo.",
+
+            "🤖 Al momento non dispongo di informazioni su questo argomento. Prova a riformulare la domanda.",
+
+            "🎓 Non ho ancora una risposta per questa richiesta, ma continuo ad evolvermi."
+
+        ];
+
+        risposta=
+            risposteGeneriche[
+                Math.floor(
+                    Math.random()*risposteGeneriche.length
+                )
+            ];
+    }
+
+    setTimeout(function(){
+
+        aggiungiMessaggio(
+            "bot",
+            risposta
+        );
+
+    },500);
+
+    input.value="";
+}
+
+document
+.getElementById("domanda")
+.addEventListener("keypress",function(event){
+
+    if(event.key==="Enter"){
+        rispondi();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
