@@ -329,5 +329,210 @@
   "responses": [
     "🌐 Per informazioni, servizi e comunicazioni ufficiali puoi consultare il sito istituzionale dell'IIS Arturo Checchi."
   ]
+},
+  {
+  "keywords": [
+    "quali indirizzi avete",
+    "quali indirizzi di studio ci sono",
+    "che indirizzi ci sono al checchi",
+    "cosa si studia al checchi",
+    "quali corsi fate",
+    "offerta formativa"
+  ],
+  "responses": [
+    "🎓 L'IIS Arturo Checchi offre percorsi liceali, tecnici e professionali. Posso fornirti informazioni sui percorsi Linguistico, Scientifico, Scientifico Sportivo, Scientifico Scienze Applicate, AFM, RIM, Moda, Calzaturiero e Manutenzione e Assistenza Tecnica."
+  ]
+},
+{
+  "keywords": [
+    "quanti plessi avete",
+    "quante sedi avete",
+    "sedi della scuola",
+    "plessi della scuola",
+    "dove si trovano le sedi"
+  ],
+  "responses": [
+    "📍 L'IIS Arturo Checchi è articolato su tre sedi principali: Sede Centrale (Viale Gramsci 7), Sede Liceo (Via Padre Checchi) e Sede Moda e Calzaturiero (Piazza Vittorio Veneto)."
+  ]
+},
+{
+  "keywords": [
+    "sede centrale",
+    "dove si trova la sede centrale",
+    "presidenza",
+    "segreteria centrale"
+  ],
+  "responses": [
+    "🏫 La Sede Centrale dell'IIS Arturo Checchi si trova in Viale Gramsci 7 a Fucecchio ed ospita Presidenza e Segreteria."
+  ]
+},
+{
+  "keywords": [
+    "liceo",
+    "sede liceo",
+    "dove si trova il liceo"
+  ],
+  "responses": [
+    "📚 La sede del Liceo dell'IIS Arturo Checchi si trova in Via Padre Checchi a Fucecchio."
+  ]
+},
+{
+  "keywords": [
+    "moda",
+    "calzaturiero",
+    "moda e calzaturiero",
+    "sede moda",
+    "plesso moda"
+  ],
+  "responses": [
+    "👗 Il Plesso Moda e Calzaturiero dell'IIS Arturo Checchi si trova in Piazza Vittorio Veneto a Fucecchio."
+  ]
+},
+{
+  "keywords": [
+    "indirizzi di studio",
+    "corsi di studio",
+    "quali indirizzi avete",
+    "offerta formativa"
+  ],
+  "responses": [
+    "🎓 L'IIS Arturo Checchi offre percorsi di Liceo, Istituto Tecnico Economico, Istituto Tecnico Tecnologico e Istituto Professionale."
+  ]
+},
+{
+  "keywords": [
+    "liceo linguistico",
+    "indirizzo linguistico",
+    "cosa si studia al linguistico"
+  ],
+  "responses": [
+    "🌍 Il Liceo Linguistico prevede lo studio approfondito di tre lingue straniere e favorisce una preparazione orientata alle relazioni internazionali, alla comunicazione e alla prosecuzione degli studi universitari."
+  ]
+},
+{
+  "keywords": [
+    "afm",
+    "amministrazione finanza e marketing",
+    "cosa si studia ad afm"
+  ],
+  "responses": [
+    "💼 L'indirizzo Amministrazione Finanza e Marketing sviluppa competenze economiche, aziendali, amministrative e finanziarie."
+  ]
+},
+{
+  "keywords": [
+    "rim",
+    "relazioni internazionali per il marketing",
+    "cosa si studia al rim"
+  ],
+  "responses": [
+    "🌐 L'indirizzo Relazioni Internazionali per il Marketing approfondisce le lingue straniere e le relazioni economiche e commerciali internazionali."
+  ]
+},
+{
+  "keywords": [
+    "liceo scientifico",
+    "scientifico",
+    "indirizzo scientifico"
+  ],
+  "responses": [
+    "🔬 Il Liceo Scientifico offre una preparazione equilibrata tra area umanistica e area scientifica, con particolare attenzione a matematica, fisica e scienze."
+  ]
+},
+{
+  "keywords": [
+    "scienze applicate",
+    "liceo scienze applicate",
+    "scientifico scienze applicate"
+  ],
+  "responses": [
+    "💻 Il Liceo Scientifico opzione Scienze Applicate valorizza le discipline scientifiche e tecnologiche e prevede un importante utilizzo dei laboratori e dell'informatica."
+  ]
+},
+{
+  "keywords": [
+    "liceo sportivo",
+    "scientifico sportivo",
+    "indirizzo sportivo"
+  ],
+  "responses": [
+    "⚽ Il Liceo Scientifico Sportivo unisce la preparazione del liceo scientifico all'approfondimento delle discipline sportive e del diritto ed economia dello sport."
+  ]
+},
+{
+  "keywords": [
+    "moda",
+    "indirizzo moda",
+    "cosa si studia a moda"
+  ],
+  "responses": [
+    "👗 L'indirizzo Moda forma figure con competenze nella progettazione, realizzazione e promozione dei prodotti del settore moda."
+  ]
+},
+{
+  "keywords": [
+    "calzaturiero",
+    "indirizzo calzaturiero",
+    "cosa si studia al calzaturiero"
+  ],
+  "responses": [
+    "👞 L'indirizzo Calzaturiero sviluppa competenze nella progettazione, prototipazione e realizzazione di calzature e accessori."
+  ]
+},
+{
+  "keywords": [
+    "manutenzione",
+    "manutenzione e assistenza tecnica",
+    "indirizzo manutenzione",
+    "mat"
+  ],
+  "responses": [
+    "🔧 L'indirizzo Manutenzione e Assistenza Tecnica prepara alla gestione, installazione e manutenzione di sistemi e impianti tecnologici."
+  ]
+},
+{
+  "keywords": [
+    "laboratori",
+    "quali laboratori avete",
+    "che laboratori avete",
+    "laboratori della scuola",
+    "aule speciali",
+    "strutture della scuola"
+  ],
+  "responses": [
+    "🧪 L'IIS Arturo Checchi dispone di laboratori informatici, scientifici, linguistici e tecnico-professionali, oltre a laboratori dedicati alla moda, alla calzatura e alla manutenzione tecnica."
+  ]
+},
+{
+  "keywords": [
+    "certificazioni linguistiche",
+    "cambridge",
+    "delf",
+    "cervantes"
+  ],
+  "responses": [
+    "📜 L'Istituto promuove il conseguimento di certificazioni linguistiche internazionali come Cambridge, DELF e Cervantes."
+  ]
+},
+{
+  "keywords": [
+    "studente atleta",
+    "atleta di alto livello",
+    "progetto studente atleta"
+  ],
+  "responses": [
+    "🏅 Il Liceo Scientifico Sportivo aderisce alla sperimentazione ministeriale Studente-Atleta di Alto Livello per favorire la conciliazione tra studio e attività sportiva agonistica."
+  ]
+},
+{
+  "keywords": [
+    "come iscriversi",
+    "iscrizione",
+    "iscrizioni",
+    "come faccio a iscrivermi"
+  ],
+  "responses": [
+    "📝 Per le iscrizioni puoi consultare le informazioni presenti sul sito dell'IIS Arturo Checchi oppure contattare la Segreteria Alunni."
+  ]
 }
 ]
