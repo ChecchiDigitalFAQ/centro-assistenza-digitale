@@ -298,7 +298,61 @@ fetch("faq.json")
 .catch(error => {
     console.error(error);
 });
+function distanzaLevenshtein(a, b){
 
+    const matrix = [];
+
+    for(let i = 0; i <= b.length; i++){
+        matrix[i] = [i];
+    }
+
+    for(let j = 0; j <= a.length; j++){
+        matrix[0][j] = j;
+    }
+
+    for(let i = 1; i <= b.length; i++){
+
+        for(let j = 1; j <= a.length; j++){
+
+            if(b.charAt(i - 1) == a.charAt(j - 1)){
+
+                matrix[i][j] = matrix[i - 1][j - 1];
+
+            }else{
+
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1,
+                    Math.min(
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    )
+                );
+
+            }
+
+        }
+
+    }
+
+    return matrix[b.length][a.length];
+}
+
+function simile(a,b){
+
+    a = a.toLowerCase().trim();
+    b = b.toLowerCase().trim();
+
+    let distanza =
+        distanzaLevenshtein(a,b);
+
+    let lunghezza =
+        Math.max(a.length,b.length);
+
+    let percentuale =
+        1 - (distanza / lunghezza);
+
+    return percentuale >= 0.80;
+}
 function aggiungiMessaggio(tipo,testo){
 
     let box=document.getElementById("messages");
@@ -458,26 +512,32 @@ if(richiestaPrivacy(domanda)){
 
     for(let faq of faqDatabase){
 
-        for(let keyword of faq.keywords){
+    for(let keyword of faq.keywords){
 
-            if(domanda.includes(keyword.toLowerCase())){
+        if(
+            domanda.includes(keyword.toLowerCase())
+            ||
+            simile(domanda, keyword)
+        ){
 
-                risposta=
-                    faq.responses[
-                        Math.floor(
-                            Math.random()*faq.responses.length
-                        )
-                    ];
+            risposta =
+                faq.responses[
+                    Math.floor(
+                        Math.random() * faq.responses.length
+                    )
+                ];
 
-                break;
-            }
-        }
-
-        if(risposta!==null){
             break;
+
         }
+
     }
 
+    if(risposta !== null){
+        break;
+    }
+
+}
     if(risposta===null){
 
         let risposteGeneriche=[
