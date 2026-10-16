@@ -257,5 +257,98 @@
       "🤖 Posso aiutarti con procedure, documenti, piattaforme digitali e servizi dell'Istituto.",
       "🎓 Le mie competenze riguardano esclusivamente l'IIS Arturo Checchi e le sue attività."
     ]
-  }
+  },
+  {
+  "keywords": [
+    "mail della scuola",
+    "email della scuola",
+    "mail istituto",
+    "email istituto",
+    "indirizzo email scuola",
+    "contatti email"
+  ],
+  "responses": [
+    "📧 L'indirizzo e-mail dell'IIS Arturo Checchi è FIIS00300C@istruzione.it."
+  ]
+},
+{
+  "keywords": [
+    "pec",
+    "pec scuola",
+    "pec istituto",
+    "posta certificata",
+    "pec dell'istituto",
+    "indirizzo pec"
+  ],
+  "responses": [
+    "📨 La PEC dell'IIS Arturo Checchi è FIIS00300C@pec.istruzione.it."
+  ]
+},
+{
+  "keywords": [
+    "telefono",
+    "telefono scuola",
+    "numero scuola",
+    "numero telefono",
+    "contatti telefonici",
+    "telefono istituto"
+  ],
+  "responses": [
+    "☎️ Puoi contattare l'IIS Arturo Checchi ai numeri +39 0571 20889 oppure +39 0571 22292."
+  ]
+},
+{
+  "keywords": [
+    "indirizzo scuola",
+    "dove si trova la scuola",
+    "sede scuola",
+    "dove siete",
+    "indirizzo istituto"
+  ],
+  "responses": [
+    "📍 L'IIS Arturo Checchi si trova in Viale Gramsci 7, 50054 Fucecchio (FI)."
+  ]
+},
+{
+  "keywords": [
+    "codice meccanografico",
+    "meccanografico",
+    "codice scuola"
+  ],
+  "responses": [
+    "🏫 Il codice meccanografico dell'IIS Arturo Checchi è FIIS00300C."
+  ]
+},
+{
+  "keywords": [
+    "codice fiscale",
+    "cf scuola",
+    "partita iva scuola"
+  ],
+  "responses": [
+    "🧾 Il codice fiscale dell'IIS Arturo Checchi è 91002540481."
+  ]
+},
+{
+  "keywords": [
+    "contatti",
+    "come contatto la scuola",
+    "recapiti scuola",
+    "informazioni di contatto"
+  ],
+  "responses": [
+    "📞 IIS Arturo Checchi - Viale Gramsci 7, 50054 Fucecchio (FI). Telefono: +39 0571 20889 / +39 0571 22292 - E-mail: FIIS00300C@istruzione.it - PEC: FIIS00300C@pec.istruzione.it."
+  ]
+},
+{
+  "keywords": [
+    "sito scuola",
+    "sito istituto",
+    "sito web",
+    "portale scuola"
+  ],
+  "responses": [
+    "🌐 Per informazioni, servizi e comunicazioni ufficiali puoi consultare il sito istituzionale dell'IIS Arturo Checchi."
+  ]
+}
 ]
