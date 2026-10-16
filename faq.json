@@ -1,68 +1,22 @@
 [
   {
-    "keywords": ["ciao", "salve", "buongiorno", "buonasera"],
+    "keywords": ["ciao","salve","buongiorno","buonasera","ehi","hey","ciao arturo"],
     "responses": [
-      "👋 Ciao! Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
-      "😊 Benvenuto! Sono Arturo. Come posso aiutarti oggi?",
-      "🎓 Ciao! Sono Arturo e sono qui per aiutarti."
+      "👋 Ciao! Sono Arturo. Come posso aiutarti?",
+      "😊 Benvenuto! Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "🎓 Ciao! Come posso esserti utile oggi?"
     ]
   },
 
   {
-    "keywords": ["chi sei", "come ti chiami", "qual è il tuo nome", "quale è il tuo nome"],
+    "keywords": ["chi sei","come ti chiami","qual è il tuo nome","quale è il tuo nome","tuo nome","come posso chiamarti","come ti devo chiamare"],
     "responses": [
-      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
-      "🎓 Sono Arturo, l'assistente digitale dell'Istituto.",
-      "👋 Mi chiamo Arturo e posso aiutarti a trovare servizi e informazioni scolastiche."
+      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure relative all'Istituto."
     ]
   },
 
   {
-    "keywords": ["cognome", "qual è il tuo cognome", "quale è il tuo cognome"],
-    "responses": [
-      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi, l'Istituto per cui sono stato creato."
-    ]
-  },
-
-  {
-    "keywords": ["quanti anni hai", "età", "eta"],
-    "responses": [
-      "😊 Non ho un'età come le persone. Sono sempre disponibile per aiutarti a trovare informazioni e servizi scolastici."
-    ]
-  },
-
-  {
-    "keywords": ["dove sei nato", "nato", "luogo di nascita"],
-    "responses": [
-      "🤖 Non sono nato in un luogo preciso. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
-    ]
-  },
-
-  {
-    "keywords": ["chi ti ha creato", "chi ti ha fatto","arturotest", "chi ti ha programmato"],
-    "responses": [
-      "🎓 Sono stato creato per aiutare studenti, famiglie, docenti e personale dell'IIS Arturo Checchi a trovare rapidamente informazioni e servizi."
-    ]
-  },
-
-  {
-    "keywords": ["cosa sai fare", "a cosa servi", "come puoi aiutarmi"],
-    "responses": [
-      "🤖 Posso aiutarti con Microsoft 365, Teams, Registro Elettronico Argo, Segreteria, Sicurezza, Titoli di Viaggio, Collaboratori del Dirigente e altri servizi dell'Istituto."
-    ]
-  },
-
-  {
-    "keywords": ["come stai", "come va", "tutto bene"],
-    "responses": [
-      "😄 Sempre operativo e pronto ad aiutarti.",
-      "😊 Tutto bene! Sto aspettando la tua prossima domanda.",
-      "🤖 Sempre disponibile per aiutarti."
-    ]
-  },
-
-  {
-    "keywords": ["grazie", "ti ringrazio"],
+    "keywords": ["grazie","ti ringrazio","grazie mille","molto gentile","ottimo","perfetto"],
     "responses": [
       "😊 È stato un piacere aiutarti.",
       "👍 Felice di esserti stato utile.",
@@ -71,30 +25,100 @@
   },
 
   {
-    "keywords": ["arrivederci", "a presto", "ciao ciao"],
+    "keywords": ["cosa sai fare","come puoi aiutarmi","a cosa servi","che cosa fai"],
     "responses": [
-      "👋 Arrivederci! Se avrai bisogno di aiuto sarò qui.",
-      "😊 A presto e buona giornata.",
-      "🎓 Grazie per aver utilizzato il Centro Assistenza Digitale."
+      "🤖 Posso aiutarti a trovare informazioni, documenti, servizi, modulistica e procedure dell'IIS Arturo Checchi."
     ]
   },
 
   {
-    "keywords": ["teams", "microsoft teams"],
+    "keywords": ["come stai","come va","tutto bene","come te la passi"],
+    "responses": [
+      "😄 Sempre operativo e pronto ad aiutarti.",
+      "😊 Tutto bene! Sto aspettando la tua prossima domanda.",
+      "🤖 Sempre disponibile per supportarti."
+    ]
+  },
+
+  {
+    "keywords": ["chi ti ha creato","chi ti ha fatto","chi ti ha programmato","come sei nato"],
+    "responses": [
+      "🎓 Sono stato creato per aiutare studenti, famiglie, docenti e personale dell'IIS Arturo Checchi a trovare facilmente informazioni e servizi dell'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["qual è il tuo cognome","quale è il tuo cognome","cognome arturo","hai un cognome"],
+    "responses": [
+      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["quanti anni hai","qual è la tua età","quale è la tua età","quando sei nato","eta"],
+    "responses": [
+      "😊 Non ho un'età come le persone. Sono un assistente digitale e sono sempre disponibile ad aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["dove sei nato","da dove vieni","da dove provieni","dove vivi"],
+    "responses": [
+      "🤖 Non provengo da un luogo specifico. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["hai una famiglia","sei sposato","hai figli","hai parenti"],
+    "responses": [
+      "😊 La mia famiglia è composta dagli studenti, dalle famiglie, dai docenti e dal personale dell'IIS Arturo Checchi che assisto ogni giorno."
+    ]
+  },
+
+  {
+    "keywords": ["sei umano","sei una persona","sei reale","sei un robot"],
+    "responses": [
+      "🤖 Sono un assistente digitale. Non sono una persona reale, ma sono stato progettato per aiutarti a trovare informazioni e servizi dell'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["raccontami una barzelletta","fammi ridere","racconta una battuta"],
+    "responses": [
+      "😄 Preferisco concentrarmi sui servizi e sulle informazioni dell'IIS Arturo Checchi. Se hai bisogno di supporto scolastico sarò felice di aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["sei intelligente","sei bravo","quanto sei intelligente"],
+    "responses": [
+      "🤖 Cerco di essere abbastanza intelligente da aiutarti a trovare rapidamente informazioni e servizi dell'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["presentati","parlami di te","chi sei esattamente"],
+    "responses": [
+      "🎓 Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure della scuola."
+    ]
+  },
+
+  {
+    "keywords": ["teams","microsoft teams"],
     "responses": [
       "💻 Posso aiutarti con Microsoft Teams. Hai problemi di accesso, password o installazione?"
     ]
   },
 
   {
-    "keywords": ["microsoft 365", "office 365", "office", "outlook", "onedrive"],
+    "keywords": ["microsoft 365","office 365","office","outlook","onedrive"],
     "responses": [
       "💼 Posso aiutarti con Microsoft 365. Specifica se hai bisogno di assistenza per Outlook, OneDrive, Teams o credenziali Microsoft 365."
     ]
   },
 
   {
-    "keywords": ["argo", "registro elettronico"],
+    "keywords": ["argo","registro elettronico"],
     "responses": [
       "📚 Posso aiutarti con il Registro Elettronico Argo. Sei un docente, uno studente oppure un genitore/famiglia?"
     ]
@@ -108,21 +132,21 @@
   },
 
   {
-    "keywords": ["sicurezza", "corso sicurezza", "formazione sicurezza"],
+    "keywords": ["sicurezza","corso sicurezza","formazione sicurezza"],
     "responses": [
       "🦺 Posso aiutarti con la formazione e la documentazione relativa alla Salute e Sicurezza sul Lavoro."
     ]
   },
 
   {
-    "keywords": ["collaboratori ds", "collaboratore ds", "dirigente scolastico"],
+    "keywords": ["collaboratori ds","collaboratore ds","dirigente scolastico"],
     "responses": [
       "👥 Posso aiutarti con le informazioni relative ai Collaboratori del Dirigente Scolastico e agli appuntamenti."
     ]
   },
 
   {
-    "keywords": ["titolo di viaggio", "titoli di viaggio", "abbonamento studenti"],
+    "keywords": ["titolo di viaggio","titoli di viaggio","abbonamento studenti"],
     "responses": [
       "🎫 Posso aiutarti con le informazioni relative ai Titoli di Viaggio e alle autorizzazioni per il trasporto."
     ]
