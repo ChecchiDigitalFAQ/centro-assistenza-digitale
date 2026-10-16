@@ -336,8 +336,7 @@
     "indirizzi di studio",
     "corsi",
     "offerta formativa",
-    "scuole",
-    "percorsi",
+        "percorsi",
     "percorsi di studio",
     "insegnamenti",
     "quali indirizzi avete",
@@ -356,6 +355,8 @@
     "sedi della scuola",
     "plessi della scuola",
     "dove si trovano le sedi"
+    "quanti plessi ci sono"
+    "quanti sono i plessi"
   ],
   "responses": [
     "📍 L'IIS Arturo Checchi è articolato su tre sedi principali: Sede Centrale (Viale Gramsci 7), Sede Liceo (Via Padre Checchi) e Sede Moda e Calzaturiero (Piazza Vittorio Veneto)."
@@ -366,7 +367,7 @@
     "sede centrale",
     "dove si trova la sede centrale",
     "presidenza",
-    "segreteria centrale"
+    "segreteria centrale"    
   ],
   "responses": [
     "🏫 La Sede Centrale dell'IIS Arturo Checchi si trova in Viale Gramsci 7 a Fucecchio ed ospita Presidenza e Segreteria."
@@ -389,6 +390,11 @@
     "moda e calzaturiero",
     "sede moda",
     "plesso moda"
+    "dove si trova moda e calzaturiero"
+    "dove si trova moda"
+    "dove si trova moda e calzaturiero"
+    "dove si trova il calzaturiero"
+    "dove si trova calzaturiero"
   ],
   "responses": [
     "👗 Il Plesso Moda e Calzaturiero dell'IIS Arturo Checchi si trova in Piazza Vittorio Veneto a Fucecchio."
