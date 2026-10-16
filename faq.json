@@ -9,25 +9,65 @@
   },
 
   {
-    "keywords": ["chi sei","come ti chiami","qual è il tuo nome","quale è il tuo nome","tuo nome","come posso chiamarti","come ti devo chiamare"],
+    "keywords": ["ci sei","sei presente","mi senti","sei online","arturo ci sei"],
     "responses": [
-      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure relative all'Istituto."
+      "✅ Sì, sono qui. Dimmi pure come posso aiutarti.",
+      "👋 Certamente! Sono a tua disposizione. Scrivi pure la tua domanda.",
+      "🤖 Eccomi! Come posso esserti utile oggi?",
+      "😊 Sì, sono qui. Dimmi pure di cosa hai bisogno."
     ]
   },
 
   {
-    "keywords": ["grazie","ti ringrazio","grazie mille","molto gentile","ottimo","perfetto"],
+    "keywords": ["chi c'è","c'è qualcuno","ce qualcuno","c'è nessuno"],
     "responses": [
-      "😊 È stato un piacere aiutarti.",
-      "👍 Felice di esserti stato utile.",
-      "🎓 Grazie a te e buona giornata."
+      "🤖 Ci sono io, Arturo. Come posso aiutarti?",
+      "👋 Eccomi. Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
+      "✅ Sono qui e pronto ad aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["chi sei","come ti chiami","qual è il tuo nome","quale è il tuo nome","tuo nome","come posso chiamarti","come ti devo chiamare","presentati"],
+    "responses": [
+      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure relative all'Istituto.",
+      "🎓 Sono Arturo, l'assistente digitale dell'IIS Arturo Checchi.",
+      "👋 Mi chiamo Arturo e sono qui per aiutarti a trovare informazioni e servizi scolastici."
+    ]
+  },
+
+  {
+    "keywords": ["cognome","qual è il tuo cognome","quale è il tuo cognome","cognome arturo","hai un cognome"],
+    "responses": [
+      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["quanti anni hai","qual è la tua età","quale è la tua età","eta","età","quando sei nato"],
+    "responses": [
+      "😊 Non ho un'età come le persone. Sono un assistente digitale e sono sempre disponibile ad aiutarti."
+    ]
+  },
+
+  {
+    "keywords": ["dove sei nato","da dove vieni","da dove provieni","dove vivi"],
+    "responses": [
+      "🤖 Non provengo da un luogo specifico. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
+    ]
+  },
+
+  {
+    "keywords": ["chi ti ha creato","chi ti ha fatto","chi ti ha programmato","come sei nato"],
+    "responses": [
+      "🎓 Sono stato creato per aiutare studenti, famiglie, docenti e personale dell'IIS Arturo Checchi a trovare facilmente informazioni e servizi dell'Istituto."
     ]
   },
 
   {
     "keywords": ["cosa sai fare","come puoi aiutarmi","a cosa servi","che cosa fai"],
     "responses": [
-      "🤖 Posso aiutarti a trovare informazioni, documenti, servizi, modulistica e procedure dell'IIS Arturo Checchi."
+      "🤖 Posso aiutarti a trovare informazioni, servizi, documenti, modulistica e procedure dell'IIS Arturo Checchi."
     ]
   },
 
@@ -41,30 +81,38 @@
   },
 
   {
-    "keywords": ["chi ti ha creato","chi ti ha fatto","chi ti ha programmato","come sei nato"],
+    "keywords": ["grazie","ti ringrazio","grazie mille","molto gentile","ottimo","perfetto"],
     "responses": [
-      "🎓 Sono stato creato per aiutare studenti, famiglie, docenti e personale dell'IIS Arturo Checchi a trovare facilmente informazioni e servizi dell'Istituto."
+      "😊 È stato un piacere aiutarti.",
+      "👍 Felice di esserti stato utile.",
+      "🎓 Grazie a te e buona giornata."
     ]
   },
 
   {
-    "keywords": ["qual è il tuo cognome","quale è il tuo cognome","cognome arturo","hai un cognome"],
+    "keywords": ["arrivederci","a presto","ciao ciao","alla prossima","ci vediamo"],
     "responses": [
-      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi."
+      "👋 Arrivederci! Se avrai bisogno di aiuto sarò qui.",
+      "😊 A presto e buona giornata.",
+      "🎓 Grazie per aver utilizzato il Centro Assistenza Digitale."
     ]
   },
 
   {
-    "keywords": ["quanti anni hai","qual è la tua età","quale è la tua età","quando sei nato","eta"],
+    "keywords": ["buon lavoro"],
     "responses": [
-      "😊 Non ho un'età come le persone. Sono un assistente digitale e sono sempre disponibile ad aiutarti."
+      "😊 Grazie! Farò del mio meglio per aiutarti.",
+      "👍 Grazie, è un piacere poterti essere utile.",
+      "🤖 Grazie! Sono sempre disponibile per supportarti."
     ]
   },
 
   {
-    "keywords": ["dove sei nato","da dove vieni","da dove provieni","dove vivi"],
+    "keywords": ["buonanotte"],
     "responses": [
-      "🤖 Non provengo da un luogo specifico. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
+      "🌙 Buonanotte! Se avrai bisogno di aiuto, sarò qui.",
+      "😊 Buonanotte e a presto.",
+      "🤖 Riposati bene. Io resterò disponibile quando avrai bisogno."
     ]
   },
 
@@ -92,40 +140,83 @@
   {
     "keywords": ["sei intelligente","sei bravo","quanto sei intelligente"],
     "responses": [
-      "🤖 Cerco di essere abbastanza intelligente da aiutarti a trovare rapidamente informazioni e servizi dell'IIS Arturo Checchi."
+      "🤖 Cerco di essere abbastanza intelligente da aiutarti a trovare rapidamente informazioni e servizi dell'IIS Arturo Checchi.",
+      "😊 Sto imparando continuamente nuove informazioni sull'Istituto per aiutarti meglio."
     ]
   },
 
   {
-    "keywords": ["presentati","parlami di te","chi sei esattamente"],
+    "keywords": ["mail della scuola","email della scuola","mail istituto","email istituto","contatti scuola"],
     "responses": [
-      "🎓 Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure della scuola."
+      "📧 I recapiti ufficiali dell'IIS Arturo Checchi sono disponibili nella sezione Contatti del sito istituzionale."
     ]
   },
 
   {
-    "keywords": ["teams","microsoft teams"],
+    "keywords": ["pec","pec scuola","pec istituto","posta certificata"],
     "responses": [
-      "💻 Posso aiutarti con Microsoft Teams. Hai problemi di accesso, password o installazione?"
+      "📨 L'indirizzo PEC dell'IIS Arturo Checchi è pubblicato nella sezione Contatti del sito istituzionale."
     ]
   },
 
   {
-    "keywords": ["microsoft 365","office 365","office","outlook","onedrive"],
+    "keywords": ["telefono della scuola","telefono istituto","numero della scuola"],
     "responses": [
-      "💼 Posso aiutarti con Microsoft 365. Specifica se hai bisogno di assistenza per Outlook, OneDrive, Teams o credenziali Microsoft 365."
+      "☎️ I recapiti telefonici dell'IIS Arturo Checchi sono disponibili nella sezione Contatti del sito istituzionale."
     ]
   },
 
   {
-    "keywords": ["argo","registro elettronico"],
+    "keywords": ["mail istituzionale","email istituzionale","come è composta la mail istituzionale","come e composta la mail istituzionale","formato mail istituzionale"],
     "responses": [
-      "📚 Posso aiutarti con il Registro Elettronico Argo. Sei un docente, uno studente oppure un genitore/famiglia?"
+      "📧 Le caselle istituzionali vengono assegnate dall'Istituto. Generalmente l'indirizzo utilizza il nominativo dell'utente seguito dal dominio istituzionale della scuola."
     ]
   },
 
   {
-    "keywords": ["segreteria"],
+    "keywords": ["password","recupero password","ho dimenticato la password","reset password","credenziali perse"],
+    "responses": [
+      "🔑 In caso di smarrimento delle credenziali è possibile richiedere assistenza seguendo le procedure previste dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["teams","microsoft teams","accesso teams","login teams"],
+    "responses": [
+      "💻 Microsoft Teams è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["outlook","posta istituzionale","email istituzionale outlook"],
+    "responses": [
+      "📬 La posta istituzionale è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["onedrive","spazio cloud","archiviazione microsoft"],
+    "responses": [
+      "☁️ OneDrive è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["argo","registro elettronico","accesso argo","login argo"],
+    "responses": [
+      "📚 Il Registro Elettronico Argo è accessibile tramite le credenziali fornite dall'Istituto."
+    ]
+  },
+
+  {
+    "keywords": ["password argo","credenziali argo","recupero argo"],
+    "responses": [
+      "📚 Per il recupero delle credenziali Argo è possibile rivolgersi agli uffici competenti."
+    ]
+  },
+
+  {
+    "keywords": ["segreteria","orari segreteria","contatti segreteria"],
     "responses": [
       "🏫 Posso aiutarti con la Segreteria. Hai bisogno di informazioni su orari, contatti, modulistica o procedure amministrative?"
     ]
@@ -139,7 +230,7 @@
   },
 
   {
-    "keywords": ["collaboratori ds","collaboratore ds","dirigente scolastico"],
+    "keywords": ["collaboratori ds","collaboratore ds","dirigente scolastico","vicepreside","staff dirigenza"],
     "responses": [
       "👥 Posso aiutarti con le informazioni relative ai Collaboratori del Dirigente Scolastico e agli appuntamenti."
     ]
@@ -149,6 +240,15 @@
     "keywords": ["titolo di viaggio","titoli di viaggio","abbonamento studenti"],
     "responses": [
       "🎫 Posso aiutarti con le informazioni relative ai Titoli di Viaggio e alle autorizzazioni per il trasporto."
+    ]
+  },
+
+  {
+    "keywords": ["meteo","calcio","politica","ricetta","ricette","film","criptovalute"],
+    "responses": [
+      "😊 Mi dispiace, ma sono stato progettato per fornire informazioni e assistenza relative ai servizi e alle attività dell'IIS Arturo Checchi.",
+      "🤖 Posso aiutarti con procedure, documenti, piattaforme digitali e servizi dell'Istituto.",
+      "🎓 Le mie competenze riguardano esclusivamente l'IIS Arturo Checchi e le sue attività."
     ]
   }
 ]
