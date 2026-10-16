@@ -153,13 +153,6 @@
   },
 
   {
-    "keywords": ["mail della scuola","email della scuola","mail istituto","email istituto","contatti scuola"],
-    "responses": [
-      "📧 I recapiti ufficiali dell'IIS Arturo Checchi sono disponibili nella sezione Contatti del sito istituzionale."
-    ]
-  },  
-
-  {
     "keywords": ["mail istituzionale","email istituzionale","come è composta la mail istituzionale","come e composta la mail istituzionale","formato mail istituzionale"],
     "responses": [
       "📧 Le caselle istituzionali vengono assegnate dall'Istituto. Generalmente l'indirizzo utilizza il nominativo dell'utente seguito dal dominio istituzionale della scuola."
