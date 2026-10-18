@@ -1,552 +1,387 @@
 [
   {
-    "keywords": ["ciao","salve","buongiorno","buonasera","ehi","hey","ciao arturo"],
+    "id": "MENU_OFFERTA",
+    "title": "Offerta Formativa",
+    "categoria": "Menu",
+    "icon": "🎓",
+    "enabled": true,
+    "keywords": [
+      "offerta formativa",
+      "indirizzi",
+      "indirizzi di studio",
+      "corsi",
+      "percorsi di studio",
+      "cosa si studia",
+      "quali indirizzi avete"
+    ],
     "responses": [
-      "👋 Ciao! Sono Arturo. Come posso aiutarti?",
-      "😊 Benvenuto! Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
-      "🎓 Ciao! Come posso esserti utile oggi?"
+      "🎓 L'IIS Arturo Checchi offre percorsi di Liceo, Istituto Tecnico e Istituto Professionale."
+    ],
+    "followup": {
+      "message": "Quale area desideri approfondire?",
+      "buttons": [
+        "Licei",
+        "Istituto Tecnico",
+        "Istituto Professionale"
+      ]
+    }
+  },
+
+  {
+    "id": "LICEI",
+    "title": "Licei",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "licei",
+      "percorsi liceali",
+      "quali licei avete"
+    ],
+    "responses": [
+      "📚 I percorsi liceali attivi sono Liceo Scientifico, Liceo Scientifico Scienze Applicate, Liceo Linguistico e Liceo Scientifico Sportivo."
+    ],
+    "followup": {
+      "message": "Quale liceo ti interessa?",
+      "buttons": [
+        "Liceo Scientifico",
+        "Liceo Scientifico Scienze Applicate",
+        "Liceo Linguistico",
+        "Liceo Scientifico Sportivo"
+      ]
+    }
+  },
+
+  {
+    "id": "LICEO_SCIENTIFICO",
+    "title": "Liceo Scientifico",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "liceo scientifico",
+      "scientifico"
+    ],
+    "responses": [
+      "🔬 Il Liceo Scientifico offre una preparazione equilibrata tra discipline scientifiche e umanistiche."
     ]
   },
 
   {
-    "keywords": ["ci sei","sei presente","mi senti","sei online","arturo ci sei"],
+    "id": "SCIENZE_APPLICATE",
+    "title": "Liceo Scientifico Scienze Applicate",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "scienze applicate",
+      "liceo scienze applicate"
+    ],
     "responses": [
-      "✅ Sì, sono qui. Dimmi pure come posso aiutarti.",
-      "👋 Certamente! Sono a tua disposizione. Scrivi pure la tua domanda.",
-      "🤖 Eccomi! Come posso esserti utile oggi?",
-      "😊 Sì, sono qui. Dimmi pure di cosa hai bisogno."
+      "💻 L'opzione Scienze Applicate approfondisce informatica, tecnologia e discipline scientifiche."
     ]
   },
 
   {
-    "keywords": ["chi c'è","c'è qualcuno","ce qualcuno","c'è nessuno"],
+    "id": "LINGUISTICO",
+    "title": "Liceo Linguistico",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "liceo linguistico",
+      "linguistico"
+    ],
     "responses": [
-      "🤖 Ci sono io, Arturo. Come posso aiutarti?",
-      "👋 Eccomi. Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.",
-      "✅ Sono qui e pronto ad aiutarti."
+      "🌍 Il Liceo Linguistico prevede lo studio approfondito di tre lingue straniere."
     ]
   },
 
   {
-    "keywords": ["chi sei","come ti chiami","qual è il tuo nome","quale è il tuo nome","tuo nome","come posso chiamarti","come ti devo chiamare","presentati"],
+    "id": "SPORTIVO",
+    "title": "Liceo Scientifico Sportivo",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "liceo sportivo",
+      "scientifico sportivo"
+    ],
     "responses": [
-      "🤖 Mi chiamo Arturo e sono il Centro Assistenza Digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni, documenti, servizi e procedure relative all'Istituto.",
-      "🎓 Sono Arturo, l'assistente digitale dell'IIS Arturo Checchi.",
-      "👋 Mi chiamo Arturo e sono qui per aiutarti a trovare informazioni e servizi scolastici."
+      "⚽ Il Liceo Scientifico Sportivo integra la preparazione scientifica con discipline sportive."
     ]
   },
 
   {
-    "keywords": ["cognome","qual è il tuo cognome","quale è il tuo cognome","cognome arturo","hai un cognome"],
+    "id": "ISTITUTO_TECNICO",
+    "title": "Istituto Tecnico",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "istituto tecnico",
+      "tecnico"
+    ],
     "responses": [
-      "🤖 Mi chiamo semplicemente Arturo. Il mio nome è ispirato all'IIS Arturo Checchi."
+      "🏢 L'Istituto Tecnico comprende il Settore Economico e il Settore Tecnologico."
+    ],
+    "followup": {
+      "message": "Quale indirizzo vuoi approfondire?",
+      "buttons": [
+        "AFM",
+        "RIM",
+        "Calzatura e Moda"
+      ]
+    }
+  },
+
+  {
+    "id": "AFM",
+    "title": "AFM",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "afm",
+      "amministrazione finanza e marketing"
+    ],
+    "responses": [
+      "💼 AFM sviluppa competenze economiche, amministrative e aziendali."
     ]
   },
 
   {
-    "keywords": ["quanti anni hai","qual è la tua età","quale è la tua età","eta","età","quando sei nato"],
+    "id": "RIM",
+    "title": "RIM",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "rim",
+      "relazioni internazionali per il marketing"
+    ],
     "responses": [
-      "😊 Non ho un'età come le persone. Sono un assistente digitale e sono sempre disponibile ad aiutarti."
+      "🌐 RIM approfondisce lingue straniere e relazioni economiche internazionali."
     ]
   },
 
   {
-    "keywords": ["dove sei nato","da dove vieni","da dove provieni","dove vivi"],
+    "id": "MODA",
+    "title": "Calzatura e Moda",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "moda",
+      "calzaturiero",
+      "calzatura e moda"
+    ],
     "responses": [
-      "🤖 Non provengo da un luogo specifico. Sono stato creato per supportare la comunità scolastica dell'IIS Arturo Checchi."
+      "👗 L'articolazione Calzatura e Moda sviluppa competenze nella progettazione e produzione del settore moda e calzaturiero."
     ]
   },
 
   {
-  "keywords": [
-    "chi ti ha creato",
-    "chi ti ha fatto",
-    "chi ti ha programmato",
-    "come sei nato",
-    "chi c'è dietro di te",
-    "chi ti ha sviluppato"
-  ],
-  "responses": [
-    "🤖 Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi. Sono stato creato per aiutare studenti, famiglie, docenti e personale a trovare facilmente informazioni, documenti, servizi e procedure dell'Istituto. Dietro la mia nascita, il mio sviluppo e il mio continuo miglioramento c'è il lavoro del Tecnico Informatico dell'IIS Arturo Checchi, Luca Vorraro, che continua ad aggiornarmi e ad arricchire le mie conoscenze. Se non trovo una risposta alla tua richiesta, la tua domanda potrà contribuire a farmi crescere e migliorare."
-  ]
-},
+    "id": "ISTITUTO_PROFESSIONALE",
+    "title": "Istituto Professionale",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "istituto professionale",
+      "professionale"
+    ],
+    "responses": [
+      "🔧 I percorsi professionali attivi sono MAT e Industria e Artigianato per il Made in Italy."
+    ],
+    "followup": {
+      "message": "Quale percorso vuoi approfondire?",
+      "buttons": [
+        "MAT",
+        "Made in Italy"
+      ]
+    }
+  },
 
   {
-    "keywords": ["cosa sai fare","come puoi aiutarmi","a cosa servi","che cosa fai"],
+    "id": "MAT",
+    "title": "MAT",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "mat",
+      "manutenzione e assistenza tecnica"
+    ],
     "responses": [
-      "🤖 Posso aiutarti a trovare informazioni, servizi, documenti, modulistica e procedure dell'IIS Arturo Checchi."
+      "🔧 MAT prepara alla gestione, installazione e manutenzione di sistemi e impianti tecnologici."
     ]
   },
 
   {
-    "keywords": ["come stai","come va","tutto bene","come te la passi"],
+    "id": "MADE_IN_ITALY",
+    "title": "Made in Italy",
+    "categoria": "Didattica",
+    "enabled": true,
+    "keywords": [
+      "made in italy",
+      "industria e artigianato per il made in italy"
+    ],
     "responses": [
-      "😄 Sempre operativo e pronto ad aiutarti.",
-      "😊 Tutto bene! Sto aspettando la tua prossima domanda.",
-      "🤖 Sempre disponibile per supportarti."
+      "🧵 Il percorso sviluppa competenze nella progettazione e realizzazione di prodotti del settore abbigliamento e moda."
     ]
   },
 
   {
-    "keywords": ["grazie","ti ringrazio","grazie mille","molto gentile","ottimo","perfetto"],
+    "id": "MENU_CONTATTI",
+    "title": "Contatti e Sedi",
+    "categoria": "Istituto",
+    "icon": "📞",
+    "enabled": true,
+    "keywords": [
+      "contatti",
+      "telefono",
+      "email",
+      "pec",
+      "indirizzo"
+    ],
     "responses": [
-      "😊 È stato un piacere aiutarti.",
-      "👍 Felice di esserti stato utile.",
-      "🎓 Grazie a te e buona giornata."
+      "📞 Quale informazione desideri?"
+    ],
+    "followup": {
+      "message": "Seleziona una voce.",
+      "buttons": [
+        "Telefono",
+        "Email",
+        "PEC",
+        "Sede Centrale",
+        "Sede Liceo",
+        "Sede Moda"
+      ]
+    }
+  },
+
+  {
+    "id": "TELEFONO",
+    "title": "Telefono",
+    "categoria": "Contatti",
+    "enabled": true,
+    "keywords": [
+      "telefono scuola",
+      "numero scuola"
+    ],
+    "responses": [
+      "☎️ +39 0571 20889 - +39 0571 22292"
     ]
   },
 
   {
-    "keywords": ["arrivederci","a presto","ciao ciao","alla prossima","ci vediamo"],
+    "id": "EMAIL",
+    "title": "Email",
+    "categoria": "Contatti",
+    "enabled": true,
+    "keywords": [
+      "email scuola",
+      "mail scuola"
+    ],
     "responses": [
-      "👋 Arrivederci! Se avrai bisogno di aiuto sarò qui.",
-      "😊 A presto e buona giornata.",
-      "🎓 Grazie per aver utilizzato il Centro Assistenza Digitale."
+      "📧 FIIS00300C@istruzione.it"
     ]
   },
 
   {
-    "keywords": ["buon lavoro"],
+    "id": "PEC",
+    "title": "PEC",
+    "categoria": "Contatti",
+    "enabled": true,
+    "keywords": [
+      "pec"
+    ],
     "responses": [
-      "😊 Grazie! Farò del mio meglio per aiutarti.",
-      "👍 Grazie, è un piacere poterti essere utile.",
-      "🤖 Grazie! Sono sempre disponibile per supportarti."
+      "📨 FIIS00300C@pec.istruzione.it"
     ]
   },
 
   {
-    "keywords": ["buonanotte"],
+    "id": "MENU_DIGITALE",
+    "title": "Servizi Digitali",
+    "categoria": "Digitale",
+    "icon": "💻",
+    "enabled": true,
+    "keywords": [
+      "teams",
+      "argo",
+      "outlook",
+      "onedrive",
+      "microsoft 365"
+    ],
     "responses": [
-      "🌙 Buonanotte! Se avrai bisogno di aiuto, sarò qui.",
-      "😊 Buonanotte e a presto.",
-      "🤖 Riposati bene. Io resterò disponibile quando avrai bisogno."
+      "💻 Quale servizio digitale ti interessa?"
+    ],
+    "followup": {
+      "message": "Seleziona un servizio.",
+      "buttons": [
+        "Microsoft Teams",
+        "Outlook",
+        "OneDrive",
+        "Registro Argo",
+        "Password"
+      ]
+    }
+  },
+
+  {
+    "id": "TEAMS",
+    "title": "Microsoft Teams",
+    "categoria": "Digitale",
+    "enabled": true,
+    "keywords": [
+      "teams",
+      "microsoft teams"
+    ],
+    "responses": [
+      "💻 Posso aiutarti con Microsoft Teams."
     ]
   },
 
   {
-    "keywords": ["hai una famiglia","sei sposato","hai figli","hai parenti"],
+    "id": "OUTLOOK",
+    "title": "Outlook",
+    "categoria": "Digitale",
+    "enabled": true,
+    "keywords": [
+      "outlook",
+      "posta elettronica"
+    ],
     "responses": [
-      "😊 La mia famiglia è composta dagli studenti, dalle famiglie, dai docenti e dal personale dell'IIS Arturo Checchi che assisto ogni giorno."
+      "📬 Posso aiutarti con Outlook e la posta elettronica istituzionale."
     ]
   },
 
   {
-    "keywords": ["sei umano","sei una persona","sei reale","sei un robot"],
+    "id": "ONEDRIVE",
+    "title": "OneDrive",
+    "categoria": "Digitale",
+    "enabled": true,
+    "keywords": [
+      "onedrive"
+    ],
     "responses": [
-      "🤖 Sono un assistente digitale. Non sono una persona reale, ma sono stato progettato per aiutarti a trovare informazioni e servizi dell'Istituto."
+      "☁️ Posso aiutarti con OneDrive."
     ]
   },
 
   {
-    "keywords": ["raccontami una barzelletta","fammi ridere","racconta una battuta"],
+    "id": "ARGO",
+    "title": "Registro Argo",
+    "categoria": "Digitale",
+    "enabled": true,
+    "keywords": [
+      "argo",
+      "registro elettronico"
+    ],
     "responses": [
-      "😄 Preferisco concentrarmi sui servizi e sulle informazioni dell'IIS Arturo Checchi. Se hai bisogno di supporto scolastico sarò felice di aiutarti."
+      "📚 Posso aiutarti con il Registro Elettronico Argo."
     ]
   },
 
   {
-    "keywords": ["sei intelligente","sei bravo","quanto sei intelligente"],
+    "id": "PASSWORD",
+    "title": "Password",
+    "categoria": "Digitale",
+    "enabled": true,
+    "keywords": [
+      "password",
+      "recupero password"
+    ],
     "responses": [
-      "🤖 Cerco di essere abbastanza intelligente da aiutarti a trovare rapidamente informazioni e servizi dell'IIS Arturo Checchi.",
-      "😊 Sto imparando continuamente nuove informazioni sull'Istituto per aiutarti meglio."
-    ]
-  },
-
-  {
-    "keywords": ["mail istituzionale","email istituzionale","come è composta la mail istituzionale","come e composta la mail istituzionale","formato mail istituzionale"],
-    "responses": [
-      "📧 Le caselle istituzionali vengono assegnate dall'Istituto. Generalmente l'indirizzo utilizza il nominativo dell'utente seguito dal dominio istituzionale della scuola."
-    ]
-  },
-
-  {
-    "keywords": ["password","recupero password","ho dimenticato la password","reset password","credenziali perse"],
-    "responses": [
-      "🔑 In caso di smarrimento delle credenziali è possibile richiedere assistenza seguendo le procedure previste dall'Istituto."
-    ]
-  },
-
-  {
-    "keywords": ["teams","microsoft teams","accesso teams","login teams"],
-    "responses": [
-      "💻 Microsoft Teams è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
-    ]
-  },
-
-  {
-    "keywords": ["outlook","posta istituzionale","email istituzionale outlook"],
-    "responses": [
-      "📬 La posta istituzionale è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
-    ]
-  },
-
-  {
-    "keywords": ["onedrive","spazio cloud","archiviazione microsoft"],
-    "responses": [
-      "☁️ OneDrive è accessibile tramite le credenziali Microsoft 365 assegnate dall'Istituto."
-    ]
-  },
-
-  {
-    "keywords": ["argo","registro elettronico","accesso argo","login argo"],
-    "responses": [
-      "📚 Il Registro Elettronico Argo è accessibile tramite le credenziali fornite dall'Istituto."
-    ]
-  },
-
-  {
-    "keywords": ["password argo","credenziali argo","recupero argo"],
-    "responses": [
-      "📚 Per il recupero delle credenziali Argo è possibile rivolgersi agli uffici competenti."
-    ]
-  },
-
-  {
-    "keywords": ["segreteria","orari segreteria","contatti segreteria"],
-    "responses": [
-      "🏫 Posso aiutarti con la Segreteria. Hai bisogno di informazioni su orari, contatti, modulistica o procedure amministrative?"
-    ]
-  },
-
-  {
-    "keywords": ["sicurezza","corso sicurezza","formazione sicurezza"],
-    "responses": [
-      "🦺 Posso aiutarti con la formazione e la documentazione relativa alla Salute e Sicurezza sul Lavoro."
-    ]
-  },
-
-  {
-    "keywords": ["collaboratori ds","collaboratore ds","dirigente scolastico","vicepreside","staff dirigenza"],
-    "responses": [
-      "👥 Posso aiutarti con le informazioni relative ai Collaboratori del Dirigente Scolastico e agli appuntamenti."
-    ]
-  },
-
-  {
-    "keywords": ["titolo di viaggio","titoli di viaggio","abbonamento studenti"],
-    "responses": [
-      "🎫 Posso aiutarti con le informazioni relative ai Titoli di Viaggio e alle autorizzazioni per il trasporto."
-    ]
-  },
-
-  {
-    "keywords": ["meteo","calcio","politica","ricetta","ricette","film","criptovalute"],
-    "responses": [
-      "😊 Mi dispiace, ma sono stato progettato per fornire informazioni e assistenza relative ai servizi e alle attività dell'IIS Arturo Checchi.",
-      "🤖 Posso aiutarti con procedure, documenti, piattaforme digitali e servizi dell'Istituto.",
-      "🎓 Le mie competenze riguardano esclusivamente l'IIS Arturo Checchi e le sue attività."
-    ]
-  },
-  {
-  "keywords": [
-    "mail della scuola",
-    "email della scuola",
-    "mail istituto",
-    "email istituto",
-    "indirizzo email scuola",
-    "contatti email"
-  ],
-  "responses": [
-    "📧 L'indirizzo e-mail dell'IIS Arturo Checchi è FIIS00300C@istruzione.it."
-  ]
-},
-{
-  "keywords": [
-    "pec",
-    "pec scuola",
-    "pec istituto",
-    "posta certificata",
-    "pec dell'istituto",
-    "indirizzo pec"
-  ],
-  "responses": [
-    "📨 La PEC dell'IIS Arturo Checchi è FIIS00300C@pec.istruzione.it."
-  ]
-},
-{
-  "keywords": [
-    "telefono",
-    "telefono scuola",
-    "numero scuola",
-    "numero telefono",
-    "contatti telefonici",
-    "telefono istituto"
-  ],
-  "responses": [
-    "☎️ Puoi contattare l'IIS Arturo Checchi ai numeri +39 0571 20889 oppure +39 0571 22292."
-  ]
-},
-{
-  "keywords": [
-    "indirizzo scuola",
-    "dove si trova la scuola",
-    "sede scuola",
-    "dove siete",
-    "indirizzo istituto"
-  ],
-  "responses": [
-    "📍 L'IIS Arturo Checchi si trova in Viale Gramsci 7, 50054 Fucecchio (FI)."
-  ]
-},
-{
-  "keywords": [
-    "codice meccanografico",
-    "meccanografico",
-    "codice scuola"
-  ],
-  "responses": [
-    "🏫 Il codice meccanografico dell'IIS Arturo Checchi è FIIS00300C."
-  ]
-},
-{
-  "keywords": [
-    "codice fiscale",
-    "cf scuola",
-    "partita iva scuola"
-  ],
-  "responses": [
-    "🧾 Il codice fiscale dell'IIS Arturo Checchi è 91002540481."
-  ]
-},
-{
-  "keywords": [
-    "contatti",
-    "come contatto la scuola",
-    "recapiti scuola",
-    "informazioni di contatto"
-  ],
-  "responses": [
-    "📞 IIS Arturo Checchi - Viale Gramsci 7, 50054 Fucecchio (FI). Telefono: +39 0571 20889 / +39 0571 22292 - E-mail: FIIS00300C@istruzione.it - PEC: FIIS00300C@pec.istruzione.it."
-  ]
-},
-{
-  "keywords": [
-    "sito scuola",
-    "sito istituto",
-    "sito web",
-    "portale scuola"
-  ],
-  "responses": [
-    "🌐 Per informazioni, servizi e comunicazioni ufficiali puoi consultare il sito istituzionale dell'IIS Arturo Checchi."
-  ]
-},
-  {
-  "keywords": [
-    "indirizzi",
-    "indirizzi di studio",
-    "corsi",
-    "offerta formativa",
-        "percorsi",
-    "percorsi di studio",
-    "insegnamenti",
-    "quali indirizzi avete",
-    "che indirizzi ci sono al checchi",
-    "cosa si studia al checchi",
-    "quali corsi fate"
-  ],
-  "responses": [
-    "🎓 L'IIS Arturo Checchi offre percorsi liceali, tecnici e professionali. Posso fornirti informazioni sui percorsi Linguistico, Scientifico, Scientifico Sportivo, Scientifico Scienze Applicate, AFM, RIM, Moda, Calzaturiero e Manutenzione e Assistenza Tecnica."
-  ]
-},
-{
-  "keywords": [
-    "quanti plessi avete",
-    "quante sedi avete",
-    "sedi della scuola",
-    "plessi della scuola",
-    "dove si trovano le sedi",
-    "quanti plessi ci sono",
-    "quanti sono i plessi"
-  ],
-  "responses": [
-    "📍 L'IIS Arturo Checchi è articolato su tre sedi principali: Sede Centrale (Viale Gramsci 7), Sede Liceo (Via Padre Checchi) e Sede Moda e Calzaturiero (Piazza Vittorio Veneto)."
-  ]
-},
-{
-  "keywords": [
-    "sede centrale",
-    "dove si trova la sede centrale",
-    "presidenza",
-    "segreteria centrale"    
-  ],
-  "responses": [
-    "🏫 La Sede Centrale dell'IIS Arturo Checchi si trova in Viale Gramsci 7 a Fucecchio ed ospita Presidenza e Segreteria."
-  ]
-},
-{
-  "keywords": [
-    "liceo",
-    "sede liceo",
-    "dove si trova il liceo"
-  ],
-  "responses": [
-    "📚 La sede del Liceo dell'IIS Arturo Checchi si trova in Via Padre Checchi a Fucecchio."
-  ]
-},
-{
-  "keywords": [
-    "moda",
-    "calzaturiero",
-    "moda e calzaturiero",
-    "sede moda",
-    "plesso moda",
-    "dove si trova moda e calzaturiero",
-    "dove si trova moda",
-    "dove si trova moda e calzaturiero",
-    "dove si trova il calzaturiero",
-    "dove si trova calzaturiero"
-  ],
-  "responses": [
-    "👗 Il Plesso Moda e Calzaturiero dell'IIS Arturo Checchi si trova in Piazza Vittorio Veneto a Fucecchio."
-  ]
-},
-{
-  "keywords": [
-    "indirizzi di studio",
-    "corsi di studio",
-    "quali indirizzi avete",
-    "offerta formativa"
-  ],
-  "responses": [
-    "🎓 L'IIS Arturo Checchi offre percorsi di Liceo, Istituto Tecnico Economico, Istituto Tecnico Tecnologico e Istituto Professionale."
-  ]
-},
-{
-  "keywords": [
-    "liceo linguistico",
-    "indirizzo linguistico",
-    "cosa si studia al linguistico"
-  ],
-  "responses": [
-    "🌍 Il Liceo Linguistico prevede lo studio approfondito di tre lingue straniere e favorisce una preparazione orientata alle relazioni internazionali, alla comunicazione e alla prosecuzione degli studi universitari."
-  ]
-},
-{
-  "keywords": [
-    "afm",
-    "amministrazione finanza e marketing",
-    "cosa si studia ad afm",
-    "cosa significa afm",
-    "qual'è l'acronimo di afm"
-  ],
-  "responses": [
-    "💼 L'indirizzo Amministrazione Finanza e Marketing sviluppa competenze economiche, aziendali, amministrative e finanziarie."
-  ]
-},
-{
-  "keywords": [
-    "rim",
-    "relazioni internazionali per il marketing",
-    "cosa si studia al rim"
-  ],
-  "responses": [
-    "🌐 L'indirizzo Relazioni Internazionali per il Marketing approfondisce le lingue straniere e le relazioni economiche e commerciali internazionali."
-  ]
-},
-{
-  "keywords": [
-    "liceo scientifico",
-    "scientifico",
-    "indirizzo scientifico"
-  ],
-  "responses": [
-    "🔬 Il Liceo Scientifico offre una preparazione equilibrata tra area umanistica e area scientifica, con particolare attenzione a matematica, fisica e scienze."
-  ]
-},
-{
-  "keywords": [
-    "scienze applicate",
-    "liceo scienze applicate",
-    "scientifico scienze applicate"
-  ],
-  "responses": [
-    "💻 Il Liceo Scientifico opzione Scienze Applicate valorizza le discipline scientifiche e tecnologiche e prevede un importante utilizzo dei laboratori e dell'informatica."
-  ]
-},
-{
-  "keywords": [
-    "liceo sportivo",
-    "scientifico sportivo",
-    "indirizzo sportivo"
-  ],
-  "responses": [
-    "⚽ Il Liceo Scientifico Sportivo unisce la preparazione del liceo scientifico all'approfondimento delle discipline sportive e del diritto ed economia dello sport."
-  ]
-},
-{
-  "keywords": [
-    "moda",
-    "indirizzo moda",
-    "cosa si studia a moda"
-  ],
-  "responses": [
-    "👗 L'indirizzo Moda forma figure con competenze nella progettazione, realizzazione e promozione dei prodotti del settore moda."
-  ]
-},
-{
-  "keywords": [
-    "calzaturiero",
-    "indirizzo calzaturiero",
-    "cosa si studia al calzaturiero"
-  ],
-  "responses": [
-    "👞 L'indirizzo Calzaturiero sviluppa competenze nella progettazione, prototipazione e realizzazione di calzature e accessori."
-  ]
-},
-{
-  "keywords": [
-    "manutenzione",
-    "manutenzione e assistenza tecnica",
-    "indirizzo manutenzione",
-    "mat"
-  ],
-  "responses": [
-    "🔧 L'indirizzo Manutenzione e Assistenza Tecnica prepara alla gestione, installazione e manutenzione di sistemi e impianti tecnologici."
-  ]
-},
-{
-  "keywords": [
-    "laboratori",
-    "quali laboratori avete",
-    "che laboratori avete",
-    "laboratori della scuola",
-    "aule speciali",
-    "strutture della scuola"
-  ],
-  "responses": [
-    "🧪 L'IIS Arturo Checchi dispone di laboratori informatici, scientifici, linguistici e tecnico-professionali, oltre a laboratori dedicati alla moda, alla calzatura e alla manutenzione tecnica."
-  ]
-},
-{
-  "keywords": [
-    "certificazioni linguistiche",
-    "cambridge",
-    "delf",
-    "cervantes"
-  ],
-  "responses": [
-    "📜 L'Istituto promuove il conseguimento di certificazioni linguistiche internazionali come Cambridge, DELF e Cervantes."
-  ]
-},
-{
-  "keywords": [
-    "studente atleta",
-    "atleta di alto livello",
-    "progetto studente atleta"
-  ],
-  "responses": [
-    "🏅 Il Liceo Scientifico Sportivo aderisce alla sperimentazione ministeriale Studente-Atleta di Alto Livello per favorire la conciliazione tra studio e attività sportiva agonistica."
-  ]
-},
-{
-  "keywords": [
-    "come iscriversi",
-    "iscrizione",
-    "iscrizioni",
-    "come faccio a iscrivermi"
-  ],
-  "responses": [
-    "📝 Per le iscrizioni puoi consultare le informazioni presenti sul sito dell'IIS Arturo Checchi oppure contattare la Segreteria Alunni."
-  ]
-}
-]
+      "🔑 Posso aiutarti con il 
