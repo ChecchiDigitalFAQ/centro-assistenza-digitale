@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Arturo - Centro Assistenza Digitale</title>
+<title>Arturo 2.0 - Centro Assistenza Digitale</title>
 
 <style>
 
@@ -14,10 +15,14 @@
 
 body{
     margin:0;
-    font-family:'Segoe UI', Arial, sans-serif;
+    font-family:'Segoe UI',Arial,sans-serif;
     background:#eef3f8;
     color:#1f2937;
 }
+
+/* =====================================
+   HEADER
+===================================== */
 
 .hero{
     background:linear-gradient(135deg,#003b7a,#0056b3);
@@ -26,16 +31,8 @@ body{
     padding:30px 20px;
 }
 
-.logo{
-    width:120px;
-    background:white;
-    border-radius:18px;
-    padding:10px;
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-}
-
 .hero h1{
-    margin:15px 0 8px;
+    margin:0;
     font-size:56px;
 }
 
@@ -46,35 +43,23 @@ body{
 
 .description{
     max-width:900px;
-    margin:20px auto 0;
+    margin:15px auto;
     line-height:1.7;
-    font-size:17px;
 }
 
-.quick-search{
-    max-width:1200px;
-    margin:20px auto 0;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:10px;
-}
-
-.quick-search button{
+.reset-btn{
     border:none;
-    background:white;
-    color:#0056b3;
-    padding:12px 18px;
+    background:#ff9800;
+    color:white;
+    padding:12px 20px;
     border-radius:30px;
-    font-weight:600;
+    font-weight:bold;
     cursor:pointer;
-    transition:.2s;
 }
 
-.quick-search button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 5px 15px rgba(0,0,0,.15);
-}
+/* =====================================
+   CHAT
+===================================== */
 
 .container{
     max-width:1200px;
@@ -100,7 +85,7 @@ body{
     padding:18px;
     border-radius:16px;
     margin-bottom:15px;
-    max-width:85%;
+    max-width:90%;
     line-height:1.7;
 }
 
@@ -110,51 +95,67 @@ body{
     border-radius:16px;
     margin-bottom:15px;
     margin-left:auto;
-    max-width:85%;
+    max-width:90%;
     text-align:right;
-    line-height:1.7;
 }
 
-.input-area{
+/* =====================================
+   PULSANTI DINAMICI
+===================================== */
+
+.buttons-area{
     display:flex;
-    gap:12px;
-    padding:18px;
-    border-top:1px solid #e5e7eb;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:15px 0;
 }
 
-input{
-    flex:1;
-    padding:16px;
-    border:2px solid #d9e2ec;
-    border-radius:16px;
-    font-size:16px;
-}
-
-input:focus{
-    outline:none;
-    border-color:#0056b3;
-}
-
-button.send{
+.dynamic-btn{
     border:none;
     background:#0056b3;
     color:white;
-    padding:16px 28px;
-    border-radius:16px;
-    font-size:16px;
-    font-weight:600;
+    padding:12px 18px;
+    border-radius:30px;
     cursor:pointer;
+    font-weight:600;
 }
 
-button.send:hover{
-    background:#004090;
+.dynamic-btn:hover{
+    background:#003f85;
+}
+
+/* =====================================
+   INPUT
+===================================== */
+
+.input-area{
+    display:flex;
+    gap:10px;
+    padding:18px;
+    border-top:1px solid #ddd;
+}
+
+.input-area input{
+    flex:1;
+    padding:15px;
+    border:2px solid #d9e2ec;
+    border-radius:15px;
+    font-size:16px;
+}
+
+.input-area button{
+    border:none;
+    background:#0056b3;
+    color:white;
+    padding:15px 25px;
+    border-radius:15px;
+    cursor:pointer;
 }
 
 .footer{
     text-align:center;
-    margin:15px 0;
+    margin:20px;
     color:#6b7280;
-    font-size:14px;
 }
 
 @media(max-width:768px){
@@ -163,39 +164,19 @@ button.send:hover{
         font-size:42px;
     }
 
-    .subtitle{
-        font-size:20px;
-    }
-
-    .logo{
-        width:90px;
-    }
-
-    .bot,
-    .user{
-        max-width:100%;
-    }
-
     .input-area{
         flex-direction:column;
     }
 
-    button.send{
-        width:100%;
-    }
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="hero">
-
-   <img
-src="logo%20checchi-Photoroom.png-Photoroom.png"
-class="logo"
-alt="Logo IIS Arturo Checchi">
 
     <h1>🤖 Arturo</h1>
 
@@ -205,41 +186,23 @@ alt="Logo IIS Arturo Checchi">
 
     <div class="description">
 
-        Arturo è l'assistente digitale dell'IIS Arturo Checchi.
+        Benvenuto in Arturo 2.0.
 
         <br><br>
 
-        Può aiutarti a trovare informazioni, documenti, servizi e procedure relative alla vita scolastica dell'Istituto.
-
-        <br><br>
-
-        Scrivi la tua domanda oppure utilizza una delle ricerche rapide qui sotto.
+        Posso aiutarti con informazioni sull'IIS Arturo Checchi,
+        i servizi digitali, l'offerta formativa,
+        la segreteria, la modulistica e molto altro.
 
     </div>
 
-    <div class="quick-search">
+    <button
+        class="reset-btn"
+        onclick="resetConversazione()">
 
-        <button onclick="ricercaRapida('recupero password')">🔑 Recupero Password</button>
+        🔄 Nuova Conversazione
 
-        <button onclick="ricercaRapida('microsoft teams')">💻 Microsoft Teams</button>
-
-        <button onclick="ricercaRapida('registro elettronico argo')">📖 Registro Argo</button>
-
-        <button onclick="ricercaRapida('segreteria')">🏢 Segreteria</button>
-
-        <button onclick="ricercaRapida('modulistica')">📝 Modulistica</button>
-
-        <button onclick="ricercaRapida('sicurezza')">🦺 Sicurezza</button>
-
-        <button onclick="ricercaRapida('collaboratori ds')">👥 Collaboratori DS</button>
-
-        <button onclick="ricercaRapida('trasferimento da altro istituto')">🎓 Trasferimento</button>
-
-        <button onclick="ricercaRapida('cambio sezione')">🔄 Cambio Sezione</button>
-
-        <button onclick="ricercaRapida('richieste varie')">📌 Richieste Varie</button>
-
-    </div>
+    </button>
 
 </div>
 
@@ -247,85 +210,307 @@ alt="Logo IIS Arturo Checchi">
 
     <div class="chat">
 
-        <div class="messages" id="messages">
-
-            <div class="bot">
-
-                <strong>👋 Benvenuto!</strong>
-
-                <br><br>
-
-                Sono <strong>Arturo</strong>, il Centro Assistenza Digitale dell'IIS Arturo Checchi.
-
-                <br><br>
-
-                Come posso aiutarti oggi?
-
-            </div>
-
+        <div
+            class="messages"
+            id="messages">
         </div>
 
         <div class="input-area">
 
             <input
-                type="text"
                 id="domanda"
-                placeholder="Scrivi qui la tua domanda...">
+                type="text"
+                placeholder="Scrivi una domanda...">
 
-            <button class="send" onclick="rispondi()">
+            <button onclick="rispondi()">
+
                 Invia
+
             </button>
 
         </div>
 
     </div>
 
-    <div class="footer">
-        Arturo • Centro Assistenza Digitale • IIS Arturo Checchi
-    </div>
+</div>
+
+<div class="footer">
+
+    Arturo • Centro Assistenza Digitale • IIS Arturo Checchi
 
 </div>
 
 <script>
 
+/* =====================================
+   VARIABILI GLOBALI
+===================================== */
+
 let faqDatabase = [];
+let timerReset = null;
+let domandeNonRiconosciute = [];
+
+/* =====================================
+   CARICAMENTO JSON
+===================================== */
 
 fetch("faq.json")
 .then(response => response.json())
 .then(data => {
+
     faqDatabase = data;
+
+    resetConversazione();
+
 })
 .catch(error => {
+
     console.error(error);
+
 });
-function distanzaLevenshtein(a, b){
+
+/* =====================================
+   NORMALIZZAZIONE TESTO
+===================================== */
+
+function normalizza(testo){
+
+    return testo
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .replace(/[^\w\s]/g,"")
+        .replace(/\s+/g," ")
+        .trim();
+
+}
+
+/* =====================================
+   MESSAGGI CHAT
+===================================== */
+
+function aggiungiMessaggio(tipo,testo){
+
+    const box =
+        document.getElementById("messages");
+
+    const div =
+        document.createElement("div");
+
+    div.className = tipo;
+
+    div.innerHTML = testo;
+
+    box.appendChild(div);
+
+    box.scrollTop =
+        box.scrollHeight;
+
+}
+
+/* =====================================
+   PULSANTI DINAMICI
+===================================== */
+
+function creaPulsanti(lista){
+
+    const box =
+        document.getElementById("messages");
+
+    const area =
+        document.createElement("div");
+
+    area.className =
+        "buttons-area";
+
+    lista.forEach(voce => {
+
+        const btn =
+            document.createElement("button");
+
+        btn.className =
+            "dynamic-btn";
+
+        btn.textContent =
+            voce;
+
+        btn.onclick = () => {
+
+            selezionaVoce(voce);
+
+        };
+
+        area.appendChild(btn);
+
+    });
+
+    box.appendChild(area);
+
+}
+
+/* =====================================
+   MENU PRINCIPALE
+===================================== */
+
+function mostraMenuPrincipale(){
+
+    const menu = faqDatabase.filter(item =>
+
+        item.id &&
+        item.id.startsWith("MENU_") &&
+        item.enabled === true
+
+    );
+
+    creaPulsanti(
+        menu.map(
+            item => item.title
+        )
+    );
+
+}
+
+/* =====================================
+   RESET CHAT
+===================================== */
+
+function resetConversazione(){
+
+    clearTimeout(timerReset);
+
+    document
+        .getElementById("messages")
+        .innerHTML = "";
+
+    aggiungiMessaggio(
+        "bot",
+        "<strong>👋 Benvenuto!</strong><br><br>Sono Arturo, il Centro Assistenza Digitale dell'IIS Arturo Checchi.<br><br>Come posso aiutarti?"
+    );
+
+    mostraMenuPrincipale();
+
+}
+
+/* =====================================
+   TIMER INATTIVITA'
+===================================== */
+
+function avviaTimerReset(){
+
+    clearTimeout(timerReset);
+
+    timerReset = setTimeout(() => {
+
+        resetConversazione();
+
+        aggiungiMessaggio(
+            "bot",
+            "⌛ Conversazione reimpostata automaticamente per inattività."
+        );
+
+    },600000);
+
+}
+
+/* =====================================
+   PRIVACY
+===================================== */
+
+function richiestaPrivacy(domanda){
+
+    domanda =
+        normalizza(domanda);
+
+    const parole = [
+
+        "mail di",
+        "email di",
+        "telefono di",
+        "cellulare di",
+        "dove lavora",
+        "dove insegna",
+        "fascicolo",
+        "cartella",
+        "documenti personali",
+        "dati personali"
+
+    ];
+
+    return parole.some(
+        parola =>
+        domanda.includes(parola)
+    );
+
+}
+
+/* =====================================
+   CALCOLATRICE
+===================================== */
+
+function eseguiCalcolo(testo){
+
+    try{
+
+        if(
+            /^[0-9+\-*/(). ]+$/.test(testo)
+        ){
+
+            const risultato =
+                Function(
+                    "return (" +
+                    testo +
+                    ")"
+                )();
+
+            return "🧮 Risultato: " +
+                risultato;
+
+        }
+
+    }catch(e){}
+
+    return null;
+
+}
+
+/* =====================================
+   LEVENSHTEIN
+===================================== */
+
+function distanzaLevenshtein(a,b){
 
     const matrix = [];
 
-    for(let i = 0; i <= b.length; i++){
-        matrix[i] = [i];
+    for(let i=0;i<=b.length;i++){
+        matrix[i]=[i];
     }
 
-    for(let j = 0; j <= a.length; j++){
-        matrix[0][j] = j;
+    for(let j=0;j<=a.length;j++){
+        matrix[0][j]=j;
     }
 
-    for(let i = 1; i <= b.length; i++){
+    for(let i=1;i<=b.length;i++){
 
-        for(let j = 1; j <= a.length; j++){
+        for(let j=1;j<=a.length;j++){
 
-            if(b.charAt(i - 1) == a.charAt(j - 1)){
+            if(
+                b.charAt(i-1)===
+                a.charAt(j-1)
+            ){
 
-                matrix[i][j] = matrix[i - 1][j - 1];
+                matrix[i][j] =
+                    matrix[i-1][j-1];
 
             }else{
 
                 matrix[i][j] = Math.min(
-                    matrix[i - 1][j - 1] + 1,
-                    Math.min(
-                        matrix[i][j - 1] + 1,
-                        matrix[i - 1][j] + 1
-                    )
+
+                    matrix[i-1][j-1]+1,
+
+                    matrix[i][j-1]+1,
+
+                    matrix[i-1][j]+1
+
                 );
 
             }
@@ -335,248 +520,264 @@ function distanzaLevenshtein(a, b){
     }
 
     return matrix[b.length][a.length];
+
 }
 
-function simile(a,b){
+/* =====================================
+   RICERCA FAQ
+===================================== */
 
-    a = a.toLowerCase().trim();
-    b = b.toLowerCase().trim();
+function cercaFAQ(domanda){
 
-    let distanza =
-        distanzaLevenshtein(a,b);
+    domanda =
+        normalizza(domanda);
 
-    let lunghezza =
-        Math.max(a.length,b.length);
+    let migliorFaq = null;
+    let migliorPunteggio = 0;
 
-    let percentuale =
-        1 - (distanza / lunghezza);
+    faqDatabase.forEach(faq => {
 
-    return percentuale >= 0.80;
-}
-function aggiungiMessaggio(tipo,testo){
-
-    let box=document.getElementById("messages");
-
-    let div=document.createElement("div");
-
-    div.className=tipo;
-
-    div.innerHTML=testo;
-
-    box.appendChild(div);
-
-    box.scrollTop=box.scrollHeight;
-}
-
-function ricercaRapida(testo){
-
-    document.getElementById("domanda").value=testo;
-
-    rispondi();
-}
-function richiestaPrivacy(domanda){
-
-    domanda = domanda.toLowerCase();
-
-    const consentite = [
-
-        "mail della scuola",
-        "mail dell'istituto",
-        "email della scuola",
-        "email dell'istituto",
-        "telefono della scuola",
-        "telefono dell'istituto",
-        "pec della scuola",
-        "pec dell'istituto",
-        "mail istituzionale",
-        "email istituzionale",
-        "come è composta la mail",
-        "come e composta la mail",
-        "formato della mail",
-        "contatti della scuola",
-        "contatti dell'istituto"
-
-    ];
-
-    for(let voce of consentite){
-
-        if(domanda.includes(voce)){
-            return false;
+        if(!faq.keywords){
+            return;
         }
+
+        faq.keywords.forEach(keyword => {
+
+            keyword =
+                normalizza(keyword);
+
+            if(
+                domanda.includes(keyword)
+            ){
+
+                migliorFaq =
+                    faq;
+
+                migliorPunteggio =
+                    1;
+
+                return;
+
+            }
+
+            const distanza =
+                distanzaLevenshtein(
+                    domanda,
+                    keyword
+                );
+
+            const lunghezza =
+                Math.max(
+                    domanda.length,
+                    keyword.length
+                );
+
+            const punteggio =
+                1 -
+                (
+                    distanza /
+                    lunghezza
+                );
+
+            if(
+                punteggio >
+                migliorPunteggio
+            ){
+
+                migliorPunteggio =
+                    punteggio;
+
+                migliorFaq =
+                    faq;
+
+            }
+
+        });
+
+    });
+
+    if(
+        migliorPunteggio >= 0.75
+    ){
+
+        return migliorFaq;
 
     }
 
-   const sensibili = [
+    return null;
 
-    "mail di",
-    "email di",
-    "indirizzo email",
-    "indirizzo mail",
+}
 
-    "telefono di",
-    "numero di telefono",
-    "cellulare di",
+/* =====================================
+   VISUALIZZA FAQ
+===================================== */
 
-    "dove lavora",
-    "dove insegna",
-    "in quale plesso",
-    "plesso di servizio",
-    "sede di servizio",
+function mostraVoce(voce){
 
-    "fascicolo",
-    "cartella",
-    "documenti personali",
-    "dati personali",
+    if(voce.responses){
 
-    "pratica dello studente",
-    "pratica dell'alunno"
-
-];
-    for(let voce of sensibili){
-
-        if(domanda.includes(voce)){
-            return true;
-        }
+        aggiungiMessaggio(
+            "bot",
+            voce.responses[
+                Math.floor(
+                    Math.random() *
+                    voce.responses.length
+                )
+            ]
+        );
 
     }
-const parolePersona = [
 
-    "alunno",
-    "studente",
-    "docente",
-    "professore",
-    "prof.ssa",
-    "prof",
-    "insegnante",
-    "personale",
-    "dipendente"
+    if(
+        voce.followup &&
+        voce.followup.message
+    ){
 
-];
+        aggiungiMessaggio(
+            "bot",
+            voce.followup.message
+        );
 
-for(let parola of parolePersona){
+    }
 
-    if(domanda.includes(parola)){
+    if(
+        voce.followup &&
+        voce.followup.buttons
+    ){
 
-        if(
-            domanda.includes("mail") ||
-            domanda.includes("email") ||
-            domanda.includes("telefono") ||
-            domanda.includes("cellulare") ||
-            domanda.includes("plesso") ||
-            domanda.includes("lavora") ||
-            domanda.includes("insegna") ||
-            domanda.includes("fascicolo") ||
-            domanda.includes("cartella") ||
-            domanda.includes("documenti")
-           
-        ){
-            return true;
-        }
+        creaPulsanti(
+            voce.followup.buttons
+        );
 
     }
 
 }
 
-    return false;
+/* =====================================
+   CLICK PULSANTI
+===================================== */
+
+function selezionaVoce(testo){
+
+    aggiungiMessaggio(
+        "user",
+        testo
+    );
+
+    const voce =
+        faqDatabase.find(
+            item =>
+            item.title === testo
+        );
+
+    if(voce){
+
+        mostraVoce(voce);
+
+    }
+
+    avviaTimerReset();
+
 }
+
+/* =====================================
+   RISPOSTA UTENTE
+===================================== */
+
 function rispondi(){
 
-    let input=document.getElementById("domanda");
+    const input =
+        document.getElementById("domanda");
 
-    let testo=input.value.trim();
+    const testo =
+        input.value.trim();
 
-    if(testo==="") return;
+    if(!testo){
+        return;
+    }
 
-    aggiungiMessaggio("user",testo);
+    avviaTimerReset();
 
-    let domanda=testo.toLowerCase();
-if(richiestaPrivacy(domanda)){
+    aggiungiMessaggio(
+        "user",
+        testo
+    );
 
-    setTimeout(function(){
+    if(
+        richiestaPrivacy(testo)
+    ){
 
         aggiungiMessaggio(
             "bot",
-            "🔒 Non posso accedere, consultare o fornire dati personali, informazioni riservate o documentazione riferita a studenti, famiglie o personale dell'Istituto. Posso fornire esclusivamente informazioni generali sui servizi, sui contatti istituzionali e sulle procedure scolastiche."
+            "🔒 Non posso fornire dati personali o informazioni riservate riferite a studenti, famiglie o personale."
         );
 
-    },500);
+        input.value = "";
 
-    input.value="";
-
-    return;
-}
-
-    let risposta=null;
-
-    for(let faq of faqDatabase){
-
-    for(let keyword of faq.keywords){
-
-        if(
-            domanda.includes(keyword.toLowerCase())
-            ||
-            simile(domanda, keyword)
-        ){
-
-            risposta =
-                faq.responses[
-                    Math.floor(
-                        Math.random() * faq.responses.length
-                    )
-                ];
-
-            break;
-
-        }
+        return;
 
     }
 
-    if(risposta !== null){
-        break;
-    }
+    const calcolo =
+        eseguiCalcolo(testo);
 
-}
-    if(risposta===null){
-
-        let risposteGeneriche=[
-
-            "😊 Non ho ancora una risposta per questa richiesta. La tua domanda potrà contribuire a migliorare Arturo.",
-
-            "🤖 Al momento non dispongo di informazioni su questo argomento. Prova a riformulare la domanda.",
-
-            "🎓 Non ho ancora una risposta per questa richiesta, ma continuo ad evolvermi."
-
-        ];
-
-        risposta=
-            risposteGeneriche[
-                Math.floor(
-                    Math.random()*risposteGeneriche.length
-                )
-            ];
-    }
-
-    setTimeout(function(){
+    if(calcolo){
 
         aggiungiMessaggio(
             "bot",
-            risposta
+            calcolo
         );
 
-    },500);
+        input.value = "";
 
-    input.value="";
+        return;
+
+    }
+
+    const faq =
+        cercaFAQ(testo);
+
+    if(faq){
+
+        mostraVoce(faq);
+
+    }else{
+
+        domandeNonRiconosciute.push(
+            testo
+        );
+
+        aggiungiMessaggio(
+            "bot",
+            "🤖 Non ho ancora una risposta per questa richiesta. La tua domanda mi aiuterà a migliorare."
+        );
+
+    }
+
+    input.value = "";
+
 }
+
+/* =====================================
+   TASTO ENTER
+===================================== */
 
 document
 .getElementById("domanda")
-.addEventListener("keypress",function(event){
+.addEventListener(
+    "keypress",
+    function(event){
 
-    if(event.key==="Enter"){
-        rispondi();
+        if(
+            event.key === "Enter"
+        ){
+
+            rispondi();
+
+        }
+
     }
-
-});
+);
 
 </script>
 
