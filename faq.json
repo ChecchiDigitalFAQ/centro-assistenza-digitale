@@ -250,7 +250,390 @@
       },
 
       "privacy": true
-    }
+    },
+{
+  "id": "AIUTO",
+  "titolo": "Come usare Arturo",
+  "categoria": "Sistema",
+  "intent": "AIUTO",
+  "priority": 100,
+  "enabled": true,
 
+  "keywords": [
+    "aiuto",
+    "help",
+    "cosa sai fare",
+    "come funzioni",
+    "istruzioni",
+    "come usare arturo"
+  ],
+
+  "synonyms": [],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "👋 Puoi scrivere le tue domande in modo naturale. Posso aiutarti con informazioni sull'istituto, l'offerta formativa, i servizi digitali e varie funzioni utili."
+  ],
+
+  "followup": {
+    "message": "Prova ad esempio:",
+    "buttons": [
+      "Quali indirizzi di studio offre la scuola?",
+      "Come recupero la password di Teams?",
+      "Dove trovo i contatti della scuola?",
+      "Che ore sono?",
+      "Meteo Fucecchio"
+    ]
+  },
+
+  "privacy": false
+},
+    {
+  "id": "DIRIGENZA",
+  "titolo": "Dirigenza",
+  "categoria": "Istituto",
+  "intent": "DIRIGENZA",
+  "priority": 100,
+  "enabled": true,
+
+  "keywords": [
+    "dirigenza",
+    "dirigente",
+    "preside",
+    "dirigente scolastico"
+  ],
+
+  "synonyms": [],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "👔 Per informazioni sulla Dirigenza consulta i contatti ufficiali dell'istituto oppure contatta la segreteria."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "SEGRETERIE",
+  "titolo": "Segreterie",
+  "categoria": "Istituto",
+  "intent": "SEGRETERIE",
+  "priority": 100,
+  "enabled": true,
+
+  "keywords": [
+    "segreteria",
+    "segreterie",
+    "uffici",
+    "ufficio didattica",
+    "ufficio personale"
+  ],
+
+  "synonyms": [],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "📋 Le segreterie forniscono supporto per pratiche amministrative, studenti, famiglie e personale scolastico."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "MICROSOFT365",
+  "titolo": "Microsoft 365",
+  "categoria": "Servizi Digitali",
+  "intent": "MICROSOFT365",
+  "priority": 200,
+  "enabled": true,
+
+  "keywords": [
+    "microsoft 365",
+    "office 365",
+    "m365",
+    "account scolastico"
+  ],
+
+  "synonyms": [
+    "microsoft365",
+    "office365"
+  ],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "💻 Microsoft 365 comprende servizi come Teams, Outlook e OneDrive accessibili con le credenziali scolastiche."
+  ],
+
+  "followup": {
+    "message": "Quale servizio ti interessa?",
+    "buttons": [
+      "Teams",
+      "Outlook",
+      "OneDrive",
+      "Password"
+    ]
+  },
+
+  "privacy": false
+},
+    {
+  "id": "TEAMS",
+  "titolo": "Microsoft Teams",
+  "categoria": "Servizi Digitali",
+  "intent": "TEAMS",
+  "priority": 300,
+  "enabled": true,
+
+  "keywords": [
+    "teams",
+    "microsoft teams",
+    "videolezioni",
+    "riunioni teams"
+  ],
+
+  "synonyms": [
+    "tems",
+    "teems",
+    "teans"
+  ],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "💻 Posso aiutarti con Microsoft Teams e con l'accesso ai servizi Microsoft 365."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "OUTLOOK",
+  "titolo": "Outlook",
+  "categoria": "Servizi Digitali",
+  "intent": "OUTLOOK",
+  "priority": 300,
+  "enabled": true,
+
+  "keywords": [
+    "outlook",
+    "posta elettronica",
+    "mail scolastica"
+  ],
+
+  "synonyms": [
+    "outlok",
+    "outllook"
+  ],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "📧 Outlook consente di accedere alla posta elettronica istituzionale dell'istituto."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "ONEDRIVE",
+  "titolo": "OneDrive",
+  "categoria": "Servizi Digitali",
+  "intent": "ONEDRIVE",
+  "priority": 300,
+  "enabled": true,
+
+  "keywords": [
+    "onedrive",
+    "cloud",
+    "archiviazione online"
+  ],
+
+  "synonyms": [],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "☁️ OneDrive consente di archiviare e sincronizzare documenti online."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "ARGO",
+  "titolo": "Registro Argo",
+  "categoria": "Servizi Digitali",
+  "intent": "ARGO",
+  "priority": 300,
+  "enabled": true,
+
+  "keywords": [
+    "argo",
+    "registro elettronico",
+    "registro"
+  ],
+
+  "synonyms": [
+    "argoo"
+  ],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "📚 Argo è il registro elettronico utilizzato dall'istituto."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "PASSWORD",
+  "titolo": "Recupero Password",
+  "categoria": "Servizi Digitali",
+  "intent": "PASSWORD",
+  "priority": 50,
+  "enabled": true,
+
+  "keywords": [
+    "password",
+    "recupero password",
+    "ho dimenticato la password"
+  ],
+
+  "synonyms": [
+    "passwrod",
+    "pasword",
+    "passord"
+  ],
+
+  "requiredContext": [
+    "servizio"
+  ],
+
+  "clarification": {
+    "message": "A quale servizio ti riferisci?",
+    "buttons": [
+      "Microsoft 365",
+      "Argo",
+      "Altro"
+    ]
+  },
+
+  "responses": [
+    "Posso aiutarti a recuperare la password del servizio richiesto."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+},
+    {
+  "id": "PASSWORD_MICROSOFT365",
+  "titolo": "Password Microsoft 365",
+  "categoria": "Servizi Digitali",
+  "intent": "PASSWORD_MICROSOFT365",
+  "priority": 500,
+  "enabled": true,
+
+  "keywords": [
+    "password teams",
+    "password outlook",
+    "password microsoft 365",
+    "password office 365",
+    "ho dimenticato la password di teams",
+    "come recupero la password di microsoft 365"
+  ],
+
+  "synonyms": [],
+
+  "requiredContext": [],
+
+  "clarification": {
+    "message": "",
+    "buttons": []
+  },
+
+  "responses": [
+    "🔑 Se hai dimenticato la password del tuo account Microsoft 365 puoi contattare il supporto dell'istituto per ricevere assistenza."
+  ],
+
+  "followup": {
+    "message": "",
+    "buttons": []
+  },
+
+  "privacy": false
+}
   ]
 }
