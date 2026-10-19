@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arturo 2.0</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f5f7fa;
+margin:0;
+}
+
+header{
+background:#003366;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+#chat{
+height:65vh;
+overflow-y:auto;
+padding:20px;
+background:white;
+}
+
+.msg{
+margin:10px 0;
+padding:10px;
+border-radius:10px;
+max-width:80%;
+}
+
+.user{
+background:#dbeafe;
+margin-left:auto;
+}
+
+.bot{
+background:#e5e7eb;
+}
+
+#inputArea{
+display:flex;
+padding:10px;
+background:white;
+border-top:1px solid #ddd;
+}
+
+#question{
+flex:1;
+padding:10px;
+font-size:16px;
+}
+
+button{
+padding:10px 15px;
+margin-left:5px;
+cursor:pointer;
+}
+
+.quick{
+margin:5px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🎓 Arturo 2.0</h1>
+<p>Assistente Digitale IIS Arturo Checchi</p>
+</header>
+
+<div id="chat"></div>
+
+<div style="padding:15px;">
+<button class="quick" onclick="ask('Offerta Formativa')">🎓 Offerta Formativa</button>
+<button class="quick" onclick="ask('Contatti')">📞 Contatti</button>
+<button class="quick" onclick="ask('Teams')">💻 Teams</button>
+<button class="quick" onclick="ask('Password')">🔑 Password</button>
+</div>
+
+<div id="inputArea">
+<input id="question" placeholder="Scrivi la tua domanda...">
+<button onclick="send()">Invia</button>
+</div>
+
+<script>
+
+let faq=[];
+
+fetch('faq.json')
+.then(r=>r.json())
+.then(data=>faq=data);
+
+function addMessage(text,cls){
+const div=document.createElement('div');
+div.className='msg '+cls;
+div.innerHTML=text;
+document.getElementById('chat').appendChild(div);
+document.getElementById('chat').scrollTop=document.getElementById('chat').scrollHeight;
+}
+
+function send(){
+
+let q=document.getElementById('question').value.trim().toLowerCase();
+
+if(!q)return;
+
+addMessage(q,'user');
+
+let found=null;
+
+faq.forEach(item=>{
+item.keywords.forEach(k=>{
+if(q.includes(k.toLowerCase()))
+found=item;
+});
+});
+
+if(found){
+
+let risposta=found.responses.join("<br><br>");
+
+addMessage(risposta,'bot');
+
+}else{
+
+addMessage(
+"🤖 Non ho trovato una risposta precisa. Prova con: Offerta Formativa, Contatti, Teams, Outlook, OneDrive, Argo o Password.",
+'bot'
+);
+
+}
+
+document.getElementById('question').value='';
+}
+
+function ask(text){
+document.getElementById('question').value=text;
+send();
+}
+
+document.getElementById('question').addEventListener('keypress',function(e){
+if(e.key==='Enter') send();
+});
+
+</script>
+
+</body>
+</html>
