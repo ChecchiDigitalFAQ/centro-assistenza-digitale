@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Arturo - Assistente Digitale IIS Arturo Checchi</title>
+
+<style>
+
+:root{
+    --primary:#003b70;
+    --light:#f4f7fa;
+    --white:#ffffff;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Segoe UI, Arial, sans-serif;
+    background:var(--light);
+    color:#333;
+}
+
+header{
+    background:var(--primary);
+    color:white;
+    text-align:center;
+    padding:30px 20px;
+}
+
+header img{
+    width:120px;
+    max-width:100%;
+    margin-bottom:10px;
+}
+
+header h1{
+    margin:10px 0 5px;
+}
+
+header p{
+    margin:0;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.quick-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.quick-buttons button{
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    background:#e9eef4;
+    font-weight:600;
+}
+
+.quick-buttons button:hover{
+    background:#d8e3ef;
+}
+
+#chat{
+    background:white;
+    border-radius:12px;
+    min-height:300px;
+    max-height:500px;
+    overflow-y:auto;
+    padding:20px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.message{
+    margin-bottom:15px;
+    padding:12px;
+    border-radius:10px;
+}
+
+.bot{
+    background:#f1f5f9;
+}
+
+.user{
+    background:#dbeafe;
+    text-align:right;
+}
+
+.input-area{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.input-area input{
+    flex:1;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.input-area button{
+    border:none;
+    background:var(--primary);
+    color:white;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.tools{
+    margin-top:15px;
+}
+
+.tools button{
+    border:none;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    background:#444;
+    color:white;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#666;
+}
+
+ul{
+    margin-bottom:0;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<img src="logo.png" alt="Logo IIS Arturo Checchi">
+
+<h1>Arturo</h1>
+
+<p>Assistente Digitale IIS Arturo Checchi</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h3>👋 Benvenuto in Arturo</h3>
+
+<p>
+Sono l'assistente digitale dell'IIS Arturo Checchi.
+Posso aiutarti a trovare informazioni sull'istituto,
+sull'offerta formativa e sui principali servizi digitali.
+</p>
+
+<p>
+🚀 Arturo è un progetto in continua evoluzione.
+Le domande non ancora gestite contribuiscono a migliorare progressivamente il servizio.
+</p>
+
+<hr>
+
+<h4>💡 Esempi di domande</h4>
+
+<ul>
+<li>Quali indirizzi di studio offre la scuola?</li>
+<li>Come recupero la password di Teams?</li>
+<li>Dove trovo i contatti della segreteria?</li>
+<li>Che ore sono?</li>
+<li>Meteo Fucecchio</li>
+</ul>
+
+</div>
+
+<div class="card">
+
+<div class="quick-buttons">
+
+<button onclick="askQuick('istituto')">🏫 Istituto</button>
+<button onclick="askQuick('dirigenza')">👔 Dirigenza</button>
+<button onclick="askQuick('segreterie')">📋 Segreterie</button>
+<button onclick="askQuick('servizi digitali')">💻 Servizi Digitali</button>
+<button onclick="askQuick('contatti')">📞 Contatti</button>
+<button onclick="askQuick('aiuto')">❓ Aiuto</button>
+
+</div>
+
+</div>
+
+<div id="chat">
+
+<div class="message bot">
+👋 Ciao! Sono Arturo.<br><br>
+Come posso aiutarti oggi?
+</div>
+
+</div>
+
+<div class="input-area">
+
+<input
+type="text"
+id="question"
+placeholder="Scrivi la tua domanda...">
+
+<button onclick="sendQuestion()">
+Invia
+</button>
+
+</div>
+
+<div class="tools">
+
+<button onclick="newConversation()">
+➕ Nuova Conversazione
+</button>
+
+</div>
+
+</div>
+
+<footer>
+Arturo Core 0.1
+</footer>
+
+<script>
+
+let faqData=[];
+let timeoutId;
+
+async function loadFaqs(){
+
+    try{
+
+        const response=await fetch("faq.json");
+
+        const data=await response.json();
+
+        faqData=data.faqs || [];
+
+        console.log("FAQ caricate:",faqData.length);
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+loadFaqs();
+
+function addMessage(text,type){
+
+    const chat=document.getElementById("chat");
+
+    const div=document.createElement("div");
+
+    div.className="message "+type;
+
+    div.innerHTML=text;
+
+    chat.appendChild(div);
+
+    chat.scrollTop=chat.scrollHeight;
+
+}
+
+function askQuick(text){
+
+    document.getElementById("question").value=text;
+
+    sendQuestion();
+
+}
+
+function sendQuestion(){
+
+    const input=document.getElementById("question");
+
+    const question=input.value.trim();
+
+    if(question==="") return;
+
+    resetTimer();
+
+    addMessage(question,"user");
+
+    searchFaq(question);
+
+    input.value="";
+
+}
+
+function searchFaq(question){
+
+    const q=question.toLowerCase();
+
+    let result=null;
+
+    faqData.forEach(faq=>{
+
+        if(!faq.enabled) return;
+
+        const keywords=faq.keywords || [];
+
+        keywords.forEach(keyword=>{
+
+            if(q.includes(keyword.toLowerCase())){
+
+                result=faq;
+
+            }
+
+        });
+
+    });
+
+    if(result){
+
+        addMessage(
+            result.responses.join("<br><br>"),
+            "bot"
+        );
+
+    }else{
+
+        addMessage(
+            "🤔 Non ho trovato una risposta precisa. Prova a riformulare la domanda oppure utilizza il pulsante Aiuto.",
+            "bot"
+        );
+
+    }
+
+}
+
+function newConversation(){
+
+    document.getElementById("chat").innerHTML=
+    '<div class="message bot">👋 Ciao! Sono Arturo.<br><br>Come posso aiutarti oggi?</div>';
+
+}
+
+function resetTimer(){
+
+    clearTimeout(timeoutId);
+
+    timeoutId=setTimeout(()=>{
+
+        newConversation();
+
+        addMessage(
+            "⏰ Conversazione reimpostata automaticamente dopo 5 minuti di inattività.",
+            "bot"
+        );
+
+    },300000);
+
+}
+
+document.getElementById("question").addEventListener("keypress",function(e){
+
+    if(e.key==="Enter"){
+
+        sendQuestion();
+
+    }
+
+});
+
+resetTimer();
+
+</script>
+
+</body>
+</html>
