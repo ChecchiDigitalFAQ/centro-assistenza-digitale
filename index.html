@@ -1,365 +1,159 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Arturo - Centro Assistenza Digitale</title>
+    <title>Arturo - Centro Assistenza Digitale</title>
 
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-body{
-    background:#eef3f9;
-    display:flex;
-    flex-direction:column;
-    min-height:100vh;
-}
-
-/* HEADER */
-
-header{
-    background:linear-gradient(135deg,#003b70,#005ca9);
-    color:white;
-    text-align:center;
-    padding:15px 20px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.15);
-}
-
-header img{
-    width:220px;
-    max-width:100%;
-    margin-bottom:8px;
-}
-
-header h1{
-    margin:0;
-    font-size:2.2rem;
-}
-
-header p{
-    margin-top:5px;
-    opacity:.95;
-}
-
-/* CHAT */
-
-.chat-container{
-    flex:1;
-    width:100%;
-    max-width:1100px;
-    margin:auto;
-    display:flex;
-    flex-direction:column;
-    padding:15px;
-}
-
-.chat-box{
-    flex:1;
-    background:white;
-    border-radius:20px;
-    padding:20px;
-    overflow-y:auto;
-    box-shadow:0 4px 14px rgba(0,0,0,.08);
-    min-height:500px;
-}
-
-.message{
-    margin-bottom:15px;
-    padding:12px 14px;
-    border-radius:15px;
-    max-width:85%;
-    line-height:1.5;
-}
-
-.bot{
-    background:#edf4fd;
-    border-left:5px solid #005ca9;
-}
-
-.user{
-    background:#005ca9;
-    color:white;
-    margin-left:auto;
-}
-
-/* INPUT */
-
-.input-area{
-    margin-top:15px;
-    display:flex;
-    gap:10px;
-}
-
-.input-area input{
-    flex:1;
-    padding:14px;
-    border-radius:12px;
-    border:1px solid #ccc;
-    font-size:16px;
-}
-
-.input-area button{
-    background:#005ca9;
-    color:white;
-    border:none;
-    padding:14px 22px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.input-area button:hover{
-    background:#003b70;
-}
-
-/* SUGGERIMENTI */
-
-.quick{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:15px;
-}
-
-.quick button{
-    background:white;
-    border:1px solid #005ca9;
-    color:#005ca9;
-    padding:10px 14px;
-    border-radius:30px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.quick button:hover{
-    background:#005ca9;
-    color:white;
-}
-
-/* FOOTER */
-
-footer{
-    text-align:center;
-    padding:12px;
-    background:white;
-    border-top:1px solid #ddd;
-    font-size:.9rem;
-    color:#666;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-    header img{
-        width:170px;
-    }
-
-    header h1{
-        font-size:1.8rem;
-    }
-
-    .chat-box{
-        min-height:450px;
-        padding:15px;
-    }
-
-    .input-area{
-        flex-direction:column;
-    }
-
-    .input-area button{
-        width:100%;
-    }
-
-    .message{
-        max-width:100%;
-    }
-}
-
-</style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<header>
+    <!-- HEADER -->
 
-    <img src="logo-checchi.png" alt="IIS Arturo Checchi">
+    <header>
 
-    <h1>ARTURO</h1>
+        <div class="header-content">
 
-    <p>
-        Centro Assistenza Digitale dell'IIS Arturo Checchi
-    </p>
+            <img src="immagini/logo-checchi.png"
+                 alt="Logo IIS Arturo Checchi"
+                 class="logo">
 
-</header>
+            <h1>Arturo</h1>
 
-<div class="chat-container">
-
-    <div class="chat-box" id="chat">
-
-        <div class="message bot">
-            👋 Benvenuto! Sono Arturo.<br><br>
-
-            Posso aiutarti a trovare informazioni su:
-
-            <ul style="margin-top:10px;margin-left:20px">
-                <li>Offerta formativa</li>
-                <li>Open Day</li>
-                <li>Segreteria</li>
-                <li>Orari e sedi</li>
-                <li>Docenti</li>
-                <li>Studenti</li>
-                <li>Personale ATA</li>
-            </ul>
+            <p>
+                Centro Assistenza Digitale dell'IIS Arturo Checchi
+            </p>
 
         </div>
 
-    </div>
+    </header>
 
-    <div class="quick">
+    <!-- CONTENUTO -->
 
-        <button onclick="askQuick('Open Day')">Open Day</button>
+    <main class="main-layout">
 
-        <button onclick="askQuick('Offerta formativa')">
-            Offerta Formativa
-        </button>
+        <!-- MENU LATERALE -->
 
-        <button onclick="askQuick('Segreteria')">
-            Segreteria
-        </button>
+        <aside class="sidebar">
 
-        <button onclick="askQuick('Sedi')">
-            Sedi
-        </button>
+            <h3>Servizi Rapidi</h3>
 
-        <button onclick="askQuick('Orario')">
-            Orario
-        </button>
+            <button onclick="quickQuestion('Open Day')">
+                🎓 Open Day
+            </button>
 
-    </div>
+            <button onclick="quickQuestion('Offerta Formativa')">
+                📚 Offerta Formativa
+            </button>
 
-    <div class="input-area">
+            <button onclick="quickQuestion('Segreteria')">
+                🏢 Segreteria
+            </button>
 
-        <input
-            type="text"
-            id="userInput"
-            placeholder="Scrivi una domanda..."
-        >
+            <button onclick="quickQuestion('Contatti')">
+                📞 Contatti
+            </button>
 
-        <button onclick="sendMessage()">
-            Invia
-        </button>
+            <button onclick="quickQuestion('Orari')">
+                ⏰ Orari
+            </button>
 
-    </div>
+            <button onclick="quickQuestion('Sedi')">
+                📍 Sedi
+            </button>
 
-</div>
+            <hr>
 
-<footer>
+            <h3>Percorsi di Studio</h3>
 
-    © IIS Arturo Checchi - Assistente Digitale Arturo
+            <button onclick="quickQuestion('Liceo Scientifico')">
+                🔬 Liceo Scientifico
+            </button>
 
-</footer>
+            <button onclick="quickQuestion('Scienze Applicate')">
+                💻 Scienze Applicate
+            </button>
 
-<script>
+            <button onclick="quickQuestion('Liceo Linguistico')">
+                🌍 Linguistico
+            </button>
 
-let faq = [];
+            <button onclick="quickQuestion('AFM')">
+                📊 AFM
+            </button>
 
-fetch("faq.json")
-.then(response => response.json())
-.then(data => {
-    faq = data;
-})
-.catch(error=>{
-    console.log(error);
-});
+            <button onclick="quickQuestion('RIM')">
+                🌎 RIM
+            </button>
 
-function addMessage(text,type){
+        </aside>
 
-    const chat=document.getElementById("chat");
+        <!-- CHAT -->
 
-    const div=document.createElement("div");
+        <section class="chat-section">
 
-    div.className="message "+type;
+            <div id="chatBox" class="chat-box">
 
-    div.innerHTML=text;
+                <div class="message bot">
 
-    chat.appendChild(div);
+                    <div class="avatar">
+                        🤖
+                    </div>
 
-    chat.scrollTop=chat.scrollHeight;
-}
+                    <div class="bubble">
 
-function searchAnswer(question){
+                        <strong>Ciao! Sono Arturo.</strong>
 
-    question=question.toLowerCase();
+                        <br><br>
 
-    for(let item of faq){
+                        Posso aiutarti a trovare informazioni su:
 
-        if(item.keywords){
+                        <ul>
+                            <li>Offerta formativa</li>
+                            <li>Open Day</li>
+                            <li>Segreteria</li>
+                            <li>Contatti</li>
+                            <li>Percorsi di studio</li>
+                            <li>Sedi dell'istituto</li>
+                        </ul>
 
-            for(let key of item.keywords){
+                    </div>
 
-                if(question.includes(key.toLowerCase())){
+                </div>
 
-                    return item.answer;
+            </div>
 
-                }
+            <!-- INPUT -->
 
-            }
+            <div class="input-container">
 
-        }
+                <input type="text"
+                       id="userInput"
+                       placeholder="Scrivi una domanda...">
 
-    }
+                <button onclick="sendMessage()">
+                    Invia
+                </button>
 
-    return `
-    Mi dispiace, non ho trovato una risposta specifica.<br><br>
-    Prova a riformulare la domanda oppure consulta il sito dell'Istituto.
-    `;
-}
+            </div>
 
-function sendMessage(){
+        </section>
 
-    const input=document.getElementById("userInput");
+    </main>
 
-    const text=input.value.trim();
+    <!-- FOOTER -->
 
-    if(text==="") return;
+    <footer>
 
-    addMessage(text,"user");
+        © IIS Arturo Checchi | Arturo 2.0
 
-    setTimeout(()=>{
+    </footer>
 
-        const answer=searchAnswer(text);
-
-        addMessage(answer,"bot");
-
-    },400);
-
-    input.value="";
-}
-
-function askQuick(text){
-
-    document.getElementById("userInput").value=text;
-
-    sendMessage();
-}
-
-document
-.getElementById("userInput")
-.addEventListener("keypress",function   sendMessage();
-
-    }
-
-});
-
-</script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
