@@ -4,274 +4,281 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Arturo - Assistente Digitale IIS Arturo Checchi</title>
+<title>Arturo - Centro Assistenza Digitale</title>
 
 <style>
 
-:root{
-    --primary:#003b70;
-    --light:#f4f7fa;
-    --white:#ffffff;
-}
-
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
 body{
-    margin:0;
-    font-family:Segoe UI, Arial, sans-serif;
-    background:var(--light);
-    color:#333;
+    background:#eef3f9;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
 }
 
+/* HEADER */
+
 header{
-    background:var(--primary);
+    background:linear-gradient(135deg,#003b70,#005ca9);
     color:white;
     text-align:center;
-    padding:30px 20px;
+    padding:15px 20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
 }
 
 header img{
-    width:120px;
+    width:220px;
     max-width:100%;
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
 
 header h1{
-    margin:10px 0 5px;
+    margin:0;
+    font-size:2.2rem;
 }
 
 header p{
-    margin:0;
+    margin-top:5px;
+    opacity:.95;
 }
 
-.container{
-    max-width:1000px;
+/* CHAT */
+
+.chat-container{
+    flex:1;
+    width:100%;
+    max-width:1100px;
     margin:auto;
-    padding:20px;
-}
-
-.card{
-    background:white;
-    border-radius:12px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
-}
-
-.quick-buttons{
     display:flex;
-    flex-wrap:wrap;
-    gap:10px;
+    flex-direction:column;
+    padding:15px;
 }
 
-.quick-buttons button{
-    border:none;
-    border-radius:8px;
-    padding:10px 15px;
-    cursor:pointer;
-    background:#e9eef4;
-    font-weight:600;
-}
-
-.quick-buttons button:hover{
-    background:#d8e3ef;
-}
-
-#chat{
+.chat-box{
+    flex:1;
     background:white;
-    border-radius:12px;
-    min-height:300px;
-    max-height:500px;
-    overflow-y:auto;
+    border-radius:20px;
     padding:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    overflow-y:auto;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    min-height:500px;
 }
 
 .message{
     margin-bottom:15px;
-    padding:12px;
-    border-radius:10px;
+    padding:12px 14px;
+    border-radius:15px;
+    max-width:85%;
+    line-height:1.5;
 }
 
 .bot{
-    background:#f1f5f9;
+    background:#edf4fd;
+    border-left:5px solid #005ca9;
 }
 
 .user{
-    background:#dbeafe;
-    text-align:right;
+    background:#005ca9;
+    color:white;
+    margin-left:auto;
 }
 
+/* INPUT */
+
 .input-area{
+    margin-top:15px;
     display:flex;
     gap:10px;
-    margin-top:15px;
 }
 
 .input-area input{
     flex:1;
-    padding:12px;
+    padding:14px;
+    border-radius:12px;
     border:1px solid #ccc;
-    border-radius:8px;
+    font-size:16px;
 }
 
 .input-area button{
-    border:none;
-    background:var(--primary);
+    background:#005ca9;
     color:white;
-    padding:12px 20px;
-    border-radius:8px;
+    border:none;
+    padding:14px 22px;
+    border-radius:12px;
     cursor:pointer;
+    font-weight:600;
 }
 
-.tools{
+.input-area button:hover{
+    background:#003b70;
+}
+
+/* SUGGERIMENTI */
+
+.quick{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
     margin-top:15px;
 }
 
-.tools button{
-    border:none;
-    border-radius:8px;
-    padding:10px 15px;
+.quick button{
+    background:white;
+    border:1px solid #005ca9;
+    color:#005ca9;
+    padding:10px 14px;
+    border-radius:30px;
     cursor:pointer;
-    background:#444;
+    transition:.3s;
+}
+
+.quick button:hover{
+    background:#005ca9;
     color:white;
 }
 
+/* FOOTER */
+
 footer{
     text-align:center;
-    padding:20px;
+    padding:12px;
+    background:white;
+    border-top:1px solid #ddd;
+    font-size:.9rem;
     color:#666;
 }
 
-ul{
-    margin-bottom:0;
+/* MOBILE */
+
+@media(max-width:768px){
+
+    header img{
+        width:170px;
+    }
+
+    header h1{
+        font-size:1.8rem;
+    }
+
+    .chat-box{
+        min-height:450px;
+        padding:15px;
+    }
+
+    .input-area{
+        flex-direction:column;
+    }
+
+    .input-area button{
+        width:100%;
+    }
+
+    .message{
+        max-width:100%;
+    }
 }
 
 </style>
 </head>
-
 <body>
 
 <header>
 
-<img src="logo.png" alt="Logo IIS Arturo Checchi">
+    <img src="logo-checchi.png" alt="IIS Arturo Checchi">
 
-<h1>Arturo</h1>
+    <h1>ARTURO</h1>
 
-<p>Assistente Digitale IIS Arturo Checchi</p>
+    <p>
+        Centro Assistenza Digitale dell'IIS Arturo Checchi
+    </p>
 
 </header>
 
-<div class="container">
+<div class="chat-container">
 
-<div class="card">
+    <div class="chat-box" id="chat">
 
-<h3>👋 Benvenuto in Arturo</h3>
+        <div class="message bot">
+            👋 Benvenuto! Sono Arturo.<br><br>
 
-<p>
-Sono l'assistente digitale dell'IIS Arturo Checchi.
-Posso aiutarti a trovare informazioni sull'istituto,
-sull'offerta formativa e sui principali servizi digitali.
-</p>
+            Posso aiutarti a trovare informazioni su:
 
-<p>
-🚀 Arturo è un progetto in continua evoluzione.
-Le domande non ancora gestite contribuiscono a migliorare progressivamente il servizio.
-</p>
+            <ul style="margin-top:10px;margin-left:20px">
+                <li>Offerta formativa</li>
+                <li>Open Day</li>
+                <li>Segreteria</li>
+                <li>Orari e sedi</li>
+                <li>Docenti</li>
+                <li>Studenti</li>
+                <li>Personale ATA</li>
+            </ul>
 
-<hr>
+        </div>
 
-<h4>💡 Esempi di domande</h4>
+    </div>
 
-<ul>
-<li>Quali indirizzi di studio offre la scuola?</li>
-<li>Come recupero la password di Teams?</li>
-<li>Dove trovo i contatti della segreteria?</li>
-<li>Che ore sono?</li>
-<li>Meteo Fucecchio</li>
-</ul>
+    <div class="quick">
 
-</div>
+        <button onclick="askQuick('Open Day')">Open Day</button>
 
-<div class="card">
+        <button onclick="askQuick('Offerta formativa')">
+            Offerta Formativa
+        </button>
 
-<div class="quick-buttons">
+        <button onclick="askQuick('Segreteria')">
+            Segreteria
+        </button>
 
-<button onclick="askQuick('istituto')">🏫 Istituto</button>
-<button onclick="askQuick('dirigenza')">👔 Dirigenza</button>
-<button onclick="askQuick('segreterie')">📋 Segreterie</button>
-<button onclick="askQuick('servizi digitali')">💻 Servizi Digitali</button>
-<button onclick="askQuick('contatti')">📞 Contatti</button>
-<button onclick="askQuick('aiuto')">❓ Aiuto</button>
+        <button onclick="askQuick('Sedi')">
+            Sedi
+        </button>
 
-</div>
+        <button onclick="askQuick('Orario')">
+            Orario
+        </button>
 
-</div>
+    </div>
 
-<div id="chat">
+    <div class="input-area">
 
-<div class="message bot">
-👋 Ciao! Sono Arturo.<br><br>
-Come posso aiutarti oggi?
-</div>
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Scrivi una domanda..."
+        >
 
-</div>
+        <button onclick="sendMessage()">
+            Invia
+        </button>
 
-<div class="input-area">
-
-<input
-type="text"
-id="question"
-placeholder="Scrivi la tua domanda...">
-
-<button onclick="sendQuestion()">
-Invia
-</button>
-
-</div>
-
-<div class="tools">
-
-<button onclick="newConversation()">
-➕ Nuova Conversazione
-</button>
-
-</div>
+    </div>
 
 </div>
 
 <footer>
-Arturo Core 0.1
+
+    © IIS Arturo Checchi - Assistente Digitale Arturo
+
 </footer>
 
 <script>
 
-let faqData=[];
-let timeoutId;
+let faq = [];
 
-async function loadFaqs(){
-
-    try{
-
-        const response=await fetch("faq.json");
-
-        const data=await response.json();
-
-        faqData=data.faqs || [];
-
-        console.log("FAQ caricate:",faqData.length);
-
-    }catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-loadFaqs();
+fetch("faq.json")
+.then(response => response.json())
+.then(data => {
+    faq = data;
+})
+.catch(error=>{
+    console.log(error);
+});
 
 function addMessage(text,type){
 
@@ -286,112 +293,71 @@ function addMessage(text,type){
     chat.appendChild(div);
 
     chat.scrollTop=chat.scrollHeight;
+}
 
+function searchAnswer(question){
+
+    question=question.toLowerCase();
+
+    for(let item of faq){
+
+        if(item.keywords){
+
+            for(let key of item.keywords){
+
+                if(question.includes(key.toLowerCase())){
+
+                    return item.answer;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    return `
+    Mi dispiace, non ho trovato una risposta specifica.<br><br>
+    Prova a riformulare la domanda oppure consulta il sito dell'Istituto.
+    `;
+}
+
+function sendMessage(){
+
+    const input=document.getElementById("userInput");
+
+    const text=input.value.trim();
+
+    if(text==="") return;
+
+    addMessage(text,"user");
+
+    setTimeout(()=>{
+
+        const answer=searchAnswer(text);
+
+        addMessage(answer,"bot");
+
+    },400);
+
+    input.value="";
 }
 
 function askQuick(text){
 
-    document.getElementById("question").value=text;
+    document.getElementById("userInput").value=text;
 
-    sendQuestion();
-
+    sendMessage();
 }
 
-function sendQuestion(){
-
-    const input=document.getElementById("question");
-
-    const question=input.value.trim();
-
-    if(question==="") return;
-
-    resetTimer();
-
-    addMessage(question,"user");
-
-    searchFaq(question);
-
-    input.value="";
-
-}
-
-function searchFaq(question){
-
-    const q=question.toLowerCase();
-
-    let result=null;
-
-    faqData.forEach(faq=>{
-
-        if(!faq.enabled) return;
-
-        const keywords=faq.keywords || [];
-
-        keywords.forEach(keyword=>{
-
-            if(q.includes(keyword.toLowerCase())){
-
-                result=faq;
-
-            }
-
-        });
-
-    });
-
-    if(result){
-
-        addMessage(
-            result.responses.join("<br><br>"),
-            "bot"
-        );
-
-    }else{
-
-        addMessage(
-            "🤔 Non ho trovato una risposta precisa. Prova a riformulare la domanda oppure utilizza il pulsante Aiuto.",
-            "bot"
-        );
-
-    }
-
-}
-
-function newConversation(){
-
-    document.getElementById("chat").innerHTML=
-    '<div class="message bot">👋 Ciao! Sono Arturo.<br><br>Come posso aiutarti oggi?</div>';
-
-}
-
-function resetTimer(){
-
-    clearTimeout(timeoutId);
-
-    timeoutId=setTimeout(()=>{
-
-        newConversation();
-
-        addMessage(
-            "⏰ Conversazione reimpostata automaticamente dopo 5 minuti di inattività.",
-            "bot"
-        );
-
-    },300000);
-
-}
-
-document.getElementById("question").addEventListener("keypress",function(e){
-
-    if(e.key==="Enter"){
-
-        sendQuestion();
+document
+.getElementById("userInput")
+.addEventListener("keypress",function   sendMessage();
 
     }
 
 });
-
-resetTimer();
 
 </script>
 
