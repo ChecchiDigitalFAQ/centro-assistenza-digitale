@@ -8,9 +8,7 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
-  // DIZIONARIO E DEFINIZIONI ESPANSE
   dictionary: {
-    // Termini di Cultura Generale e Sport
     "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
     "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato.",
@@ -19,8 +17,6 @@ let appConfig = {
     "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
     "iperbole": "📖 **Iperbole:** Figura retorica che consiste nell'esagerare la realtà per eccesso o per difetto (es. *ti ho aspettato un secolo*).",
     "climax": "📖 **Climax:** Configurazione retorica in cui i termini si succedono in ordine di intensità crescente o decrescente.",
-    
-    // Termini Digitali e Scolastici
     "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
     "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno.",
     "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni per risolvere un problema.",
@@ -227,29 +223,27 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO & DEFINIZIONI
-    const isDictionaryQuery = cleanQuery.includes("cosa significa") || 
-                              cleanQuery.includes("cosa vuol dire") || 
-                              cleanQuery.includes("cos'e") || 
-                              cleanQuery.includes("cos e") || 
-                              cleanQuery.includes("definizione di");
+    // 3. UTILITY: DIZIONARIO & DEFINIZIONI (Integrazione rigida con blocco diretto)
+    const dictionaryTriggers = ["cosa significa", "cosa vuol dire", "cos'e", "cos e", "definizione di"];
+    const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
 
     if (isDictionaryQuery) {
+        personalQueryCount = 0; // Reset contatore
+
+        // Cerca se una parola chiave del dizionario è contenuta nella frase
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
             if (cleanQuery.includes(term)) {
                 appendMessage(definition, "bot");
-                personalQueryCount = 0; // Reset contatore se risponde alla definizione
-                return;
+                return; // Esce immediatamente
             }
         }
         
-        // Se l'utente ha chiesto una definizione ma la parola non c'è nel dizionario:
-        personalQueryCount = 0; // Non conta come domanda personale
+        // Se la frase era una richiesta di definizione ma la parola non c'è nel dizionario:
         appendMessage("📖 Al momento questo termine non è presente nel mio dizionario integrato. Ho preso nota della tua richiesta e cercheremo di aggiungerlo presto!", "bot");
-        return;
+        return; // Impedisce che la domanda passi alle FAQ ed attivi risposte fuorvianti!
     }
 
-    // 4. RICERCA NELLE FAQ
+    // 4. RICERCA NELLE FAQ TRADIZIONALI
     let bestMatch = null;
     let highestScore = 0;
 
@@ -276,7 +270,7 @@ function processUserQuery(query) {
         });
     });
 
-    if (bestMatch && highestScore >= 0.40) {
+    if (bestMatch && highestScore >= 0.45) {
         if (bestMatch.type === "personal") {
             personalQueryCount++;
             if (personalQueryCount >= 3) {
