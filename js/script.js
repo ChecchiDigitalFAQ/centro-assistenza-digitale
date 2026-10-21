@@ -29,19 +29,7 @@ let appConfig = {
   },
 
   faqs: [
-    // --- SEZIONE FORM GENERALI E PANORAMICA ---
-    {
-      "id": "PANORAMICA_FORM",
-      "type": "school",
-      "keywords": [
-        "form", "modulo", "moduli", "modulistica", "elenco form", "tutti i form", "lista form", "i form", "moduli docenti"
-      ],
-      "responses": [
-        "📋 **Modulistica e Form Docenti Disponibili:**\n\nEcco i moduli compilabili online per i docenti dell'IIS Checchi:\n\n• **Piani di Lavoro Liceo/ITE/ITT:** chiederne il link specifico\n• **Piani di Lavoro IPIA/Prime ITE-ITT:** chiederne il link specifico\n• **Richiesta Fotocopie:** chiederne il link specifico\n• **Ingresso Esperti Esterni:** chiederne il link specifico\n• **Sostituzioni e Permessi Brevi:** chiederne il link specifico\n• **Consegna Dispositivi Digitali (Liceo):** chiederne il link specifico\n• **Richiesta Notebook BES (Liceo):** chiederne il link specifico\n\n*Puoi chiedermi direttamente il Form che ti interessa (es. \"form fotocopie\" o \"piano di lavoro liceo\")!*"
-      ]
-    },
-
-    // --- SEZIONE FORM SPECIFICI ---
+    // --- SEZIONE FORM E MODULISTICA SPECIFICA ---
     {
       "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
       "type": "school",
@@ -85,8 +73,7 @@ let appConfig = {
         "piani di lavoro liceo ite itt",
         "form piano di lavoro liceo",
         "modulo piano di lavoro liceo ite itt",
-        "piano lavoro liceo",
-        "piano di lavoro"
+        "piano lavoro liceo"
       ],
       "responses": [
         "📑 **Piano di Lavoro Annuale del Docente (Liceo / ITE / ITT):**\n\nPuoi compilare il Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Piano di Lavoro Liceo / ITE / ITT</a>"
@@ -255,7 +242,7 @@ let appConfig = {
       "id": "DIRIGENZA",
       "type": "school",
       "keywords": ["dirigenza", "preside", "dirigente"],
-      "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria."]
+      "responses": ["👔 La Dirigenza receive su appuntamento tramite la segreteria."]
     },
     {
       "id": "SEGRETERIE",
@@ -275,6 +262,9 @@ let appConfig = {
 let personalQueryCount = 0;
 let inactivityTimer = null;
 const RESET_TIME_MS = 5 * 60 * 1000;
+
+// STATO CONVERSAZIONALE INTERATTIVO
+let conversationState = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -323,7 +313,7 @@ function sendMessage() {
 }
 
 function processUserQuery(query) {
-    // 1. Normalizzazione iniziale
+    // 1. Normalizzazione iniziale del testo
     let rawQuery = query.toLowerCase()
         .replace(/’/g, "'")
         .replace(/[èé]/g, "e")
@@ -334,11 +324,39 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Correzione automatica refusi comuni (es. "from" -> "form")
+    // Correzione refusi generici per i Form
     let cleanQuery = rawQuery
         .replace(/\bfrom\b/g, "form")
         .replace(/\bfomr\b/g, "form")
         .replace(/\bforn\b/g, "form");
+
+    // --- GESTIONE STATO INTERATTIVO (ATTESA RISPOSTA SI/NO) ---
+    if (conversationState === "AWAITING_FORM_CONFIRMATION") {
+        const affirmativeAnswers = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo"];
+        const negativeAnswers = ["no", "non", "per niente", "nulla", "finito"];
+
+        if (affirmativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            conversationState = "AWAITING_FORM_TYPE";
+            appendMessage("🤖 Perfetto! **Che tipo di Form stai cercando?**\n*(es. fotocopie, piano di lavoro, permessi, esperti esterni, dispositivi...)*", "bot");
+            return;
+        } else if (negativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            conversationState = null;
+            appendMessage("🤖 Capito! Hai finito o hai bisogno di aiuto per qualcos'altro sul contesto scolastico?", "bot");
+            return;
+        }
+    }
+
+    if (conversationState === "AWAITING_FORM_TYPE") {
+        conversationState = null; // Resetta lo stato per processare direttamente la tipologia specificata
+    }
+
+    // --- CONTROLLO RIGOROSO PAROLE GENERICHE (Blocca matching casuali) ---
+    const strictGenericTriggers = ["form", "modulo", "modulistica", "i form", "i moduli", "i moduli docenti"];
+    if (strictGenericTriggers.includes(cleanQuery)) {
+        conversationState = "AWAITING_FORM_CONFIRMATION";
+        appendMessage("🤖 Credo di aver capito che stai cercando un modulo o un Form scolastico, mi confermi?", "bot");
+        return;
+    }
 
     // 1. UTILITY: Calcolatrice Matematica
     const mathExpression = extractMathExpression(cleanQuery);
@@ -371,7 +389,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO (Estrazione del termine)
+    // 3. UTILITY: DIZIONARIO
     const dictionaryTriggers = [
         "che cos'e'", "che cos'e", "che cos e'", "che cos e",
         "cos'e'", "cos'e", "cos e'", "cos e", "cosa e'", "cosa e",
@@ -411,7 +429,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. RICERCA NELLE FAQ (Con prevenzione falsi positivi sulle parole corte)
+    // 4. RICERCA NELLE FAQ E NEI FORM SPECIFICI
     let bestMatch = null;
     let highestScore = 0;
 
@@ -433,7 +451,6 @@ function processUserQuery(query) {
                     bestMatch = item;
                 }
             } else {
-                // Per parole molto corte (sotto 5 caratteri), alziamo la soglia per evitare falsi positivi
                 const minThreshold = cleanQuery.length <= 5 ? 0.85 : 0.45;
                 const score = similarity(cleanQuery, cleanKeyword);
                 if (score >= minThreshold && score > highestScore) {
@@ -479,6 +496,7 @@ function extractMathExpression(text) {
 
 function quickAction(actionId) {
     personalQueryCount = 0;
+    conversationState = null;
     const match = appConfig.faqs.find(item => item.id === actionId);
     if (match) {
         const responseText = match.responses[0];
@@ -518,6 +536,7 @@ function appendMessage(text, sender) {
 
 function resetChat() {
     personalQueryCount = 0;
+    conversationState = null;
     const chatBox = document.getElementById("chatBox");
     if (!chatBox) return;
     chatBox.innerHTML = `
