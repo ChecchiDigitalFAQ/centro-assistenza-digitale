@@ -29,6 +29,125 @@ let appConfig = {
   },
 
   faqs: [
+    // --- SEZIONE FORM E MODULISTICA DOCENTI ---
+    {
+      "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
+      "type": "school",
+      "keywords": [
+        "richiesta autorizzazione ingresso esperti esterni",
+        "ingresso esperti esterni",
+        "esperti esterni",
+        "autorizzazione esperti",
+        "form esperti esterni",
+        "modulo esperti esterni",
+        "esperto esterno"
+      ],
+      "responses": [
+        "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"
+      ]
+    },
+    {
+      "id": "FORM_RICHIESTA_FOTOCOPIE",
+      "type": "school",
+      "keywords": [
+        "richiesta fotocopie",
+        "fotocopie",
+        "form fotocopie",
+        "modulo fotocopie",
+        "fare fotocopie",
+        "stampa fotocopie",
+        "richiedere fotocopie"
+      ],
+      "responses": [
+        "🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"
+      ]
+    },
+    {
+      "id": "FORM_PIANO_LAVORO_LICEO_ITE_ITT",
+      "type": "school",
+      "keywords": [
+        "piano lavoro annuale del docente indirizzo liceo ite itt",
+        "piano di lavoro liceo",
+        "piano di lavoro ite",
+        "piano di lavoro itt",
+        "piani di lavoro liceo ite itt",
+        "form piano di lavoro liceo",
+        "modulo piano di lavoro liceo ite itt",
+        "piano lavoro liceo"
+      ],
+      "responses": [
+        "📑 **Piano di Lavoro Annuale del Docente (Liceo / ITE / ITT):**\n\nPuoi compilare il Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Piano di Lavoro Liceo / ITE / ITT</a>"
+      ]
+    },
+    {
+      "id": "FORM_PIANO_LAVORO_IPIA_PRIME_ITE_ITT",
+      "type": "school",
+      "keywords": [
+        "piano di lavoro annuale docente ipia e classi prime ite itt",
+        "piano di lavoro ipia",
+        "piano di lavoro prime ite",
+        "piano di lavoro prime itt",
+        "form piano di lavoro ipia",
+        "modulo piano di lavoro ipia",
+        "piano lavoro ipia",
+        "piani di lavoro ipia"
+      ],
+      "responses": [
+        "📑 **Piano di Lavoro Annuale Docente (IPIA e Classi Prime ITE/ITT):**\n\nPuoi accedere e compilare il modulo al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/cd1wGeKYiK' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Piano di Lavoro IPIA / Prime ITE-ITT</a>"
+      ]
+    },
+    {
+      "id": "FORM_SOSTITUZIONI_RECUPERO_PERMESSI",
+      "type": "school",
+      "keywords": [
+        "registrazione sostituzioni retribuite e recupero permessi brevi",
+        "sostituzioni retribuite",
+        "recupero permessi brevi",
+        "sostituzioni docenti",
+        "form sostituzioni",
+        "modulo sostituzioni",
+        "registro sostituzioni",
+        "permessi brevi"
+      ],
+      "responses": [
+        "💰 **Registrazione Sostituzioni Retribuite e Recupero Permessi Brevi:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/pv7mxGHyC5' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Sostituzioni e Permessi Brevi</a>"
+      ]
+    },
+    {
+      "id": "FORM_REGISTRO_CONSEGNA_DISPOSITIVI_LICEO",
+      "type": "school",
+      "keywords": [
+        "registro consegna dispositivi digitali",
+        "consegna dispositivi digitali",
+        "dispositivi digitali liceo",
+        "modulo consegna dispositivi",
+        "form dispositivi liceo",
+        "consegna pc liceo",
+        "consegna tablet liceo"
+      ],
+      "responses": [
+        "💻 **Registro Consegna Dispositivi Digitali (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere al Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/vUGNdwbHAi' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Consegna Dispositivi (Plesso Liceo)</a>"
+      ]
+    },
+    {
+      "id": "FORM_RICHIESTA_NOTEBOOK_BES_LICEO",
+      "type": "school",
+      "keywords": [
+        "richiesta notebook per alunni bes",
+        "notebook alunni bes",
+        "pc alunni bes",
+        "computer bes liceo",
+        "form notebook bes",
+        "modulo notebook bes",
+        "richiesta notebook bes",
+        "dispositivi bes"
+      ],
+      "responses": [
+        "💻 **Richiesta Notebook per Alunni BES (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere e compilare la richiesta al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/UbiQvMczBF' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Richiesta Notebook BES (Plesso Liceo)</a>"
+      ]
+    },
+
+    // --- UTILITÀ, CHAT E INFORMAZIONI GENERALI ---
     {
       "id": "CREATORE",
       "type": "personal",
@@ -111,7 +230,7 @@ let appConfig = {
       "id": "AIUTO",
       "type": "school",
       "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni"],
-      "responses": ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria e supporto sui servizi digitali."]
+      "responses": ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria, modulistica docenti e supporto sui servizi digitali."]
     },
     {
       "id": "CONTATTI",
