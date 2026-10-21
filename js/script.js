@@ -78,8 +78,8 @@ function processUserQuery(query) {
         });
     });
 
-    // Soglia di accettazione della somiglianza (0.45 per tollerare abbreviazioni/refusi)
-    if (bestMatch && highestScore >= 0.45) {
+    // Soglia abbassata a 0.35 per catturare meglio frasi corte ("come ti chiami") e refusi
+    if (bestMatch && highestScore >= 0.35) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
@@ -100,7 +100,7 @@ function quickAction(actionId) {
     resetInactivityTimer();
 }
 
-// Aggiunge un messaggio alla chat
+// Aggiunge un messaggio alla chat (con supporto per **grassetto** HTML)
 function appendMessage(text, sender) {
     const chatBox = document.getElementById("chatBox");
     
@@ -113,7 +113,13 @@ function appendMessage(text, sender) {
 
     const bubble = document.createElement("div");
     bubble.classList.add("bubble");
-    bubble.innerHTML = text.replace(/\n/g, "<br>");
+
+    // Convertiamo i **testi** in <strong>testi</strong> e le nuove righe in <br>
+    let formattedText = text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, "<br>");
+
+    bubble.innerHTML = formattedText;
 
     messageDiv.appendChild(avatar);
     messageDiv.appendChild(bubble);
