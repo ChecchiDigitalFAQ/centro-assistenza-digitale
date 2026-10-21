@@ -8,7 +8,6 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
-  // DIZIONARIO E DEFINIZIONI RAPIDE
   dictionary: {
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
     "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato. In senso figurato indica un resto del passato.",
@@ -23,7 +22,6 @@ let appConfig = {
   },
 
   faqs: [
-    // --- CREATORE E PRIVACY ---
     {
       "id": "CREATORE",
       "type": "personal",
@@ -36,8 +34,6 @@ let appConfig = {
       "keywords": ["numero di telefono di", "numero di", "dammi il numero", "telefono di", "email di", "indirizzo di", "dove abita", "contatto personale di", "cellulare di"],
       "responses": ["🔒 **Tutela della Privacy:** Per motivi di sicurezza e rispetto della normativa GDPR, non posso fornire numeri di telefono, email o dati personali di studenti, docenti o personale della scuola.\n\n📍 Se hai necessità di contattare un docente o un ufficio, puoi fare riferimento ai contatti ufficiali della **Segreteria dell'Istituto**."]
     },
-
-    // --- DOMANDE PERSONALI & CURIOSITÀ (TYPE: PERSONAL) ---
     {
       "id": "SEGNO_ZODIACA",
       "type": "personal",
@@ -47,7 +43,7 @@ let appConfig = {
     {
       "id": "ALTEZZA_PESO",
       "type": "personal",
-      "keywords": ["quanto sei alto", "quanto pesi", "sei alto", "qual e la tua altezza", "quanto pesi"],
+      "keywords": ["quanto sei alto", "quanto pesi", "sei alto", "qual e la tua altezza"],
       "responses": ["📏 Sono alto esattamente **1080 pixel** e peso **0 grammi**! La mia linea è impeccabile, merito della dieta a base di dati leggeri."]
     },
     {
@@ -101,8 +97,6 @@ let appConfig = {
       "keywords": ["cosa fai", "cosa stai facendo", "come passi il tempo", "cosa fai di bello"],
       "responses": ["🔍 Sto consultando i miei archivi per rispondere alle tue domande e aiutare gli utenti dell'istituto! Tu di cosa hai bisogno?"]
     },
-
-    // --- MODERAZIONE E OFFESE ---
     {
       "id": "MODERAZIONE_ESPLICITA",
       "type": "moderation",
@@ -121,8 +115,6 @@ let appConfig = {
         "🔴🔵 Ricorda che sono pur sempre un software creato per aiutarti: la tua tastiera merita frasi migliori! Riprova con una domanda scolastica."
       ]
     },
-
-    // --- CORTESIA E CHITCHAT ---
     {
       "id": "SALUTO",
       "type": "chat",
@@ -175,8 +167,6 @@ let appConfig = {
       "keywords": ["sei bravo", "sei utilissimo", "bravissimo", "ottimo lavoro", "sei simpatico", "sei fantastico"],
       "responses": ["🔴🔵 Grazie mille! Svolgo il mio lavoro con entusiasmo per supportare al meglio la comunità dell'IIS Arturo Checchi!"]
     },
-
-    // --- FAQ ISTITUTO BASE (TYPE: SCHOOL) ---
     {
       "id": "AIUTO",
       "type": "school",
@@ -210,7 +200,7 @@ let appConfig = {
   ]
 };
 
-let personalQueryCount = 0; // Contatore domande personali consecutive
+let personalQueryCount = 0;
 let inactivityTimer = null;
 const RESET_TIME_MS = 5 * 60 * 1000;
 
@@ -230,4 +220,64 @@ function renderQuickButtons() {
     if (!container) return;
     
     container.innerHTML = "";
-    appConfig.
+    appConfig.quickButtons.forEach(btn => {
+        const buttonEl = document.createElement("button");
+        buttonEl.className = "quick-btn";
+        buttonEl.innerText = btn.label;
+        buttonEl.onclick = () => quickAction(btn.id);
+        container.appendChild(buttonEl);
+    });
+}
+
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+
+function sendMessage() {
+    const inputField = document.getElementById("userInput");
+    const message = inputField.value.trim();
+
+    if (message === "") return;
+
+    appendMessage(message, "user");
+    inputField.value = "";
+
+    resetInactivityTimer();
+
+    setTimeout(() => {
+        processUserQuery(message);
+    }, 400);
+}
+
+function processUserQuery(query) {
+    const cleanQuery = query.toLowerCase().trim();
+
+    // 1. UTILITY: Calcolatrice Matematica
+    const mathExpression = extractMathExpression(cleanQuery);
+    if (mathExpression) {
+        try {
+            const result = Function(`'use strict'; return (${mathExpression})`)();
+            if (!isNaN(result)) {
+                appendMessage(`🧮 Il risultato di **${mathExpression}** è **${result}**.`, "bot");
+                personalQueryCount = 0;
+                return;
+            }
+        } catch (e) {}
+    }
+
+    // 2. UTILITY: Data e Ora
+    if (cleanQuery.includes("ora") || cleanQuery.includes("ore") || cleanQuery.includes("che ora")) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+        appendMessage(`⌚ Attualmente sono le ore **${timeStr}**.`, "bot");
+        personalQueryCount = 0;
+        return;
+    }
+
+    if (cleanQuery.includes("giorno") || cleanQuery.includes("data") || cleanQuery.includes("oggi")) {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateStr = now.toLocaleDateString('it-IT', options);
+        appendMessage
