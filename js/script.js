@@ -32,11 +32,13 @@ let appConfig = {
     // --- SEZIONE FORM E MODULISTICA SPECIFICA ---
     {
       "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "richiesta autorizzazione ingresso esperti esterni",
         "ingresso esperti esterni",
         "esperti esterni",
+        "esperti",
+        "eseprti",
         "autorizzazione esperti",
         "form esperti esterni",
         "modulo esperti esterni",
@@ -48,7 +50,7 @@ let appConfig = {
     },
     {
       "id": "FORM_RICHIESTA_FOTOCOPIE",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "richiesta fotocopie",
         "fotocopie",
@@ -64,7 +66,7 @@ let appConfig = {
     },
     {
       "id": "FORM_PIANO_LAVORO_LICEO_ITE_ITT",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "piano lavoro annuale del docente indirizzo liceo ite itt",
         "piano di lavoro liceo",
@@ -81,7 +83,7 @@ let appConfig = {
     },
     {
       "id": "FORM_PIANO_LAVORO_IPIA_PRIME_ITE_ITT",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "piano di lavoro annuale docente ipia e classi prime ite itt",
         "piano di lavoro ipia",
@@ -98,7 +100,7 @@ let appConfig = {
     },
     {
       "id": "FORM_SOSTITUZIONI_RECUPERO_PERMESSI",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "registrazione sostituzioni retribuite e recupero permessi brevi",
         "sostituzioni retribuite",
@@ -115,7 +117,7 @@ let appConfig = {
     },
     {
       "id": "FORM_REGISTRO_CONSEGNA_DISPOSITIVI_LICEO",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "registro consegna dispositivi digitali",
         "consegna dispositivi digitali",
@@ -131,7 +133,7 @@ let appConfig = {
     },
     {
       "id": "FORM_RICHIESTA_NOTEBOOK_BES_LICEO",
-      "type": "school",
+      "type": "form",
       "keywords": [
         "richiesta notebook per alunni bes",
         "notebook alunni bes",
@@ -313,7 +315,7 @@ function sendMessage() {
 }
 
 function processUserQuery(query) {
-    // 1. Normalizzazione iniziale del testo
+    // 1. Normalizzazione del testo
     let rawQuery = query.toLowerCase()
         .replace(/’/g, "'")
         .replace(/[èé]/g, "e")
@@ -324,13 +326,15 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Correzione refusi generici per i Form
+    // Correzione refusi trasversali per Form ed Esperti
     let cleanQuery = rawQuery
         .replace(/\bfrom\b/g, "form")
         .replace(/\bfomr\b/g, "form")
-        .replace(/\bforn\b/g, "form");
+        .replace(/\bforn\b/g, "form")
+        .replace(/\beseprti\b/g, "esperti")
+        .replace(/\bespert\b/g, "esperti");
 
-    // --- GESTIONE STATO INTERATTIVO (ATTESA RISPOSTA SI/NO) ---
+    // --- GESTIONE STATO INTERATTIVO (ATTESA RISPOSTA SI/NO O SPECIFICA FORM) ---
     if (conversationState === "AWAITING_FORM_CONFIRMATION") {
         const affirmativeAnswers = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo"];
         const negativeAnswers = ["no", "non", "per niente", "nulla", "finito"];
@@ -346,11 +350,39 @@ function processUserQuery(query) {
         }
     }
 
+    // SE L'UTENTE È NELLO STATO "AWAITING_FORM_TYPE", CERCHIAMO SOLO TRA I FORM
     if (conversationState === "AWAITING_FORM_TYPE") {
-        conversationState = null; // Resetta lo stato per processare direttamente la tipologia specificata
+        let formMatch = null;
+        let formScore = 0;
+
+        appConfig.faqs.filter(f => f.type === "form").forEach(item => {
+            item.keywords.forEach(keyword => {
+                const cleanKeyword = keyword.toLowerCase().trim();
+                if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+                    formScore = 1.0;
+                    formMatch = item;
+                } else {
+                    const sc = similarity(cleanQuery, cleanKeyword);
+                    if (sc > formScore && sc >= 0.45) {
+                        formScore = sc;
+                        formMatch = item;
+                    }
+                }
+            });
+        });
+
+        if (formMatch && formScore >= 0.45) {
+            conversationState = null; // Resetta lo stato se trovato
+            appendMessage(formMatch.responses[0], "bot");
+            return;
+        } else {
+            // Se non trova il form nel contesto specifico, NON risponde a caso con le FAQ generali!
+            appendMessage(`🤖 Non ho trovato un Form corrispondente a "**${query}**". Prova a specificare ad esempio: *fotocopie*, *piano di lavoro*, *esperti esterni*, *permessi* o *dispositivi*.`, "bot");
+            return;
+        }
     }
 
-    // --- CONTROLLO RIGOROSO PAROLE GENERICHE (Blocca matching casuali) ---
+    // --- CONTROLLO PAROLE GENERICHE ---
     const strictGenericTriggers = ["form", "modulo", "modulistica", "i form", "i moduli", "i moduli docenti"];
     if (strictGenericTriggers.includes(cleanQuery)) {
         conversationState = "AWAITING_FORM_CONFIRMATION";
@@ -429,7 +461,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. RICERCA NELLE FAQ E NEI FORM SPECIFICI
+    // 4. RICERCA NELLE FAQ E NEI FORM SPECIFICI (Con soglie rigide anti-risposte casuali)
     let bestMatch = null;
     let highestScore = 0;
 
@@ -451,7 +483,8 @@ function processUserQuery(query) {
                     bestMatch = item;
                 }
             } else {
-                const minThreshold = cleanQuery.length <= 5 ? 0.85 : 0.45;
+                // Per parole brevi o refusi, alziamo la soglia a 0.70 per evitare risposte a caso
+                const minThreshold = cleanQuery.length <= 7 ? 0.75 : 0.55;
                 const score = similarity(cleanQuery, cleanKeyword);
                 if (score >= minThreshold && score > highestScore) {
                     highestScore = score;
@@ -461,7 +494,7 @@ function processUserQuery(query) {
         });
     });
 
-    if (bestMatch && highestScore >= 0.45) {
+    if (bestMatch && highestScore >= 0.55) {
         if (bestMatch.type === "personal") {
             personalQueryCount++;
             if (personalQueryCount >= 3) {
@@ -479,7 +512,7 @@ function processUserQuery(query) {
         if (personalQueryCount >= 3) {
             appendMessage("🤖 Credo che parlare di cose personali non sia molto utile! Concentriamoci sulla scuola: hai domande su orari, modulistica o servizi dell'IIS Checchi?", "bot");
         } else {
-            appendMessage("🤖 Non ho informazioni su questo argomento in archivio. Prova a riformulare la domanda per il contesto scolastico!", "bot");
+            appendMessage("🤖 Non ho compreso la richiesta o non ho informazioni in archivio su questo termine. Prova a riformulare la domanda specificando il contesto scolastico!", "bot");
         }
     }
 }
