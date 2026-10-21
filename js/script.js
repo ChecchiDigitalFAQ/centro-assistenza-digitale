@@ -250,7 +250,7 @@ let appConfig = {
       "id": "DIRIGENZA",
       "type": "school",
       "keywords": ["dirigenza", "preside", "dirigente"],
-      "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria."]
+      "responses": ["👔 La Dirigenza receive su appuntamento tramite la segreteria."]
     },
     {
       "id": "SEGRETERIE",
@@ -341,18 +341,18 @@ function processUserQuery(query) {
         .replace(/\beseprti\b/g, "esperti")
         .replace(/\bespert\b/g, "esperti");
 
+    const affirmativeList = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo", "esattamente"];
+    const negativeList = ["no", "non", "per niente", "nulla", "finito"];
+
     // --- GESTIONE DELLE RISPOSTE AI FLUSSI CONVERSAZIONALI ATTIVI ---
     if (conversationState === "AWAITING_SPECIFIC_FORM_CONFIRMATION" && pendingFormMatch) {
-        const affirmativeAnswers = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo", "esattamente"];
-        const negativeAnswers = ["no", "non", "per niente", "nulla", "finito"];
-
-        if (affirmativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+        if (affirmativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
             const formResponse = pendingFormMatch.responses[0];
             conversationState = null;
             pendingFormMatch = null;
             appendMessage(formResponse, "bot");
             return;
-        } else if (negativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+        } else if (negativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
             conversationState = null;
             pendingFormMatch = null;
             appendMessage("🤖 Capito! Dimmi pure in dettaglio di cosa hai bisogno per la scuola.", "bot");
@@ -361,14 +361,11 @@ function processUserQuery(query) {
     }
 
     if (conversationState === "AWAITING_FORM_CONFIRMATION") {
-        const affirmativeAnswers = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo"];
-        const negativeAnswers = ["no", "non", "per niente", "nulla", "finito"];
-
-        if (affirmativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+        if (affirmativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
             conversationState = "AWAITING_FORM_TYPE";
             appendMessage("🤖 Perfetto! **Che tipo di Form stai cercando?**\n*(es. fotocopie, piano di lavoro, permessi, esperti esterni, dispositivi...)*", "bot");
             return;
-        } else if (negativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+        } else if (negativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
             conversationState = null;
             appendMessage("🤖 Capito! Hai finito o hai bisogno di aiuto per qualcos'altro?", "bot");
             return;
@@ -377,6 +374,18 @@ function processUserQuery(query) {
 
     if (conversationState === "AWAITING_FORM_TYPE") {
         conversationState = null;
+    }
+
+    // --- FILTRO RISPOSTE A FREDDO SENZA STATO (es. utente scrive solo "si" o "no" all'inizio) ---
+    if (conversationState === null) {
+        if (affirmativeList.includes(cleanQuery)) {
+            appendMessage("🤖 Dimmi pure! In cosa posso esserti d'aiuto per l'istituto?", "bot");
+            return;
+        }
+        if (negativeList.includes(cleanQuery)) {
+            appendMessage("🤖 Va bene! Se hai bisogno di informazioni su modulistica, orari o servizi della scuola, sono qui.", "bot");
+            return;
+        }
     }
 
     // --- CONTROLLO PAROLE GENERICHE (es. solo "form", "modulo") ---
@@ -461,6 +470,12 @@ function processUserQuery(query) {
     // 4. RICERCA FAQ / FORM CON CONTESTUALIZZAZIONE
     let bestMatch = null;
     let highestScore = 0;
+
+    // Ignora completamente parole/stringhe di ricerca brevissime (<= 2 caratteri) per evitare falsi positivi
+    if (cleanQuery.length <= 2) {
+        appendMessage("🤖 Puoi specificare la tua domanda con qualche dettaglio in più?", "bot");
+        return;
+    }
 
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
