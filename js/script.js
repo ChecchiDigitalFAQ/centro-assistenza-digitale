@@ -8,14 +8,13 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
-  // Dizionario integrato pronto all'uso
   dictionary: {
     "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti e delle zone costiere.",
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
     "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
     "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato.",
     "metafora": "📖 **Metafora:** Figura retorica che sostituisce un termine con un altro legato da un rapporto di somiglianza (es. *sei un leone*).",
-    "ossimoro": "📖 **Ossimoro:** Unione di due parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*).",
+    "ossimoro": "📖 **Ossimoro:** Unione di two parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*).",
     "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
     "iperbole": "📖 **Iperbole:** Figura retorica che consiste nell'esagerare la realtà per eccesso o per difetto (es. *ti ho aspettato un secolo*).",
     "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
@@ -171,7 +170,7 @@ function handleKeyPress(event) {
     }
 }
 
-function sendMessage() {
+async function sendMessage() {
     const inputField = document.getElementById("userInput");
     if (!inputField) return;
     const message = inputField.value.trim();
@@ -183,14 +182,20 @@ function sendMessage() {
 
     resetInactivityTimer();
 
-    setTimeout(() => {
-        processUserQuery(message);
-    }, 300);
+    await processUserQuery(message);
 }
 
 async function processUserQuery(query) {
-    // Normalizzazione testo per gestire ogni tipo di apostrofo (’ e ')
-    const cleanQuery = query.toLowerCase().replace(/’/g, "'").trim();
+    // Normalizzazione totale: converte accenti, apostrofi speciali e maiuscole
+    let cleanQuery = query.toLowerCase()
+        .replace(/[’']/g, " ")
+        .replace(/[èé]/g, "e")
+        .replace(/[àá]/g, "a")
+        .replace(/[ìí]/g, "i")
+        .replace(/[òó]/g, "o")
+        .replace(/[ùú]/g, "u")
+        .replace(/\s+/g, " ")
+        .trim();
 
     // 1. UTILITY: Calcolatrice Matematica
     const mathExpression = extractMathExpression(cleanQuery);
@@ -223,10 +228,10 @@ async function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO (Riconoscimento flessibile per definizioni)
+    // 3. UTILITY: DIZIONARIO (Attivazione Universale)
     const dictionaryTriggers = [
-        "cosa significa", "cosa vuol dire", "cos'e", "cos e", 
-        "definizione di", "che cos'e", "che cos e", "significato di"
+        "cosa significa", "cosa vuol dire", "cos e", "che cos e", 
+        "definizione di", "significato di", "cosa e"
     ];
 
     const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
@@ -234,15 +239,16 @@ async function processUserQuery(query) {
     if (isDictionaryQuery) {
         personalQueryCount = 0;
 
-        // Estrazione e pulizia del termine da cercare
+        // Pulizia dai prefissi di domanda
         let wordToSearch = cleanQuery;
         dictionaryTriggers.forEach(trigger => {
             wordToSearch = wordToSearch.replace(trigger, "");
         });
 
+        // Rimozione articoli e punteggiatura
         wordToSearch = wordToSearch
             .replace(/[?.,!]/g, "")
-            .replace(/\b(un'|una|uno|un|il|lo|la|i|gli|le|del|della|degli|delle)\b/gi, "")
+            .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle)\b/gi, "")
             .trim();
 
         if (wordToSearch === "") {
@@ -277,7 +283,11 @@ async function processUserQuery(query) {
 
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
-            const cleanKeyword = keyword.toLowerCase().replace(/’/g, "'").trim();
+            const cleanKeyword = keyword.toLowerCase()
+                .replace(/[’']/g, " ")
+                .replace(/[èé]/g, "e")
+                .replace(/\s+/g, " ")
+                .trim();
 
             if (cleanQuery === cleanKeyword) {
                 highestScore = 1.0;
