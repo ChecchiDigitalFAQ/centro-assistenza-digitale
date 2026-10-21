@@ -8,23 +8,12 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
+  // Dizionario interno per termini specifici, tecnici e scolastici
   dictionary: {
-    "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
-    "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato.",
-    "metafora": "📖 **Metafora:** Figura retorica che sostituisce un termine con un altro legato da un rapporto di somiglianza (es. *sei un leone*).",
-    "ossimoro": "📖 **Ossimoro:** Unione di due parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*).",
-    "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
-    "iperbole": "📖 **Iperbole:** Figura retorica che consiste nell'esagerare la realtà per eccesso o per difetto (es. *ti ho aspettato un secolo*).",
-    "climax": "📖 **Climax:** Configurazione retorica in cui i termini si succedono in ordine di intensità crescente o decrescente.",
     "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
     "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno.",
-    "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni per risolvere un problema.",
-    "hardware": "📖 **Hardware:** La parte fisica e tangibile di un computer (componenti, schermo, tastiera).",
-    "software": "📖 **Software:** L'insieme dei programmi e istruzioni che permettono ad un computer di funzionare.",
-    "cyberbullismo": "📖 **Cyberbullismo:** Qualsiasi forma di prevaricazione o molestia effettuata tramite strumenti digitali.",
-    "phishing": "📖 **Phishing:** Truffa informatica effettuata inviando email ingannevoli per rubare dati personali e password.",
-    "browser": "📖 **Browser:** Programma per navigare in Internet (es. Google Chrome, Mozilla Firefox, Microsoft Edge)."
+    "cyberbullismo": "📖 **Cyberbullismo:** Qualsiasi forma di prevaricazione o molestia effettuata tramite strumenti digitali."
   },
 
   faqs: [
@@ -189,7 +178,7 @@ function sendMessage() {
     }, 300);
 }
 
-function processUserQuery(query) {
+async function processUserQuery(query) {
     const cleanQuery = query.toLowerCase().trim();
 
     // 1. UTILITY: Calcolatrice Matematica
@@ -223,24 +212,39 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO & DEFINIZIONI (Integrazione rigida con blocco diretto)
+    // 3. UTILITY: DIZIONARIO (Locale + API Online)
     const dictionaryTriggers = ["cosa significa", "cosa vuol dire", "cos'e", "cos e", "definizione di"];
     const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
 
     if (isDictionaryQuery) {
-        personalQueryCount = 0; // Reset contatore
+        personalQueryCount = 0;
 
-        // Cerca se una parola chiave del dizionario è contenuta nella frase
+        // Estrazione del termine dalla domanda
+        let wordToSearch = cleanQuery;
+        dictionaryTriggers.forEach(trigger => {
+            wordToSearch = wordToSearch.replace(trigger, "");
+        });
+        wordToSearch = wordToSearch.replace(/\?/g, "").trim();
+
+        // Check 1: Dizionario Locale
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
-            if (cleanQuery.includes(term)) {
+            if (wordToSearch.includes(term) || term.includes(wordToSearch)) {
                 appendMessage(definition, "bot");
-                return; // Esce immediatamente
+                return;
             }
         }
-        
-        // Se la frase era una richiesta di definizione ma la parola non c'è nel dizionario:
-        appendMessage("📖 Al momento questo termine non è presente nel mio dizionario integrato. Ho preso nota della tua richiesta e cercheremo di aggiungerlo presto!", "bot");
-        return; // Impedisce che la domanda passi alle FAQ ed attivi risposte fuorvianti!
+
+        // Check 2: Chiamata API Online Gratuita
+        if (wordToSearch.length > 2) {
+            const fetchedDefinition = await fetchOnlineDefinition(wordToSearch);
+            if (fetchedDefinition) {
+                appendMessage(`📖 **${wordToSearch.toUpperCase()}:** ${fetchedDefinition}`, "bot");
+                return;
+            }
+        }
+
+        appendMessage(`📖 Non ho trovato una definizione per "**${wordToSearch}**". Ho comunque annotato la parola per aggiungerla ai futuri aggiornamenti!`, "bot");
+        return;
     }
 
     // 4. RICERCA NELLE FAQ TRADIZIONALI
@@ -291,6 +295,28 @@ function processUserQuery(query) {
             appendMessage("🤖 Non ho informazioni su questo argomento in archivio. Prova a riformulare la domanda per il contesto scolastico!", "bot");
         }
     }
+}
+
+// Funzione per cercare le definizioni online via API gratuita (Wiktionary/FreeDictionary)
+async function fetchOnlineDefinition(word) {
+    try {
+        const response = await fetch(`https://it.wiktionary.org/w/api.php?action=query&prop=extracts&exintro&explaintext&titles=${encodeURIComponent(word)}&format=json&origin=*`);
+        const data = await response.json();
+        const pages = data.query.pages;
+        const pageId = Object.keys(pages)[0];
+
+        if (pageId !== "-1" && pages[pageId].extract) {
+            let extract = pages[pageId].extract.trim();
+            // Pulisce il testo rendendolo conciso per la chat
+            if (extract.length > 300) {
+                extract = extract.substring(0, 300) + "...";
+            }
+            return extract;
+        }
+    } catch (e) {
+        // Se la rete è offline o la chiamata fallisce, gestisce senza errori
+    }
+    return null;
 }
 
 function extractMathExpression(text) {
@@ -385,7 +411,7 @@ function editDistance(s1, s2) {
     const costs = [];
     for (let i = 0; i <= s1.length; i++) {
         let lastValue = i;
-        for (let j = 0; j <= s2.length; j++) {
+        for (let j = 0; j <= s1.length; j++) {
             if (i === 0) costs[j] = j;
             else {
                 if (j > 0) {
