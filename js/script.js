@@ -29,7 +29,19 @@ let appConfig = {
   },
 
   faqs: [
-    // --- SEZIONE FORM E MODULISTICA DOCENTI ---
+    // --- SEZIONE FORM GENERALI E PANORAMICA ---
+    {
+      "id": "PANORAMICA_FORM",
+      "type": "school",
+      "keywords": [
+        "form", "modulo", "moduli", "modulistica", "elenco form", "tutti i form", "lista form", "i form", "moduli docenti"
+      ],
+      "responses": [
+        "📋 **Modulistica e Form Docenti Disponibili:**\n\nEcco i moduli compilabili online per i docenti dell'IIS Checchi:\n\n• **Piani di Lavoro Liceo/ITE/ITT:** chiederne il link specifico\n• **Piani di Lavoro IPIA/Prime ITE-ITT:** chiederne il link specifico\n• **Richiesta Fotocopie:** chiederne il link specifico\n• **Ingresso Esperti Esterni:** chiederne il link specifico\n• **Sostituzioni e Permessi Brevi:** chiederne il link specifico\n• **Consegna Dispositivi Digitali (Liceo):** chiederne il link specifico\n• **Richiesta Notebook BES (Liceo):** chiederne il link specifico\n\n*Puoi chiedermi direttamente il Form che ti interessa (es. \"form fotocopie\" o \"piano di lavoro liceo\")!*"
+      ]
+    },
+
+    // --- SEZIONE FORM SPECIFICI ---
     {
       "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
       "type": "school",
@@ -73,7 +85,8 @@ let appConfig = {
         "piani di lavoro liceo ite itt",
         "form piano di lavoro liceo",
         "modulo piano di lavoro liceo ite itt",
-        "piano lavoro liceo"
+        "piano lavoro liceo",
+        "piano di lavoro"
       ],
       "responses": [
         "📑 **Piano di Lavoro Annuale del Docente (Liceo / ITE / ITT):**\n\nPuoi compilare il Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Piano di Lavoro Liceo / ITE / ITT</a>"
@@ -310,8 +323,8 @@ function sendMessage() {
 }
 
 function processUserQuery(query) {
-    // Normalizzazione uniforme (converte apostrofi tipografici e accenti)
-    let cleanQuery = query.toLowerCase()
+    // 1. Normalizzazione iniziale
+    let rawQuery = query.toLowerCase()
         .replace(/’/g, "'")
         .replace(/[èé]/g, "e")
         .replace(/[àá]/g, "a")
@@ -320,6 +333,12 @@ function processUserQuery(query) {
         .replace(/[ùú]/g, "u")
         .replace(/\s+/g, " ")
         .trim();
+
+    // Correzione automatica refusi comuni (es. "from" -> "form")
+    let cleanQuery = rawQuery
+        .replace(/\bfrom\b/g, "form")
+        .replace(/\bfomr\b/g, "form")
+        .replace(/\bforn\b/g, "form");
 
     // 1. UTILITY: Calcolatrice Matematica
     const mathExpression = extractMathExpression(cleanQuery);
@@ -352,7 +371,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO (Estrazione rigorosa del termine)
+    // 3. UTILITY: DIZIONARIO (Estrazione del termine)
     const dictionaryTriggers = [
         "che cos'e'", "che cos'e", "che cos e'", "che cos e",
         "cos'e'", "cos'e", "cos e'", "cos e", "cosa e'", "cosa e",
@@ -364,13 +383,11 @@ function processUserQuery(query) {
     if (isDictionaryQuery) {
         personalQueryCount = 0;
 
-        // Rimuove la frase d'innesco
         let wordToSearch = cleanQuery;
         dictionaryTriggers.forEach(trigger => {
             wordToSearch = wordToSearch.replace(trigger, "");
         });
 
-        // Pulisce da articoli, punteggiatura, apostrofi isolati e spazi
         wordToSearch = wordToSearch
             .replace(/['’?.,!]/g, " ")
             .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle|che)\b/gi, "")
@@ -382,7 +399,6 @@ function processUserQuery(query) {
             return;
         }
 
-        // Ricerca nel Dizionario Locale
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
             const cleanTerm = term.toLowerCase().trim();
             if (wordToSearch === cleanTerm || cleanTerm.includes(wordToSearch) || wordToSearch.includes(cleanTerm)) {
@@ -395,7 +411,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. RICERCA NELLE FAQ
+    // 4. RICERCA NELLE FAQ (Con prevenzione falsi positivi sulle parole corte)
     let bestMatch = null;
     let highestScore = 0;
 
@@ -417,8 +433,10 @@ function processUserQuery(query) {
                     bestMatch = item;
                 }
             } else {
+                // Per parole molto corte (sotto 5 caratteri), alziamo la soglia per evitare falsi positivi
+                const minThreshold = cleanQuery.length <= 5 ? 0.85 : 0.45;
                 const score = similarity(cleanQuery, cleanKeyword);
-                if (score > highestScore) {
+                if (score >= minThreshold && score > highestScore) {
                     highestScore = score;
                     bestMatch = item;
                 }
