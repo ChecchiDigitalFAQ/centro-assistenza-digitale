@@ -101,6 +101,7 @@ let appConfig = {
     "domain": "📖 **Dominio:** Nome univoco che identifica un indirizzo o un sito web sulla rete internet.",
     "download": "📖 **Download:** Processo di trasferimento e salvataggio di dati da una rete remota al proprio dispositivo.",
     "driver": "📖 **Driver:** Software che consente al sistema operativo di comunicare e pilotare un componente hardware.",
+    "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti e delle zone costiere.",
     "dump": "📖 **Memory Dump:** Istantanea del contenuto della memoria RAM salvata su disco in seguito ad un errore critico.",
     "eccezione": "📖 **Eccezione:** Anomalia o evento imprevisto che si verifica durante l'esecuzione di un software.",
     "eco": "📖 **Echo (Informatica):** Comando che restituisce in output sul terminale il testo o le variabili passate come argomento.",
@@ -415,7 +416,7 @@ let appConfig = {
     "limite": "📖 **Limite Matematico:** Concetto fondamentale dell'analisi che descrive il valore a cui tende una funzione al punto dato.",
     "logaritmo": "📖 **Logaritmo:** L'esponente al quale elevare una base per ottenere un determinato numero.",
     "luce": "📖 **Anno Luce:** Unità di misura della lunghezza astronomica equivalente alla distanza percorsa dalla luce in un anno.",
-    "matematica": "📖 **Matematica:** Scienza che studia le quantità, le strutture spaziali, le forme ed i concetti di calcolo e misura.",
+    "matematica": "📖 **Matematica:** Scienza che studia le quantità, le structures spaziali, le forme ed i concetti di calcolo e misura.",
     "matrice": "📖 **Matrice:** Tabella ordinata di numeri disposti su righe e colonne, usata in algebra e grafica digitale.",
     "media_aritmetica": "📖 **Media Aritmetica:** Il valore calcolato sommando un insieme di numeri e dividendo il totale per il loro numero.",
     "mediana": "📖 **Mediana:** In statistica, il valore centrale che divide una distribuzione di dati ordinati in due parti uguali.",
@@ -463,7 +464,6 @@ let appConfig = {
     "comunicazione": "📖 **Comunicazione:** Processo di trasmissione di informazioni, idee e messaggi tra un emittente e un ricevente.",
     "democrazia": "📖 **Democrazia:** Forma di governo in cui il potere sovrano appartiene al popolo, che lo esercita direttamente o tramite rappresentanti.",
     "dramma": "📖 **Dramma:** Opera teatrale o cinematografica caratterizzata dallo sviluppo inteso di conflitti ed emozioni forti.",
-    "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti.",
     "enciclopedia": "📖 **Enciclopedia:** Opera che raccoglie in modo sistematico il complesso delle conoscenze umane o di una disciplina.",
     "etica": "📖 **Etica:** Ramo della filosofia che studia i principi e i valori che guidano il comportamento umano distinguendo il bene dal male.",
     "filantropo": "📖 **Filantropo:** Persona che si dedica a opere di bene, alla beneficenza e ad aiutare il prossimo per amore dell'umanità.",
@@ -823,7 +823,6 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Correzione refusi
     let cleanQuery = rawQuery
         .replace(/\bfrom\b/g, "form")
         .replace(/\bfomr\b/g, "form")
@@ -834,7 +833,7 @@ function processUserQuery(query) {
     const affirmativeList = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo", "esattamente"];
     const negativeList = ["no", "non", "per niente", "nulla", "finito"];
 
-    // --- GESTIONE DELLE RISPOSTE AI FLUSSI CONVERSAZIONALI ATTIVI ---
+    // 2. FLUSSI CONVERSAZIONALI FORM
     if (conversationState === "AWAITING_SPECIFIC_FORM_CONFIRMATION" && pendingFormMatch) {
         if (affirmativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
             const formResponse = pendingFormMatch.responses[0];
@@ -866,7 +865,6 @@ function processUserQuery(query) {
         conversationState = null;
     }
 
-    // --- FILTRO RISPOSTE A FREDDO SENZA STATO (es. utente scrive solo "si" o "no" all'inizio) ---
     if (conversationState === null) {
         if (affirmativeList.includes(cleanQuery)) {
             appendMessage("🤖 Dimmi pure! In cosa posso esserti d'aiuto per l'istituto?", "bot");
@@ -878,7 +876,6 @@ function processUserQuery(query) {
         }
     }
 
-    // --- CONTROLLO PAROLE GENERICHE (es. solo "form", "modulo") ---
     const strictGenericTriggers = ["form", "modulo", "modulistica", "i form", "i moduli"];
     if (strictGenericTriggers.includes(cleanQuery)) {
         conversationState = "AWAITING_FORM_CONFIRMATION";
@@ -886,7 +883,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 1. UTILITY: Calcolatrice Matematica
+    // 3. CALCOLATRICE MATEMATICA
     const mathExpression = extractMathExpression(cleanQuery);
     if (mathExpression) {
         try {
@@ -899,8 +896,8 @@ function processUserQuery(query) {
         } catch (e) {}
     }
 
-    // 2. UTILITY: Data e Ora
-    if (cleanQuery.includes("ora") || cleanQuery.includes("ore") || cleanQuery.includes("che ora")) {
+    // 4. DATA E ORA (Con confini di parola \b per evitare 'amministratORE')
+    if (/\b(ora|ore|che ora|orario)\b/i.test(cleanQuery) && !cleanQuery.includes("orari segreteria")) {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
         appendMessage(`⌚ Attualmente sono le ore **${timeStr}**.`, "bot");
@@ -908,7 +905,7 @@ function processUserQuery(query) {
         return;
     }
 
-    if (cleanQuery.includes("giorno") || cleanQuery.includes("data") || cleanQuery.includes("oggi")) {
+    if (/\b(giorno|data|oggi)\b/i.test(cleanQuery)) {
         const now = new Date();
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const dateStr = now.toLocaleDateString('it-IT', options);
@@ -917,51 +914,39 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO
+    // 5. RICERCA DIZIONARIO (Sia con "cos'è..." che con parola SINGOLA)
     const dictionaryTriggers = [
         "che cos'e'", "che cos'e", "che cos e'", "che cos e",
         "cos'e'", "cos'e", "cos e'", "cos e", "cosa e'", "cosa e",
         "cosa significa", "cosa vuol dire", "definizione di", "significato di"
     ];
 
-    const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
+    let wordToSearch = cleanQuery;
+    dictionaryTriggers.forEach(trigger => {
+        wordToSearch = wordToSearch.replace(trigger, "");
+    });
 
-    if (isDictionaryQuery) {
-        personalQueryCount = 0;
+    wordToSearch = wordToSearch
+        .replace(/['’?.,!]/g, " ")
+        .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle|che)\b/gi, "")
+        .replace(/\s+/g, " ")
+        .trim();
 
-        let wordToSearch = cleanQuery;
-        dictionaryTriggers.forEach(trigger => {
-            wordToSearch = wordToSearch.replace(trigger, "");
-        });
-
-        wordToSearch = wordToSearch
-            .replace(/['’?.,!]/g, " ")
-            .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle|che)\b/gi, "")
-            .replace(/\s+/g, " ")
-            .trim();
-
-        if (wordToSearch === "") {
-            appendMessage("📖 Quale parola vorresti cercare nel dizionario?", "bot");
-            return;
-        }
-
+    if (wordToSearch !== "") {
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
             const cleanTerm = term.toLowerCase().trim();
-            if (wordToSearch === cleanTerm || cleanTerm.includes(wordToSearch) || wordToSearch.includes(cleanTerm)) {
+            if (wordToSearch === cleanTerm || cleanTerm.replace(/_/g, " ") === wordToSearch) {
+                personalQueryCount = 0;
                 appendMessage(definition, "bot");
                 return;
             }
         }
-
-        appendMessage(`📖 Non ho ancora la definizione di "**${wordToSearch}**" nel mio dizionario integrato. Ho annotato il termine e potrà essere aggiunto dal Pannello Admin!`, "bot");
-        return;
     }
 
-    // 4. RICERCA FAQ / FORM CON CONTESTUALIZZAZIONE
+    // 6. RICERCA FAQ / FORM
     let bestMatch = null;
     let highestScore = 0;
 
-    // Ignora parole brevissime (<= 2 caratteri) per evitare falsi positivi
     if (cleanQuery.length <= 2) {
         appendMessage("🤖 Puoi specificare la tua domanda con qualche dettaglio in più?", "bot");
         return;
@@ -1017,12 +1002,8 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        personalQueryCount++;
-        if (personalQueryCount >= 3) {
-            appendMessage("🤖 Credo che parlare di cose personali non sia molto utile! Concentriamoci sulla scuola: hai domande su orari, modulistica o servizi dell'IIS Checchi?", "bot");
-        } else {
-            appendMessage("🤖 Non ho compreso la richiesta o non ho informazioni in archivio su questo termine. Prova a riformulare la domanda specificando il contesto scolastico!", "bot");
-        }
+        personalQueryCount = 0;
+        appendMessage("🤖 Non ho compreso la richiesta o non ho informazioni in archivio su questo termine. Prova a riformulare la domanda!", "bot");
     }
 }
 
