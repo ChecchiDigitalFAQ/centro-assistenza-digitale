@@ -1,48 +1,48 @@
 // admin.js - Gestione Completa CRUD per Arturo 2.0
 
 let adminConfig = JSON.parse(localStorage.getItem("appConfig_master")) || {
-  quickButtons: [
-    { id: "AIUTO", label: "❓ Cos'è Arturo?" },
-    { id: "CONTATTI", label: "📞 Contatti" },
-    { id: "DIRIGENZA", label: "👔 Dirigenza" },
-    { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici" },
-    { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
-  ],
-  dictionary: {
-    "filantropo": "📖 **Filantropo:** Persona che si dedica a opere di bene, alla beneficenza e ad aiutare il prossimo per amore dell'umanità.",
-    "mecenate": "📖 **Mecenate:** Persona di ampie disponibilità economiche che protegge e sostiene finanziariamente artisti, letterati e studiosi.",
-    "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti e delle zone costiere.",
-    "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
-    "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
-    "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
-    "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno."
-  },
-  faqs: [
-    {
-      id: "CREATORE",
-      type: "personal",
-      keywords: ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore"],
-      responses: ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca** per aiutare la comunità scolastica!"]
+    quickButtons: [
+        { id: "AIUTO", label: "❓ Cos'è Arturo?" },
+        { id: "CONTATTI", label: "📞 Contatti" },
+        { id: "DIRIGENZA", label: "👔 Dirigenza" },
+        { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici" },
+        { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
+    ],
+    dictionary: {
+        "filantropo": "📖 **Filantropo:** Persona che si dedica a opere di bene, alla beneficenza e ad aiutare il prossimo per amore dell'umanità.",
+        "mecenate": "📖 **Mecenate:** Persona di ampie disponibilità economiche che protegge e sostiene finanziariamente artisti, letterati e studiosi.",
+        "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti e delle zone costiere.",
+        "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
+        "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
+        "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
+        "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno."
     },
-    {
-      id: "PRIVACY_DATI_PERSONALI",
-      type: "school",
-      keywords: ["numero di telefono di", "numero di", "dammi il numero", "telefono di", "email di", "cellulare di"],
-      responses: ["🔒 **Tutela della Privacy:** Per motivi GDPR, non posso fornire contatti personali di studenti o docenti. Rivolgiti alla **Segreteria dell'Istituto**."]
-    },
-    {
-      id: "AIUTO",
-      type: "school",
-      keywords: ["aiuto", "help", "cosa sai fare", "istruzioni"],
-      responses: ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria e supporto sui servizi digitali."]
-    },
-    {
-      id: "CONTATTI",
-      type: "school",
-      keywords: ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete"],
-      responses: ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
-    }
-  ]
+    faqs: [
+        {
+            id: "CREATORE",
+            type: "personal",
+            keywords: ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore"],
+            responses: ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca** per aiutare la comunità scolastica!"]
+        },
+        {
+            id: "PRIVACY_DATI_PERSONALI",
+            type: "school",
+            keywords: ["numero di telefono di", "numero di", "dammi il numero", "telefono di", "email di", "cellulare di"],
+            responses: ["🔒 **Tutela della Privacy:** Per motivi GDPR, non posso fornire contatti personali di studenti o docenti. Rivolgiti alla **Segreteria dell'Istituto**."]
+        },
+        {
+            id: "AIUTO",
+            type: "school",
+            keywords: ["aiuto", "help", "cosa sai fare", "istruzioni"],
+            responses: ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria e supporto sui servizi digitali."]
+        },
+        {
+            id: "CONTATTI",
+            type: "school",
+            keywords: ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete"],
+            responses: ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
+        }
+    ]
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -154,6 +154,7 @@ function renderDictTable() {
             <td><strong>${term}</strong></td>
             <td>${definition}</td>
             <td>
+                <button class="btn-edit" onclick="editDictTerm('${term}')">✏️ Modifica</button>
                 <button class="btn-danger" onclick="deleteDictTerm('${term}')">🗑️ Elimina</button>
             </td>
         `;
@@ -163,16 +164,55 @@ function renderDictTable() {
 
 function saveDictTerm(event) {
     event.preventDefault();
+    const originalTerm = document.getElementById("dictOriginalTerm") ? document.getElementById("dictOriginalTerm").value : "";
     const term = document.getElementById("dictTerm").value.trim().toLowerCase();
     const definition = document.getElementById("dictDefinition").value.trim();
 
     if (!term || !definition) return;
 
+    // Se il termine è stato rinominato durante la modifica, rimuoviamo la vecchia chiave
+    if (originalTerm && originalTerm !== term) {
+        delete adminConfig.dictionary[originalTerm];
+    }
+
     adminConfig.dictionary[term] = definition;
     saveToLocalStorage();
     renderDictTable();
-    document.getElementById("dictForm").reset();
+    cancelEditDict();
     alert("✅ Termine salvato nel dizionario!");
+}
+
+function editDictTerm(term) {
+    document.getElementById("dictTerm").value = term;
+    document.getElementById("dictDefinition").value = adminConfig.dictionary[term];
+    if (document.getElementById("dictOriginalTerm")) {
+        document.getElementById("dictOriginalTerm").value = term;
+    }
+
+    const titleEl = document.getElementById("dictFormTitle");
+    const btnSaveEl = document.getElementById("btnSaveDict");
+    const btnCancelEl = document.getElementById("btnCancelDictEdit");
+
+    if (titleEl) titleEl.innerText = "✏️ Modifica Termine Dizionario";
+    if (btnSaveEl) btnSaveEl.innerText = "💾 Aggiorna Termine";
+    if (btnCancelEl) btnCancelEl.style.display = "inline-block";
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEditDict() {
+    document.getElementById("dictForm").reset();
+    if (document.getElementById("dictOriginalTerm")) {
+        document.getElementById("dictOriginalTerm").value = "";
+    }
+    
+    const titleEl = document.getElementById("dictFormTitle");
+    const btnSaveEl = document.getElementById("btnSaveDict");
+    const btnCancelEl = document.getElementById("btnCancelDictEdit");
+
+    if (titleEl) titleEl.innerText = "➕ Aggiungi / Modifica Termine";
+    if (btnSaveEl) btnSaveEl.innerText = "💾 Salva Termine";
+    if (btnCancelEl) btnCancelEl.style.display = "none";
 }
 
 function deleteDictTerm(term) {
@@ -195,6 +235,7 @@ function renderButtonsTable() {
             <td>${btn.label}</td>
             <td><code>${btn.id}</code></td>
             <td>
+                <button class="btn-edit" onclick="editQuickButton(${index})">✏️ Modifica</button>
                 <button class="btn-danger" onclick="deleteQuickButton(${index})">🗑️ Elimina</button>
             </td>
         `;
@@ -204,16 +245,58 @@ function renderButtonsTable() {
 
 function saveQuickButton(event) {
     event.preventDefault();
+    const editIndex = parseInt(document.getElementById("buttonIndex") ? document.getElementById("buttonIndex").value : -1);
     const label = document.getElementById("btnLabel").value.trim();
     const id = document.getElementById("btnFaqId").value.trim().toUpperCase();
 
     if (!label || !id) return;
 
-    adminConfig.quickButtons.push({ id, label });
+    const newBtn = { id, label };
+
+    if (editIndex >= 0) {
+        adminConfig.quickButtons[editIndex] = newBtn;
+    } else {
+        adminConfig.quickButtons.push(newBtn);
+    }
+
     saveToLocalStorage();
     renderButtonsTable();
+    cancelEditButton();
+    alert("✅ Pulsante salvato!");
+}
+
+function editQuickButton(index) {
+    const btn = adminConfig.quickButtons[index];
+    if (document.getElementById("buttonIndex")) {
+        document.getElementById("buttonIndex").value = index;
+    }
+    document.getElementById("btnLabel").value = btn.label;
+    document.getElementById("btnFaqId").value = btn.id;
+
+    const titleEl = document.getElementById("buttonFormTitle");
+    const btnSaveEl = document.getElementById("btnSaveButton");
+    const btnCancelEl = document.getElementById("btnCancelBtnEdit");
+
+    if (titleEl) titleEl.innerText = "✏️ Modifica Pulsante";
+    if (btnSaveEl) btnSaveEl.innerText = "💾 Aggiorna Pulsante";
+    if (btnCancelEl) btnCancelEl.style.display = "inline-block";
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelEditButton() {
+    if (document.getElementById("buttonIndex")) {
+        document.getElementById("buttonIndex").value = -1;
+    }
     document.getElementById("buttonForm").reset();
-    alert("✅ Pulsante aggiunto!");
+
+    const titleEl = document.getElementById("buttonFormTitle");
+    const btnSaveEl = document.getElementById("btnSaveButton");
+    const btnCancelEl = document.getElementById("btnCancelBtnEdit");
+
+    if (titleEl) titleEl.innerText = "➕ Aggiungi / Modifica Pulsante";
+    if (btnSaveEl) btnSaveEl.innerText = "💾 Salva Pulsante";
+    if (btnCancelEl) btnCancelEl.style.display = "none";
 }
 
 function deleteQuickButton(index) {
