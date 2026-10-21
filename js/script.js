@@ -9,6 +9,16 @@ let appConfig = {
   ],
   faqs: [
     {
+      "id": "PRIVACY_DATI_PERSONALI",
+      "keywords": [
+        "numero di telefono di", "numero di", "dammi il numero", "telefono di", 
+        "email di", "indirizzo di", "dove abita", "contatto personale di", "cellulare di"
+      ],
+      "responses": [
+        "🔒 **Tutela della Privacy:** Per motivi di sicurezza e rispetto della normativa GDPR, non posso fornire numeri di telefono, email o dati personali di studenti, docenti o personale della scuola.\n\n📍 Se hai necessità di contattare un docente o un ufficio, puoi fare riferimento ai contatti ufficiali della **Segreteria dell'Istituto**."
+      ]
+    },
+    {
       "id": "CREATORE",
       "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "chi e il tuo creatore", "chi ti ha fatto", "chi ti ha progettato"],
       "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica (studenti, famiglie, docenti e personale ATA) a trovare risposte rapide, moduli e informazioni in modo semplice e immediato!"]
@@ -17,7 +27,7 @@ let appConfig = {
       "id": "PROVOCAZIONI_BATTUTE",
       "keywords": ["ti ubriachi", "fumi", "hai la fidanzata", "hai il fidanzato", "dormi", "vai a scuola", "fai il bagno", "giochi a pallone", "ti droghe", "ti droghi"],
       "responses": [
-        "🤖 Essendo fatto interamente di codice e circuiti, non posso ubriacarmi, dormire né fare cose umane! L'unica cosa che mi Mandain tilt è quando si stacca il Wi-Fi!",
+        "🤖 Essendo fatto interamente di codice e circuiti, non posso ubriacarmi, dormire né fare cose umane! L'unica cosa che mi va in tilt è quando si stacca il Wi-Fi!",
         "😅 Nessuna abitudine umana per me! Sono solo un assistente virtuale programmato per rispondere alle tue domande sull'IIS Checchi."
       ]
     },
@@ -98,7 +108,7 @@ let appConfig = {
     },
     {
       "id": "CONTATTI",
-      "keywords": ["contatti", "telefono", "email", "pec", "dove siete", "indirizzo"],
+      "keywords": ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete", "indirizzo scuola"],
       "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it\n📨 **PEC:** FIIS00300C@pec.istruzione.it"]
     },
     {
@@ -233,7 +243,6 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        // Fallback naturale ed equilibrato
         appendMessage("🤖 Non ho informazioni su questo argomento. Sono programmato per aiutare sulla vita scolastica dell'IIS Checchi (orari, modulistica, contatti e servizi digitali). Se riguarda la scuola, riprova formulando la domanda diversamente!", "bot");
     }
 }
