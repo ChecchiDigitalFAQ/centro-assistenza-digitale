@@ -33,12 +33,12 @@ let appConfig = {
     {
       "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
       "type": "form",
+      "label": "l'autorizzazione per l'ingresso di esperti esterni",
       "keywords": [
         "richiesta autorizzazione ingresso esperti esterni",
         "ingresso esperti esterni",
         "esperti esterni",
         "esperti",
-        "eseprti",
         "autorizzazione esperti",
         "form esperti esterni",
         "modulo esperti esterni",
@@ -51,6 +51,7 @@ let appConfig = {
     {
       "id": "FORM_RICHIESTA_FOTOCOPIE",
       "type": "form",
+      "label": "la richiesta di stampa fotocopie",
       "keywords": [
         "richiesta fotocopie",
         "fotocopie",
@@ -67,6 +68,7 @@ let appConfig = {
     {
       "id": "FORM_PIANO_LAVORO_LICEO_ITE_ITT",
       "type": "form",
+      "label": "il Piano di Lavoro Annuale per Liceo, ITE o ITT",
       "keywords": [
         "piano lavoro annuale del docente indirizzo liceo ite itt",
         "piano di lavoro liceo",
@@ -84,6 +86,7 @@ let appConfig = {
     {
       "id": "FORM_PIANO_LAVORO_IPIA_PRIME_ITE_ITT",
       "type": "form",
+      "label": "il Piano di Lavoro Annuale per IPIA e Classi Prime ITE/ITT",
       "keywords": [
         "piano di lavoro annuale docente ipia e classi prime ite itt",
         "piano di lavoro ipia",
@@ -101,6 +104,7 @@ let appConfig = {
     {
       "id": "FORM_SOSTITUZIONI_RECUPERO_PERMESSI",
       "type": "form",
+      "label": "la registrazione di sostituzioni retribuite o recupero permessi brevi",
       "keywords": [
         "registrazione sostituzioni retribuite e recupero permessi brevi",
         "sostituzioni retribuite",
@@ -118,6 +122,7 @@ let appConfig = {
     {
       "id": "FORM_REGISTRO_CONSEGNA_DISPOSITIVI_LICEO",
       "type": "form",
+      "label": "il registro di consegna dispositivi digitali (Plesso Liceo)",
       "keywords": [
         "registro consegna dispositivi digitali",
         "consegna dispositivi digitali",
@@ -134,6 +139,7 @@ let appConfig = {
     {
       "id": "FORM_RICHIESTA_NOTEBOOK_BES_LICEO",
       "type": "form",
+      "label": "la richiesta di notebook per alunni BES (Plesso Liceo)",
       "keywords": [
         "richiesta notebook per alunni bes",
         "notebook alunni bes",
@@ -244,7 +250,7 @@ let appConfig = {
       "id": "DIRIGENZA",
       "type": "school",
       "keywords": ["dirigenza", "preside", "dirigente"],
-      "responses": ["👔 La Dirigenza receive su appuntamento tramite la segreteria."]
+      "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria."]
     },
     {
       "id": "SEGRETERIE",
@@ -265,8 +271,9 @@ let personalQueryCount = 0;
 let inactivityTimer = null;
 const RESET_TIME_MS = 5 * 60 * 1000;
 
-// STATO CONVERSAZIONALE INTERATTIVO
+// MACCHINA A STATI CONVERSAZIONALE
 let conversationState = null;
+let pendingFormMatch = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -326,7 +333,7 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Correzione refusi trasversali per Form ed Esperti
+    // Correzione refusi
     let cleanQuery = rawQuery
         .replace(/\bfrom\b/g, "form")
         .replace(/\bfomr\b/g, "form")
@@ -334,7 +341,25 @@ function processUserQuery(query) {
         .replace(/\beseprti\b/g, "esperti")
         .replace(/\bespert\b/g, "esperti");
 
-    // --- GESTIONE STATO INTERATTIVO (ATTESA RISPOSTA SI/NO O SPECIFICA FORM) ---
+    // --- GESTIONE DELLE RISPOSTE AI FLUSSI CONVERSAZIONALI ATTIVI ---
+    if (conversationState === "AWAITING_SPECIFIC_FORM_CONFIRMATION" && pendingFormMatch) {
+        const affirmativeAnswers = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo", "esattamente"];
+        const negativeAnswers = ["no", "non", "per niente", "nulla", "finito"];
+
+        if (affirmativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            const formResponse = pendingFormMatch.responses[0];
+            conversationState = null;
+            pendingFormMatch = null;
+            appendMessage(formResponse, "bot");
+            return;
+        } else if (negativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            conversationState = null;
+            pendingFormMatch = null;
+            appendMessage("🤖 Capito! Dimmi pure in dettaglio di cosa hai bisogno per la scuola.", "bot");
+            return;
+        }
+    }
+
     if (conversationState === "AWAITING_FORM_CONFIRMATION") {
         const affirmativeAnswers = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo"];
         const negativeAnswers = ["no", "non", "per niente", "nulla", "finito"];
@@ -345,45 +370,17 @@ function processUserQuery(query) {
             return;
         } else if (negativeAnswers.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
             conversationState = null;
-            appendMessage("🤖 Capito! Hai finito o hai bisogno di aiuto per qualcos'altro sul contesto scolastico?", "bot");
+            appendMessage("🤖 Capito! Hai finito o hai bisogno di aiuto per qualcos'altro?", "bot");
             return;
         }
     }
 
-    // SE L'UTENTE È NELLO STATO "AWAITING_FORM_TYPE", CERCHIAMO SOLO TRA I FORM
     if (conversationState === "AWAITING_FORM_TYPE") {
-        let formMatch = null;
-        let formScore = 0;
-
-        appConfig.faqs.filter(f => f.type === "form").forEach(item => {
-            item.keywords.forEach(keyword => {
-                const cleanKeyword = keyword.toLowerCase().trim();
-                if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
-                    formScore = 1.0;
-                    formMatch = item;
-                } else {
-                    const sc = similarity(cleanQuery, cleanKeyword);
-                    if (sc > formScore && sc >= 0.45) {
-                        formScore = sc;
-                        formMatch = item;
-                    }
-                }
-            });
-        });
-
-        if (formMatch && formScore >= 0.45) {
-            conversationState = null; // Resetta lo stato se trovato
-            appendMessage(formMatch.responses[0], "bot");
-            return;
-        } else {
-            // Se non trova il form nel contesto specifico, NON risponde a caso con le FAQ generali!
-            appendMessage(`🤖 Non ho trovato un Form corrispondente a "**${query}**". Prova a specificare ad esempio: *fotocopie*, *piano di lavoro*, *esperti esterni*, *permessi* o *dispositivi*.`, "bot");
-            return;
-        }
+        conversationState = null;
     }
 
-    // --- CONTROLLO PAROLE GENERICHE ---
-    const strictGenericTriggers = ["form", "modulo", "modulistica", "i form", "i moduli", "i moduli docenti"];
+    // --- CONTROLLO PAROLE GENERICHE (es. solo "form", "modulo") ---
+    const strictGenericTriggers = ["form", "modulo", "modulistica", "i form", "i moduli"];
     if (strictGenericTriggers.includes(cleanQuery)) {
         conversationState = "AWAITING_FORM_CONFIRMATION";
         appendMessage("🤖 Credo di aver capito che stai cercando un modulo o un Form scolastico, mi confermi?", "bot");
@@ -461,7 +458,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. RICERCA NELLE FAQ E NEI FORM SPECIFICI (Con soglie rigide anti-risposte casuali)
+    // 4. RICERCA FAQ / FORM CON CONTESTUALIZZAZIONE
     let bestMatch = null;
     let highestScore = 0;
 
@@ -483,7 +480,6 @@ function processUserQuery(query) {
                     bestMatch = item;
                 }
             } else {
-                // Per parole brevi o refusi, alziamo la soglia a 0.70 per evitare risposte a caso
                 const minThreshold = cleanQuery.length <= 7 ? 0.75 : 0.55;
                 const score = similarity(cleanQuery, cleanKeyword);
                 if (score >= minThreshold && score > highestScore) {
@@ -495,6 +491,15 @@ function processUserQuery(query) {
     });
 
     if (bestMatch && highestScore >= 0.55) {
+        // Se la richiesta riguarda un FORM ed è costituita da parole singole/decontestualizzate (meno di 3 parole)
+        const wordCount = cleanQuery.split(" ").length;
+        if (bestMatch.type === "form" && wordCount <= 2 && !cleanQuery.includes("form") && !cleanQuery.includes("modulo") && !cleanQuery.includes("link")) {
+            conversationState = "AWAITING_SPECIFIC_FORM_CONFIRMATION";
+            pendingFormMatch = bestMatch;
+            appendMessage(`🤖 Cerchi il **Form online** per **${bestMatch.label}**?`, "bot");
+            return;
+        }
+
         if (bestMatch.type === "personal") {
             personalQueryCount++;
             if (personalQueryCount >= 3) {
@@ -530,6 +535,7 @@ function extractMathExpression(text) {
 function quickAction(actionId) {
     personalQueryCount = 0;
     conversationState = null;
+    pendingFormMatch = null;
     const match = appConfig.faqs.find(item => item.id === actionId);
     if (match) {
         const responseText = match.responses[0];
@@ -570,6 +576,7 @@ function appendMessage(text, sender) {
 function resetChat() {
     personalQueryCount = 0;
     conversationState = null;
+    pendingFormMatch = null;
     const chatBox = document.getElementById("chatBox");
     if (!chatBox) return;
     chatBox.innerHTML = `
