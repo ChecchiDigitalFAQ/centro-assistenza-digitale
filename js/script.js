@@ -64,22 +64,31 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Ricerca nelle FAQ con Fuzzy Matching (Tolleranza ai refusi)
+    // 2. Ricerca nelle FAQ (Inclusione diretta + Fuzzy Matching)
     let bestMatch = null;
     let highestScore = 0;
 
     faqData.forEach(item => {
         item.keywords.forEach(keyword => {
-            const score = similarity(cleanQuery, keyword.toLowerCase());
-            if (score > highestScore) {
-                highestScore = score;
+            const cleanKeyword = keyword.toLowerCase().trim();
+
+            // Check A: Contenimento esatto della parola/frase
+            if (cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+                highestScore = 1.0;
                 bestMatch = item;
+            } else {
+                // Check B: Somiglianza con tolleranza errori
+                const score = similarity(cleanQuery, cleanKeyword);
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = item;
+                }
             }
         });
     });
 
-    // Soglia abbassata a 0.35 per catturare meglio frasi corte ("come ti chiami") e refusi
-    if (bestMatch && highestScore >= 0.35) {
+    // Risposta se trovata con corrispondenza o con punteggio >= 0.30
+    if (bestMatch && highestScore >= 0.30) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
