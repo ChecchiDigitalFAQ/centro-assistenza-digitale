@@ -23,15 +23,13 @@
     <!-- LAYOUT PRINCIPALE -->
     <div class="app-container">
 
-        <!-- MENU LATERALE (PULSANTI FAQ RAPIDI) -->
-        <aside class="sidebar">
-            <h3>Servizi Rapidi</h3>
-            <button class="quick-btn" onclick="quickAction('AIUTO')">❓ Cos'è Arturo?</button>
-            <button class="quick-btn" onclick="quickAction('CONTATTI')">📞 Contatti</button>
-            <button class="quick-btn" onclick="quickAction('DIRIGENZA')">👔 Dirigenza</button>
-            <button class="quick-btn" onclick="quickAction('SEGRETERIE')">🏢 Segreteria e Uffici</button>
-            <button class="quick-btn" onclick="quickAction('MICROSOFT365')">💻 Servizi Digitali (Teams/Argo)</button>
-        </aside>
+        <!-- MENU LATERALE (PULSANTI FAQ RAPIDI DINAMICI) -->
+<aside class="sidebar">
+    <h3>Servizi Rapidi</h3>
+    <div id="quickButtonsContainer">
+        <!-- I pulsanti verranno generati automaticamente dallo script JS -->
+    </div>
+</aside>
 
         <!-- AREA DELLA CHAT -->
         <main class="chat-section">
