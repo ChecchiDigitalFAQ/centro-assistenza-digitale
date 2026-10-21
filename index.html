@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arturo - Assistente Virtuale IIS Arturo Checchi</title>
+    <title>Arturo 2.0 - IIS Arturo Checchi</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- HEADER SUPERIORE -->
     <header class="main-header">
         <div class="brand">
-            <img src="logo.png" alt="Logo IIS Arturo Checchi" class="logo">
+            <img src="logo.png" alt="Logo Checchi" class="logo">
             <div>
                 <h1>Arturo 2.0</h1>
                 <p>Centro Assistenza Digitale IIS Arturo Checchi</p>
@@ -20,21 +19,16 @@
         <button class="btn-reset" onclick="resetChat()">🔄 Nuova Conversazione</button>
     </header>
 
-    <!-- LAYOUT PRINCIPALE -->
-    <div class="app-container">
+    <main class="app-container">
+        <!-- BARRA LATERALE SERVIZI RAPIDI -->
+        <aside class="sidebar">
+            <h3>Servizi Rapidi</h3>
+            <div id="quickButtonsContainer"></div>
+        </aside>
 
-        <!-- MENU LATERALE (PULSANTI FAQ RAPIDI DINAMICI) -->
-<aside class="sidebar">
-    <h3>Servizi Rapidi</h3>
-    <div id="quickButtonsContainer">
-        <!-- I pulsanti verranno generati automaticamente dallo script JS -->
-    </div>
-</aside>
-
-        <!-- AREA DELLA CHAT -->
-        <main class="chat-section">
-            <div id="chatBox" class="chat-box">
-                <!-- Messaggio di Benvenuto Iniziale -->
+        <!-- AREA CHAT PRINCIPALE -->
+        <section class="chat-area">
+            <div class="chat-box" id="chatBox">
                 <div class="message bot">
                     <div class="avatar">🤖</div>
                     <div class="bubble">
@@ -45,16 +39,13 @@
                 </div>
             </div>
 
-            <!-- AREA INPUT MESSAGGIO -->
-            <div class="input-container">
+            <div class="input-area">
                 <input type="text" id="userInput" placeholder="Scrivi una domanda ad Arturo..." onkeypress="handleKeyPress(event)">
-                <button id="sendBtn" onclick="sendMessage()">Invia</button>
+                <button onclick="sendMessage()">Invia</button>
             </div>
-        </main>
+        </section>
+    </main>
 
-    </div>
-
-    <!-- FOOTER -->
     <footer>
         © IIS Arturo Checchi | Arturo 2.0 - Assistente Virtuale
     </footer>
