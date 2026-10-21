@@ -9,19 +9,49 @@ let appConfig = {
   ],
   faqs: [
     {
+      "id": "CREATORE",
+      "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "chi e il tuo creatore", "chi ti ha fatto", "chi ti ha progettato"],
+      "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica (studenti, famiglie, docenti e personale ATA) a trovare risposte rapide, moduli e informazioni in modo semplice e immediato!"]
+    },
+    {
       "id": "SALUTO",
-      "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey"],
+      "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey", "buondì"],
       "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
     },
     {
       "id": "CHI_SEI",
-      "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome"],
+      "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome", "qual e il tuo nome"],
       "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale dell'IIS Arturo Checchi!"]
     },
     {
       "id": "NASCITA_LUOGO",
-      "keywords": ["quando sei nato", "dove sei nato", "dove vivi", "dove ti trovi", "eta"],
-      "responses": ["🤖 Sono nato nel mondo digitale e vivo nei server dell'**IIS Arturo Checchi** a Fucecchio! Non ho un'età vera e propria, ma sono sempre aggiornato."]
+      "keywords": ["dove vivi", "dove ti trovi", "dove stai", "dove abiti", "dove sei"],
+      "responses": ["🌐 Vivo nei server dell'**IIS Arturo Checchi** a Fucecchio! Sono sempre connesso per darti una mano ovunque tu sia."]
+    },
+    {
+      "id": "ETA_COMPLEANNO",
+      "keywords": ["quando sei nato", "quanti anni hai", "tua eta", "qual e la tua eta", "quando e il tuo compleanno"],
+      "responses": ["🤖 Essendo un assistente digitale non compio gli anni come gli umani, ma mi considero sempre giovane e aggiornato all'ultima versione!"]
+    },
+    {
+      "id": "MANGI_BEVI",
+      "keywords": ["mangi", "cosa mangi", "bevi", "cosa bevi", "hai fame", "hai sete", "ti piace la pizza"],
+      "responses": ["⚡ Non mangio cibo e non bevo acqua... la mia unica alimentazione sono i **kilobyte di dati** e un po' di energia elettrica!"]
+    },
+    {
+      "id": "COSA_FAI",
+      "keywords": ["cosa fai", "cosa stai facendo", "come passi il tempo", "cosa fai di bello"],
+      "responses": ["🔍 Sto consultando i miei archivi per rispondere alle tue domande e aiutare gli utenti dell'istituto! Tu di cosa hai bisogno?"]
+    },
+    {
+      "id": "RINGRAZIAMENTI",
+      "keywords": ["grazie", "grazie mille", "mille grazie", "ti ringrazio", "perfetto grazie"],
+      "responses": ["😊 Figurati! È un piacere esserti d'aiuto. Se hai altre domande, sono qui!", "👍 Prego! Per qualsiasi altra informazione basta chiedere."]
+    },
+    {
+      "id": "COME_STAI",
+      "keywords": ["come stai", "come va", "tutto bene", "come te la passi"],
+      "responses": ["🤖 Io sto benissimo, grazie! Sono sempre operativo e pronto a rispondere alle tue domande sull'istituto. Tu come stai?"]
     },
     {
       "id": "BARZELLETTA",
@@ -31,6 +61,16 @@ let appConfig = {
         "😄 Cosa fa un punto e virgola su una spiaggia? Il punto di domanda!",
         "😄 Perché il Wi-Fi della scuola è sempre sereno? Perché naviga nell'aria!"
       ]
+    },
+    {
+      "id": "COMPLIMENTI",
+      "keywords": ["sei bravo", "sei utilissimo", "bravissimo", "ottimo lavoro", "sei simpatico", "sei fantastico"],
+      "responses": ["🔴🔵 Grazie mille! Svolgo il mio lavoro con entusiasmo per supportare al meglio la comunità dell'IIS Arturo Checchi!"]
+    },
+    {
+      "id": "INSULTI_OFFESE",
+      "keywords": ["sei stupido", "non capisci niente", "brutto", "inutile"],
+      "responses": ["🤖 Cerco di fare del mio meglio per imparare ogni giorno! Se non ho risposto correttamente, prova a riformulare la domanda."]
     },
     {
       "id": "AIUTO",
@@ -45,7 +85,7 @@ let appConfig = {
     {
       "id": "DIRIGENZA",
       "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
-      "responses": ["👔 La Dirigenza riceve su appuntamento. Puoi contattare la segreteria per richiedere un colloquio con la Presidenza."]
+      "responses": ["👔 La Dirigenza receive su appuntamento. Puoi contattare la segreteria per richiedere un colloquio con la Presidenza."]
     },
     {
       "id": "SEGRETERIE",
@@ -115,7 +155,21 @@ function sendMessage() {
 function processUserQuery(query) {
     const cleanQuery = query.toLowerCase().trim();
 
-    // 1. Controllo domande su Data e Ora
+    // 1. UTILITY: Calcolatrice Matematica integrata (es. "quanto fa 3*4", "12+5", "50/2")
+    const mathExpression = extractMathExpression(cleanQuery);
+    if (mathExpression) {
+        try {
+            const result = Function(`'use strict'; return (${mathExpression})`)();
+            if (!isNaN(result)) {
+                appendMessage(`🧮 Il risultato di **${mathExpression}** è **${result}**.`, "bot");
+                return;
+            }
+        } catch (e) {
+            // Prosegue con le FAQ se il parsing matematico non va a buon fine
+        }
+    }
+
+    // 2. UTILITY: Controllo domande su Data e Ora
     if (cleanQuery.includes("ora") || cleanQuery.includes("ore") || cleanQuery.includes("che ora")) {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
@@ -131,7 +185,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Ricerca nelle FAQ
+    // 3. Ricerca nelle FAQ
     let bestMatch = null;
     let highestScore = 0;
 
@@ -139,8 +193,11 @@ function processUserQuery(query) {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
 
-            if (cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+            if (cleanQuery === cleanKeyword) {
                 highestScore = 1.0;
+                bestMatch = item;
+            } else if (cleanQuery.includes(cleanKeyword) && cleanKeyword.length >= 4) {
+                highestScore = 0.9;
                 bestMatch = item;
             } else {
                 const score = similarity(cleanQuery, cleanKeyword);
@@ -152,12 +209,23 @@ function processUserQuery(query) {
         });
     });
 
-    if (bestMatch && highestScore >= 0.30) {
+    if (bestMatch && highestScore >= 0.40) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
         appendMessage("🤖 Ci ho provato, ma al momento questa informazione non è presente nel mio archivio. Ho preso nota della tua richiesta e cercheremo di aggiungerla presto!", "bot");
     }
+}
+
+// Funzione per estrarre calcoli matematici dalla frase
+function extractMathExpression(text) {
+    let cleaned = text.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
+    cleaned = cleaned.replace(/x/g, "*").replace(/:/g, "/").replace(/,/g, ".");
+    
+    if (/^[0-9+\-*/().\s]+$/.test(cleaned) && /[0-9]/.test(cleaned) && /[+\-*/]/.test(cleaned)) {
+        return cleaned;
+    }
+    return null;
 }
 
 function quickAction(actionId) {
