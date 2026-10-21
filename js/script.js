@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario integrato
+// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0
 let appConfig = {
   quickButtons: [
     { id: "AIUTO", label: "❓ Cos'è Arturo?" },
@@ -8,15 +8,18 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
+  // DIZIONARIO ED ENCICLOPEDIA LOCALE
   dictionary: {
+    "computer": "📖 **Computer:** s.m. inv. INFORM Macchina per l'elaborazione di dati rappresentati da caratteri alfanumerici variamente codificati, che vengono sottoposti a procedimenti aritmetici e logici, memorizzati in archivi e resi reperibili e trasmissibili; elaboratore elettronico.\n\n‖ **Computer di bordo o di viaggio:** montato sull'auto, per fornire informazioni sui consumi, su eventuali disfunzioni e anche sulla viabilità.\n‖ **Computer crime:** reato commesso con l'ausilio del computer, come sottrazione o falsificazione di dati e diffusione di virus informatici.\n‖ **Home computer / Personal computer:** elaboratore destinato all'uso personale.\n‖ **Microcomputer:** unità di elaborazione non predisposta per essere collegata a terminali.\n‖ **Minicomputer:** unità di elaborazione di dimensioni medie collegabile a un numero ridotto di terminali.",
+    "filantropo": "📖 **Filantropo:** Persona che si dedica a opere di bene, alla beneficenza e ad aiutare il prossimo per amore dell'umanità.",
+    "mecenate": "📖 **Mecenate:** Persona di ampie disponibilità economiche che protegge e sostiene finanziariamente artisti, letterati e studiosi.",
     "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti e delle zone costiere.",
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
     "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
     "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato.",
     "metafora": "📖 **Metafora:** Figura retorica che sostituisce un termine con un altro legato da un rapporto di somiglianza (es. *sei un leone*).",
-    "ossimoro": "📖 **Ossimoro:** Unione di two parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*).",
+    "ossimoro": "📖 **Ossimoro:** Unione di due parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*).",
     "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
-    "iperbole": "📖 **Iperbole:** Figura retorica che consiste nell'esagerare la realtà per eccesso o per difetto (es. *ti ho aspettato un secolo*).",
     "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
     "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno.",
     "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni per risolvere un problema.",
@@ -120,7 +123,7 @@ let appConfig = {
       "id": "DIRIGENZA",
       "type": "school",
       "keywords": ["dirigenza", "preside", "dirigente"],
-      "responses": ["👔 La Dirigenza receive su appuntamento tramite la segreteria."]
+      "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria."]
     },
     {
       "id": "SEGRETERIE",
@@ -170,7 +173,7 @@ function handleKeyPress(event) {
     }
 }
 
-async function sendMessage() {
+function sendMessage() {
     const inputField = document.getElementById("userInput");
     if (!inputField) return;
     const message = inputField.value.trim();
@@ -182,13 +185,15 @@ async function sendMessage() {
 
     resetInactivityTimer();
 
-    await processUserQuery(message);
+    setTimeout(() => {
+        processUserQuery(message);
+    }, 300);
 }
 
-async function processUserQuery(query) {
-    // Normalizzazione totale: converte accenti, apostrofi speciali e maiuscole
+function processUserQuery(query) {
+    // Normalizzazione uniforme (converte apostrofi tipografici e accenti)
     let cleanQuery = query.toLowerCase()
-        .replace(/[’']/g, " ")
+        .replace(/’/g, "'")
         .replace(/[èé]/g, "e")
         .replace(/[àá]/g, "a")
         .replace(/[ìí]/g, "i")
@@ -228,10 +233,11 @@ async function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO (Attivazione Universale)
+    // 3. UTILITY: DIZIONARIO (Estrazione rigorosa del termine)
     const dictionaryTriggers = [
-        "cosa significa", "cosa vuol dire", "cos e", "che cos e", 
-        "definizione di", "significato di", "cosa e"
+        "che cos'e'", "che cos'e", "che cos e'", "che cos e",
+        "cos'e'", "cos'e", "cos e'", "cos e", "cosa e'", "cosa e",
+        "cosa significa", "cosa vuol dire", "definizione di", "significato di"
     ];
 
     const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
@@ -239,16 +245,17 @@ async function processUserQuery(query) {
     if (isDictionaryQuery) {
         personalQueryCount = 0;
 
-        // Pulizia dai prefissi di domanda
+        // Rimuove la frase d'innesco
         let wordToSearch = cleanQuery;
         dictionaryTriggers.forEach(trigger => {
             wordToSearch = wordToSearch.replace(trigger, "");
         });
 
-        // Rimozione articoli e punteggiatura
+        // Pulisce da articoli, punteggiatura, apostrofi isolati e spazi
         wordToSearch = wordToSearch
-            .replace(/[?.,!]/g, "")
-            .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle)\b/gi, "")
+            .replace(/['’?.,!]/g, " ")
+            .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle|che)\b/gi, "")
+            .replace(/\s+/g, " ")
             .trim();
 
         if (wordToSearch === "") {
@@ -256,24 +263,16 @@ async function processUserQuery(query) {
             return;
         }
 
-        // Check 1: Dizionario Locale
+        // Ricerca nel Dizionario Locale
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
-            if (wordToSearch === term || term.includes(wordToSearch) || wordToSearch.includes(term)) {
+            const cleanTerm = term.toLowerCase().trim();
+            if (wordToSearch === cleanTerm || cleanTerm.includes(wordToSearch) || wordToSearch.includes(cleanTerm)) {
                 appendMessage(definition, "bot");
                 return;
             }
         }
 
-        // Check 2: Chiamata API Online
-        if (wordToSearch.length >= 2) {
-            const fetchedDefinition = await fetchOnlineDefinition(wordToSearch);
-            if (fetchedDefinition) {
-                appendMessage(`📖 **${wordToSearch.toUpperCase()}:** ${fetchedDefinition}`, "bot");
-                return;
-            }
-        }
-
-        appendMessage(`📖 Non ho trovato una definizione per "**${wordToSearch}**". Ho comunque annotato la parola per aggiungerla ai futuri aggiornamenti!`, "bot");
+        appendMessage(`📖 Non ho ancora la definizione di "**${wordToSearch}**" nel mio dizionario integrato. Ho annotato il termine e potrà essere aggiunto dal Pannello Admin!`, "bot");
         return;
     }
 
@@ -284,7 +283,7 @@ async function processUserQuery(query) {
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase()
-                .replace(/[’']/g, " ")
+                .replace(/’/g, "'")
                 .replace(/[èé]/g, "e")
                 .replace(/\s+/g, " ")
                 .trim();
@@ -329,24 +328,6 @@ async function processUserQuery(query) {
             appendMessage("🤖 Non ho informazioni su questo argomento in archivio. Prova a riformulare la domanda per il contesto scolastico!", "bot");
         }
     }
-}
-
-async function fetchOnlineDefinition(word) {
-    try {
-        const response = await fetch(`https://it.wiktionary.org/w/api.php?action=query&prop=extracts&exintro&explaintext&titles=${encodeURIComponent(word)}&format=json&origin=*`);
-        const data = await response.json();
-        const pages = data.query.pages;
-        const pageId = Object.keys(pages)[0];
-
-        if (pageId !== "-1" && pages[pageId].extract) {
-            let extract = pages[pageId].extract.trim();
-            if (extract.length > 300) {
-                extract = extract.substring(0, 300) + "...";
-            }
-            return extract;
-        }
-    } catch (e) {}
-    return null;
 }
 
 function extractMathExpression(text) {
