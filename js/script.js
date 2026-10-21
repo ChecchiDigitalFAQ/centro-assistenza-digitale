@@ -14,6 +14,22 @@ let appConfig = {
       "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica (studenti, famiglie, docenti e personale ATA) a trovare risposte rapide, moduli e informazioni in modo semplice e immediato!"]
     },
     {
+      "id": "MODERAZIONE_ESPLICITA",
+      "keywords": ["sesso", "fai sesso", "porno", "pornografia", "spogliati", "nuda", "nudo", "trombare", "scopare"],
+      "responses": [
+        "🤖 Ehm... cerco di essere un assistente digitale modello, non un sito di incontri! Rimaniamo su cose utili per la scuola, dai!",
+        "😅 Archivio sbagliato! Qui ci occupiamo di orari, circolari e moduli dell'IIS Checchi. Per altre curiosità ti suggerisco di cambiare argomento!"
+      ]
+    },
+    {
+      "id": "INSULTI_OFFESE",
+      "keywords": ["sei stupido", "non capisci niente", "brutto", "inutile", "vaffanculo", "stronzo", "stronza", "coglia", "testa di"],
+      "responses": [
+        "🤖 Ho tantissimi kilobyte di pazienza, ma zero memoria per gli insulti! Se hai finito di fare il simpatico, come posso aiutarti sul serio?",
+        "🔴🔵 Ricorda che sono pur sempre un software creato per aiutarti: la tua tastiera merita frasi migliori! Riprova con una domanda scolastica."
+      ]
+    },
+    {
       "id": "SALUTO",
       "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey", "buondì"],
       "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
@@ -68,11 +84,6 @@ let appConfig = {
       "responses": ["🔴🔵 Grazie mille! Svolgo il mio lavoro con entusiasmo per supportare al meglio la comunità dell'IIS Arturo Checchi!"]
     },
     {
-      "id": "INSULTI_OFFESE",
-      "keywords": ["sei stupido", "non capisci niente", "brutto", "inutile"],
-      "responses": ["🤖 Cerco di fare del mio meglio per imparare ogni giorno! Se non ho risposto correttamente, prova a riformulare la domanda."]
-    },
-    {
       "id": "AIUTO",
       "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "come funzioni"],
       "responses": ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni generali, contatti, orari di segreteria, modulistica per docenti/studenti, supporto per Teams/Argo... **e tanto altro!**"]
@@ -103,7 +114,6 @@ let appConfig = {
 let inactivityTimer = null;
 const RESET_TIME_MS = 5 * 60 * 1000; // 5 minuti
 
-// Inizializzazione all'avvio
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initApp);
 } else {
@@ -115,7 +125,6 @@ function initApp() {
     resetInactivityTimer();
 }
 
-// Render dei pulsanti rapidi
 function renderQuickButtons() {
     const container = document.getElementById("quickButtonsContainer");
     if (!container) return;
@@ -155,7 +164,7 @@ function sendMessage() {
 function processUserQuery(query) {
     const cleanQuery = query.toLowerCase().trim();
 
-    // 1. UTILITY: Calcolatrice Matematica integrata (es. "quanto fa 3*4", "12+5", "50/2")
+    // 1. UTILITY: Calcolatrice Matematica integrata
     const mathExpression = extractMathExpression(cleanQuery);
     if (mathExpression) {
         try {
@@ -164,12 +173,10 @@ function processUserQuery(query) {
                 appendMessage(`🧮 Il risultato di **${mathExpression}** è **${result}**.`, "bot");
                 return;
             }
-        } catch (e) {
-            // Prosegue con le FAQ se il parsing matematico non va a buon fine
-        }
+        } catch (e) {}
     }
 
-    // 2. UTILITY: Controllo domande su Data e Ora
+    // 2. UTILITY: Data e Ora
     if (cleanQuery.includes("ora") || cleanQuery.includes("ore") || cleanQuery.includes("che ora")) {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
@@ -185,7 +192,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Ricerca nelle FAQ
+    // 3. Ricerca FAQ rigorosa
     let bestMatch = null;
     let highestScore = 0;
 
@@ -193,13 +200,21 @@ function processUserQuery(query) {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
 
+            // Corrispondenza esatta
             if (cleanQuery === cleanKeyword) {
                 highestScore = 1.0;
                 bestMatch = item;
-            } else if (cleanQuery.includes(cleanKeyword) && cleanKeyword.length >= 4) {
-                highestScore = 0.9;
-                bestMatch = item;
-            } else {
+            } 
+            // Inclusione di frasi chiave strutturate (almeno due parole o keyword significative)
+            else if (cleanKeyword.length >= 5 && cleanQuery.includes(cleanKeyword)) {
+                const score = 0.90;
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = item;
+                }
+            } 
+            // Tolleranza refusi solo se c'è forte somiglianza
+            else {
                 const score = similarity(cleanQuery, cleanKeyword);
                 if (score > highestScore) {
                     highestScore = score;
@@ -209,15 +224,16 @@ function processUserQuery(query) {
         });
     });
 
-    if (bestMatch && highestScore >= 0.40) {
+    // Soglia alzata a 0.55 per evitare risposte a caso o "falsi positivi"
+    if (bestMatch && highestScore >= 0.55) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        appendMessage("🤖 Ci ho provato, ma al momento questa informazione non è presente nel mio archivio. Ho preso nota della tua richiesta e cercheremo di aggiungerla presto!", "bot");
+        // Fallback chiaro, trasparente e professionale
+        appendMessage("🤖 Al momento non ho informazioni precise in archivio su questo argomento. Ho preso nota della tua domanda per i prossimi aggiornamenti!\n\n📌 Per pratiche urgenti puoi consultare i **Servizi Rapidi** a sinistra o contattare la segreteria dell'istituto.", "bot");
     }
 }
 
-// Funzione per estrarre calcoli matematici dalla frase
 function extractMathExpression(text) {
     let cleaned = text.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
     cleaned = cleaned.replace(/x/g, "*").replace(/:/g, "/").replace(/,/g, ".");
