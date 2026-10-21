@@ -9,12 +9,26 @@
     {
       "id": "SALUTO",
       "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey"],
-      "responses": ["👋 Ciao! Sono Arturo, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
+      "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
     },
     {
       "id": "CHI_SEI",
-      "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo"],
-      "responses": ["Mi chiamo Arturo e sono l'assistente digitale dell'IIS Arturo Checchi! Posso aiutarti con informazioni sulla scuola, orari e servizi digitali."]
+      "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome"],
+      "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale dell'IIS Arturo Checchi!"]
+    },
+    {
+      "id": "NASCITA_LUOGO",
+      "keywords": ["quando sei nato", "dove sei nato", "dove vivi", "dove ti trovi", "eta"],
+      "responses": ["🤖 Sono nato nel mondo digitale e vivo nei server dell'**IIS Arturo Checchi** a Fucecchio! Non ho un'età vera e propria, ma sono sempre aggiornato."]
+    },
+    {
+      "id": "BARZELLETTA",
+      "keywords": ["barzelletta", "raccontami una barzelletta", "fammi ridere", "battuta", "indovinello"],
+      "responses": [
+        "😄 Perché i computer vanno in vacanza? Per ricaricare le batterie!",
+        "😄 Cosa fa un punto e virgola su una spiaggia? Il punto di domanda!",
+        "😄 Perché il Wi-Fi della scuola è sempre sereno? Perché naviga nell'aria!"
+      ]
     },
     {
       "id": "AIUTO",
@@ -24,7 +38,7 @@
     {
       "id": "CONTATTI",
       "keywords": ["contatti", "telefono", "email", "pec", "dove siete", "indirizzo"],
-      "responses": ["📍 Sede Principale: Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ Tel: +39 0571 20889\n📧 Email: FIIS00300C@istruzione.it\n📨 PEC: FIIS00300C@pec.istruzione.it"]
+      "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it\n📨 **PEC:** FIIS00300C@pec.istruzione.it"]
     },
     {
       "id": "DIRIGENZA",
@@ -34,7 +48,7 @@
     {
       "id": "SEGRETERIE",
       "keywords": ["segreteria", "uffici", "orari segreteria", "didattica", "personale"],
-      "responses": ["📋 La segreteria si divide in Didattica e Personale. Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."]
+      "responses": ["📋 La segreteria si divide in **Didattica** e **Personale**. Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."]
     },
     {
       "id": "MICROSOFT365",
