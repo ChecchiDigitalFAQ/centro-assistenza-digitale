@@ -1,159 +1,66 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Arturo - Centro Assistenza Digitale</title>
-
+    <title>Arturo - Assistente Virtuale IIS Arturo Checchi</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-    <!-- HEADER -->
-
-    <header>
-
-        <div class="header-content">
-
-            <img src="immagini/logo-checchi.png"
-                 alt="Logo IIS Arturo Checchi"
-                 class="logo">
-
-            <h1>Arturo</h1>
-
-            <p>
-                Centro Assistenza Digitale dell'IIS Arturo Checchi
-            </p>
-
+    <!-- HEADER SUPERIORE -->
+    <header class="main-header">
+        <div class="brand">
+            <img src="logo.png" alt="Logo IIS Arturo Checchi" class="logo">
+            <div>
+                <h1>Arturo 2.0</h1>
+                <p>Centro Assistenza Digitale IIS Arturo Checchi</p>
+            </div>
         </div>
-
+        <button class="btn-reset" onclick="resetChat()">🔄 Nuova Conversazione</button>
     </header>
 
-    <!-- CONTENUTO -->
+    <!-- LAYOUT PRINCIPALE -->
+    <div class="app-container">
 
-    <main class="main-layout">
-
-        <!-- MENU LATERALE -->
-
+        <!-- MENU LATERALE (PULSANTI FAQ RAPIDI) -->
         <aside class="sidebar">
-
             <h3>Servizi Rapidi</h3>
-
-            <button onclick="quickQuestion('Open Day')">
-                🎓 Open Day
-            </button>
-
-            <button onclick="quickQuestion('Offerta Formativa')">
-                📚 Offerta Formativa
-            </button>
-
-            <button onclick="quickQuestion('Segreteria')">
-                🏢 Segreteria
-            </button>
-
-            <button onclick="quickQuestion('Contatti')">
-                📞 Contatti
-            </button>
-
-            <button onclick="quickQuestion('Orari')">
-                ⏰ Orari
-            </button>
-
-            <button onclick="quickQuestion('Sedi')">
-                📍 Sedi
-            </button>
-
-            <hr>
-
-            <h3>Percorsi di Studio</h3>
-
-            <button onclick="quickQuestion('Liceo Scientifico')">
-                🔬 Liceo Scientifico
-            </button>
-
-            <button onclick="quickQuestion('Scienze Applicate')">
-                💻 Scienze Applicate
-            </button>
-
-            <button onclick="quickQuestion('Liceo Linguistico')">
-                🌍 Linguistico
-            </button>
-
-            <button onclick="quickQuestion('AFM')">
-                📊 AFM
-            </button>
-
-            <button onclick="quickQuestion('RIM')">
-                🌎 RIM
-            </button>
-
+            <button class="quick-btn" onclick="quickAction('AIUTO')">❓ Cos'è Arturo?</button>
+            <button class="quick-btn" onclick="quickAction('CONTATTI')">📞 Contatti</button>
+            <button class="quick-btn" onclick="quickAction('DIRIGENZA')">👔 Dirigenza</button>
+            <button class="quick-btn" onclick="quickAction('SEGRETERIE')">🏢 Segreteria e Uffici</button>
+            <button class="quick-btn" onclick="quickAction('MICROSOFT365')">💻 Servizi Digitali (Teams/Argo)</button>
         </aside>
 
-        <!-- CHAT -->
-
-        <section class="chat-section">
-
+        <!-- AREA DELLA CHAT -->
+        <main class="chat-section">
             <div id="chatBox" class="chat-box">
-
+                <!-- Messaggio di Benvenuto Iniziale -->
                 <div class="message bot">
-
-                    <div class="avatar">
-                        🤖
-                    </div>
-
+                    <div class="avatar">🤖</div>
                     <div class="bubble">
-
-                        <strong>Ciao! Sono Arturo.</strong>
-
-                        <br><br>
-
-                        Posso aiutarti a trovare informazioni su:
-
-                        <ul>
-                            <li>Offerta formativa</li>
-                            <li>Open Day</li>
-                            <li>Segreteria</li>
-                            <li>Contatti</li>
-                            <li>Percorsi di studio</li>
-                            <li>Sedi dell'istituto</li>
-                        </ul>
-
+                        <strong>Ciao! Sono Arturo.</strong><br><br>
+                        Sono l'assistente digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni sull'istituto, modulistica, orari di segreteria e supporto sui servizi digitali.<br><br>
+                        <em>Come posso aiutarti oggi?</em>
                     </div>
-
                 </div>
-
             </div>
 
-            <!-- INPUT -->
-
+            <!-- AREA INPUT MESSAGGIO -->
             <div class="input-container">
-
-                <input type="text"
-                       id="userInput"
-                       placeholder="Scrivi una domanda...">
-
-                <button onclick="sendMessage()">
-                    Invia
-                </button>
-
+                <input type="text" id="userInput" placeholder="Scrivi una domanda ad Arturo..." onkeypress="handleKeyPress(event)">
+                <button id="sendBtn" onclick="sendMessage()">Invia</button>
             </div>
+        </main>
 
-        </section>
-
-    </main>
+    </div>
 
     <!-- FOOTER -->
-
     <footer>
-
-        © IIS Arturo Checchi | Arturo 2.0
-
+        © IIS Arturo Checchi | Arturo 2.0 - Assistente Virtuale
     </footer>
 
     <script src="js/script.js"></script>
-
 </body>
 </html>
