@@ -25,8 +25,8 @@ let appConfig = {
     {
       "id": "CREATORE",
       "type": "personal",
-      "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "chi e il tuo creatore", "chi ti ha fatto", "chi ti ha progettato"],
-      "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica (studenti, famiglie, docenti e personale ATA) a trovare risposte rapide, moduli e informazioni in modo semplice e immediato!"]
+      "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "chi e il tuo creatore", "creatore"],
+      "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica a trovare risposte e informazioni in modo semplice!"]
     },
     {
       "id": "PRIVACY_DATI_PERSONALI",
@@ -181,103 +181,3 @@ let appConfig = {
     },
     {
       "id": "DIRIGENZA",
-      "type": "school",
-      "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
-      "responses": ["👔 La Dirigenza riceve su appuntamento. Puoi contattare la segreteria per richiedere un colloquio con la Presidenza."]
-    },
-    {
-      "id": "SEGRETERIE",
-      "type": "school",
-      "keywords": ["segreteria", "uffici", "orari segreteria", "didattica", "personale"],
-      "responses": ["📋 La segreteria si divide in **Didattica** e **Personale**. Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."]
-    },
-    {
-      "id": "MICROSOFT365",
-      "type": "school",
-      "keywords": ["teams", "microsoft", "argo", "registro", "servizi digitali", "password"],
-      "responses": ["💻 Per i servizi digitali (Teams, Outlook, Argo) puoi recuperare la password o richiedere assistenza rivolgendoti all'Animatore Digitale o alla segreteria."]
-    }
-  ]
-};
-
-let personalQueryCount = 0;
-let inactivityTimer = null;
-const RESET_TIME_MS = 5 * 60 * 1000;
-
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initApp);
-} else {
-    initApp();
-}
-
-function initApp() {
-    renderQuickButtons();
-    resetInactivityTimer();
-}
-
-function renderQuickButtons() {
-    const container = document.getElementById("quickButtonsContainer");
-    if (!container) return;
-    
-    container.innerHTML = "";
-    appConfig.quickButtons.forEach(btn => {
-        const buttonEl = document.createElement("button");
-        buttonEl.className = "quick-btn";
-        buttonEl.innerText = btn.label;
-        buttonEl.onclick = () => quickAction(btn.id);
-        container.appendChild(buttonEl);
-    });
-}
-
-function handleKeyPress(event) {
-    if (event.key === "Enter") {
-        sendMessage();
-    }
-}
-
-function sendMessage() {
-    const inputField = document.getElementById("userInput");
-    const message = inputField.value.trim();
-
-    if (message === "") return;
-
-    appendMessage(message, "user");
-    inputField.value = "";
-
-    resetInactivityTimer();
-
-    setTimeout(() => {
-        processUserQuery(message);
-    }, 400);
-}
-
-function processUserQuery(query) {
-    const cleanQuery = query.toLowerCase().trim();
-
-    // 1. UTILITY: Calcolatrice Matematica
-    const mathExpression = extractMathExpression(cleanQuery);
-    if (mathExpression) {
-        try {
-            const result = Function(`'use strict'; return (${mathExpression})`)();
-            if (!isNaN(result)) {
-                appendMessage(`🧮 Il risultato di **${mathExpression}** è **${result}**.`, "bot");
-                personalQueryCount = 0;
-                return;
-            }
-        } catch (e) {}
-    }
-
-    // 2. UTILITY: Data e Ora
-    if (cleanQuery.includes("ora") || cleanQuery.includes("ore") || cleanQuery.includes("che ora")) {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-        appendMessage(`⌚ Attualmente sono le ore **${timeStr}**.`, "bot");
-        personalQueryCount = 0;
-        return;
-    }
-
-    if (cleanQuery.includes("giorno") || cleanQuery.includes("data") || cleanQuery.includes("oggi")) {
-        const now = new Date();
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const dateStr = now.toLocaleDateString('it-IT', options);
-        appendMessage
