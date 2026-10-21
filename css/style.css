@@ -6,33 +6,32 @@
 }
 
 body {
-    background-color: #f4f6f9;
+    background-color: #f0f2f5;
     color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* HEADER RESPONSIVE */
+/* HEADER */
 .main-header {
     background-color: #004085;
     color: white;
-    padding: 15px 20px;
+    padding: 12px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .brand .logo {
-    height: 45px;
+    height: 40px;
     width: auto;
 }
 
@@ -43,7 +42,7 @@ body {
 
 .brand p {
     font-size: 0.8rem;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .btn-reset {
@@ -51,39 +50,45 @@ body {
     color: #212529;
     border: none;
     padding: 8px 14px;
-    border-radius: 5px;
+    border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
     font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.btn-reset:hover {
+    background-color: #e0a800;
 }
 
 /* CONTAINER PRINCIPALE */
 .app-container {
     display: flex;
     flex: 1;
-    max-width: 1200px;
     width: 100%;
+    max-width: 1400px;
     margin: 20px auto;
-    padding: 0 15px;
+    padding: 0 20px;
     gap: 20px;
+    align-items: stretch;
 }
 
 /* SIDEBAR SERVIZI RAPIDI */
 .sidebar {
-    width: 260px;
+    width: 280px;
     background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     flex-shrink: 0;
 }
 
 .sidebar h3 {
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: #004085;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     border-bottom: 2px solid #e9ecef;
-    padding-bottom: 5px;
+    padding-bottom: 8px;
 }
 
 .quick-btn {
@@ -92,43 +97,48 @@ body {
     text-align: left;
     background: #f8f9fa;
     border: 1px solid #dee2e6;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.85rem;
-    transition: background 0.2s;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.2s ease;
 }
 
 .quick-btn:hover {
-    background: #e2e6ea;
+    background: #e9ecef;
+    border-color: #004085;
+    color: #004085;
 }
 
-/* CHAT BOX */
+/* CHAT AREA (PC) */
 .chat-area {
     flex: 1;
     display: flex;
     flex-direction: column;
     background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    height: 75vh;
-    min-width: 0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    height: calc(100vh - 160px);
+    min-height: 500px;
 }
 
 .chat-box {
     flex: 1;
-    padding: 15px;
+    padding: 20px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
+/* MESSAGGI */
 .message {
     display: flex;
-    gap: 10px;
-    max-width: 85%;
+    gap: 12px;
+    max-width: 75%;
 }
 
 .message.user {
@@ -141,88 +151,118 @@ body {
 }
 
 .avatar {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
+    background: #e9ecef;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
 }
 
 .bubble {
-    padding: 10px 14px;
+    padding: 12px 16px;
     border-radius: 12px;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    line-height: 1.5;
     word-break: break-word;
 }
 
 .message.user .bubble {
     background-color: #004085;
     color: white;
+    border-bottom-right-radius: 2px;
 }
 
 .message.bot .bubble {
     background-color: #f1f3f5;
     color: #212529;
+    border-bottom-left-radius: 2px;
 }
 
+/* INPUT AREA */
 .input-area {
     display: flex;
-    padding: 12px;
-    border-top: 1px solid #dee2e6;
-    gap: 10px;
+    padding: 15px 20px;
+    border-top: 1px solid #e9ecef;
+    gap: 12px;
+    background: #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .input-area input {
     flex: 1;
-    padding: 10px;
+    padding: 12px 16px;
     border: 1px solid #ced4da;
-    border-radius: 6px;
+    border-radius: 8px;
     outline: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.input-area input:focus {
+    border-color: #004085;
 }
 
 .input-area button {
     background-color: #004085;
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 6px;
+    padding: 12px 24px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 0.95rem;
+    transition: background 0.2s;
+}
+
+.input-area button:hover {
+    background-color: #002b5c;
 }
 
 footer {
     text-align: center;
     padding: 12px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #6c757d;
 }
 
-/* MEDIA QUERIES PER SMARTPHONE E TABLET */
+/* LAYOUT MOBILE */
 @media (max-width: 768px) {
     .app-container {
         flex-direction: column;
         margin: 10px auto;
         padding: 0 10px;
+        gap: 15px;
     }
 
     .sidebar {
         width: 100%;
+        padding: 15px;
     }
 
     .chat-area {
-        height: 65vh;
+        height: 60vh;
+        min-height: 400px;
+    }
+
+    .message {
+        max-width: 90%;
+    }
+
+    .main-header {
+        padding: 10px 15px;
+        flex-direction: row;
     }
 
     .brand h1 {
         font-size: 1rem;
     }
-
-    .main-header {
-        padding: 10px 15px;
+    
+    .brand p {
+        display: none;
     }
 }
