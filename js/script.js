@@ -14,6 +14,14 @@ let appConfig = {
       "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica (studenti, famiglie, docenti e personale ATA) a trovare risposte rapide, moduli e informazioni in modo semplice e immediato!"]
     },
     {
+      "id": "PROVOCAZIONI_BATTUTE",
+      "keywords": ["ti ubriachi", "fumi", "hai la fidanzata", "hai il fidanzato", "dormi", "vai a scuola", "fai il bagno", "giochi a pallone", "ti droghe", "ti droghi"],
+      "responses": [
+        "🤖 Essendo fatto interamente di codice e circuiti, non posso ubriacarmi, dormire né fare cose umane! L'unica cosa che mi Mandain tilt è quando si stacca il Wi-Fi!",
+        "😅 Nessuna abitudine umana per me! Sono solo un assistente virtuale programmato per rispondere alle tue domande sull'IIS Checchi."
+      ]
+    },
+    {
       "id": "MODERAZIONE_ESPLICITA",
       "keywords": ["sesso", "fai sesso", "porno", "pornografia", "spogliati", "nuda", "nudo", "trombare", "scopare"],
       "responses": [
@@ -96,7 +104,7 @@ let appConfig = {
     {
       "id": "DIRIGENZA",
       "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
-      "responses": ["👔 La Dirigenza receive su appuntamento. Puoi contattare la segreteria per richiedere un colloquio con la Presidenza."]
+      "responses": ["👔 La Dirigenza riceve su appuntamento. Puoi contattare la segreteria per richiedere un colloquio con la Presidenza."]
     },
     {
       "id": "SEGRETERIE",
@@ -112,7 +120,7 @@ let appConfig = {
 };
 
 let inactivityTimer = null;
-const RESET_TIME_MS = 5 * 60 * 1000; // 5 minuti
+const RESET_TIME_MS = 5 * 60 * 1000;
 
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initApp);
@@ -164,7 +172,7 @@ function sendMessage() {
 function processUserQuery(query) {
     const cleanQuery = query.toLowerCase().trim();
 
-    // 1. UTILITY: Calcolatrice Matematica integrata
+    // 1. UTILITY: Calcolatrice Matematica
     const mathExpression = extractMathExpression(cleanQuery);
     if (mathExpression) {
         try {
@@ -192,7 +200,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Ricerca FAQ rigorosa
+    // 3. Ricerca FAQ
     let bestMatch = null;
     let highestScore = 0;
 
@@ -200,20 +208,17 @@ function processUserQuery(query) {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
 
-            // Corrispondenza esatta
             if (cleanQuery === cleanKeyword) {
                 highestScore = 1.0;
                 bestMatch = item;
             } 
-            // Inclusione di frasi chiave strutturate (almeno due parole o keyword significative)
-            else if (cleanKeyword.length >= 5 && cleanQuery.includes(cleanKeyword)) {
-                const score = 0.90;
+            else if (cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+                const score = 0.85;
                 if (score > highestScore) {
                     highestScore = score;
                     bestMatch = item;
                 }
             } 
-            // Tolleranza refusi solo se c'è forte somiglianza
             else {
                 const score = similarity(cleanQuery, cleanKeyword);
                 if (score > highestScore) {
@@ -224,13 +229,12 @@ function processUserQuery(query) {
         });
     });
 
-    // Soglia alzata a 0.55 per evitare risposte a caso o "falsi positivi"
-    if (bestMatch && highestScore >= 0.55) {
+    if (bestMatch && highestScore >= 0.45) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        // Fallback chiaro, trasparente e professionale
-        appendMessage("🤖 Al momento non ho informazioni precise in archivio su questo argomento. Ho preso nota della tua domanda per i prossimi aggiornamenti!\n\n📌 Per pratiche urgenti puoi consultare i **Servizi Rapidi** a sinistra o contattare la segreteria dell'istituto.", "bot");
+        // Fallback naturale ed equilibrato
+        appendMessage("🤖 Non ho informazioni su questo argomento. Sono programmato per aiutare sulla vita scolastica dell'IIS Checchi (orari, modulistica, contatti e servizi digitali). Se riguarda la scuola, riprova formulando la domanda diversamente!", "bot");
     }
 }
 
