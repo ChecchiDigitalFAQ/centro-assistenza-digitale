@@ -8,7 +8,6 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
-  // Dizionario interno per termini specifici, tecnici e scolastici
   dictionary: {
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
     "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
@@ -111,7 +110,7 @@ let appConfig = {
       "id": "DIRIGENZA",
       "type": "school",
       "keywords": ["dirigenza", "preside", "dirigente"],
-      "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria."]
+      "responses": ["👔 La Dirigenza receive su appuntamento tramite la segreteria."]
     },
     {
       "id": "SEGRETERIE",
@@ -212,30 +211,38 @@ async function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO (Locale + API Online)
-    const dictionaryTriggers = ["cosa significa", "cosa vuol dire", "cos'e", "cos e", "definizione di"];
+    // 3. UTILITY: DIZIONARIO (Locale + API Online con pulizia articoli)
+    const dictionaryTriggers = ["cosa significa", "cosa vuol dire", "cos'e", "cos e", "cos'e'", "definizione di", "che cos'e", "che cos e"];
     const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
 
     if (isDictionaryQuery) {
         personalQueryCount = 0;
 
-        // Estrazione del termine dalla domanda
         let wordToSearch = cleanQuery;
         dictionaryTriggers.forEach(trigger => {
             wordToSearch = wordToSearch.replace(trigger, "");
         });
-        wordToSearch = wordToSearch.replace(/\?/g, "").trim();
+
+        wordToSearch = wordToSearch
+            .replace(/[?.,!]/g, "")
+            .replace(/\b(un'|una|uno|un|il|lo|la|i|gli|le|del|della|degli|delle)\b/gi, "")
+            .trim();
+
+        if (wordToSearch === "") {
+            appendMessage("📖 Quale parola vorresti cercare nel dizionario?", "bot");
+            return;
+        }
 
         // Check 1: Dizionario Locale
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
-            if (wordToSearch.includes(term) || term.includes(wordToSearch)) {
+            if (wordToSearch === term || term.includes(wordToSearch)) {
                 appendMessage(definition, "bot");
                 return;
             }
         }
 
         // Check 2: Chiamata API Online Gratuita
-        if (wordToSearch.length > 2) {
+        if (wordToSearch.length >= 2) {
             const fetchedDefinition = await fetchOnlineDefinition(wordToSearch);
             if (fetchedDefinition) {
                 appendMessage(`📖 **${wordToSearch.toUpperCase()}:** ${fetchedDefinition}`, "bot");
@@ -247,7 +254,7 @@ async function processUserQuery(query) {
         return;
     }
 
-    // 4. RICERCA NELLE FAQ TRADIZIONALI
+    // 4. RICERCA NELLE FAQ
     let bestMatch = null;
     let highestScore = 0;
 
@@ -297,7 +304,6 @@ async function processUserQuery(query) {
     }
 }
 
-// Funzione per cercare le definizioni online via API gratuita (Wiktionary/FreeDictionary)
 async function fetchOnlineDefinition(word) {
     try {
         const response = await fetch(`https://it.wiktionary.org/w/api.php?action=query&prop=extracts&exintro&explaintext&titles=${encodeURIComponent(word)}&format=json&origin=*`);
@@ -307,15 +313,12 @@ async function fetchOnlineDefinition(word) {
 
         if (pageId !== "-1" && pages[pageId].extract) {
             let extract = pages[pageId].extract.trim();
-            // Pulisce il testo rendendolo conciso per la chat
             if (extract.length > 300) {
                 extract = extract.substring(0, 300) + "...";
             }
             return extract;
         }
-    } catch (e) {
-        // Se la rete è offline o la chiamata fallisce, gestisce senza errori
-    }
+    } catch (e) {}
     return null;
 }
 
@@ -411,7 +414,7 @@ function editDistance(s1, s2) {
     const costs = [];
     for (let i = 0; i <= s1.length; i++) {
         let lastValue = i;
-        for (let j = 0; j <= s1.length; j++) {
+        for (let j = 0; j <= s2.length; j++) {
             if (i === 0) costs[j] = j;
             else {
                 if (j > 0) {
