@@ -8,10 +8,21 @@ let appConfig = {
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
   
+  // Dizionario integrato pronto all'uso
   dictionary: {
+    "duna": "📖 **Duna:** Rilievo o collinetta di sabbia accumulata e modellata dall'azione del vento, tipica dei deserti e delle zone costiere.",
     "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
+    "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
+    "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato.",
+    "metafora": "📖 **Metafora:** Figura retorica che sostituisce un termine con un altro legato da un rapporto di somiglianza (es. *sei un leone*).",
+    "ossimoro": "📖 **Ossimoro:** Unione di due parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*).",
+    "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
+    "iperbole": "📖 **Iperbole:** Figura retorica che consiste nell'esagerare la realtà per eccesso o per difetto (es. *ti ho aspettato un secolo*).",
     "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. Credenziali usate per accedere ai servizi online della PA.",
     "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno.",
+    "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni per risolvere un problema.",
+    "hardware": "📖 **Hardware:** La parte fisica e tangibile di un computer (componenti, schermo, tastiera).",
+    "software": "📖 **Software:** L'insieme dei programmi e istruzioni che permettono ad un computer di funzionare.",
     "cyberbullismo": "📖 **Cyberbullismo:** Qualsiasi forma di prevaricazione o molestia effettuata tramite strumenti digitali."
   },
 
@@ -178,7 +189,8 @@ function sendMessage() {
 }
 
 async function processUserQuery(query) {
-    const cleanQuery = query.toLowerCase().trim();
+    // Normalizzazione testo per gestire ogni tipo di apostrofo (’ e ')
+    const cleanQuery = query.toLowerCase().replace(/’/g, "'").trim();
 
     // 1. UTILITY: Calcolatrice Matematica
     const mathExpression = extractMathExpression(cleanQuery);
@@ -211,13 +223,18 @@ async function processUserQuery(query) {
         return;
     }
 
-    // 3. UTILITY: DIZIONARIO (Locale + API Online con pulizia articoli)
-    const dictionaryTriggers = ["cosa significa", "cosa vuol dire", "cos'e", "cos e", "cos'e'", "definizione di", "che cos'e", "che cos e"];
+    // 3. UTILITY: DIZIONARIO (Riconoscimento flessibile per definizioni)
+    const dictionaryTriggers = [
+        "cosa significa", "cosa vuol dire", "cos'e", "cos e", 
+        "definizione di", "che cos'e", "che cos e", "significato di"
+    ];
+
     const isDictionaryQuery = dictionaryTriggers.some(trigger => cleanQuery.includes(trigger));
 
     if (isDictionaryQuery) {
         personalQueryCount = 0;
 
+        // Estrazione e pulizia del termine da cercare
         let wordToSearch = cleanQuery;
         dictionaryTriggers.forEach(trigger => {
             wordToSearch = wordToSearch.replace(trigger, "");
@@ -235,13 +252,13 @@ async function processUserQuery(query) {
 
         // Check 1: Dizionario Locale
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
-            if (wordToSearch === term || term.includes(wordToSearch)) {
+            if (wordToSearch === term || term.includes(wordToSearch) || wordToSearch.includes(term)) {
                 appendMessage(definition, "bot");
                 return;
             }
         }
 
-        // Check 2: Chiamata API Online Gratuita
+        // Check 2: Chiamata API Online
         if (wordToSearch.length >= 2) {
             const fetchedDefinition = await fetchOnlineDefinition(wordToSearch);
             if (fetchedDefinition) {
@@ -260,7 +277,7 @@ async function processUserQuery(query) {
 
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
-            const cleanKeyword = keyword.toLowerCase().trim();
+            const cleanKeyword = keyword.toLowerCase().replace(/’/g, "'").trim();
 
             if (cleanQuery === cleanKeyword) {
                 highestScore = 1.0;
