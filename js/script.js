@@ -1,32 +1,69 @@
-let faqData = [];
+// Database FAQ integrato direttamente per evitare errori di caricamento/CORS
+let faqData = [
+  {
+    "id": "SALUTO",
+    "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey"],
+    "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
+  },
+  {
+    "id": "CHI_SEI",
+    "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome"],
+    "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale dell'IIS Arturo Checchi!"]
+  },
+  {
+    "id": "NASCITA_LUOGO",
+    "keywords": ["quando sei nato", "dove sei nato", "dove vivi", "dove ti trovi", "eta"],
+    "responses": ["🤖 Sono nato nel mondo digitale e vivo nei server dell'**IIS Arturo Checchi** a Fucecchio! Non ho un'età vera e propria, ma sono sempre aggiornato."]
+  },
+  {
+    "id": "BARZELLETTA",
+    "keywords": ["barzelletta", "raccontami una barzelletta", "fammi ridere", "battuta", "indovinello"],
+    "responses": [
+      "😄 Perché i computer vanno in vacanza? Per ricaricare le batterie!",
+      "😄 Cosa fa un punto e virgola su una spiaggia? Il punto di domanda!",
+      "😄 Perché il Wi-Fi della scuola è sempre sereno? Perché naviga nell'aria!"
+    ]
+  },
+  {
+    "id": "AIUTO",
+    "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "come funzioni"],
+    "responses": ["Posso aiutarti a trovare informazioni generali, contatti, orari di segreteria, moduli per docenti/studenti e supporto per Teams e Argo!"]
+  },
+  {
+    "id": "CONTATTI",
+    "keywords": ["contatti", "telefono", "email", "pec", "dove siete", "indirizzo"],
+    "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it\n📨 **PEC:** FIIS00300C@pec.istruzione.it"]
+  },
+  {
+    "id": "DIRIGENZA",
+    "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
+    "responses": ["👔 La Dirigenza riceve su appuntamento. Puoi contattare la segreteria per richiedere un colloquio con la Presidenza."]
+  },
+  {
+    "id": "SEGRETERIE",
+    "keywords": ["segreteria", "uffici", "orari segreteria", "didattica", "personale"],
+    "responses": ["📋 La segreteria si divide in **Didattica** e **Personale**. Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."]
+  },
+  {
+    "id": "MICROSOFT365",
+    "keywords": ["teams", "microsoft", "argo", "registro", "servizi digitali", "password"],
+    "responses": ["💻 Per i servizi digitali (Teams, Outlook, Argo) puoi recuperare la password o richiedere assistenza rivolgendoti all'Animatore Digitale o alla segreteria."]
+  }
+];
+
 let inactivityTimer = null;
 const RESET_TIME_MS = 5 * 60 * 1000; // 5 minuti
 
-// Caricamento del JSON all'avvio
 document.addEventListener("DOMContentLoaded", () => {
-    loadFAQ();
     resetInactivityTimer();
 });
 
-// Funzione per caricare i dati dal file JSON
-async function loadFAQ() {
-    try {
-        const response = await fetch("data/faq.json");
-        const data = await response.json();
-        faqData = data.faqs || [];
-    } catch (error) {
-        console.error("Errore nel caricamento delle FAQ:", error);
-    }
-}
-
-// Gestione invio tramite tasto INVIO
 function handleKeyPress(event) {
     if (event.key === "Enter") {
         sendMessage();
     }
 }
 
-// Invia messaggio dell'utente
 function sendMessage() {
     const inputField = document.getElementById("userInput");
     const message = inputField.value.trim();
@@ -38,13 +75,11 @@ function sendMessage() {
 
     resetInactivityTimer();
 
-    // Simula risposta del bot dopo breve attesa
     setTimeout(() => {
         processUserQuery(message);
     }, 400);
 }
 
-// Elabora la domanda dell'utente
 function processUserQuery(query) {
     const cleanQuery = query.toLowerCase().trim();
 
@@ -64,7 +99,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Ricerca nelle FAQ (Inclusione diretta + Fuzzy Matching)
+    // 2. Ricerca nelle FAQ
     let bestMatch = null;
     let highestScore = 0;
 
@@ -72,12 +107,10 @@ function processUserQuery(query) {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
 
-            // Check A: Contenimento esatto della parola/frase
             if (cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
                 highestScore = 1.0;
                 bestMatch = item;
             } else {
-                // Check B: Somiglianza con tolleranza errori
                 const score = similarity(cleanQuery, cleanKeyword);
                 if (score > highestScore) {
                     highestScore = score;
@@ -87,17 +120,14 @@ function processUserQuery(query) {
         });
     });
 
-    // Risposta se trovata con corrispondenza o con punteggio >= 0.30
     if (bestMatch && highestScore >= 0.30) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        // Fallback per risposte non trovate
         appendMessage("🤖 Ci ho provato, ma al momento questa informazione non è presente nel mio archivio. Ho preso nota della tua richiesta e cercheremo di aggiungerla presto!", "bot");
     }
 }
 
-// Azione dai pulsanti rapidi della barra laterale
 function quickAction(actionId) {
     const match = faqData.find(item => item.id === actionId);
     if (match) {
@@ -109,7 +139,6 @@ function quickAction(actionId) {
     resetInactivityTimer();
 }
 
-// Aggiunge un messaggio alla chat (con supporto per **grassetto** HTML)
 function appendMessage(text, sender) {
     const chatBox = document.getElementById("chatBox");
     
@@ -123,7 +152,6 @@ function appendMessage(text, sender) {
     const bubble = document.createElement("div");
     bubble.classList.add("bubble");
 
-    // Convertiamo i **testi** in <strong>testi</strong> e le nuove righe in <br>
     let formattedText = text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n/g, "<br>");
@@ -137,7 +165,6 @@ function appendMessage(text, sender) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Tasto Nuova Conversazione
 function resetChat() {
     const chatBox = document.getElementById("chatBox");
     chatBox.innerHTML = `
@@ -153,7 +180,6 @@ function resetChat() {
     resetInactivityTimer();
 }
 
-// Timer Inattività 5 Minuti
 function resetInactivityTimer() {
     if (inactivityTimer) clearTimeout(inactivityTimer);
     inactivityTimer = setTimeout(() => {
@@ -161,7 +187,6 @@ function resetInactivityTimer() {
     }, RESET_TIME_MS);
 }
 
-// Algoritmo di Levenshtein (Fuzzy Matching per tolleranza refusi)
 function similarity(s1, s2) {
     let longer = s1;
     let shorter = s2;
