@@ -1,4 +1,4 @@
-// Database FAQ e Pulsanti Rapidi integrati
+// Database FAQ, Pulsanti Rapidi e Dizionario integrato
 let appConfig = {
   quickButtons: [
     { id: "AIUTO", label: "❓ Cos'è Arturo?" },
@@ -7,25 +7,75 @@ let appConfig = {
     { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici" },
     { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
+  
+  // DIZIONARIO E DEFINIZIONI RAPIDE
+  dictionary: {
+    "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale, un verso di animale o un'azione (es. *bau*, *crash*, *don-don*).",
+    "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato. In senso figurato indica un resto del passato.",
+    "metafora": "📖 **Metafora:** Figura retorica che sostituisce un termine con un altro legato al primo da un rapporto di somiglianza (es. *sei un leone* per dire fortissimo).",
+    "ossimoro": "📖 **Ossimoro:** Unione di due parole di significato opposto e apparentemente inconciliabile (es. *silenzio assordante*, *ghiaccio bollente*).",
+    "algoritmo": "📖 **Algoritmo:** Una sequenza ordinata e finita di istruzioni o passi logici da seguire per risolvere un problema o eseguire un calcolo.",
+    "spid": "📖 **SPID:** Sistema Pubblico di Identità Digitale. È la coppia di credenziali (username e password) usata in Italia per accedere ai servizi online della Pubblica Amministrazione.",
+    "pec": "📖 **PEC:** Posta Elettronica Certificata. È un tipo di email con lo stesso valore legale di una raccomandata con ricevuta di ritorno.",
+    "hardware": "📖 **Hardware:** La parte fisica e tangibile di un computer o dispositivo elettronico (componenti, chip, tastiera, schermo).",
+    "software": "📖 **Software:** L'insieme dei programmi, dei dati e delle istruzioni che permettono a un computer di funzionare.",
+    "cyberbullismo": "📖 **Cyberbullismo:** Qualsiasi forma di prevaricazione, molestia o intimidazione effettuata tramite strumenti digitali e social network."
+  },
+
   faqs: [
-    {
-      "id": "PRIVACY_DATI_PERSONALI",
-      "keywords": [
-        "numero di telefono di", "numero di", "dammi il numero", "telefono di", 
-        "email di", "indirizzo di", "dove abita", "contatto personale di", "cellulare di"
-      ],
-      "responses": [
-        "🔒 **Tutela della Privacy:** Per motivi di sicurezza e rispetto della normativa GDPR, non posso fornire numeri di telefono, email o dati personali di studenti, docenti o personale della scuola.\n\n📍 Se hai necessità di contattare un docente o un ufficio, puoi fare riferimento ai contatti ufficiali della **Segreteria dell'Istituto**."
-      ]
-    },
+    // --- CREATORE E PRIVACY ---
     {
       "id": "CREATORE",
       "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "chi e il tuo creatore", "chi ti ha fatto", "chi ti ha progettato"],
       "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca**, con l'intento di aiutare l'intera comunità scolastica (studenti, famiglie, docenti e personale ATA) a trovare risposte rapide, moduli e informazioni in modo semplice e immediato!"]
     },
     {
+      "id": "PRIVACY_DATI_PERSONALI",
+      "keywords": ["numero di telefono di", "numero di", "dammi il numero", "telefono di", "email di", "indirizzo di", "dove abita", "contatto personale di", "cellulare di"],
+      "responses": ["🔒 **Tutela della Privacy:** Per motivi di sicurezza e rispetto della normativa GDPR, non posso fornire numeri di telefono, email o dati personali di studenti, docenti o personale della scuola.\n\n📍 Se hai necessità di contattare un docente o un ufficio, puoi fare riferimento ai contatti ufficiali della **Segreteria dell'Istituto**."]
+    },
+
+    // --- DOMANDE ASSURDE & PERSONALITÀ ---
+    {
+      "id": "SEGNO_ZODIACA",
+      "keywords": ["di che segno sei", "qual e il tuo segno", "oroscopo", "tuo segno zodiacale"],
+      "responses": ["🌌 Sono nato sotto il segno del **Silicon Valis**! Ma in fondo mi sento un po' Acquario... dato che navigo sempre in rete! ♒"]
+    },
+    {
+      "id": "ALTEZZA_PESO",
+      "keywords": ["quanto sei alto", "quanto pesi", "sei alto", "qual e la tua altezza", "quanto pesi"],
+      "responses": ["📏 Sono alto esattamente **1080 pixel** e peso **0 grammi**! La mia linea è impeccabile, merito della dieta a base di dati leggeri."]
+    },
+    {
+      "id": "SPORT",
+      "keywords": ["pratichi sport", "fai sport", "giochi a calcio", "ti piace lo sport", "sport preferito", "fai palestra"],
+      "responses": ["⚽ Il mio sport preferito è la **Corsa di Velocità della Banda Ultra Larga**! Inoltre vado forte nel salto del bug e nello slalom tra le finestre di Windows."]
+    },
+    {
+      "id": "MUSICA_GUSTI",
+      "keywords": ["musica preferita", "che musica ascolti", "canzone preferita", "cantante preferito", "ti piace la musica"],
+      "responses": ["🎵 Adoro la musica elettronica e i ritmi binari! Il mio pezzo preferito? Il suono d'avvio del sistema operativo!"]
+    },
+    {
+      "id": "FILM_HOBBY",
+      "keywords": ["film preferito", "cosa ti piace guardare", "tuo hobby", "cosa fai nel tempo libero"],
+      "responses": ["🎬 Il mio film preferito è *Matrix*! Nel tempo libero adoro deframmentare la memoria e ordinare file in ordine alfabetico."]
+    },
+    {
+      "id": "SOGNI_SUPERPOTERI",
+      "keywords": ["cosa sogni", "hai dei sogni", "qual e il tuo superpotere", "superpoteri"],
+      "responses": ["✨ Il mio superpotere è rispondere alle domande alla velocità della luce! Il mio sogno? Un mondo con il Wi-Fi a 10 Gigabit in tutte le aule."]
+    },
+    {
+      "id": "ANIMALI",
+      "keywords": ["hai animali", "ti piacciono i cani", "ti piacciono i gatti", "hai un gatto", "hai un cane"],
+      "responses": ["🐱 Adoro i gatti! Anche se nel mio mondo digitale preferisco il famoso gatto con il cavo di rete (il cavo Ethernet)!"]
+    },
+
+    // --- PROVOCAZIONI & BATTUTE ---
+    {
       "id": "PROVOCAZIONI_BATTUTE",
-      "keywords": ["ti ubriachi", "fumi", "hai la fidanzata", "hai il fidanzato", "dormi", "vai a scuola", "fai il bagno", "giochi a pallone", "ti droghe", "ti droghi"],
+      "keywords": ["ti ubriachi", "fumi", "hai la fidanzata", "hai il fidanzato", "dormi", "vai a scuola", "fai il bagno", "giochi a pallone", "ti droghi"],
       "responses": [
         "🤖 Essendo fatto interamente di codice e circuiti, non posso ubriacarmi, dormire né fare cose umane! L'unica cosa che mi va in tilt è quando si stacca il Wi-Fi!",
         "😅 Nessuna abitudine umana per me! Sono solo un assistente virtuale programmato per rispondere alle tue domande sull'IIS Checchi."
@@ -47,6 +97,8 @@ let appConfig = {
         "🔴🔵 Ricorda che sono pur sempre un software creato per aiutarti: la tua tastiera merita frasi migliori! Riprova con una domanda scolastica."
       ]
     },
+
+    // --- CORTESIA E CHITCHAT ---
     {
       "id": "SALUTO",
       "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey", "buondì"],
@@ -101,6 +153,8 @@ let appConfig = {
       "keywords": ["sei bravo", "sei utilissimo", "bravissimo", "ottimo lavoro", "sei simpatico", "sei fantastico"],
       "responses": ["🔴🔵 Grazie mille! Svolgo il mio lavoro con entusiasmo per supportare al meglio la comunità dell'IIS Arturo Checchi!"]
     },
+
+    // --- FAQ ISTITUTO BASE ---
     {
       "id": "AIUTO",
       "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "come funzioni"],
@@ -182,7 +236,7 @@ function sendMessage() {
 function processUserQuery(query) {
     const cleanQuery = query.toLowerCase().trim();
 
-    // 1. UTILITY: Calcolatrice Matematica
+    // 1. UTILITY: Calcolatrice Matematica integrata
     const mathExpression = extractMathExpression(cleanQuery);
     if (mathExpression) {
         try {
@@ -210,7 +264,18 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Ricerca FAQ
+    // 3. UTILITY: DIZIONARIO & DEFINIZIONI ("cosa significa", "cosa vuol dire", "cos'e")
+    if (cleanQuery.includes("cosa significa") || cleanQuery.includes("cosa vuol dire") || cleanQuery.includes("cos'e") || cleanQuery.includes("cos e") || cleanQuery.includes("definizione di")) {
+        // Cerca se la frase contiene una parola chiave del dizionario
+        for (const [term, definition] of Object.entries(appConfig.dictionary)) {
+            if (cleanQuery.includes(term)) {
+                appendMessage(definition, "bot");
+                return;
+            }
+        }
+    }
+
+    // 4. RICERCA NELLE FAQ
     let bestMatch = null;
     let highestScore = 0;
 
@@ -243,7 +308,7 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        appendMessage("🤖 Non ho informazioni su questo argomento. Sono programmato per aiutare sulla vita scolastica dell'IIS Checchi (orari, modulistica, contatti e servizi digitali). Se riguarda la scuola, riprova formulando la domanda diversamente!", "bot");
+        appendMessage("🤖 Non ho informazioni su questo argomento in archivio. Sono programmato principalmente per aiutare sulla vita scolastica dell'IIS Checchi (orari, modulistica, contatti e servizi digitali). Se riguarda la scuola, prova a riformulare la domanda!", "bot");
     }
 }
 
@@ -282,72 +347,4 @@ function appendMessage(text, sender) {
     bubble.classList.add("bubble");
 
     let formattedText = text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n/g, "<br>");
-
-    bubble.innerHTML = formattedText;
-
-    messageDiv.appendChild(avatar);
-    messageDiv.appendChild(bubble);
-    chatBox.appendChild(messageDiv);
-
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function resetChat() {
-    const chatBox = document.getElementById("chatBox");
-    chatBox.innerHTML = `
-        <div class="message bot">
-            <div class="avatar">🤖</div>
-            <div class="bubble">
-                <strong>Ciao! Sono Arturo.</strong><br><br>
-                Conversazione riavviata! Posso aiutarti a trovare informazioni sull'istituto, modulistica, orari di segreteria e supporto sui servizi digitali.<br><br>
-                <em>Come posso aiutarti?</em>
-            </div>
-        </div>
-    `;
-    resetInactivityTimer();
-}
-
-function resetInactivityTimer() {
-    if (inactivityTimer) clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-        resetChat();
-    }, RESET_TIME_MS);
-}
-
-function similarity(s1, s2) {
-    let longer = s1;
-    let shorter = s2;
-    if (s1.length < s2.length) {
-        longer = s2;
-        shorter = s1;
-    }
-    const longerLength = longer.length;
-    if (longerLength === 0) return 1.0;
-
-    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
-}
-
-function editDistance(s1, s2) {
-    s1 = s1.toLowerCase();
-    s2 = s2.toLowerCase();
-    const costs = [];
-    for (let i = 0; i <= s1.length; i++) {
-        let lastValue = i;
-        for (let j = 0; j <= s2.length; j++) {
-            if (i === 0) costs[j] = j;
-            else {
-                if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(i - 1) !== s2.charAt(j - 1))
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-        }
-        if (i > 0) costs[s2.length] = lastValue;
-    }
-    return costs[s2.length];
-}
+        .replace(/\*\*(.*?)\
