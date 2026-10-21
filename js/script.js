@@ -35,7 +35,7 @@ let appConfig = {
     {
       "id": "AIUTO",
       "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "come funzioni"],
-      "responses": ["Posso aiutarti a trovare informazioni generali, contatti, orari di segreteria, moduli per docenti/studenti e supporto per Teams e Argo!"]
+      "responses": ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni generali, contatti, orari di segreteria, modulistica per docenti/studenti, supporto per Teams/Argo... **e tanto altro!**"]
     },
     {
       "id": "CONTATTI",
@@ -63,12 +63,19 @@ let appConfig = {
 let inactivityTimer = null;
 const RESET_TIME_MS = 5 * 60 * 1000; // 5 minuti
 
-document.addEventListener("DOMContentLoaded", () => {
+// Inizializzazione all'avvio
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initApp);
+} else {
+    initApp();
+}
+
+function initApp() {
     renderQuickButtons();
     resetInactivityTimer();
-});
+}
 
-// Genera dinamica dei pulsanti rapidi
+// Render dei pulsanti rapidi
 function renderQuickButtons() {
     const container = document.getElementById("quickButtonsContainer");
     if (!container) return;
