@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     const faqIdInput = document.getElementById("faqId");
+    const dictTermInput = document.getElementById("dictTerm");
 
     // 1. GESTIONE CAMBIO SCHEDE (TABS)
     window.showTab = function (tabId, element) {
@@ -35,29 +36,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // 3. AUTOCOMPLETAMENTO FAQ ID
-    let datalist = document.getElementById("faqIdSuggestions");
-    if (!datalist) {
-        datalist = document.createElement("datalist");
-        datalist.id = "faqIdSuggestions";
-        document.body.appendChild(datalist);
+    let faqDatalist = document.getElementById("faqIdSuggestions");
+    if (!faqDatalist) {
+        faqDatalist = document.createElement("datalist");
+        faqDatalist.id = "faqIdSuggestions";
+        document.body.appendChild(faqDatalist);
     }
     if (faqIdInput) {
         faqIdInput.setAttribute("list", "faqIdSuggestions");
     }
 
-    function updateDatalist() {
-        if (!datalist) return;
-        datalist.innerHTML = "";
+    function updateFaqDatalist() {
+        if (!faqDatalist) return;
+        faqDatalist.innerHTML = "";
         const faqs = getFaqsList();
         faqs.forEach(faq => {
             let option = document.createElement("option");
             option.value = faq.id;
             option.label = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : "";
-            datalist.appendChild(option);
+            faqDatalist.appendChild(option);
         });
     }
 
-    // 4. TABELLA FAQ
+    // 4. AUTOCOMPLETAMENTO DIZIONARIO
+    let dictDatalist = document.getElementById("dictTermSuggestions");
+    if (!dictDatalist) {
+        dictDatalist = document.createElement("datalist");
+        dictDatalist.id = "dictTermSuggestions";
+        document.body.appendChild(dictDatalist);
+    }
+    if (dictTermInput) {
+        dictTermInput.setAttribute("list", "dictTermSuggestions");
+    }
+
+    function updateDictDatalist() {
+        if (!dictDatalist || typeof appConfig === "undefined" || !appConfig.dictionary) return;
+        dictDatalist.innerHTML = "";
+        Object.keys(appConfig.dictionary).forEach(term => {
+            let option = document.createElement("option");
+            option.value = term;
+            dictDatalist.appendChild(option);
+        });
+    }
+
+    // 5. TABELLA FAQ
     function renderFaqsTable() {
         const tbody = document.getElementById("faqsTableBody");
         if (!tbody) return;
@@ -84,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 5. TABELLA DIZIONARIO
+    // 6. TABELLA DIZIONARIO
     function renderDictTable() {
         const tbody = document.getElementById("dictTableBody");
         if (!tbody || typeof appConfig === "undefined" || !appConfig.dictionary) return;
@@ -96,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td><strong>${term}</strong></td>
                 <td>${def}</td>
                 <td>
+                    <button class="btn-edit" onclick="editDictDirect('${term}')">✏️ Modifica</button>
                     <button class="btn-danger" onclick="deleteDictTerm('${term}')">🗑️ Elimina</button>
                 </td>
             `;
@@ -103,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 6. TABELLA E LIBRERIA PULSANTI RAPIDI
+    // 7. TABELLA PULSANTI RAPIDI
     function renderButtonsTable() {
         const tbody = document.getElementById("buttonsTableBody");
         if (!tbody || typeof appConfig === "undefined" || !appConfig.quickButtons) return;
@@ -123,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // INIETTA LIBRERIA ICONE / EMOJI NELLA SCHEDA PULSANTI
+    // LIBRERIA EMOJI PULSANTI RAPIDI
     function setupEmojiPicker() {
         const buttonForm = document.getElementById("buttonForm");
         if (!buttonForm || document.getElementById("emojiPickerContainer")) return;
@@ -147,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEmojiToButton = function(emoji) {
         const btnLabelInput = document.getElementById("btnLabel");
         if (!btnLabelInput) return;
-        const currentText = btnLabelInput.value.replace(/^[\p{Emoji}\s]+/gu, ''); // Rimuove emoji iniziali esistenti
+        const currentText = btnLabelInput.value.replace(/^[\p{Emoji}\s]+/gu, '');
         btnLabelInput.value = emoji + " " + currentText;
     };
 
@@ -177,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
                 appConfig.faqs.splice(index, 1);
             }
-            updateDatalist();
+            updateFaqDatalist();
             renderFaqsTable();
             resetAdminForm();
             generateExportCode();
@@ -204,6 +227,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (document.getElementById("btnCancelEdit")) {
                     document.getElementById("btnCancelEdit").style.display = "none";
                 }
+            }
+        });
+    }
+
+    // MODIFICA & AUTOCOMPLETAMENTO DIZIONARIO
+    window.editDictDirect = function(term) {
+        if (typeof appConfig === "undefined" || !appConfig.dictionary || !appConfig.dictionary[term]) return;
+        document.getElementById("dictTerm").value = term;
+        document.getElementById("dictDefinition").value = appConfig.dictionary[term];
+        
+        const submitBtn = document.querySelector("#dictForm button[type='submit']");
+        if (submitBtn) submitBtn.innerText = "💾 Aggiorna Termine (" + term + ")";
+    };
+
+    if (dictTermInput) {
+        dictTermInput.addEventListener("input", function () {
+            const termQuery = this.value.trim().toLowerCase();
+            const submitBtn = document.querySelector("#dictForm button[type='submit']");
+
+            if (!termQuery) {
+                document.getElementById("dictDefinition").value = "";
+                if (submitBtn) submitBtn.innerText = "💾 Aggiungi / Aggiorna Termine";
+                return;
+            }
+
+            if (typeof appConfig !== "undefined" && appConfig.dictionary && appConfig.dictionary[termQuery]) {
+                // Trovato nel dizionario: compila la definizione
+                document.getElementById("dictDefinition").value = appConfig.dictionary[termQuery];
+                if (submitBtn) submitBtn.innerText = "✏️ Aggiorna Termine (" + termQuery + ")";
+            } else {
+                // Termine nuovo: lascia la definizione pulita per scriverne una nuova
+                document.getElementById("dictDefinition").value = "";
+                if (submitBtn) submitBtn.innerText = "➕ Aggiungi Nuovo Termine";
             }
         });
     }
@@ -238,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        updateDatalist();
+        updateFaqDatalist();
         renderFaqsTable();
         resetAdminForm();
         generateExportCode();
@@ -255,23 +311,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (typeof appConfig !== "undefined" && appConfig.dictionary) {
             appConfig.dictionary[term] = def;
+            updateDictDatalist();
             renderDictTable();
             generateExportCode();
             document.getElementById("dictTerm").value = "";
             document.getElementById("dictDefinition").value = "";
-            alert("Termine aggiunto al dizionario!");
+            const submitBtn = document.querySelector("#dictForm button[type='submit']");
+            if (submitBtn) submitBtn.innerText = "💾 Aggiungi / Aggiorna Termine";
+            alert("Termine salvato nel dizionario!");
         }
     };
 
     window.deleteDictTerm = function (term) {
         if (confirm("Eliminare il termine '" + term + "'?")) {
             delete appConfig.dictionary[term];
+            updateDictDatalist();
             renderDictTable();
             generateExportCode();
         }
     };
 
-    // GESTIONE PULSANTI RAPIDI (MODIFICA, AGGIUNTA, RIMOZIONE)
+    // GESTIONE PULSANTI RAPIDI
     let currentEditBtnIndex = -1;
 
     window.editQuickButton = function(index) {
@@ -345,7 +405,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // INIZIALIZZAZIONE COMPLETA
     setupEmojiPicker();
-    updateDatalist();
+    updateFaqDatalist();
+    updateDictDatalist();
     renderFaqsTable();
     renderDictTable();
     renderButtonsTable();
