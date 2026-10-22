@@ -1,28 +1,16 @@
 // Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0
 let appConfig = {
-  "quickButtons": [
-    {
-      "id": "AIUTO",
-      "label": "❓ Cos'è Arturo?"
-    },
-    {
-      "id": "CONTATTI",
-      "label": "📞 Contatti"
-    },
-    {
-      "id": "DIRIGENZA",
-      "label": "👔 Dirigenza"
-    },
-    {
-      "id": "SEGRETERIE",
-      "label": "🏢 Segreteria e Uffici"
-    },
-    {
-      "id": "MICROSOFT365",
-      "label": "💻 Servizi Digitali (Teams/Argo)"
-    }
+  quickButtons: [
+    { id: "AIUTO", label: "❓ Cos'è Arturo?" },
+    { id: "CONTATTI", label: "📞 Contatti" },
+    { id: "DIRIGENZA", label: "👔 Dirigenza" },
+    { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici" },
+    { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)" }
   ],
-  "dictionary": {
+  
+  // DIZIONARIO ED ENCICLOPEDIA LOCALE (Unificato e privo di duplicati)
+  dictionary: {
+    // --- 1. TECNOLOGIA, INFORMATICA & DIGITAL ---
     "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
     "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
     "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni per risolvere un problema.",
@@ -382,6 +370,8 @@ let appConfig = {
     "yield": "📖 **Yield:** Istruzione usata nei generatori per sospendere e restituire temporaneamente un valore senza perdere lo stato.",
     "zero_day": "📖 **Zero-Day:** Falla di sicurezza o vulnerabilità software appena scoperta e non ancora corretta dallo sviluppatore.",
     "zip": "📖 **ZIP:** Formato file compresso usato per ridurre le dimensioni di uno o più file e facilitarne il trasferimento.",
+
+    // --- 2. MATEMATICA, FISICA, CHIMICA & ASTRONOMIA ---
     "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
     "alchimia": "📖 **Alchimia:** Antica pratica filosofica ed esoterica precursore della chimica moderna, volta alla trasmutazione metallica.",
     "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità rappresentate tramite simboli.",
@@ -456,6 +446,8 @@ let appConfig = {
     "teorema": "📖 **Teorema:** Proposizione matematica la cui validità deve essere dimostrata a partire da assiomi o altri teoremi.",
     "trigonometria": "📖 **Trigonometria:** Ramo della matematica che studia le relazioni tra gli angoli ed i lati dei triangoli.",
     "velocita": "📖 **Velocità della Luce:** La massima velocità fisica nell'universo, pari a circa 299.792 km al secondo nel vuoto.",
+
+    // --- 3. UMANISTICA, LINGUA, LETTERATURA & ARTE ---
     "aforisma": "📖 **Aforisma:** Breve massima o sentenza che esprime in modo denso e sintetico una verità o un principio morale.",
     "allegoria": "📖 **Allegoria:** Figura retorica mediante la quale un concetto astratto viene espresso attraverso un'immagine concreta.",
     "allitterazione": "📖 **Allitterazione:** Ripetizione dello stesso suono o della stessa sillaba all'inizio o all'interno di più parole vicine.",
@@ -496,6 +488,8 @@ let appConfig = {
     "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
     "sinecdoche": "📖 **Sinecdoche:** Figura retorica che esprime una parola usando la parte per il tutto o il tutto per la parte.",
     "sinestesia": "📖 **Sinestesia:** Figura retorica che accosta due termini appartenenti a sfere sensoriali differenti.",
+
+    // --- 4. BIOLOGIA, MEDICINA, SCIENZE ED AMBIENTE ---
     "antigene": "📖 **Antigene:** Sostanza capace di indurre una risposta immunitaria e la produzione di anticorpi nell'organismo.",
     "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di nucleo ben definito.",
     "biologia": "📖 **Biologia:** Scienza scientifica che studia i viventi, la loro struttura, funzione, crescita ed evoluzione.",
@@ -511,6 +505,8 @@ let appConfig = {
     "genoma": "📖 **Genoma:** Il corredo genetico completo di un organismo contenuto nel suo DNA.",
     "omeostasi": "📖 **Omeostasi:** Attitudine degli organismi viventi a mantenere costante il proprio ambiente interno.",
     "virus_bio": "📖 **Virus (Biologia):** Agente infettivo acellulare di dimensioni microscopiche che si replica solo all'interno di cellule ospiti.",
+
+    // --- 5. SCUOLA, DIDATTICA & ISTITUZIONI ---
     "audiobook": "📖 **Audiobook:** Libro recitato da uno speaker o attore e registrato in formato audio digitale.",
     "didattica": "📖 **Didattica:** Scienza dell'insegnamento e dei metodi di apprendimento scolastico ed educativo.",
     "diploma": "📖 **Diploma:** Titolo di studio ufficiale rilasciato al completamento di un percorso di istruzione scolastica o accademica.",
@@ -521,7 +517,9 @@ let appConfig = {
     "procedura": "📖 **Procedura:** Insieme di istruzioni riutilizzabili che eseguono un compito senza restituire un valore formale di ritorno.",
     "tutela": "📖 **GDPR:** Regolamento Generale sulla Protezione dei Dati personali in vigore nell'Unione Europea."
   },
-  "faqs": [
+
+  faqs: [
+    // --- SEZIONE FORM E MODULISTICA SPECIFICA ---
     {
       "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
       "type": "form",
@@ -646,240 +644,478 @@ let appConfig = {
         "💻 **Richiesta Notebook per Alunni BES (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere e compilare la richiesta al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/UbiQvMczBF' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Richiesta Notebook BES (Plesso Liceo)</a>"
       ]
     },
+
+    // --- UTILITÀ, CHAT E INFORMAZIONI GENERALI ---
     {
       "id": "CREATORE",
       "type": "personal",
-      "keywords": [
-        "chi ti ha creato",
-        "chi ti ha inventato",
-        "chi ti ha sviluppato",
-        "chi ti ha programmato",
-        "creatore"
-      ],
-      "responses": [
-        "🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca** per aiutare la comunità scolastica!"
-      ]
+      "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore"],
+      "responses": ["🔴🔵 Sono stato ideato e creato presso l'**IIS \"A. Checchi\"** dal Tecnico di Informatica **Vorraro Luca** per aiutare la comunità scolastica!"]
     },
     {
       "id": "PRIVACY_DATI_PERSONALI",
       "type": "school",
-      "keywords": [
-        "numero di telefono di",
-        "numero di",
-        "dammi il numero",
-        "telefono di",
-        "email di",
-        "cellulare di"
-      ],
-      "responses": [
-        "🔒 **Tutela della Privacy:** Per motivi GDPR, non posso fornire contatti personali di studenti o docenti. Rivolgiti alla **Segreteria dell'Istituto**."
-      ]
+      "keywords": ["numero di telefono di", "numero di", "dammi il numero", "telefono di", "email di", "cellulare di"],
+      "responses": ["🔒 **Tutela della Privacy:** Per motivi GDPR, non posso fornire contatti personali di studenti o docenti. Rivolgiti alla **Segreteria dell'Istituto**."]
     },
     {
       "id": "SEGNO_ZODIACA",
       "type": "personal",
-      "keywords": [
-        "di che segno sei",
-        "qual e il tuo segno",
-        "oroscopo"
-      ],
-      "responses": [
-        "🌌 Sono nato sotto il segno del **Silicon Valis**! Ma mi sento un po' Acquario... dato che navigo sempre in rete! ♒"
-      ]
+      "keywords": ["di che segno sei", "qual e il tuo segno", "oroscopo"],
+      "responses": ["🌌 Sono nato sotto il segno del **Silicon Valis**! Ma mi sento un po' Acquario... dato che navigo sempre in rete! ♒"]
     },
     {
       "id": "ALTEZZA_PESO",
       "type": "personal",
-      "keywords": [
-        "quanto sei alto",
-        "quanto pesi",
-        "sei alto"
-      ],
-      "responses": [
-        "📏 Sono alto **1080 pixel** e peso **0 grammi**! La mia linea è impeccabile."
-      ]
+      "keywords": ["quanto sei alto", "quanto pesi", "sei alto"],
+      "responses": ["📏 Sono alto **1080 pixel** e peso **0 grammi**! La mia linea è impeccabile."]
     },
     {
       "id": "SPORT",
       "type": "personal",
-      "keywords": [
-        "pratichi sport",
-        "fai sport",
-        "giochi a calcio"
-      ],
-      "responses": [
-        "⚽ Il mio sport preferito è la **Corsa della Banda Ultra Larga**!"
-      ]
+      "keywords": ["pratichi sport", "fai sport", "giochi a calcio"],
+      "responses": ["⚽ Il mio sport preferito è la **Corsa della Banda Ultra Larga**!"]
     },
     {
       "id": "PROVOCAZIONI_BATTUTE",
       "type": "personal",
-      "keywords": [
-        "ti ubriachi",
-        "fumi",
-        "hai la fidanzata",
-        "dormi"
-      ],
-      "responses": [
-        "🤖 Essendo fatto di codice, non posso ubriacarmi né dormire! Vado in tilt solo se si stacca il Wi-Fi!"
-      ]
+      "keywords": ["ti ubriachi", "fumi", "hai la fidanzata", "dormi"],
+      "responses": ["🤖 Essendo fatto di codice, non posso ubriacarmi né dormire! Vado in tilt solo se si stacca il Wi-Fi!"]
     },
     {
       "id": "MODERAZIONE_ESPLICITA",
       "type": "moderation",
-      "keywords": [
-        "sesso",
-        "fai sesso",
-        "porno",
-        "pornografia"
-      ],
-      "responses": [
-        "🤖 Cerco di essere un assistente digitale modello! Rimaniamo su argomenti scolastici."
-      ]
+      "keywords": ["sesso", "fai sesso", "porno", "pornografia"],
+      "responses": ["🤖 Cerco di essere un assistente digitale modello! Rimaniamo su argomenti scolastici."]
     },
     {
       "id": "INSULTI_OFFESE",
       "type": "moderation",
-      "keywords": [
-        "sei stupido",
-        "non capisci niente",
-        "brutto",
-        "inutile",
-        "vaffanculo",
-        "stronzo"
-      ],
-      "responses": [
-        "🤖 Ho molta pazienza, ma zero memoria per gli insulti! Se hai finito, come posso aiutarti sul serio?"
-      ]
+      "keywords": ["sei stupido", "non capisci niente", "brutto", "inutile", "vaffanculo", "stronzo"],
+      "responses": ["🤖 Ho molta pazienza, ma zero memoria per gli insulti! Se hai finito, come posso aiutarti sul serio?"]
     },
     {
       "id": "SALUTO",
       "type": "chat",
-      "keywords": [
-        "ciao",
-        "salve",
-        "buongiorno",
-        "buonasera",
-        "hey"
-      ],
-      "responses": [
-        "👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"
-      ]
+      "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey"],
+      "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
     },
     {
       "id": "CHI_SEI",
       "type": "chat",
-      "keywords": [
-        "chi sei",
-        "come ti chiami",
-        "presentati",
-        "chi e arturo",
-        "tuo nome"
-      ],
-      "responses": [
-        "👋 Mi chiamo **Arturo** e sono l'assistente digitale dell'IIS Arturo Checchi!"
-      ]
+      "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome"],
+      "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale dell'IIS Arturo Checchi!"]
     },
     {
       "id": "RINGRAZIAMENTI",
       "type": "chat",
-      "keywords": [
-        "grazie",
-        "grazie mille",
-        "mille grazie",
-        "ti ringrazio"
-      ],
-      "responses": [
-        "😊 Figurati! È un piacere esserti d'aiuto."
-      ]
+      "keywords": ["grazie", "grazie mille", "mille grazie", "ti ringrazio"],
+      "responses": ["😊 Figurati! È un piacere esserti d'aiuto."]
     },
     {
       "id": "COME_STAI",
       "type": "chat",
-      "keywords": [
-        "come stai",
-        "come va",
-        "tutto bene"
-      ],
-      "responses": [
-        "🤖 Io sto benissimo, grazie! Tu come stai?"
-      ]
+      "keywords": ["come stai", "come va", "tutto bene"],
+      "responses": ["🤖 Io sto benissimo, grazie! Tu come stai?"]
     },
     {
       "id": "BARZELLETTA",
       "type": "chat",
-      "keywords": [
-        "barzelletta",
-        "raccontami una barzelletta",
-        "fammi ridere"
-      ],
-      "responses": [
-        "😄 Perché i computer vanno in vacanza? Per ricaricare le batterie!"
-      ]
+      "keywords": ["barzelletta", "raccontami una barzelletta", "fammi ridere"],
+      "responses": ["😄 Perché i computer vanno in vacanza? Per ricaricare le batterie!"]
     },
     {
       "id": "AIUTO",
       "type": "school",
-      "keywords": [
-        "aiuto",
-        "help",
-        "cosa sai fare",
-        "istruzioni"
-      ],
-      "responses": [
-        "Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria, modulistica docenti e supporto sui servizi digitali."
-      ]
+      "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni"],
+      "responses": ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria, modulistica docenti e supporto sui servizi digitali."]
     },
     {
       "id": "CONTATTI",
       "type": "school",
-      "keywords": [
-        "contatti scuola",
-        "telefono scuola",
-        "email scuola",
-        "pec scuola",
-        "dove siete"
-      ],
-      "responses": [
-        "📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"
-      ]
+      "keywords": ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete"],
+      "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
     },
     {
       "id": "DIRIGENZA",
       "type": "school",
-      "keywords": [
-        "dirigenza",
-        "preside",
-        "dirigente"
-      ],
-      "responses": [
-        "👔 La Dirigenza riceve su appuntamento tramite la segreteria."
-      ]
+      "keywords": ["dirigenza", "preside", "dirigente"],
+      "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria."]
     },
     {
       "id": "SEGRETERIE",
       "type": "school",
-      "keywords": [
-        "segreteria",
-        "uffici",
-        "orari segreteria"
-      ],
-      "responses": [
-        "📋 Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."
-      ]
+      "keywords": ["segreteria", "uffici", "orari segreteria"],
+      "responses": ["📋 Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."]
     },
     {
       "id": "MICROSOFT365",
       "type": "school",
-      "keywords": [
-        "teams",
-        "microsoft",
-        "argo",
-        "registro"
-      ],
-      "responses": [
-        "💻 Per i servizi digitali (Teams, Outlook, Argo) puoi rivolgerti all'Animatore Digitale o alla segreteria."
-      ]
+      "keywords": ["teams", "microsoft", "argo", "registro"],
+      "responses": ["💻 Per i servizi digitali (Teams, Outlook, Argo) puoi rivolgerti all'Animatore Digitale o alla segreteria."]
     }
   ]
 };
+
+let personalQueryCount = 0;
+let inactivityTimer = null;
+const RESET_TIME_MS = 5 * 60 * 1000;
+
+// MACCHINA A STATI CONVERSAZIONALE
+let conversationState = null;
+let pendingFormMatch = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    initApp();
+});
+
+function initApp() {
+    renderQuickButtons();
+    resetInactivityTimer();
+}
+
+function renderQuickButtons() {
+    const container = document.getElementById("quickButtonsContainer");
+    if (!container) return;
+    
+    container.innerHTML = "";
+    appConfig.quickButtons.forEach(btn => {
+        const buttonEl = document.createElement("button");
+        buttonEl.className = "quick-btn";
+        buttonEl.innerText = btn.label;
+        buttonEl.onclick = () => quickAction(btn.id);
+        container.appendChild(buttonEl);
+    });
+}
+
+function handleKeyPress(event) {
+    if (event.key === "Enter") {
+        sendMessage();
+    }
+}
+
+function sendMessage() {
+    const inputField = document.getElementById("userInput");
+    if (!inputField) return;
+    const message = inputField.value.trim();
+
+    if (message === "") return;
+
+    appendMessage(message, "user");
+    inputField.value = "";
+
+    resetInactivityTimer();
+
+    setTimeout(() => {
+        processUserQuery(message);
+    }, 300);
+}
+
+function processUserQuery(query) {
+    // 1. Normalizzazione del testo
+    let rawQuery = query.toLowerCase()
+        .replace(/’/g, "'")
+        .replace(/[èé]/g, "e")
+        .replace(/[àá]/g, "a")
+        .replace(/[ìí]/g, "i")
+        .replace(/[òó]/g, "o")
+        .replace(/[ùú]/g, "u")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    let cleanQuery = rawQuery
+        .replace(/\bfrom\b/g, "form")
+        .replace(/\bfomr\b/g, "form")
+        .replace(/\bforn\b/g, "form")
+        .replace(/\beseprti\b/g, "esperti")
+        .replace(/\bespert\b/g, "esperti");
+
+    const affirmativeList = ["si", "sì", "esatto", "confermo", "certamente", "ovviamente", "ok", "chiaro", "certo", "esattamente"];
+    const negativeList = ["no", "non", "per niente", "nulla", "finito"];
+
+    // 2. FLUSSI CONVERSAZIONALI FORM
+    if (conversationState === "AWAITING_SPECIFIC_FORM_CONFIRMATION" && pendingFormMatch) {
+        if (affirmativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            const formResponse = pendingFormMatch.responses[0];
+            conversationState = null;
+            pendingFormMatch = null;
+            appendMessage(formResponse, "bot");
+            return;
+        } else if (negativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            conversationState = null;
+            pendingFormMatch = null;
+            appendMessage("🤖 Capito! Dimmi pure in dettaglio di cosa hai bisogno per la scuola.", "bot");
+            return;
+        }
+    }
+
+    if (conversationState === "AWAITING_FORM_CONFIRMATION") {
+        if (affirmativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            conversationState = "AWAITING_FORM_TYPE";
+            appendMessage("🤖 Perfetto! **Che tipo di Form stai cercando?**\n*(es. fotocopie, piano di lavoro, permessi, esperti esterni, dispositivi...)*", "bot");
+            return;
+        } else if (negativeList.some(ans => cleanQuery === ans || cleanQuery.includes(ans))) {
+            conversationState = null;
+            appendMessage("🤖 Capito! Hai finito o hai bisogno di aiuto per qualcos'altro?", "bot");
+            return;
+        }
+    }
+
+    if (conversationState === "AWAITING_FORM_TYPE") {
+        conversationState = null;
+    }
+
+    if (conversationState === null) {
+        if (affirmativeList.includes(cleanQuery)) {
+            appendMessage("🤖 Dimmi pure! In cosa posso esserti d'aiuto per l'istituto?", "bot");
+            return;
+        }
+        if (negativeList.includes(cleanQuery)) {
+            appendMessage("🤖 Va bene! Se hai bisogno di informazioni su modulistica, orari o servizi della scuola, sono qui.", "bot");
+            return;
+        }
+    }
+
+    const strictGenericTriggers = ["form", "modulo", "modulistica", "i form", "i moduli"];
+    if (strictGenericTriggers.includes(cleanQuery)) {
+        conversationState = "AWAITING_FORM_CONFIRMATION";
+        appendMessage("🤖 Credo di aver capito che stai cercando un modulo o un Form scolastico, mi confermi?", "bot");
+        return;
+    }
+
+    // 3. CALCOLATRICE MATEMATICA
+    const mathExpression = extractMathExpression(cleanQuery);
+    if (mathExpression) {
+        try {
+            const result = Function(`'use strict'; return (${mathExpression})`)();
+            if (!isNaN(result)) {
+                appendMessage(`🧮 Il risultato di **${mathExpression}** è **${result}**.`, "bot");
+                personalQueryCount = 0;
+                return;
+            }
+        } catch (e) {}
+    }
+
+    // 4. DATA E ORA (Con confini di parola \b per evitare 'amministratORE')
+    if (/\b(ora|ore|che ora|orario)\b/i.test(cleanQuery) && !cleanQuery.includes("orari segreteria")) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+        appendMessage(`⌚ Attualmente sono le ore **${timeStr}**.`, "bot");
+        personalQueryCount = 0;
+        return;
+    }
+
+    if (/\b(giorno|data|oggi)\b/i.test(cleanQuery)) {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateStr = now.toLocaleDateString('it-IT', options);
+        appendMessage(`📅 Oggi è **${dateStr}**.`, "bot");
+        personalQueryCount = 0;
+        return;
+    }
+
+    // 5. RICERCA DIZIONARIO (Sia con "cos'è..." che con parola SINGOLA)
+    const dictionaryTriggers = [
+        "che cos'e'", "che cos'e", "che cos e'", "che cos e",
+        "cos'e'", "cos'e", "cos e'", "cos e", "cosa e'", "cosa e",
+        "cosa significa", "cosa vuol dire", "definizione di", "significato di"
+    ];
+
+    let wordToSearch = cleanQuery;
+    dictionaryTriggers.forEach(trigger => {
+        wordToSearch = wordToSearch.replace(trigger, "");
+    });
+
+    wordToSearch = wordToSearch
+        .replace(/['’?.,!]/g, " ")
+        .replace(/\b(un|una|uno|il|lo|la|i|gli|le|del|della|degli|delle|che)\b/gi, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (wordToSearch !== "") {
+        for (const [term, definition] of Object.entries(appConfig.dictionary)) {
+            const cleanTerm = term.toLowerCase().trim();
+            if (wordToSearch === cleanTerm || cleanTerm.replace(/_/g, " ") === wordToSearch) {
+                personalQueryCount = 0;
+                appendMessage(definition, "bot");
+                return;
+            }
+        }
+    }
+
+    // 6. RICERCA FAQ / FORM
+    let bestMatch = null;
+    let highestScore = 0;
+
+    if (cleanQuery.length <= 2) {
+        appendMessage("🤖 Puoi specificare la tua domanda con qualche dettaglio in più?", "bot");
+        return;
+    }
+
+    appConfig.faqs.forEach(item => {
+        item.keywords.forEach(keyword => {
+            const cleanKeyword = keyword.toLowerCase()
+                .replace(/’/g, "'")
+                .replace(/[èé]/g, "e")
+                .replace(/\s+/g, " ")
+                .trim();
+
+            if (cleanQuery === cleanKeyword) {
+                highestScore = 1.0;
+                bestMatch = item;
+            } else if (cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+                const score = 0.85;
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = item;
+                }
+            } else {
+                const minThreshold = cleanQuery.length <= 7 ? 0.75 : 0.55;
+                const score = similarity(cleanQuery, cleanKeyword);
+                if (score >= minThreshold && score > highestScore) {
+                    highestScore = score;
+                    bestMatch = item;
+                }
+            }
+        });
+    });
+
+    if (bestMatch && highestScore >= 0.55) {
+        const wordCount = cleanQuery.split(" ").length;
+        if (bestMatch.type === "form" && wordCount <= 2 && !cleanQuery.includes("form") && !cleanQuery.includes("modulo") && !cleanQuery.includes("link")) {
+            conversationState = "AWAITING_SPECIFIC_FORM_CONFIRMATION";
+            pendingFormMatch = bestMatch;
+            appendMessage(`🤖 Cerchi il **Form online** per **${bestMatch.label}**?`, "bot");
+            return;
+        }
+
+        if (bestMatch.type === "personal") {
+            personalQueryCount++;
+            if (personalQueryCount >= 3) {
+                appendMessage("🤖 Credo che parlare troppo di me non sia poi così interessante! Piuttosto, occupiamoci di cose utili per la scuola!", "bot");
+                return;
+            }
+        } else {
+            personalQueryCount = 0;
+        }
+
+        const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
+        appendMessage(responseText, "bot");
+    } else {
+        personalQueryCount = 0;
+        appendMessage("🤖 Non ho compreso la richiesta o non ho informazioni in archivio su questo termine. Prova a riformulare la domanda!", "bot");
+    }
+}
+
+function extractMathExpression(text) {
+    let cleaned = text.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
+    cleaned = cleaned.replace(/x/g, "*").replace(/:/g, "/").replace(/,/g, ".");
+    
+    if (/^[0-9+\-*/().\s]+$/.test(cleaned) && /[0-9]/.test(cleaned) && /[+\-*/]/.test(cleaned)) {
+        return cleaned;
+    }
+    return null;
+}
+
+function quickAction(actionId) {
+    personalQueryCount = 0;
+    conversationState = null;
+    pendingFormMatch = null;
+    const match = appConfig.faqs.find(item => item.id === actionId);
+    if (match) {
+        const responseText = match.responses[0];
+        appendMessage(responseText, "bot");
+    } else {
+        processUserQuery(actionId);
+    }
+    resetInactivityTimer();
+}
+
+function appendMessage(text, sender) {
+    const chatBox = document.getElementById("chatBox");
+    if (!chatBox) return;
+    
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender);
+
+    const avatar = document.createElement("div");
+    avatar.classList.add("avatar");
+    avatar.innerText = sender === "bot" ? "🤖" : "👤";
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+
+    let formattedText = text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n/g, "<br>");
+
+    bubble.innerHTML = formattedText;
+
+    messageDiv.appendChild(avatar);
+    messageDiv.appendChild(bubble);
+    chatBox.appendChild(messageDiv);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function resetChat() {
+    personalQueryCount = 0;
+    conversationState = null;
+    pendingFormMatch = null;
+    const chatBox = document.getElementById("chatBox");
+    if (!chatBox) return;
+    chatBox.innerHTML = `
+        <div class="message bot">
+            <div class="avatar">🤖</div>
+            <div class="bubble">
+                <strong>Ciao! Sono Arturo.</strong><br><br>
+                Conversazione riavviata! Posso aiutarti a trovare informazioni sull'istituto, modulistica, orari di segreteria e supporto sui servizi digitali.<br><br>
+                <em>Come posso aiutarti?</em>
+            </div>
+        </div>
+    `;
+    resetInactivityTimer();
+}
+
+function resetInactivityTimer() {
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    inactivityTimer = setTimeout(() => {
+        resetChat();
+    }, RESET_TIME_MS);
+}
+
+function similarity(s1, s2) {
+    let longer = s1;
+    let shorter = s2;
+    if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+    }
+    const longerLength = longer.length;
+    if (longerLength === 0) return 1.0;
+
+    return (longerLength - editDistance(longer, shorter)) / parseFloat(longerLength);
+}
+
+function editDistance(s1, s2) {
+    s1 = s1.toLowerCase();
+    s2 = s2.toLowerCase();
+    const costs = [];
+    for (let i = 0; i <= s1.length; i++) {
+        let lastValue = i;
+        for (let j = 0; j <= s2.length; j++) {
+            if (i === 0) costs[j] = j;
+            else {
+                if (j > 0) {
+                    let newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) !== s2.charAt(j - 1))
+                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+        }
+        if (i > 0) costs[s2.length] = lastValue;
+    }
+    return costs[s2.length];
+}
