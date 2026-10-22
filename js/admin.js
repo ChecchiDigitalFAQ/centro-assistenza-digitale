@@ -149,10 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // LIBRERIA EMOJI PER PULSANTI RAPIDI
     function setupEmojiPicker() {
         const buttonForm = document.getElementById("buttonForm");
-        if (!buttonForm || document.getElementById("emojiPickerContainer")) return;
+        if (!buttonForm || document.getElementById("emojiPickerainer")) return;
 
         const pickerDiv = document.createElement("div");
-        pickerDiv.id = "emojiPickerContainer";
+        pickerDiv.id = "emojiPickerainer";
         pickerDiv.className = "form-group";
         
         const emojis = ["📋", "📑", "📂", "📝", "🔑", "💻", "🖨️", "📞", "👔", "🏢", "❓", "⚙️", "📢", "🎓", "📩"];
@@ -428,12 +428,12 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("gh_pat", token);
         if (tokenInput) tokenInput.value = token;
 
-        const repoOwner = "lucavorraro";
-        const repoName = "centro-assistenza-digitale";
-        const filePath = "js/script.js";
-        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+      const repoOwner = "checchidigitalfaq";
+const repoName = "centro-assistenza-digitale";
+const filePath = "js/script.js";
+const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
 
-        const newContent = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
+const newContent = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
 
         try {
             const getFileResponse = await fetch(apiUrl, {
@@ -451,19 +451,19 @@ document.addEventListener("DOMContentLoaded", function () {
             const currentSha = fileData.sha;
 
             const encoder = new TextEncoder();
-            const data = encoder.encode(newContent);
-            const base64Content = btoa(String.fromCharCode(...data));
+            const data = encoder.encode(newent);
+            const base64ent = btoa(String.fromCharCode(...data));
 
             const updateResponse = await fetch(apiUrl, {
                 method: "PUT",
                 headers: {
                     "Authorization": `token ${token}`,
                     "Accept": "application/vnd.github.v3+json",
-                    "Content-Type": "application/json"
+                    "ent-Type": "application/json"
                 },
                 body: JSON.stringify({
                     message: "Aggiornamento automatico configurazione da Admin Arturo 2.0",
-                    content: base64Content,
+                    ent: base64ent,
                     sha: currentSha
                 })
             });
