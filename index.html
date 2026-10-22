@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- INTESTAZIONE / HEADER -->
+    <!-- INTESTAZIONE -->
     <header class="chat-header">
         <div class="logo-title">
             <h2>Arturo 2.0</h2>
@@ -17,18 +17,18 @@
         <button class="btn-reset" onclick="resetChat()">🔄 Nuova Conversazione</button>
     </header>
 
-    <!-- CORPO PRINCIPALE / MAIN CONTAINER -->
+    <!-- CORPO PRINCIPALE -->
     <div class="chat-container">
         
-        <!-- BARRA LATERALE PULSANTI RAPIDI -->
+        <!-- SIDEBAR PULSANTI RAPIDI -->
         <aside class="sidebar">
             <h3>Servizi Rapidi</h3>
             <div id="quickButtonsContainer" class="quick-buttons-list">
-                <!-- I pulsanti vengono generati dinamicamente da script.js -->
+                <!-- Generati dinamicamente da script.js -->
             </div>
         </aside>
 
-        <!-- AREA CHAT E MESSAGGI -->
+        <!-- AREA CHAT -->
         <main class="chat-main">
             <div id="chatMessages" class="messages-area">
                 <div class="message bot-message">
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <!-- AREA INPUT E INVIO MESSAGGIO -->
+            <!-- AREA INPUT -->
             <div class="input-area">
                 <input type="text" id="userInput" placeholder="Scrivi una domanda ad Arturo..." onkeypress="handleKeyPress(event)" autocomplete="off">
                 <button id="sendBtn" onclick="sendMessage()">Invia</button>
@@ -47,12 +47,12 @@
 
     </div>
 
-    <!-- PIÈ DI PAGINA / FOOTER -->
+    <!-- FOOTER -->
     <footer class="chat-footer">
         <p>© IIS Arturo Checchi | Arturo 2.0 - Assistente Virtuale</p>
     </footer>
 
-    <!-- Dati FAQ, Pulsanti e Logica Chat -->
+    <!-- LOGICA E DATABASE CHAT -->
     <script src="js/script.js"></script>
 </body>
 </html>
