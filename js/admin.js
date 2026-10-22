@@ -1,54 +1,83 @@
-// Gestione Autocompletamento e Ricerca Dinamica ID
 document.addEventListener("DOMContentLoaded", function () {
     const faqIdInput = document.getElementById("faqId");
     if (!faqIdInput) return;
 
-    // Crea la lista dinamica dei suggerimenti (datalist)
-    let datalist = document.createElement("datalist");
-    datalist.id = "faqIdSuggestions";
-    document.body.appendChild(datalist);
+    // Crea il datalist per i suggerimenti automatici
+    let datalist = document.getElementById("faqIdSuggestions");
+    if (!datalist) {
+        datalist = document.createElement("datalist");
+        datalist.id = "faqIdSuggestions";
+        document.body.appendChild(datalist);
+    }
     faqIdInput.setAttribute("list", "faqIdSuggestions");
 
-    // Funzione per aggiornare i suggerimenti disponibili
-    function updateSuggestions() {
+    // Popola i suggerimenti pescando da faqsData (in script.js)
+    function refreshSuggestions() {
         datalist.innerHTML = "";
+        let list = [];
+
         if (typeof faqsData !== "undefined") {
-            faqsData.forEach(faq => {
-                let option = document.createElement("option");
-                option.value = faq.id;
-                datalist.appendChild(option);
-            });
+            list = faqsData;
         }
+
+        list.forEach(faq => {
+            let option = document.createElement("option");
+            option.value = faq.id;
+            if (faq.keywords) {
+                option.label = faq.keywords.join(", ");
+            }
+            datalist.appendChild(option);
+        });
+
+        return list;
     }
 
-    updateSuggestions();
+    let availableFaqs = refreshSuggestions();
 
-    // Evento alla digitazione nell'input ID
+    // Quando l'utente digita nel campo ID Univoco
     faqIdInput.addEventListener("input", function () {
         const query = this.value.trim().toUpperCase();
         
-        if (typeof faqsData === "undefined") return;
+        if (!query) {
+            resetForm();
+            return;
+        }
 
-        // Cerca se esiste una FAQ con l'ID esatto digitato o selezionato
-        const index = faqsData.findIndex(f => f.id.toUpperCase() === query);
+        availableFaqs = refreshSuggestions();
 
-        if (index !== -1) {
-            // CORRISPONDENZA TROVATA: Autocompila i campi per la modifica
-            const faq = faqsData[index];
+        // Cerca se l'ID inserito/selezionato esiste già
+        const found = availableFaqs.find(f => f.id.toUpperCase() === query);
+
+        if (found) {
+            // SE ESISTE: Popola automaticamente tutti i campi per la modifica
+            const index = availableFaqs.indexOf(found);
             document.getElementById("faqIndex").value = index;
-            document.getElementById("faqType").value = faq.type || "school";
-            document.getElementById("faqKeywords").value = faq.keywords.join(", ");
-            document.getElementById("faqResponse").value = faq.response;
-            
-            document.getElementById("faqFormTitle").innerText = "✏️ Modifica FAQ Esistente (" + faq.id + ")";
-            document.getElementById("btnSaveFaq").innerText = "💾 Aggiorna FAQ";
-            document.getElementById("btnCancelEdit").style.display = "inline-block";
+            document.getElementById("faqType").value = found.type || "school";
+            document.getElementById("faqKeywords").value = found.keywords ? found.keywords.join(", ") : "";
+            document.getElementById("faqResponse").value = found.response || "";
+
+            document.getElementById("faqFormTitle").innerText = "✏️ Modifica FAQ / Form (" + found.id + ")";
+            document.getElementById("btnSaveFaq").innerText = "💾 Aggiorna Modifica";
+            if (document.getElementById("btnCancelEdit")) {
+                document.getElementById("btnCancelEdit").style.display = "inline-block";
+            }
         } else {
-            // NESSUNA CORRISPONDENZA: Modalità creazione nuova voce
+            // SE NON ESISTE: Prepara il modulo per la creazione di una nuova voce
             document.getElementById("faqIndex").value = "-1";
-            document.getElementById("faqFormTitle").innerText = "➕ Aggiungi / Modifica FAQ";
-            document.getElementById("btnSaveFaq").innerText = "💾 Salva FAQ";
-            document.getElementById("btnCancelEdit").style.display = "none";
+            document.getElementById("faqFormTitle").innerText = "➕ Aggiungi Nuova FAQ / Form";
+            document.getElementById("btnSaveFaq").innerText = "💾 Salva Nuova FAQ";
+            if (document.getElementById("btnCancelEdit")) {
+                document.getElementById("btnCancelEdit").style.display = "none";
+            }
         }
     });
+
+    function resetForm() {
+        document.getElementById("faqIndex").value = "-1";
+        document.getElementById("faqFormTitle").innerText = "➕ Aggiungi / Modifica FAQ";
+        document.getElementById("btnSaveFaq").innerText = "💾 Salva FAQ";
+        if (document.getElementById("btnCancelEdit")) {
+            document.getElementById("btnCancelEdit").style.display = "none";
+        }
+    }
 });
