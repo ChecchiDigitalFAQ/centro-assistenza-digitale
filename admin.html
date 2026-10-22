@@ -171,16 +171,27 @@
             </table>
         </section>
 
-        <!-- SCHEDA 4: ESPORTAZIONE -->
-        <section id="exportTab" class="tab-content">
-            <h2>💾 Esporta Configurazione Aggiornata</h2>
-            <p>Dopo aver apportato le modifiche, copia il codice generato qui sotto e incollalo per intero all'inizio del file <code>js/script.js</code>.</p>
-            <br>
-            <textarea id="exportCode" class="export-box" readonly></textarea>
-            <br><br>
-            <button class="btn-primary" onclick="copyExportCode()">📋 Copia Codice negli Appunti</button>
-        </section>
+        <!-- SCHEDA 4: ESPORTAZIONE & SINCRONIZZAZIONE -->
+<section id="exportTab" class="tab-content">
+    <h2>🚀 Sincronizzazione Diretta su GitHub</h2>
+    <p>Inserisci il tuo Token Personale GitHub per salvare le modifiche direttamente sul file <code>js/script.js</code> con un solo clic.</p>
+    
+    <div class="form-group">
+        <label>Personal Access Token (PAT) GitHub:</label>
+        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+        <small style="color:#666;">Il token viene salvato unicamente nella sessione locale del tuo browser per motivi di sicurezza.</small>
     </div>
+
+    <button type="button" class="btn-primary" onclick="syncToGitHub()">💾 Salva e Pubblica su GitHub</button>
+    <button type="button" class="btn-secondary" onclick="copyExportCode()" style="margin-left:10px;">📋 Copia Codice Manuale</button>
+
+    <hr style="margin: 20px 0;">
+
+    <div class="form-group">
+        <label>Anteprima Codice Generato:</label>
+        <textarea id="exportCode" rows="10" readonly style="width:100%; font-family:monospace; background:#f4f4f4;"></textarea>
+    </div>
+</section>
 
     <!-- Carica prima i dati ufficiali delle FAQ e poi la logica dell'Admin -->
     <script src="js/script.js"></script>
