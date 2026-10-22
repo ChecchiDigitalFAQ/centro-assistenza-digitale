@@ -3,15 +3,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 1. GESTIONE CAMBIO SCHEDE (TABS)
     window.showTab = function (tabId, element) {
-        // Nascondi tutte le schede
         const tabs = document.querySelectorAll(".tab-content");
         tabs.forEach(tab => tab.classList.remove("active"));
 
-        // Rimuovi lo stato attivo da tutti i pulsanti della nav
         const buttons = document.querySelectorAll(".admin-nav button");
         buttons.forEach(btn => btn.classList.remove("active"));
 
-        // Mostra la scheda selezionata e attiva il pulsante
         const targetTab = document.getElementById(tabId);
         if (targetTab) {
             targetTab.classList.add("active");
@@ -20,18 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (element) {
             element.classList.add("active");
         } else {
-            // Cerca il pulsante relativo se chiamato da codice
             const btn = Array.from(buttons).find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
             if (btn) btn.classList.add("active");
         }
 
-        // Se si passa alla scheda di esportazione, rigenera il codice
         if (tabId === "exportTab") {
             generateExportCode();
         }
     };
 
-    // 2. CARICAMENTO DATI DA appConfig
+    // 2. RECUPERO DATI DA appConfig
     function getFaqsList() {
         if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
             return appConfig.faqs;
@@ -39,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return [];
     }
 
-    // 3. AUTOCOMPLETAMENTO ID
+    // 3. AUTOCOMPLETAMENTO FAQ ID
     let datalist = document.getElementById("faqIdSuggestions");
     if (!datalist) {
         datalist = document.createElement("datalist");
@@ -108,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 6. TABELLA PULSANTI RAPIDI
+    // 6. TABELLA E LIBRERIA PULSANTI RAPIDI
     function renderButtonsTable() {
         const tbody = document.getElementById("buttonsTableBody");
         if (!tbody || typeof appConfig === "undefined" || !appConfig.quickButtons) return;
@@ -120,12 +115,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td><strong>${btn.label}</strong></td>
                 <td><code>${btn.id}</code></td>
                 <td>
+                    <button class="btn-edit" onclick="editQuickButton(${index})">✏️ Modifica</button>
                     <button class="btn-danger" onclick="deleteQuickButton(${index})">🗑️ Elimina</button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
     }
+
+    // INIETTA LIBRERIA ICONE / EMOJI NELLA SCHEDA PULSANTI
+    function setupEmojiPicker() {
+        const buttonForm = document.getElementById("buttonForm");
+        if (!buttonForm || document.getElementById("emojiPickerContainer")) return;
+
+        const pickerDiv = document.createElement("div");
+        pickerDiv.id = "emojiPickerContainer";
+        pickerDiv.className = "form-group";
+        
+        const emojis = ["📋", "📑", "📂", "📝", "🔑", "💻", "🖨️", "📞", "👔", "🏢", "❓", "⚙️", "📢", "🎓", "📩"];
+        
+        let pickerHTML = "<label>Seleziona un'Icona per il Pulsante:</label><div style='display:flex; gap:8px; flex-wrap:wrap; margin-top:5px;'>";
+        emojis.forEach(e => {
+            pickerHTML += `<button type='button' style='font-size:1.2rem; padding:6px 10px; cursor:pointer; background:#f8f9fa; border:1px solid #ccc; border-radius:4px;' onclick="addEmojiToButton('${e}')">${e}</button>`;
+        });
+        pickerHTML += "</div>";
+
+        pickerDiv.innerHTML = pickerHTML;
+        buttonForm.insertBefore(pickerDiv, buttonForm.firstChild);
+    }
+
+    window.addEmojiToButton = function(emoji) {
+        const btnLabelInput = document.getElementById("btnLabel");
+        if (!btnLabelInput) return;
+        const currentText = btnLabelInput.value.replace(/^[\p{Emoji}\s]+/gu, ''); // Rimuove emoji iniziali esistenti
+        btnLabelInput.value = emoji + " " + currentText;
+    };
 
     // MODIFICA & ELIMINAZIONE FAQ
     window.editFaqDirect = function (index) {
@@ -247,7 +271,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // GESTIONE PULSANTI RAPIDI
+    // GESTIONE PULSANTI RAPIDI (MODIFICA, AGGIUNTA, RIMOZIONE)
+    let currentEditBtnIndex = -1;
+
+    window.editQuickButton = function(index) {
+        if (typeof appConfig === "undefined" || !appConfig.quickButtons[index]) return;
+        const btn = appConfig.quickButtons[index];
+        document.getElementById("btnLabel").value = btn.label;
+        document.getElementById("btnFaqId").value = btn.id;
+        currentEditBtnIndex = index;
+    };
+
     window.saveQuickButton = function (event) {
         if (event) event.preventDefault();
         const label = document.getElementById("btnLabel").value.trim();
@@ -256,12 +290,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!label || !id) return;
 
         if (typeof appConfig !== "undefined" && appConfig.quickButtons) {
-            appConfig.quickButtons.push({ id: id, label: label });
+            if (currentEditBtnIndex >= 0 && currentEditBtnIndex < appConfig.quickButtons.length) {
+                appConfig.quickButtons[currentEditBtnIndex] = { id: id, label: label };
+                currentEditBtnIndex = -1;
+            } else {
+                appConfig.quickButtons.push({ id: id, label: label });
+            }
             renderButtonsTable();
             generateExportCode();
             document.getElementById("btnLabel").value = "";
             document.getElementById("btnFaqId").value = "";
-            alert("Pulsante rapido aggiunto!");
+            alert("Pulsante rapido aggiornato con successo!");
         }
     };
 
@@ -305,6 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // INIZIALIZZAZIONE COMPLETA
+    setupEmojiPicker();
     updateDatalist();
     renderFaqsTable();
     renderDictTable();
