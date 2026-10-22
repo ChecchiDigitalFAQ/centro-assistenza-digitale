@@ -8,48 +8,51 @@
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="brand">
-            <img src="logo.png" alt="Logo Checchi" class="logo">
-            <div>
-                <h1>Arturo 2.0</h1>
-                <p>Centro Assistenza Digitale IIS Arturo Checchi</p>
-            </div>
+    <!-- INTESTAZIONE / HEADER -->
+    <header class="chat-header">
+        <div class="logo-title">
+            <h2>Arturo 2.0</h2>
+            <p>Centro Assistenza Digitale IIS Arturo Checchi</p>
         </div>
         <button class="btn-reset" onclick="resetChat()">🔄 Nuova Conversazione</button>
     </header>
 
-    <main class="app-container">
-        <!-- BARRA LATERALE SERVIZI RAPIDI -->
+    <!-- CORPO PRINCIPALE / MAIN CONTAINER -->
+    <div class="chat-container">
+        
+        <!-- BARRA LATERALE PULSANTI RAPIDI -->
         <aside class="sidebar">
             <h3>Servizi Rapidi</h3>
-            <div id="quickButtonsContainer"></div>
+            <div id="quickButtonsContainer" class="quick-buttons-list">
+                <!-- I pulsanti vengono generati dinamicamente da script.js -->
+            </div>
         </aside>
 
-        <!-- AREA CHAT PRINCIPALE -->
-        <section class="chat-area">
-            <div class="chat-box" id="chatBox">
-                <div class="message bot">
-                    <div class="avatar">🤖</div>
-                    <div class="bubble">
-                        <strong>Ciao! Sono Arturo.</strong><br><br>
-                        Sono l'assistente digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni sull'istituto, modulistica, orari di segreteria e supporto sui servizi digitali.<br><br>
-                        <em>Come posso aiutarti oggi?</em>
-                    </div>
+        <!-- AREA CHAT E MESSAGGI -->
+        <main class="chat-main">
+            <div id="chatMessages" class="messages-area">
+                <div class="message bot-message">
+                    <strong>Ciao! Sono Arturo.</strong><br><br>
+                    Sono l'assistente digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni sull'istituto, modulistica, orari di segreteria e supporto sui servizi digitali.<br><br>
+                    <em>Come posso aiutarti oggi?</em>
                 </div>
             </div>
 
+            <!-- AREA INPUT E INVIO MESSAGGIO -->
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="Scrivi una domanda ad Arturo..." onkeypress="handleKeyPress(event)">
-                <button onclick="sendMessage()">Invia</button>
+                <input type="text" id="userInput" placeholder="Scrivi una domanda ad Arturo..." onkeypress="handleKeyPress(event)" autocomplete="off">
+                <button id="sendBtn" onclick="sendMessage()">Invia</button>
             </div>
-        </section>
-    </main>
+        </main>
 
-    <footer>
-        © IIS Arturo Checchi | Arturo 2.0 - Assistente Virtuale
+    </div>
+
+    <!-- PIÈ DI PAGINA / FOOTER -->
+    <footer class="chat-footer">
+        <p>© IIS Arturo Checchi | Arturo 2.0 - Assistente Virtuale</p>
     </footer>
 
+    <!-- Dati FAQ, Pulsanti e Logica Chat -->
     <script src="js/script.js"></script>
 </body>
 </html>
