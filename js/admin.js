@@ -22,13 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
             if (btn) btn.classList.add("active");
         }
 
-       if (tabId === "exportTab") {
-    generateExportCode();
-    const savedToken = localStorage.getItem("gh_pat");
-    if (savedToken && document.getElementById("githubToken")) {
-        document.getElementById("githubToken").value = savedToken;
-    }
-};
+        if (tabId === "exportTab") {
+            generateExportCode();
+            const savedToken = localStorage.getItem("gh_pat");
+            if (savedToken && document.getElementById("githubToken")) {
+                document.getElementById("githubToken").value = savedToken;
+            }
+        }
+    };
 
     // 2. RECUPERO DATI DA appConfig (da script.js)
     function getFaqsList() {
@@ -428,10 +429,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-       if (token) {
-    localStorage.setItem("gh_pat", token);
-}
-if (tokenInput) tokenInput.value = token;
+        if (token) {
+            localStorage.setItem("gh_pat", token);
+        }
+        if (tokenInput) tokenInput.value = token;
 
         const repoOwner = "checchidigitalfaq";
         const repoName = "centro-assistenza-digitale";
