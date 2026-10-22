@@ -149,10 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // LIBRERIA EMOJI PER PULSANTI RAPIDI
     function setupEmojiPicker() {
         const buttonForm = document.getElementById("buttonForm");
-        if (!buttonForm || document.getElementById("emojiPickerainer")) return;
+        if (!buttonForm || document.getElementById("emojiPickerContainer")) return;
 
         const pickerDiv = document.createElement("div");
-        pickerDiv.id = "emojiPickerainer";
+        pickerDiv.id = "emojiPickerContainer";
         pickerDiv.className = "form-group";
         
         const emojis = ["📋", "📑", "📂", "📝", "🔑", "💻", "🖨️", "📞", "👔", "🏢", "❓", "⚙️", "📢", "🎓", "📩"];
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
         btnLabelInput.value = emoji + " " + currentText;
     };
 
-    // MODIFICA & ELIMINAZIONE FAQ (Con selezione automatica della Categoria)
+    // MODIFICA & ELIMINAZIONE FAQ
     window.editFaqDirect = function (index) {
         const faqs = getFaqsList();
         const faq = faqs[index];
@@ -428,12 +428,12 @@ document.addEventListener("DOMContentLoaded", function () {
         sessionStorage.setItem("gh_pat", token);
         if (tokenInput) tokenInput.value = token;
 
-      const repoOwner = "checchidigitalfaq";
-const repoName = "centro-assistenza-digitale";
-const filePath = "js/script.js";
-const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
+        const repoOwner = "checchidigitalfaq";
+        const repoName = "centro-assistenza-digitale";
+        const filePath = "js/script.js";
+        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
 
-const newContent = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
+        const newContent = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
 
         try {
             const getFileResponse = await fetch(apiUrl, {
@@ -451,19 +451,19 @@ const newContent = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per 
             const currentSha = fileData.sha;
 
             const encoder = new TextEncoder();
-            const data = encoder.encode(newent);
-            const base64ent = btoa(String.fromCharCode(...data));
+            const data = encoder.encode(newContent);
+            const base64Content = btoa(String.fromCharCode(...data));
 
             const updateResponse = await fetch(apiUrl, {
                 method: "PUT",
                 headers: {
                     "Authorization": `token ${token}`,
                     "Accept": "application/vnd.github.v3+json",
-                    "ent-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     message: "Aggiornamento automatico configurazione da Admin Arturo 2.0",
-                    ent: base64ent,
+                    content: base64Content,
                     sha: currentSha
                 })
             });
