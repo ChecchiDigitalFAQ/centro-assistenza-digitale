@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // 2. RECUPERO DATI DA appConfig
+    // 2. RECUPERO DATI DA appConfig (da script.js)
     function getFaqsList() {
         if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
             return appConfig.faqs;
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // LIBRERIA EMOJI PULSANTI RAPIDI
+    // LIBRERIA EMOJI PER PULSANTI RAPIDI
     function setupEmojiPicker() {
         const buttonForm = document.getElementById("buttonForm");
         if (!buttonForm || document.getElementById("emojiPickerContainer")) return;
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
         btnLabelInput.value = emoji + " " + currentText;
     };
 
-    // MODIFICA & ELIMINAZIONE FAQ
+    // MODIFICA & ELIMINAZIONE FAQ (Inclusa selezione automatica categoria)
     window.editFaqDirect = function (index) {
         const faqs = getFaqsList();
         const faq = faqs[index];
@@ -182,7 +182,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById("faqId").value = faq.id;
         document.getElementById("faqIndex").value = index;
-        document.getElementById("faqType").value = faq.type || "school";
+        
+        const typeSelect = document.getElementById("faqType");
+        if (typeSelect) {
+            typeSelect.value = faq.type || "school";
+        }
+
         document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : (faq.keywords || "");
 
         let responseText = Array.isArray(faq.responses) ? faq.responses[0] : (faq.response || "");
@@ -253,11 +258,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             if (typeof appConfig !== "undefined" && appConfig.dictionary && appConfig.dictionary[termQuery]) {
-                // Trovato nel dizionario: compila la definizione
                 document.getElementById("dictDefinition").value = appConfig.dictionary[termQuery];
                 if (submitBtn) submitBtn.innerText = "✏️ Aggiorna Termine (" + termQuery + ")";
             } else {
-                // Termine nuovo: lascia la definizione pulita per scriverne una nuova
                 document.getElementById("dictDefinition").value = "";
                 if (submitBtn) submitBtn.innerText = "➕ Aggiungi Nuovo Termine";
             }
@@ -331,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // GESTIONE PULSANTI RAPIDI
+    // PULSANTI RAPIDI
     let currentEditBtnIndex = -1;
 
     window.editQuickButton = function(index) {
@@ -384,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.cancelEditFAQ = resetAdminForm;
 
-    // ESPORTAZIONE
+    // EXPORT CODICE PER SCRIPT.JS
     window.generateExportCode = function () {
         const exportArea = document.getElementById("exportCode");
         if (!exportArea) return;
