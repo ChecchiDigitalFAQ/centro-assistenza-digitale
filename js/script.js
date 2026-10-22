@@ -1,4 +1,4 @@
-// 1. CONFIGURAZIONE DATABASE FAQ, PULSANTI RAPIDI E DIZIONARIO
+// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0
 let appConfig = {
   "quickButtons": [
     {
@@ -8,11 +8,26 @@ let appConfig = {
     {
       "id": "CONTATTI",
       "label": "📞 Contatti"
+    },
+    {
+      "id": "DIRIGENZA",
+      "label": "🏛️ Dirigenza"
+    },
+    {
+      "id": "SEGRETERIE",
+      "label": "🏢 Segreteria e Uffici"
+    },
+    {
+      "id": "MICROSOFT365",
+      "label": "💻 Servizi Digitali (Teams/Argo)"
     }
   ],
   "dictionary": {
-    "registro": "Il registro elettronico Spaggiari utilizzato per la gestione di voti e presenze.",
-    "spaggiari": "La piattaforma per i servizi scolastici e didattici integrati."
+    "registro": "Il registro elettronico Spaggiari/Argo utilizzato per la gestione di voti, assenze e argomenti di lezione.",
+    "spaggiari": "La piattaforma per i servizi scolastici e didattici integrati.",
+    "argo": "Il portale dei servizi per la gestione del registro elettronico e del personale.",
+    "noipa": "Il sistema informativo del MEF per il trattamento economico e le cedole stipendio del personale della scuola.",
+    "teams": "La piattaforma Microsoft 365 usata per le classi virtuali, riunioni e comunicazione didattica."
   },
   "faqs": [
     {
@@ -26,16 +41,39 @@ let appConfig = {
     {
       "id": "CONTATTI",
       "type": "school",
-      "keywords": ["contatti", "email", "telefono", "assistenza"],
+      "keywords": ["contatti", "email", "telefono", "assistenza", "supporto"],
       "responses": [
         "Per assistenza tecnica puoi contattare l'Assistente Tecnico Informatica Luca Vorraro inviando una mail a: lucavorraro@istitutochecchi.edu.it"
+      ]
+    },
+    {
+      "id": "DIRIGENZA",
+      "type": "school",
+      "keywords": ["dirigente", "preside", "dirigenza", "ricevimento dirigente"],
+      "responses": [
+        "La Dirigenza riceve previo appuntamento da richiedere via e-mail all'indirizzo istituzionale dell'istituto o contattando la segreteria."
+      ]
+    },
+    {
+      "id": "SEGRETERIE",
+      "type": "school",
+      "keywords": ["segreteria", "orari segreteria", "uffici", "orario apertura"],
+      "responses": [
+        "Gli uffici di segreteria dell'IIS Arturo Checchi sono aperti al pubblico secondo gli orari pubblicati sul sito istituzionale nella sezione Contatti e Uffici."
+      ]
+    },
+    {
+      "id": "MICROSOFT365",
+      "type": "school",
+      "keywords": ["microsoft 365", "teams", "account scuola", "credenziali", "email scuola"],
+      "responses": [
+        "Per gli studenti l'email istituzionale è nel formato nome.cognome@istitutochecchi.edu.it, mentre per i docenti è nomecognome@istitutochecchi.edu.it. Per il reset password utilizza l'apposito modulo nella sezione servizi digitali."
       ]
     }
   ]
 };
 
-// 2. LOGICA FUNZIONALE DELLA CHAT DI ARTURO 2.0
-
+// LOGICA FUNZIONALE DELLA CHAT DI ARTURO 2.0
 document.addEventListener("DOMContentLoaded", function () {
     renderQuickButtons();
 });
@@ -93,7 +131,6 @@ function sendMessage() {
 function findBestResponse(query) {
     const cleanQuery = query.toLowerCase();
 
-    // Controlla corrispondenza FAQ per parole chiave
     for (let faq of appConfig.faqs) {
         if (Array.isArray(faq.keywords)) {
             for (let kw of faq.keywords) {
@@ -104,7 +141,6 @@ function findBestResponse(query) {
         }
     }
 
-    // Controlla Dizionario
     if (appConfig.dictionary) {
         for (let [term, def] of Object.entries(appConfig.dictionary)) {
             if (cleanQuery.includes(term.toLowerCase())) {
