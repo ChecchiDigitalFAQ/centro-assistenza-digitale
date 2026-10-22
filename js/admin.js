@@ -1,8 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
     const faqIdInput = document.getElementById("faqId");
-    if (!faqIdInput) return;
 
-    // 1. RECUPERA L'ELENCO FAQ DA appConfig.faqs
+    // 1. GESTIONE CAMBIO SCHEDE (TABS)
+    window.showTab = function (tabId, element) {
+        // Nascondi tutte le schede
+        const tabs = document.querySelectorAll(".tab-content");
+        tabs.forEach(tab => tab.classList.remove("active"));
+
+        // Rimuovi lo stato attivo da tutti i pulsanti della nav
+        const buttons = document.querySelectorAll(".admin-nav button");
+        buttons.forEach(btn => btn.classList.remove("active"));
+
+        // Mostra la scheda selezionata e attiva il pulsante
+        const targetTab = document.getElementById(tabId);
+        if (targetTab) {
+            targetTab.classList.add("active");
+        }
+
+        if (element) {
+            element.classList.add("active");
+        } else {
+            // Cerca il pulsante relativo se chiamato da codice
+            const btn = Array.from(buttons).find(b => b.getAttribute("onclick") && b.getAttribute("onclick").includes(tabId));
+            if (btn) btn.classList.add("active");
+        }
+
+        // Se si passa alla scheda di esportazione, rigenera il codice
+        if (tabId === "exportTab") {
+            generateExportCode();
+        }
+    };
+
+    // 2. CARICAMENTO DATI DA appConfig
     function getFaqsList() {
         if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
             return appConfig.faqs;
@@ -10,16 +39,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return [];
     }
 
-    // 2. CREA IL DATALIST PER GLI ID SUGGERITI
+    // 3. AUTOCOMPLETAMENTO ID
     let datalist = document.getElementById("faqIdSuggestions");
     if (!datalist) {
         datalist = document.createElement("datalist");
         datalist.id = "faqIdSuggestions";
         document.body.appendChild(datalist);
     }
-    faqIdInput.setAttribute("list", "faqIdSuggestions");
+    if (faqIdInput) {
+        faqIdInput.setAttribute("list", "faqIdSuggestions");
+    }
 
     function updateDatalist() {
+        if (!datalist) return;
         datalist.innerHTML = "";
         const faqs = getFaqsList();
         faqs.forEach(faq => {
@@ -30,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 3. MOSTRAMO LE FAQ NELLA TABELLA DELL'ADMIN
+    // 4. TABELLA FAQ
     function renderFaqsTable() {
         const tbody = document.getElementById("faqsTableBody");
         if (!tbody) return;
@@ -41,14 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         faqs.forEach((faq, index) => {
             const tr = document.createElement("tr");
             const keywordsText = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : (faq.keywords || "");
-            
-            // Gestisce sia il formato risposte array che stringa
-            let responseText = "";
-            if (Array.isArray(faq.responses) && faq.responses.length > 0) {
-                responseText = faq.responses[0];
-            } else if (faq.response) {
-                responseText = faq.response;
-            }
+            let responseText = Array.isArray(faq.responses) ? faq.responses[0] : (faq.response || "");
 
             tr.innerHTML = `
                 <td><strong>${faq.id}</strong></td>
@@ -64,8 +89,46 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 4. FUNZIONE DI MODIFICA DA TABELLA O AUTOCOMPLETAMENTO
-    window.editFaqDirect = function(index) {
+    // 5. TABELLA DIZIONARIO
+    function renderDictTable() {
+        const tbody = document.getElementById("dictTableBody");
+        if (!tbody || typeof appConfig === "undefined" || !appConfig.dictionary) return;
+
+        tbody.innerHTML = "";
+        Object.entries(appConfig.dictionary).forEach(([term, def]) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${term}</strong></td>
+                <td>${def}</td>
+                <td>
+                    <button class="btn-danger" onclick="deleteDictTerm('${term}')">🗑️ Elimina</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // 6. TABELLA PULSANTI RAPIDI
+    function renderButtonsTable() {
+        const tbody = document.getElementById("buttonsTableBody");
+        if (!tbody || typeof appConfig === "undefined" || !appConfig.quickButtons) return;
+
+        tbody.innerHTML = "";
+        appConfig.quickButtons.forEach((btn, index) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td><strong>${btn.label}</strong></td>
+                <td><code>${btn.id}</code></td>
+                <td>
+                    <button class="btn-danger" onclick="deleteQuickButton(${index})">🗑️ Elimina</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // MODIFICA & ELIMINAZIONE FAQ
+    window.editFaqDirect = function (index) {
         const faqs = getFaqsList();
         const faq = faqs[index];
         if (!faq) return;
@@ -74,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("faqIndex").value = index;
         document.getElementById("faqType").value = faq.type || "school";
         document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : (faq.keywords || "");
-        
+
         let responseText = Array.isArray(faq.responses) ? faq.responses[0] : (faq.response || "");
         document.getElementById("faqResponse").value = responseText;
 
@@ -85,8 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // 5. FUNZIONE DI ELIMINAZIONE
-    window.deleteFaqDirect = function(index) {
+    window.deleteFaqDirect = function (index) {
         if (confirm("Sei sicuro di voler eliminare questa FAQ?")) {
             if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
                 appConfig.faqs.splice(index, 1);
@@ -98,33 +160,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // 6. RICERCA E AUTOCOMPLETAMENTO IN TEMPO REALE DURANTE LA DIGITAZIONE
-    faqIdInput.addEventListener("input", function () {
-        const query = this.value.trim().toUpperCase();
-        if (!query) {
-            resetAdminForm();
-            return;
-        }
-
-        const faqs = getFaqsList();
-        const index = faqs.findIndex(f => f.id.toUpperCase() === query);
-
-        if (index !== -1) {
-            // Se esiste l'ID digitato: compila subito tutti i campi!
-            window.editFaqDirect(index);
-        } else {
-            // Se non esiste: prepara il form per la creazione da zero
-            document.getElementById("faqIndex").value = "-1";
-            document.getElementById("faqFormTitle").innerText = "➕ Aggiungi Nuova FAQ / Form";
-            document.getElementById("btnSaveFaq").innerText = "💾 Salva Nuova FAQ";
-            if (document.getElementById("btnCancelEdit")) {
-                document.getElementById("btnCancelEdit").style.display = "none";
+    if (faqIdInput) {
+        faqIdInput.addEventListener("input", function () {
+            const query = this.value.trim().toUpperCase();
+            if (!query) {
+                resetAdminForm();
+                return;
             }
-        }
-    });
 
-    // 7. SALVATAGGIO FAQ/FORM
-    window.saveFAQ = function(event) {
+            const faqs = getFaqsList();
+            const index = faqs.findIndex(f => f.id.toUpperCase() === query);
+
+            if (index !== -1) {
+                window.editFaqDirect(index);
+            } else {
+                document.getElementById("faqIndex").value = "-1";
+                document.getElementById("faqFormTitle").innerText = "➕ Aggiungi Nuova FAQ / Form";
+                document.getElementById("btnSaveFaq").innerText = "💾 Salva Nuova FAQ";
+                if (document.getElementById("btnCancelEdit")) {
+                    document.getElementById("btnCancelEdit").style.display = "none";
+                }
+            }
+        });
+    }
+
+    // SALVATAGGIO FAQ
+    window.saveFAQ = function (event) {
         if (event) event.preventDefault();
 
         const id = document.getElementById("faqId").value.trim().toUpperCase();
@@ -160,22 +221,72 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("FAQ salvata con successo!");
     };
 
-    function resetAdminForm() {
-        document.getElementById("faqId").value = "";
-        document.getElementById("faqIndex").value = "-1";
-        document.getElementById("faqKeywords").value = "";
-        document.getElementById("faqResponse").value = "";
-        document.getElementById("faqFormTitle").innerText = "➕ Aggiungi / Modifica FAQ";
-        document.getElementById("btnSaveFaq").innerText = "💾 Salva FAQ";
-        if (document.getElementById("btnCancelEdit")) {
-            document.getElementById("btnCancelEdit").style.display = "none";
+    // GESTIONE DIZIONARIO
+    window.saveDictTerm = function (event) {
+        if (event) event.preventDefault();
+        const term = document.getElementById("dictTerm").value.trim().toLowerCase();
+        const def = document.getElementById("dictDefinition").value.trim();
+
+        if (!term || !def) return;
+
+        if (typeof appConfig !== "undefined" && appConfig.dictionary) {
+            appConfig.dictionary[term] = def;
+            renderDictTable();
+            generateExportCode();
+            document.getElementById("dictTerm").value = "";
+            document.getElementById("dictDefinition").value = "";
+            alert("Termine aggiunto al dizionario!");
         }
+    };
+
+    window.deleteDictTerm = function (term) {
+        if (confirm("Eliminare il termine '" + term + "'?")) {
+            delete appConfig.dictionary[term];
+            renderDictTable();
+            generateExportCode();
+        }
+    };
+
+    // GESTIONE PULSANTI RAPIDI
+    window.saveQuickButton = function (event) {
+        if (event) event.preventDefault();
+        const label = document.getElementById("btnLabel").value.trim();
+        const id = document.getElementById("btnFaqId").value.trim().toUpperCase();
+
+        if (!label || !id) return;
+
+        if (typeof appConfig !== "undefined" && appConfig.quickButtons) {
+            appConfig.quickButtons.push({ id: id, label: label });
+            renderButtonsTable();
+            generateExportCode();
+            document.getElementById("btnLabel").value = "";
+            document.getElementById("btnFaqId").value = "";
+            alert("Pulsante rapido aggiunto!");
+        }
+    };
+
+    window.deleteQuickButton = function (index) {
+        if (confirm("Eliminare questo pulsante rapido?")) {
+            appConfig.quickButtons.splice(index, 1);
+            renderButtonsTable();
+            generateExportCode();
+        }
+    };
+
+    function resetAdminForm() {
+        if (document.getElementById("faqId")) document.getElementById("faqId").value = "";
+        if (document.getElementById("faqIndex")) document.getElementById("faqIndex").value = "-1";
+        if (document.getElementById("faqKeywords")) document.getElementById("faqKeywords").value = "";
+        if (document.getElementById("faqResponse")) document.getElementById("faqResponse").value = "";
+        if (document.getElementById("faqFormTitle")) document.getElementById("faqFormTitle").innerText = "➕ Aggiungi / Modifica FAQ";
+        if (document.getElementById("btnSaveFaq")) document.getElementById("btnSaveFaq").innerText = "💾 Salva FAQ";
+        if (document.getElementById("btnCancelEdit")) document.getElementById("btnCancelEdit").style.display = "none";
     }
 
     window.cancelEditFAQ = resetAdminForm;
 
-    // 8. ESPORTAZIONE E COPIA CODICE PER SCRIPT.JS
-    window.generateExportCode = function() {
+    // ESPORTAZIONE
+    window.generateExportCode = function () {
         const exportArea = document.getElementById("exportCode");
         if (!exportArea) return;
         if (typeof appConfig !== "undefined") {
@@ -183,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    window.copyExportCode = function() {
+    window.copyExportCode = function () {
         const exportArea = document.getElementById("exportCode");
         if (!exportArea || !exportArea.value) {
             generateExportCode();
@@ -193,8 +304,10 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Codice aggiornato copiato negli appunti! Ora incollalo in js/script.js su GitHub.");
     };
 
-    // INIZIALIZZAZIONE
+    // INIZIALIZZAZIONE COMPLETA
     updateDatalist();
     renderFaqsTable();
+    renderDictTable();
+    renderButtonsTable();
     generateExportCode();
 });
