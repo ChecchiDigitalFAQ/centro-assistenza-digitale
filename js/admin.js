@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const faqIdInput = document.getElementById("faqId");
     if (!faqIdInput) return;
 
-    // 1. CARICAMENTO DATI DA appConfig (da script.js)
+    // 1. RECUPERA L'ELENCO FAQ DA appConfig.faqs
     function getFaqsList() {
         if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
             return appConfig.faqs;
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return [];
     }
 
-    // 2. CONFIGURAZIONE AUTOCOMPLETAMENTO (DATALIST)
+    // 2. CREA IL DATALIST PER GLI ID SUGGERITI
     let datalist = document.getElementById("faqIdSuggestions");
     if (!datalist) {
         datalist = document.createElement("datalist");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 3. GENERAZIONE TABELLA FAQ NELL'ADMIN
+    // 3. MOSTRAMO LE FAQ NELLA TABELLA DELL'ADMIN
     function renderFaqsTable() {
         const tbody = document.getElementById("faqsTableBody");
         if (!tbody) return;
@@ -40,8 +40,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         faqs.forEach((faq, index) => {
             const tr = document.createElement("tr");
-            const keywordsText = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
-            const responseText = Array.isArray(faq.responses) ? faq.responses[0] : (faq.response || "");
+            const keywordsText = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : (faq.keywords || "");
+            
+            // Gestisce sia il formato risposte array che stringa
+            let responseText = "";
+            if (Array.isArray(faq.responses) && faq.responses.length > 0) {
+                responseText = faq.responses[0];
+            } else if (faq.response) {
+                responseText = faq.response;
+            }
 
             tr.innerHTML = `
                 <td><strong>${faq.id}</strong></td>
@@ -57,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 4. FUNZIONE DI MODIFICA DIRETTA
+    // 4. FUNZIONE DI MODIFICA DA TABELLA O AUTOCOMPLETAMENTO
     window.editFaqDirect = function(index) {
         const faqs = getFaqsList();
         const faq = faqs[index];
@@ -66,8 +73,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("faqId").value = faq.id;
         document.getElementById("faqIndex").value = index;
         document.getElementById("faqType").value = faq.type || "school";
-        document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
-        document.getElementById("faqResponse").value = Array.isArray(faq.responses) ? faq.responses[0] : (faq.response || "");
+        document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : (faq.keywords || "");
+        
+        let responseText = Array.isArray(faq.responses) ? faq.responses[0] : (faq.response || "");
+        document.getElementById("faqResponse").value = responseText;
 
         document.getElementById("faqFormTitle").innerText = "✏️ Modifica FAQ / Form (" + faq.id + ")";
         document.getElementById("btnSaveFaq").innerText = "💾 Aggiorna Modifica";
@@ -76,10 +85,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // 5. FUNZIONE DI ELIMINAZIONE DIRETTA
+    // 5. FUNZIONE DI ELIMINAZIONE
     window.deleteFaqDirect = function(index) {
         if (confirm("Sei sicuro di voler eliminare questa FAQ?")) {
-            appConfig.faqs.splice(index, 1);
+            if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
+                appConfig.faqs.splice(index, 1);
+            }
             updateDatalist();
             renderFaqsTable();
             resetAdminForm();
@@ -87,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
-    // 6. EVENTO AUTOCOMPLETAMENTO SU INPUT "ID UNIVOCO"
+    // 6. RICERCA E AUTOCOMPLETAMENTO IN TEMPO REALE DURANTE LA DIGITAZIONE
     faqIdInput.addEventListener("input", function () {
         const query = this.value.trim().toUpperCase();
         if (!query) {
@@ -99,10 +110,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const index = faqs.findIndex(f => f.id.toUpperCase() === query);
 
         if (index !== -1) {
-            // CORRISPONDENZA TROVATA: Compila i campi
+            // Se esiste l'ID digitato: compila subito tutti i campi!
             window.editFaqDirect(index);
         } else {
-            // NUOVA VOCE
+            // Se non esiste: prepara il form per la creazione da zero
             document.getElementById("faqIndex").value = "-1";
             document.getElementById("faqFormTitle").innerText = "➕ Aggiungi Nuova FAQ / Form";
             document.getElementById("btnSaveFaq").innerText = "💾 Salva Nuova FAQ";
@@ -112,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 7. SALVATAGGIO / AGGIORNAMENTO FAQ DAL FORM ADMIN
+    // 7. SALVATAGGIO FAQ/FORM
     window.saveFAQ = function(event) {
         if (event) event.preventDefault();
 
@@ -134,12 +145,12 @@ document.addEventListener("DOMContentLoaded", function () {
             responses: [responseText]
         };
 
-        if (index >= 0 && index < appConfig.faqs.length) {
-            // Aggiorna esistente
-            appConfig.faqs[index] = faqData;
-        } else {
-            // Inserisci nuova
-            appConfig.faqs.unshift(faqData);
+        if (typeof appConfig !== "undefined" && Array.isArray(appConfig.faqs)) {
+            if (index >= 0 && index < appConfig.faqs.length) {
+                appConfig.faqs[index] = faqData;
+            } else {
+                appConfig.faqs.unshift(faqData);
+            }
         }
 
         updateDatalist();
@@ -163,11 +174,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.cancelEditFAQ = resetAdminForm;
 
-    // 8. FUNZIONE ESPORTAZIONE CODICE PER SCRIPT.JS
+    // 8. ESPORTAZIONE E COPIA CODICE PER SCRIPT.JS
     window.generateExportCode = function() {
         const exportArea = document.getElementById("exportCode");
         if (!exportArea) return;
-        exportArea.value = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
+        if (typeof appConfig !== "undefined") {
+            exportArea.value = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
+        }
     };
 
     window.copyExportCode = function() {
@@ -180,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         alert("Codice aggiornato copiato negli appunti! Ora incollalo in js/script.js su GitHub.");
     };
 
-    // Inizializzazione
+    // INIZIALIZZAZIONE
     updateDatalist();
     renderFaqsTable();
     generateExportCode();
