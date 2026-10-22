@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <script>
+  (function() {
+    // Imposta le tue credenziali
+    const USER_CORRETTO = "admin";
+    const PASS_CORRETTA = "Digiadmin.26"; // Personalizza la tua password
+
+    // Controlla se l'utente ha già fatto il login in questa sessione
+    if (sessionStorage.getItem("admin_autenticato") !== "true") {
+      let utente = prompt("Inserisci il Nome Utente:");
+      let password = prompt("Inserisci la Password:");
+
+      if (utente === USER_CORRETTO && password === PASS_CORRETTA) {
+        sessionStorage.setItem("admin_autenticato", "true");
+      } else {
+        alert("Credenziali errate! Accesso negato.");
+        window.location.href = "index.html"; // Reindirizza alla Home se sbaglia
+      }
+    }
+  })();
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Admin - Arturo 2.0</title>
