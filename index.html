@@ -3,56 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arturo 2.0 - IIS Arturo Checchi</title>
+    <title>Assistente Virtuale - Arturo | IIS "Arturo Checchi"</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome per le icone visive -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- INTESTAZIONE -->
-    <header class="chat-header">
-        <div class="logo-title">
-            <h2>Arturo 2.0</h2>
-            <p>Centro Assistenza Digitale IIS Arturo Checchi</p>
-        </div>
-        <button class="btn-reset" onclick="resetChat()">🔄 Nuova Conversazione</button>
-    </header>
-
-    <!-- CORPO PRINCIPALE -->
-    <div class="chat-container">
-        
-        <!-- SIDEBAR PULSANTI RAPIDI -->
+    <div class="app-container">
+        <!-- BARRA LATERALE: Logo, Contatti Istituzionali e Pulsanti Rapidi -->
         <aside class="sidebar">
-            <h3>Servizi Rapidi</h3>
-            <div id="quickButtonsContainer" class="quick-buttons-list">
-                <!-- Generati dinamicamente da script.js -->
+            <div class="sidebar-header">
+                <img src="logo.png" alt="Logo IIS Arturo Checchi" class="logo" onerror="this.style.display='none'">
+                <h2>IIS "Arturo Checchi"</h2>
+                <p class="subtitle">Assistente Virtuale Arturo 🤖</p>
             </div>
-        </aside>
 
-        <!-- AREA CHAT -->
-        <main class="chat-main">
-            <div id="chatMessages" class="messages-area">
-                <div class="message bot-message">
-                    <strong>Ciao! Sono Arturo.</strong><br><br>
-                    Sono l'assistente digitale dell'IIS Arturo Checchi. Posso aiutarti a trovare informazioni sull'istituto, modulistica, orari di segreteria e supporto sui servizi digitali.<br><br>
-                    <em>Come posso aiutarti oggi?</em>
+            <div class="sidebar-content">
+                <!-- Sezione Accesso Rapido / FAQ -->
+                <div class="sidebar-section">
+                    <h3><i class="fa-solid fa-bolt"></i> Accesso Rapido</h3>
+                    <div class="quick-buttons" id="faq-buttons-container">
+                        <button class="quick-btn" data-query="orario segreteria"><i class="fa-solid fa-clock"></i> Orari Segreteria</button>
+                        <button class="quick-btn" data-query="Argo"><i class="fa-solid fa-graduation-cap"></i> Registro Argo</button>
+                        <button class="quick-btn" data-query="Teams"><i class="fa-solid fa-video"></i> Microsoft Teams</button>
+                        <button class="quick-btn" data-query="modulistica"><i class="fa-solid fa-file-lines"></i> Modulistica</button>
+                    </div>
+                </div>
+
+                <!-- Sezione Contatti Istituzionali Permanenti -->
+                <div class="sidebar-section">
+                    <h3><i class="fa-solid fa-address-book"></i> Contatti Istituzionali</h3>
+                    <div class="contact-card">
+                        <p><i class="fa-solid fa-location-dot"></i> <strong>Indirizzo:</strong> Via Dante Alighieri, Fucecchio (FI)</p>
+                        <p><i class="fa-solid fa-phone"></i> <strong>Telefono:</strong> 0571 20261</p>
+                        <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> fiis00700c@istruzione.it</p>
+                        <p><i class="fa-solid fa-paper-plane"></i> <strong>PEC:</strong> fiis00700c@pec.istruzione.it</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- AREA INPUT -->
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Scrivi una domanda ad Arturo..." onkeypress="handleKeyPress(event)" autocomplete="off">
-                <button id="sendBtn" onclick="sendMessage()">Invia</button>
+            <!-- Footer Sidebar: Nuova Conversazione & Admin -->
+            <div class="sidebar-footer">
+                <button id="new-chat-btn" class="action-btn-danger">
+                    <i class="fa-solid fa-rotate-right"></i> Nuova Conversazione
+                </button>
+                <a href="admin.html" class="admin-link">
+                    <i class="fa-solid fa-gear"></i> Pannello di Amministrazione
+                </a>
+            </div>
+        </aside>
+
+        <!-- AREA PRINCIPALE DI CHAT -->
+        <main class="chat-main">
+            <header class="chat-header">
+                <div class="arturo-status">
+                    <span class="status-dot"></span>
+                    <h1>Arturo Online</h1>
+                </div>
+                <div class="chat-tools-info">
+                    <span id="live-clock"><i class="fa-regular fa-clock"></i> Caricamento...</span>
+                </div>
+            </header>
+
+            <!-- Cronologia dei Messaggi -->
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".</p>
+                        <p style="margin-top: 6px;">Posso aiutarti con i termini del dizionario, informazioni scolastiche, calcoli matematici al volo o rispondere alle tue curiosità. Come posso aiutarti oggi?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra di Input -->
+            <div class="chat-input-container">
+                <form id="chat-form" autocomplete="off">
+                    <input type="text" id="user-input" placeholder="Scrivi una domanda, un termine o un'espressione (es. 15 * 4)..." required>
+                    <button type="submit" id="send-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Invia
+                    </button>
+                </form>
             </div>
         </main>
-
     </div>
 
-    <!-- FOOTER -->
-    <footer class="chat-footer">
-        <p>© IIS Arturo Checchi | Arturo 2.0 - Assistente Virtuale</p>
-    </footer>
-
-    <!-- LOGICA E DATABASE CHAT -->
+    <!-- Script principale -->
     <script src="js/script.js"></script>
 </body>
 </html>
