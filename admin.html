@@ -1,200 +1,172 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <script>
-  (function() {
-    // Imposta le tue credenziali
-    const USER_CORRETTO = "admin";
-    const PASS_CORRETTA = "Digiadmin.26"; // Personalizza la tua password
-
-    // Controlla se l'utente ha già fatto il login in questa sessione
-    if (sessionStorage.getItem("admin_autenticato") !== "true") {
-      let utente = prompt("Inserisci il Nome Utente:");
-      let password = prompt("Inserisci la Password:");
-
-      if (utente === USER_CORRETTO && password === PASS_CORRETTA) {
-        sessionStorage.setItem("admin_autenticato", "true");
-      } else {
-        alert("Credenziali errate! Accesso negato.");
-        window.location.href = "index.html"; // Reindirizza alla Home se sbaglia
-      }
-    }
-  })();
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Admin - Arturo 2.0</title>
+    <title>Pannello Amministrazione - Arturo 2.0</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .admin-body { padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .admin-nav { display: flex; gap: 10px; margin-bottom: 20px; }
-        .admin-nav button { padding: 10px 20px; background: #e9ecef; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .admin-nav button.active { background: #004085; color: white; }
-        .tab-content { display: none; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .admin-container { max-width: 900px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: sans-serif; }
+        .admin-nav { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .admin-nav button { padding: 10px 15px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold; }
+        .admin-nav button.active { background: #0056b3; color: white; }
+        .tab-content { display: none; }
         .tab-content.active { display: block; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; font-size: 0.95rem; }
-        .btn-primary { background: #004085; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-primary:hover { background: #002b5c; }
-        .btn-danger { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; }
-        .btn-danger:hover { background: #bd2130; }
-        .btn-edit { background: #ffc107; color: #212529; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-right: 5px; font-weight: bold; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn-primary { background: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-secondary { background: #6c757d; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+        .btn-danger { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        .btn-edit { background: #ffc107; color: #333; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #dee2e6; padding: 10px; text-align: left; vertical-align: top; }
-        th { background: #f8f9fa; color: #004085; }
-        textarea.export-box { font-family: monospace; height: 250px; font-size: 0.85rem; }
+        table, th, td { border: 1px solid #ddd; }
+        th, td { padding: 10px; text-align: left; }
+        th { background: #f4f4f4; }
     </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="brand">
-            <h1>⚙️ Pannello Master Admin - Arturo 2.0</h1>
-        </div>
-        <a href="index.html" class="btn-reset" style="text-decoration: none;">💬 Torna alla Chat</a>
-    </header>
+<div class="admin-container">
+    <h1>⚙️ Pannello Gestione Arturo 2.0</h1>
 
-    <div class="admin-body">
-        <nav class="admin-nav">
-            <button class="active" onclick="showTab('faqsTab', this)">❓ Gestione FAQ</button>
-            <button onclick="showTab('dictTab', this)">📖 Gestione Dizionario</button>
-            <button onclick="showTab('buttonsTab', this)">🔘 Pulsanti Rapidi</button>
-            <button onclick="showTab('exportTab', this)">💾 Esporta Codice</button>
-        </nav>
-
-        <!-- SCHEDA 1: GESTIONE FAQ -->
-        <section id="faqsTab" class="tab-content active">
-            <h2 id="faqFormTitle">➕ Aggiungi / Modifica FAQ</h2>
-            <form id="faqForm" onsubmit="saveFAQ(event)">
-                <input type="hidden" id="faqIndex" value="-1">
-                <div class="form-group">
-                    <label>ID Univoco (es. ORARI_SEGRETERIA):</label>
-                    <input type="text" id="faqId" required placeholder="ORARI_SEGRETERIA">
-                </div>
-               <div class="form-group">
-            <label>Categoria / Tipo:</label>
-            <select id="faqType">
-                <option value="form">📋 Form / Modulistica (Form)</option>
-                <option value="school">🏫 Scolastica / Ufficiale (School)</option>
-                <option value="personal">👤 Domanda Personale / Curiosità (Personal)</option>
-                <option value="chat">💬 Chitchat / Cortesia (Chat)</option>
-                <option value="moderation">🛡️ Moderazione / Filtro (Moderation)</option>
-            </select>
-        </div>
-                <div class="form-group">
-                    <label>Parole Chiave (separate da virgola):</label>
-                    <input type="text" id="faqKeywords" required placeholder="orari, quando apre la segreteria, orario ricevimento">
-                </div>
-                <div class="form-group">
-                    <label>Risposta di Arturo (Supporta il **grassetto**):</label>
-                    <textarea id="faqResponse" rows="3" required placeholder="La segreteria riceve dal lunedì al venerdì dalle 08:00 alle 10:00."></textarea>
-                </div>
-                <button type="submit" class="btn-primary" id="btnSaveFaq">💾 Salva FAQ</button>
-                <button type="button" class="btn-danger" id="btnCancelEdit" style="display:none;" onclick="cancelEditFAQ()">❌ Annulla Modifica</button>
-            </form>
-
-            <hr style="margin: 25px 0;">
-
-            <h3>📋 Elenco FAQ Attuali</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo</th>
-                        <th>Parole Chiave</th>
-                        <th>Risposta</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="faqsTableBody"></tbody>
-            </table>
-        </section>
-
-        <!-- SCHEDA 2: GESTIONE DIZIONARIO -->
-        <section id="dictTab" class="tab-content">
-            <h2>📖 Aggiungi Termine al Dizionario</h2>
-            <form id="dictForm" onsubmit="saveDictTerm(event)">
-                <div class="form-group">
-                    <label>Parola o Termine (es. filantropo):</label>
-                    <input type="text" id="dictTerm" required placeholder="filantropo">
-                </div>
-                <div class="form-group">
-                    <label>Definizione Completa:</label>
-                    <textarea id="dictDefinition" rows="3" required placeholder="📖 **Filantropo:** Persona che si dedica a opere di bene..."></textarea>
-                </div>
-                <button type="submit" class="btn-primary">💾 Aggiungi / Aggiorna Termine</button>
-            </form>
-
-            <hr style="margin: 25px 0;">
-
-            <h3>📖 Elenco Termini nel Dizionario</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Termine</th>
-                        <th>Definizione</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="dictTableBody"></tbody>
-            </table>
-        </section>
-
-        <!-- SCHEDA 3: PULSANTI RAPIDI -->
-        <section id="buttonsTab" class="tab-content">
-            <h2>🔘 Gestione Pulsanti Rapidi Sidebar</h2>
-            <form id="buttonForm" onsubmit="saveQuickButton(event)">
-                <div class="form-group">
-                    <label>Testo del Pulsante (con Emoji):</label>
-                    <input type="text" id="btnLabel" required placeholder="📞 Contatti">
-                </div>
-                <div class="form-group">
-                    <label>ID FAQ Collegato:</label>
-                    <input type="text" id="btnFaqId" required placeholder="CONTATTI">
-                </div>
-                <button type="submit" class="btn-primary">💾 Aggiungi Pulsante</button>
-            </form>
-
-            <hr style="margin: 25px 0;">
-
-            <h3>🔘 Pulsanti Attivi</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Etichetta Visibile</th>
-                        <th>ID FAQ Collegato</th>
-                        <th>Azioni</th>
-                    </tr>
-                </thead>
-                <tbody id="buttonsTableBody"></tbody>
-            </table>
-        </section>
-
-        <!-- SCHEDA 4: ESPORTAZIONE & SINCRONIZZAZIONE -->
-<section id="exportTab" class="tab-content">
-    <h2>🚀 Sincronizzazione Diretta su GitHub</h2>
-    <p>Inserisci il tuo Token Personale GitHub per salvare le modifiche direttamente sul file <code>js/script.js</code> con un solo clic.</p>
-    
-    <div class="form-group">
-        <label>Personal Access Token (PAT) GitHub:</label>
-        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-        <small style="color:#666;">Il token viene salvato unicamente nella sessione locale del tuo browser per motivi di sicurezza.</small>
+    <div class="admin-nav">
+        <button class="active" onclick="showTab('faqsTab', this)">❓ Gestione FAQ</button>
+        <button onclick="showTab('dictTab', this)">📖 Gestione Dizionario</button>
+        <button onclick="showTab('buttonsTab', this)">🔘 Pulsanti Rapidi</button>
+        <button onclick="showTab('exportTab', this)">🚀 Esporta Codice</button>
     </div>
 
-    <button type="button" class="btn-primary" onclick="syncToGitHub()">💾 Salva e Pubblica su GitHub</button>
-    <button type="button" class="btn-secondary" onclick="copyExportCode()" style="margin-left:10px;">📋 Copia Codice Manuale</button>
+    <!-- SCHEDA 1: FAQ -->
+    <section id="faqsTab" class="tab-content active">
+        <h2 id="faqFormTitle">➕ Aggiungi / Modifica FAQ</h2>
+        <form id="faqForm" onsubmit="saveFAQ(event)">
+            <input type="hidden" id="faqIndex" value="-1">
+            <div class="form-group">
+                <label>ID FAQ / Form (es. FORM_RESET_PWD, ORARIO):</label>
+                <input type="text" id="faqId" required placeholder="Cerca o inserisci nuovo ID...">
+            </div>
+            <div class="form-group">
+                <label>Categoria / Tipo:</label>
+                <select id="faqType">
+                    <option value="school">Scuola / Didattica</option>
+                    <option value="form">Form / Modulo</option>
+                    <option value="personal">Personale</option>
+                    <option value="chat">Chat / Generico</option>
+                    <option value="moderation">Moderazione</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Parole Chiave (separate da virgola):</label>
+                <input type="text" id="faqKeywords" required placeholder="password, reset,credenziali">
+            </div>
+            <div class="form-group">
+                <label>Risposta del Bot:</label>
+                <textarea id="faqResponse" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" id="btnSaveFaq">💾 Salva FAQ</button>
+            <button type="button" class="btn-secondary" id="btnCancelEdit" style="display:none;" onclick="cancelEditFAQ()">Annulla Modifica</button>
+        </form>
 
-    <hr style="margin: 20px 0;">
+        <hr style="margin: 20px 0;">
+        <h3>Elenco FAQ Esistenti</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipo</th>
+                    <th>Parole Chiave</th>
+                    <th>Risposta</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody id="faqsTableBody"></tbody>
+        </table>
+    </section>
 
-    <div class="form-group">
-        <label>Anteprima Codice Generato:</label>
-        <textarea id="exportCode" rows="10" readonly style="width:100%; font-family:monospace; background:#f4f4f4;"></textarea>
-    </div>
-</section>
+    <!-- SCHEDA 2: DIZIONARIO -->
+    <section id="dictTab" class="tab-content">
+        <h2>📖 Gestione Dizionario Termini</h2>
+        <form id="dictForm" onsubmit="saveDictTerm(event)">
+            <div class="form-group">
+                <label>Termine (es. registro, spaggiari):</label>
+                <input type="text" id="dictTerm" required>
+            </div>
+            <div class="form-group">
+                <label>Spiegazione / Definizione:</label>
+                <textarea id="dictDefinition" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">💾 Aggiungi / Aggiorna Termine</button>
+        </form>
 
-    <!-- Carica prima i dati ufficiali delle FAQ e poi la logica dell'Admin -->
-    <script src="js/script.js"></script>
-    <script src="js/admin.js"></script>
+        <hr style="margin: 20px 0;">
+        <h3>Termini in Dizionario</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Termine</th>
+                    <th>Definizione</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody id="dictTableBody"></tbody>
+        </table>
+    </section>
+
+    <!-- SCHEDA 3: PULSANTI RAPIDI -->
+    <section id="buttonsTab" class="tab-content">
+        <h2>🔘 Gestione Pulsanti Rapidi</h2>
+        <form id="buttonForm" onsubmit="saveQuickButton(event)">
+            <div class="form-group">
+                <label>Etichetta Pulsante (es. 🔑 Reset Password):</label>
+                <input type="text" id="btnLabel" required>
+            </div>
+            <div class="form-group">
+                <label>ID FAQ Associato (es. FORM_RESET_PWD):</label>
+                <input type="text" id="btnFaqId" required>
+            </div>
+            <button type="submit" class="btn-primary">💾 Salva Pulsante</button>
+        </form>
+
+        <hr style="margin: 20px 0;">
+        <h3>Pulsanti Attivi</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Etichetta</th>
+                    <th>ID FAQ Collegato</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody id="buttonsTableBody"></tbody>
+        </table>
+    </section>
+
+    <!-- SCHEDA 4: ESPORTAZIONE & SINCRONIZZAZIONE -->
+    <section id="exportTab" class="tab-content">
+        <h2>🚀 Sincronizzazione Diretta su GitHub</h2>
+        <p>Inserisci il tuo Token Personale GitHub per salvare le modifiche direttamente sul file <code>js/script.js</code> con un solo clic.</p>
+        
+        <div class="form-group">
+            <label>Personal Access Token (PAT) GitHub:</label>
+            <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+            <small style="color:#666;">Il token viene salvato unicamente nella memoria del tuo browser per motivi di sicurezza.</small>
+        </div>
+
+        <button type="button" class="btn-primary" onclick="syncToGitHub()">💾 Salva e Pubblica su GitHub</button>
+        <button type="button" class="btn-secondary" onclick="copyExportCode()" style="margin-left:10px;">📋 Copia Codice Manuale</button>
+
+        <hr style="margin: 20px 0;">
+
+        <div class="form-group">
+            <label>Anteprima Codice Generato:</label>
+            <textarea id="exportCode" rows="10" readonly style="width:100%; font-family:monospace; background:#f4f4f4;"></textarea>
+        </div>
+    </section>
+</div>
+
+<!-- Carica prima i dati ufficiali delle FAQ e poi la logica dell'Admin -->
+<script src="js/script.js"></script>
+<script src="js/admin.js"></script>
 </body>
 </html>
