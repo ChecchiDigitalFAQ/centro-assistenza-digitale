@@ -8,22 +8,13 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
-    // DIZIONARIO ENCICLOPEDICO COMPLETO (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
-        "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
-        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
         "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
-        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
-        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
-        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
-        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
-        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
         "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
-        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
@@ -38,13 +29,31 @@ let appConfig = {
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo ti chiami", "comu ti chiami"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo tu chiami", "comu ti chiami"],
             "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
             "id": "DOVE_VIVI",
             "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
             "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
+        },
+        // --- RINGRAZIAMENTI E COMPLIMENTI ESTESI ---
+        {
+            "id": "RINGRAZIAMENTO",
+            "keywords": ["ok grazie", "grazie e basta", "grazie per l'aiuto", "grazie sei un grande", "grazie di tutto", "grazie mille", "perfetto grazie", "molto gentile", "grazie", "ti ringrazio", "perfetto", "sei un mito"],
+            "responses": ["😊 Prego! È un vero piacere poter dare una mano. Se hai bisogno di altro per l'IIS \"Arturo Checchi\", chiedi pure! A presto! 👋"]
+        },
+        // --- SALUTI INIZIALI / BENVENUTO ---
+        {
+            "id": "SALUTO_INIZIALE",
+            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
+            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
+        },
+        // --- SALUTI FINALI / COMMIATO ---
+        {
+            "id": "SALUTO_FINALE",
+            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio"],
+            "responses": ["👋 Ricambio con affetto il saluto! Ti auguro una splendida giornata. A presto da Arturo e da tutta la comunità dell'IIS \"Arturo Checchi\"! 🏫"]
         },
         // --- DOMANDE PERSONALI SUI "TI..." ---
         {
@@ -71,11 +80,6 @@ let appConfig = {
             "id": "TI_DORMIRE",
             "keywords": ["ti piace dormire", "ti addormenti", "hai sonno", "dormi"],
             "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."]
-        },
-        {
-            "id": "TI_SALUTO",
-            "keywords": ["ti saluto", "ti saluta"],
-            "responses": ["👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."]
         },
         {
             "id": "TI_AMO",
@@ -139,11 +143,6 @@ let appConfig = {
             "id": "FORM_ESPERTI",
             "keywords": ["esperti", "esperti esterni", "autorizzazione esperti", "form esperti"],
             "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
-        },
-        {
-            "id": "SALUTO",
-            "keywords": ["ciao", "salve", "buongiorno", "buonasera"],
-            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         }
     ]
 };
@@ -208,11 +207,36 @@ function processUserQuery(query) {
         .replace(/[ìí]/g, "i")
         .replace(/[òó]/g, "o")
         .replace(/[ùú]/g, "u")
-        .replace(/[?.,!]/g, "")
+        .replace(/[,!]/g, "")
         .replace(/\s+/g, " ")
         .trim();
 
-    // Gestione interattiva quando l'utente scrive solo "form" o "modulo"
+    // 1. GESTIONE DEI SALUTI MULTILINGUE INTERNAZIONALI
+    const salutiMappa = {
+        "nihao": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
+        "nǐ hǎo": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
+        "hello": { eco: "Hello!", nomeLingua: "l'inglese" },
+        "hi": { eco: "Hi there!", nomeLingua: "l'inglese" },
+        "hey": { eco: "Hey!", nomeLingua: "l'inglese" },
+        "bonjour": { eco: "Bonjour!", nomeLingua: "il francese" },
+        "hola": { eco: "¡Hola!", nomeLingua: "lo spagnolo" },
+        "guten tag": { eco: "Guten Tag!", nomeLingua: "il tedesco" }
+    };
+
+    let salutoStranieroTrovato = null;
+    for (const [chiave, info] of Object.entries(salutiMappa)) {
+        if (cleanQuery === chiave || cleanQuery.startsWith(chiave + " ")) {
+            salutoStranieroTrovato = info;
+            break;
+        }
+    }
+
+    if (salutoStranieroTrovato) {
+        rispondiBot(`🌍 **${salutoStranieroTrovato.eco}** Mi fa molto piacere il tuo saluto internazionale! Per tutto il resto della scuola e dei form all'IIS "Arturo Checchi" mi tocca usare rigorosamente l'italiano! 😉`);
+        return;
+    }
+
+    // 2. Gestione interattiva dei form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -230,7 +254,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // Calcolatrice e conversioni base
+    // 3. Calcolatrice e conversioni base
     if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -243,7 +267,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // Ricerca Dizionario
+    // 4. Ricerca Dizionario
     for (const [term, def] of Object.entries(appConfig.dictionary)) {
         if (cleanQuery.includes(term)) {
             rispondiBot(def);
@@ -251,7 +275,7 @@ function processUserQuery(query) {
         }
     }
 
-    // Ricerca FAQ con tolleranza ai typo
+    // 5. Ricerca FAQ (Ringraziamenti, saluti, curiosità, scuola)
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -269,7 +293,6 @@ function processUserQuery(query) {
     }
 }
 
-// Funzione di somiglianza per i typo
 function calcolaSomiglianza(s1, s2) {
     let parole1 = s1.split(" ");
     let parole2 = s2.split(" ");
