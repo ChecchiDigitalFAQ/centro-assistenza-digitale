@@ -116,6 +116,7 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let ultimaCategoriaTrattata = ""; 
+let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
 let indiceIndovinello = 0;
 
@@ -182,31 +183,56 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // 1. GESTIONE DI "SÌ", "NO", "OK" CON RISPOSTA COERENTE AL CONTESTO
     if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
-        rispondiBot("👍 Perfetto! Se hai bisogno di approfondire o di un'altra informazione, chiedi pure.");
-        return;
+        if (ultimoGiocoProposto === "BARZELLETTA") {
+            let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
+            indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
+            rispondiBot(testoBarzelletta + "\n\n*(Vuoi un'altra barzelletta? Scrivimelo pure!)*");
+            return;
+        } else if (ultimoGiocoProposto === "INDOVINELLO") {
+            let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
+            indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length;
+            rispondiBot(testoIndovinello + "\n\n*(Vuoi un altro indovinello? Chiedimelo pure!)*");
+            return;
+        } else {
+            rispondiBot("👍 Perfetto! Se hai bisogno di approfondire o di un'altra informazione sull'IIS \"Arturo Checchi\", chiedi pure.");
+            return;
+        }
     }
     if (cleanQuery === "no") {
         inAttesaSceltaForm = false;
-        rispondiBot("Va bene! Se ti serve altro in futuro, sono qui a disposizione.");
-        return;
+        if (ultimoGiocoProposto === "BARZELLETTA" || ultimoGiocoProposto === "INDOVINELLO") {
+            ultimoGiocoProposto = "";
+            rispondiBot("Va bene, niente più barzellette o indovinelli per ora! Se ti serve altro sui servizi o sulla scuola, chiedi pure.");
+            return;
+        } else {
+            ultimoGiocoProposto = "";
+            rispondiBot("Ricevuto! Se hai bisogno di qualcos'altro o di consultare qualche modulo, sono qui a disposizione.");
+            return;
+        }
     }
 
+    // 2. MOTORE BARZELLETTE
     if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
+        ultimoGiocoProposto = "BARZELLETTA";
         let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
         indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
         rispondiBot(testoBarzelletta + "\n\n*(Vuoi un'altra barzelletta? Scrivimelo pure!)*");
         return;
     }
 
+    // 3. MOTORE INDOVINELLI
     if (cleanQuery.includes("indovinello") || cleanQuery.includes("rompicapo") || cleanQuery.includes("indovina")) {
+        ultimoGiocoProposto = "INDOVINELLO";
         let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
         indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length;
         rispondiBot(testoIndovinello + "\n\n*(Vuoi un altro indovinello? Chiedimelo pure!)*");
         return;
     }
 
+    // 4. RADICI QUADRATE E CALCOLATRICE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let numeriEstratti = query.replace(/[^0-9.]/g, "");
         if (numeriEstratti !== "") {
@@ -234,10 +260,12 @@ function processUserQuery(query) {
     if (cleanQuery.length < 2) {
         inAttesaSceltaForm = false;
         ultimaCategoriaTrattata = "";
+        ultimoGiocoProposto = "";
         rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
         return;
     }
 
+    // 5. LINEARITÀ DEL DISCORSO
     if (cleanQuery === "perche" || cleanQuery === "perché") {
         if (ultimaCategoriaTrattata === "CREATORE") {
             rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
@@ -257,6 +285,7 @@ function processUserQuery(query) {
         }
     }
 
+    // 6. FORM
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -274,6 +303,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // 7. DIZIONARIO
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -282,12 +312,14 @@ function processUserQuery(query) {
         for (const [term, def] of Object.entries(appConfig.dictionary)) {
             if (wordToSearch === term || cleanQuery.includes(term)) {
                 ultimaCategoriaTrattata = "DIZIONARIO";
+                ultimoGiocoProposto = "";
                 rispondiBot(def);
                 return;
             }
         }
     }
 
+    // 8. FAQ
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -299,10 +331,12 @@ function processUserQuery(query) {
 
     if (matchedFaq) {
         ultimaCategoriaTrattata = matchedFaq.id; 
+        ultimoGiocoProposto = "";
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
     } else {
         ultimaCategoriaTrattata = ""; 
+        ultimoGiocoProposto = "";
         rispondiBot(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`);
     }
 }
@@ -329,6 +363,7 @@ function quickAction(id) {
     let found = appConfig.faqs.find(f => f.id === id);
     if (found) {
         ultimaCategoriaTrattata = found.id;
+        ultimoGiocoProposto = "";
         rispondiBot(found.responses[0]);
     }
 }
@@ -364,6 +399,7 @@ function appendMessage(text, sender) {
 function resetChat() {
     inAttesaSceltaForm = false;
     ultimaCategoriaTrattata = "";
+    ultimoGiocoProposto = "";
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
