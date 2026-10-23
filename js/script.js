@@ -24,6 +24,14 @@ let appConfig = {
         "🧩 **Indovinello:** Se mi nomini mi distruggi. Chi sono?\n*(Risposta: Il silenzio!)*"
     ],
 
+    // PARACADUTE CONVERSAZIONALE: Frasi simpatiche e sempre diverse per domande fuori ambito
+    frasiSimpaticheFuoriTema: [
+        "🌦️ Oh, per quanto riguarda il meteo o il mondo esterno, brancolo nel buio! Vivo interamente nel cloud e nei server dell'IIS \"Arturo Checchi\". Per favore, prova a chiedermi qualcosa relativo al mio ruolo, ai servizi o alla scuola!",
+        "🧭 Eh, qui mi spiazzi! I miei sensori digitali arrivano fino ai laboratori e alle sedi dell'istituto, ma fuori di lì mi perdo. Ti andrebbe di chiedermi qualcosa che rientri nei miei compiti istituzionali?",
+        "🔮 Magari avessi la sfera di cristallo per rispondere a questa domanda! Purtroppo mi occupo solo di segreteria, didattica e vita scolastica del Checchi. Prova a chiedermi qualcosa inerente al mio ruolo!",
+        "🚀 Questa va oltre le mie competenze da assistente virtuale scolastico! Ti consiglio di fare una verifica sul campo e, per favore, prova a chiedermi qualcosa che riguardi da vicino la nostra scuola o il mio ruolo!"
+    ],
+
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
@@ -119,6 +127,7 @@ let ultimaCategoriaTrattata = "";
 let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
 let indiceIndovinello = 0;
+let indiceFraseSimpatica = 0; // Rotazione automatica per le risposte simpatiche
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -337,8 +346,10 @@ function processUserQuery(query) {
     } else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
-        // PARACADUTE SIMPATICO E BRILLANTE PER DOMANDE FUORI AMBITO
-        rispondiBot(`🌦️ Eh, magari sapessi che tempo fa là fuori! Purtroppo vivo interamente nel cloud dell'IIS "Arturo Checchi" e non ho una finestra sul mondo esterno. Posso però aiutarti con i form della scuola, darti informazioni sui plessi, fare calcoli al volo o raccontarti una barzelletta!`);
+        // PARACADUTE A ROTAZIONE AUTOMATICA CON RISPOSTE SIMPATICO-ISTITUZIONALI
+        let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
+        indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length; // Ruota alla frase successiva
+        rispondiBot(fraseCasuale);
     }
 }
 
