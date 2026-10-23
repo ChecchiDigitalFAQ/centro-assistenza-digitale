@@ -1,7 +1,7 @@
-/* css/style.css - Stile visivo per Arturo / IIS Arturo Checchi */
+/* css/style.css - Stile Visivo per Arturo | IIS "Arturo Checchi" */
 
 :root {
-    --primary-color: #1e3a8a; /* Blu istituzionale */
+    --primary-color: #1e3a8a;
     --primary-dark: #1e293b;
     --accent-color: #f59e0b;
     --bg-main: #f8fafc;
@@ -48,6 +48,7 @@ body {
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.02);
     z-index: 10;
+    transition: transform 0.3s ease;
 }
 
 .sidebar-header {
@@ -93,7 +94,7 @@ body {
     gap: 8px;
 }
 
-/* Pulsanti Rapidi */
+/* Pulsanti Rapidi Colorati e Vivaci */
 .quick-buttons {
     display: flex;
     flex-direction: column;
@@ -101,29 +102,38 @@ body {
 }
 
 .quick-btn {
-    background-color: #f8fafc;
-    border: 1px solid var(--border-color);
-    padding: 10px 12px;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 1px solid #bfdbfe;
+    padding: 11px 14px;
+    border-radius: 10px;
     text-align: left;
     font-size: 0.9rem;
-    color: var(--text-main);
+    color: #1e40af;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px;
-    transition: all 0.2s ease;
+    gap: 12px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.05);
 }
 
 .quick-btn:hover {
-    background-color: #eff6ff;
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    transform: translateX(3px);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border-color: #1d4ed8;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+}
+
+.quick-btn:hover i {
+    color: #ffffff;
 }
 
 .quick-btn i {
-    color: var(--primary-color);
+    color: #2563eb;
+    font-size: 1.1rem;
+    transition: color 0.25s ease;
 }
 
 /* Card Contatti Istituzionali */
@@ -151,7 +161,7 @@ body {
     margin-right: 5px;
 }
 
-/* Footer Sidebar (Nuova Conversazione & Admin) */
+/* Footer Sidebar */
 .sidebar-footer {
     border-top: 1px solid var(--border-color);
     padding-top: 15px;
@@ -205,6 +215,8 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .chat-header {
@@ -337,4 +349,60 @@ body {
 
 #send-btn:hover {
     background-color: #1e293b;
+}
+
+/* --- OTTIMIZZAZIONE RESPONSIVE PER SMARTPHONE --- */
+@media (max-width: 768px) {
+    body {
+        height: 100vh;
+        height: -webkit-fill-available;
+    }
+    .app-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 35vh;
+        padding: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .sidebar-header .logo {
+        max-width: 40px;
+    }
+    .sidebar-header h2 {
+        font-size: 0.95rem;
+    }
+    .sidebar-header .subtitle {
+        display: none;
+    }
+    .contact-card, .sidebar-section h3 {
+        display: none; /* Nasconde i contatti lunghi su mobile per lasciare spazio alla chat */
+    }
+    .quick-buttons {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 6px;
+        padding-bottom: 4px;
+    }
+    .quick-btn {
+        flex: 0 0 auto;
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    .sidebar-footer {
+        display: none; /* Pulsante nuova chat e admin accessibili diversamente o compatti */
+    }
+    .chat-main {
+        height: 65vh;
+    }
+    .chat-messages {
+        padding: 15px;
+    }
+    .message {
+        max-width: 90%;
+    }
+    .chat-input-container {
+        padding: 12px 15px;
+    }
 }
