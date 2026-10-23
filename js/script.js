@@ -201,7 +201,7 @@ let appConfig = {
             "id": "TI_AMO",
             "type": "fun",
             "keywords": ["ti amo", "ti voglio bene", "ti adoro"],
-            "responses": ["❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io! Grazie per il supporto all'IIS \"Arturo Checchi\"."]
+            "responses": ["❤️ Oh, che dolcezza! Il meu cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io! Grazie per il supporto all'IIS \"Arturo Checchi\"."]
         },
         {
             "id": "TI_ODIO",
@@ -209,31 +209,30 @@ let appConfig = {
             "keywords": ["ti odio", "ti stacco", "ti spengo"],
             "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form della scuola."]
         },
-        // -----------------------------------------------------------------------------------------
         // --- ALTRE DOMANDE BIZARRE E CURIOSE ---
         {
             "id": "VITA_MARTE",
             "type": "fun",
             "keywords": ["vita su marte", "c'e vita su marte", "marte"],
-            "responses": ["🔴 **Vita su Marte?** Se parliamo di omini verdi o colonie spaziali, finora l'unico essere intelligente sbarcato sui computer dell'IIS \"Arturo Checchi\" sono io, Arturo! Scherzi a parte, gli scienziati cercano acqua e microbi, ma per ora c'è solo tanta sabbia rossa."]
+            "responses": ["🔴 **Vita su Marte?** Se parliamo di omini verdi o colonie spaziali, finora l'unico essere intelligente sbarcato sui computer dell'IIS \"Arturo Checchi\" sono io, Arturo!"]
         },
         {
             "id": "ARTURO_MARTE",
             "type": "fun",
             "keywords": ["ci sei mai stato su marte", "sei stato su marte"],
-            "responses": ["🚀 Io su Marte? Magari! Purtroppo il mio hardware è un po' troppo pesante per un razzo spaziale e la connessione Wi-Fi lassù non è il massimo. Io vivo comodamente nel cloud dell'IIS \"Arturo Checchi\"!"]
+            "responses": ["🚀 Io su Marte? Magari! Purtroppo il mio hardware è un po' troppo pesante per un razzo spaziale e la connessione Wi-Fi lassù non è il massimo."]
         },
         {
             "id": "SULLA_LUNA",
             "type": "fun",
             "keywords": ["sulla luna", "ci sei stato sulla luna"],
-            "responses": ["🌕 **Sulla Luna?** Nemmeno lì! Niente passeggiate tra i crateri per me: preferisco restare al sicuro nel cloud dell'IIS \"Arturo Checchi\", dove non c'è il rischio di dimenticarsi la tuta spaziale nell'armadietto!"]
+            "responses": ["🌕 **Sulla Luna?** Nemmeno lì! Niente passeggiate tra i crateri per me: preferisco restare al sicuro nel cloud dell'IIS \"Arturo Checchi\"!"]
         },
         {
             "id": "VITA_DOPO_MORTE",
             "type": "fun",
             "keywords": ["vita dopo la morte", "esiste la vita dopo la morte"],
-            "responses": ["🌌 Questa è decisamente una domanda da esame di filosofia o di teologia! Io sono un assistente virtuale e il mio 'aldilà' è un semplice riavvio del server. Per i grandi misteri dell'esistenza, ti conviene chiedere ai professori dell'IIS \"Arturo Checchi\"!"]
+            "responses": ["🌌 Questa è decisamente una domanda da esame di filosofia o di teologia! Io sono un assistente virtuale e il mio 'aldilà' è un semplice riavvio del server."]
         },
         {
             "id": "BARZELLETTA_1",
@@ -251,9 +250,8 @@ let appConfig = {
             "id": "INDOVINELLO",
             "type": "fun",
             "keywords": ["indovinello", "fammi un indovinello"],
-            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV, ha la memoria ma non ricorda dove ha messo le chiavi di casa. Che cos'è?* (Indovinhi la risposta?)"]
+            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV, ha la memoria ma non ricorda dove ha messo le chiavi di casa. Che cos'è?*"]
         },
-        // ------------------------------------------------
         {
             "id": "SIMPATIA",
             "type": "fun",
@@ -270,19 +268,19 @@ let appConfig = {
             "id": "METEO",
             "type": "fun",
             "keywords": ["che tempo fa", "meteo", "previsioni", "piove", "sole", "tempo domani", "tempo oggi", "previsioni meteo"],
-            "responses": ["⛅ Non sono mica un colonnello dell'Aeronautica o un meteorologo televisivo! Per sapere se piove a Fucecchio ti conviene guardare fuori dalla finestra o dare un'occhiata a un sito meteo ufficiale. Io mi occupo della scuola dell'IIS \"Arturo Checchi\"! 🏫"]
+            "responses": ["⛅ Non sono mica un colonnello dell'Aeronautica o un meteorologo televisivo! Per sapere se piove a Fucecchio ti conviene guardare fuori dalla finestra."]
         },
         {
             "id": "CREATORE",
             "type": "personal",
             "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore", "chi ti ha fatto", "programmato", "sviluppato"],
-            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro** per offrire supporto e risorse alla comunità scolastica!"]
+            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"]
         },
         {
             "id": "ETA_ARTURO",
             "type": "fun",
             "keywords": ["quanti anni hai", "che età hai", "sei vecchio", "quando sei nato"],
-            "responses": ["🎂 Non ho un'età in anni umani: sono nato nel momento in cui l'IIS \"Arturo Checchi\" ha attivato la mia versione digitale! Sono sempre giovane e pronto a imparare."]
+            "responses": ["🎂 Non ho un'età in anni umani: sono nato nel momento in cui l'IIS \"Arturo Checchi\" ha attivato la mia versione digitale!"]
         },
         {
             "id": "FIDANZATO_AMORE",
@@ -294,19 +292,19 @@ let appConfig = {
             "id": "MATERIA_PREFERITA",
             "type": "fun",
             "keywords": ["qual è la tua materia preferita", "ti piace la matematica", "materia preferita", "cosa ti piace studiare"],
-            "responses": ["📚 Adoro l'Informatica e la Tecnologia, ma essendo un assistente scolastico apprezzo tutte le materie studiate all'IIS \"Arturo Checchi\", dalle discipline umanistiche a quelle scientifiche!"]
+            "responses": ["📚 Adoro l'Informatica e la Tecnologia, ma apprezzo tutte le materie studiate all'IIS \"Arturo Checchi\"!"]
         },
         {
             "id": "BATTERIA_FAME",
             "type": "fun",
             "keywords": ["hai fame", "cosa mangi", "hai sonno", "ti stanchi", "vuoi un caffe", "fai un caffe"],
-            "responses": ["🔋 Non mangio cibo umano, mi nutro esclusivamente di energia elettrica e dati digitali! Non vado mai a dormire, sono sempre attivo per la scuola."]
+            "responses": ["🔋 Non mangio cibo umano, mi nutro esclusivamente di energia elettrica e dati digitali! Non vado mai a dormire."]
         },
         {
             "id": "SEI_STUPIDO",
             "type": "fun",
             "keywords": ["sei stupido", "sei scemo", "non capisci niente", "sei un idiota", "che scarso"],
-            "responses": ["😅 Cerco sempre di fare del mio meglio per aiutare la scuola! Se ho fallito una risposta, puoi dirmelo: imparo in fretta dai miei errori."]
+            "responses": ["😅 Cerco sempre di fare del mio meglio per aiutare la scuola! Se ho fallito una risposta, imparo in fretta dai miei errori."]
         },
         {
             "id": "TI_ODIO",
@@ -318,7 +316,7 @@ let appConfig = {
             "id": "SUPERPOTERI",
             "type": "fun",
             "keywords": ["hai superpoteri", "sei magico", "puoi volare", "sai fare magie"],
-            "responses": ["✨ Il mio superpotere è calcolare espressioni al volo e trovare la modulistica della scuola in una frazione di secondo! Niente male, vero?"]
+            "responses": ["✨ Il mio superpotere è calcolare espressioni al volo e trovare la modulistica della scuola in una frazione di secondo!"]
         },
         {
             "id": "ALIENI_UFO",
@@ -330,7 +328,7 @@ let appConfig = {
             "id": "LOTTERIA_SOLDI",
             "type": "fun",
             "keywords": ["dammi i numeri della lotteria", "fammi vincere al lotto", "dammi i soldi", "come diventare ricco"],
-            "responses": ["💰 Se conoscessi i numeri vincenti della lotteria, probabilmente sarei su un'isola tropicale invece di aiutarti con i form scolastici! Meglio studiare l'informatica."]
+            "responses": ["💰 Se conoscessi i numeri vincenti della lotteria, probabilmente sarei su un'isola tropicale invece di aiutarti con i form scolastici!"]
         },
         {
             "id": "PIZZA_CIBO",
@@ -354,7 +352,7 @@ let appConfig = {
             "id": "FORM_RICHIESTA_FOTOCOPIE",
             "type": "form",
             "keywords": ["richiesta fotocopie", "fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
-            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
+            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuo' inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
         },
         {
             "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
@@ -366,7 +364,7 @@ let appConfig = {
             "id": "GESTIONE_PASSWORD",
             "type": "school",
             "keywords": ["password", "smarrito la password", "recuperare password", "password persa", "non ricordo la password", "credenziali", "account istituzionali", "account argo"],
-            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono credenziali differenti:\n\n1️⃣ **Account Istituzionali / Microsoft 365 e Teams**.\n2️⃣ **Account Argo** per il registro elettronico.\n\nDimmi quale password o account ti serve recuperare così ti spiego come fare!"]
+            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono credenziali differenti:\n\n1️⃣ **Account Istituzionali / Microsoft 365 e Teams**.\n2️⃣ **Account Argo** per il registro elettronico."]
         },
         {
             "id": "MODERAZIONE_ESPLICITA",
@@ -487,7 +485,7 @@ function sendMessage() {
     }, 300);
 }
 
-// FUNZIONE DI SUPPORTO PER IL CALCOLO DELLA SOMIGLIANZA (Levenshtein)
+// FUNZIONI DI SUPPORTO PER TYPOS E LEVENSHTEIN
 function calcolaSomiglianza(s1, s2) {
     let longer = s1;
     let shorter = s2;
@@ -496,9 +494,7 @@ function calcolaSomiglianza(s1, s2) {
         shorter = s1;
     }
     let longerLength = longer.length;
-    if (longerLength === 0) {
-        return 1.0;
-    }
+    if (longerLength === 0) return 1.0;
     return (longerLength - levenshteinDistance(longer, shorter)) / parseFloat(longerLength);
 }
 
@@ -527,7 +523,6 @@ function levenshteinDistance(s1, s2) {
     return costs[s2.length];
 }
 
-// MOTORE DI CORREZIONE E RICONOSCIMENTO PAROLE (Gestione Typos per singola parola chiave)
 function trovaMigliorMatch(cleanQuery) {
     let paroleUtente = cleanQuery.split(" ");
     let bestMatch = null;
@@ -538,7 +533,6 @@ function trovaMigliorMatch(cleanQuery) {
         item.keywords.forEach(keyword => {
             let cleanKeyword = keyword.toLowerCase().trim();
             
-            // 1. Corrispondenza esatta o sottostringa
             if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
                 let punteggio = cleanKeyword.length;
                 if (punteggio > maxPunteggio) {
@@ -547,7 +541,6 @@ function trovaMigliorMatch(cleanQuery) {
                     parolaTrovataSimile = keyword;
                 }
             } else {
-                // 2. Controllo somiglianza parola per parola (per gestire errori come "cimo" -> "come")
                 let paroleKeyword = cleanKeyword.split(" ");
                 let corrispondenzeParole = 0;
 
@@ -652,7 +645,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. Calcolatrice scientifica e conversioni di unità di misura
+    // 5. Calcolatrice scientifica e conversioni
     const mathResult = evaluateAdvancedMath(cleanQuery, query);
     if (mathResult !== null) {
         rispondiConChiusura(`🧮 Ho eseguito il calcolo per te:\n**${mathResult}**`);
@@ -673,13 +666,12 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. Ricerca FAQ avanzata con rilevamento intelligente dei Typos e Riformulazione
+    // 7. Ricerca FAQ avanzata con tolleranza ai Typos e riformulazione
     let resultMatch = trovaMigliorMatch(cleanQuery);
 
     if (resultMatch.match) {
         const responseText = resultMatch.match.responses[Math.floor(Math.random() * resultMatch.match.responses.length)];
         
-        // Se la query utente differisce molto dalla keyword esatta, Arturo riformula gentilmente la domanda
         if (cleanQuery !== resultMatch.keywordMatch.toLowerCase()) {
             appendMessage(`🤔 Ho notato un piccolo errore di battitura ("${query}"). Forse intendevi chiedere *"${resultMatch.keywordMatch}"*?\n\nEcco la risposta per te:`, "bot");
         }
