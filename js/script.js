@@ -243,7 +243,7 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE PULITA DI "SÌ", "NO", "OK" (SENZA MAI FAR RIPARTIRE IL BENVENUTO)
+    // 1. GESTIONE DI "SÌ", "NO", "OK"
     if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
         rispondiBot("👍 Perfetto! Se hai bisogno di approfondire o di un'altra informazione, chiedi pure.");
@@ -254,6 +254,36 @@ function processUserQuery(query) {
         rispondiBot("Va bene! Se ti serve altro in futuro, sono qui a disposizione.");
         return;
     }
+
+    // 2. MOTORE DI CALCOLO MATEMATICO AL VOLO E RADICI QUADRATE
+    if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
+        let numeriEstratti = query.replace(/[^0-9.]/g, "");
+        if (numeriEstratti !== "") {
+            let num = parseFloat(numeriEstratti);
+            let risultato = Math.sqrt(num);
+            rispondiBot(`🔢 La radice quadrata di **${num}** è **${ris risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!`);
+            return;
+        } else {
+            rispondiBot("🔢 Per calcolare la radice quadrata, scrivimi il numero (es. *radice quadrata di 81*).");
+            return;
+        }
+    }
+
+    // Calcoli aritmetici diretti (es. 8*9, 15+4, ecc. con numeri e simboli matematici)
+    let mathCheckQuery = query.replace(/\s+/g, "").replace(/x/g, "*");
+    if (/^[0-9+\-*/().]+$/.test(mathCheckQuery) && /[+\-*/]/.test(mathCheckQuery)) {
+        try {
+            let evalResult = Function('"use strict";return (' + mathCheckQuery + ')')();
+            if (!isNaN(evalResult)) {
+                rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!`);
+                return;
+            }
+        } catch (e) {
+            // Ignora errori di parsing matematico e prosegui
+        }
+    }
+
+    // Filtro per lettere isolate casuali
     if (cleanQuery.length < 2) {
         inAttesaSceltaForm = false;
         ultimaCategoriaTrattata = "";
@@ -261,7 +291,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. GESTIONE DELLA LINEARITÀ DEL DISCORSO (PERCHÉ / QUANDO)
+    // 3. GESTIONE DELLA LINEARITÀ DEL DISCORSO (PERCHÉ / QUANDO)
     if (cleanQuery === "perche" || cleanQuery === "perché") {
         if (ultimaCategoriaTrattata === "CREATORE") {
             rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
@@ -281,7 +311,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 3. Gestione interattiva dei form
+    // 4. Gestione interattiva dei form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -299,7 +329,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. Ricerca nel Dizionario Enciclopedico
+    // 5. Ricerca nel Dizionario Enciclopedico
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -314,7 +344,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 5. Ricerca FAQ
+    // 6. Ricerca FAQ
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -325,11 +355,11 @@ function processUserQuery(query) {
     });
 
     if (matchedFaq) {
-        ultimaCategoriaTrattata = matchedFaq.id; // Aggiorna il contesto con l'ultima FAQ trovata
+        ultimaCategoriaTrattata = matchedFaq.id; 
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
     } else {
-        ultimaCategoriaTrattata = ""; // Resetta se non trova corrispondenze
+        ultimaCategoriaTrattata = ""; 
         rispondiBot(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`);
     }
 }
