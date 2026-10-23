@@ -41,7 +41,7 @@ let appConfig = {
         "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
         "barometro": "📖 **Barometro:** Strumento scientifico utilizzato per misurare la pressione atmosferica.",
         "barocco": "📖 **Barocco:** Movimento culturale e artistico del Seicento caratterizzato da sfarzo ed esuberanza.",
-        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota procariota privo di un nucleo cellulare ben definito.",
+        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di un nucleo cellulare ben definito.",
         "big bang": "📖 **Big Bang:** Modello cosmologico che descrive l'origine e l'evoluzione iniziale dell'universo.",
         "biografia": "📖 **Biografia:** Narrazione scritta della vita di una persona.",
         "biologia": "📖 **Biologia:** Scienza che studia la vita, gli organismi viventi, la loro struttura e la loro evoluzione.",
@@ -131,12 +131,12 @@ let appConfig = {
         },
         {
             "id": "SALUTO_INIZIALE",
-            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "buon pomeriggio", "hey", "si", "ok"],
+            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
             "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         },
         {
             "id": "SALUTO_FINALE",
-            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio", "no"],
+            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio"],
             "responses": ["👋 Ricambio con affetto il saluto! Ti auguro una splendida giornata. A presto da Arturo e da tutta la comunità dell'IIS \"Arturo Checchi\"! 🏫"]
         },
         {
@@ -145,18 +145,8 @@ let appConfig = {
             "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**! 💻"]
         },
         {
-            "id": "PERCHE_CREATO",
-            "keywords": ["perche", "perché ti hanno creato", "perche esisti"],
-            "responses": ["💡 Sono stato creato per semplificare la vita scolastica, aiutare studenti e docenti con i moduli, fornire risposte rapide e dare informazioni ufficiali sull'IIS \"Arturo Checchi\" in tempo reale!"]
-        },
-        {
-            "id": "QUANDO_CREATO",
-            "keywords": ["quando", "quando sei stato creato", "quando sei nato"],
-            "responses": ["📅 Sono nato e cresciuto digitalmente nei laboratori informatici dell'IIS \"Arturo Checchi\" grazie al lavoro di sviluppo di Luca Vorraro!"]
-        },
-        {
             "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
+            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico", "preside del checchi"],
             "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
@@ -188,7 +178,7 @@ let appConfig = {
 };
 
 let inAttesaSceltaForm = false;
-let ultimaCategoriaTrattata = ""; // Memoria conversazionale per mantenere la linearità del discorso
+let ultimaCategoriaTrattata = ""; 
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -253,24 +243,45 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // FILTRO INTELLIGENTE: Blocca lettere singole casuali (come "f", "e", "c"), ma accetta "si", "no" e parole normali
-    if (cleanQuery.length < 2 && cleanQuery !== "si" && cleanQuery !== "no") {
+    // 1. GESTIONE DEI TERMINI BREVI ISOLATI ("SÌ", "NO", "OK") E FILTRO CASUALE
+    if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok") {
         inAttesaSceltaForm = false;
-        appendMessage(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`, "bot");
+        rispondiBot("👍 Perfetto! Dimmi pure, come posso aiutarti oggi all'IIS \"Arturo Checchi\"?");
+        return;
+    }
+    if (cleanQuery === "no") {
+        inAttesaSceltaForm = false;
+        rispondiBot("Va bene! Se hai bisogno di qualcos'altro o di consultare qualche modulo, sono qui a tua disposizione.");
+        return;
+    }
+    if (cleanQuery.length < 2) {
+        inAttesaSceltaForm = false;
+        ultimaCategoriaTrattata = "";
+        rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
         return;
     }
 
-    // MEMORIA DIALOGO: Se l'utente scrive solo "perche" o "quando", Arturo capisce il contesto precedente
-    if ((cleanQuery === "perche" || cleanQuery === "perché") && ultimaCategoriaTrattata === "CREATORE") {
-        rispondiBot("💡 Sono stato creato per semplificare la vita scolastica, aiutare studenti e docenti con i moduli, fornire risposte rapide e dare informazioni ufficiali sull'IIS \"Arturo Checchi\" in tempo reale!");
-        return;
+    // 2. GESTIONE DELLA LINEARITÀ DEL DISCORSO (PERCHÉ / QUANDO)
+    if (cleanQuery === "perche" || cleanQuery === "perché") {
+        if (ultimaCategoriaTrattata === "CREATORE") {
+            rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
+            return;
+        } else {
+            rispondiBot("🤔 A cosa ti riferisci di preciso con questo 'perché'? Chiedimi pure un'informazione specifica sull'istituto!");
+            return;
+        }
     }
-    if (cleanQuery === "quando" && ultimaCategoriaTrattata === "CREATORE") {
-        rispondiBot("📅 Sono nato e cresciuto digitalmente nei laboratori informatici dell'IIS \"Arturo Checchi\" grazie al lavoro di sviluppo di Luca Vorraro!");
-        return;
+    if (cleanQuery === "quando") {
+        if (ultimaCategoriaTrattata === "CREATORE") {
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            return;
+        } else {
+            rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
+            return;
+        }
     }
 
-    // 1. Gestione interattiva dei form
+    // 3. Gestione interattiva dei form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -288,7 +299,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Ricerca nel Dizionario Enciclopedico
+    // 4. Ricerca nel Dizionario Enciclopedico
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -303,7 +314,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 3. Ricerca FAQ
+    // 5. Ricerca FAQ
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -314,12 +325,12 @@ function processUserQuery(query) {
     });
 
     if (matchedFaq) {
-        ultimaCategoriaTrattata = matchedFaq.id; // Memorizza l'argomento corrente
+        ultimaCategoriaTrattata = matchedFaq.id; // Aggiorna il contesto con l'ultima FAQ trovata
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
     } else {
-        ultimaCategoriaTrattata = "";
-        appendMessage(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`, "bot");
+        ultimaCategoriaTrattata = ""; // Resetta se non trova corrispondenze
+        rispondiBot(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`);
     }
 }
 
