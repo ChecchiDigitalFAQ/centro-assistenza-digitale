@@ -300,5 +300,187 @@ function processUserQuery(query) {
             rispondiBot(`🔢 La radice quadrata di **${num}** è **${risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!`);
             return;
         } else {
-            rispondiBot("🔢
-                        
+            rispondiBot("🔢 Per calcolare la radice quadrata, scrivimi il numero (es. *radice quadrata di 81*).");
+            return;
+        }
+    }
+
+    let mathCheckQuery = query.replace(/\s+/g, "").replace(/x/g, "*");
+    if (/^[0-9+\-*/().]+$/.test(mathCheckQuery) && /[+\-*/]/.test(mathCheckQuery)) {
+        try {
+            let evalResult = Function('"use strict";return (' + mathCheckQuery + ')')();
+            if (!isNaN(evalResult)) {
+                rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!`);
+                return;
+            }
+        } catch (e) {}
+    }
+
+    // Filtro per lettere isolate casuali
+    if (cleanQuery.length < 2) {
+        inAttesaSceltaForm = false;
+        ultimaCategoriaTrattata = "";
+        rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
+        return;
+    }
+
+    // 5. GESTIONE DELLA LINEARITÀ DEL DISCORSO (PERCHÉ / QUANDO)
+    if (cleanQuery === "perche" || cleanQuery === "perché") {
+        if (ultimaCategoriaTrattata === "CREATORE") {
+            rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
+            return;
+        } else {
+            rispondiBot("🤔 A cosa ti riferisci di preciso con questo 'perché'? Chiedimi pure un'informazione specifica sull'istituto!");
+            return;
+        }
+    }
+    if (cleanQuery === "quando") {
+        if (ultimaCategoriaTrattata === "CREATORE") {
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            return;
+        } else {
+            rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
+            return;
+        }
+    }
+
+    // 6. Gestione interattiva dei form
+    if (inAttesaSceltaForm) {
+        inAttesaSceltaForm = false;
+        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
+            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
+            return;
+        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
+            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
+            return;
+        }
+    }
+
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
+        inAttesaSceltaForm = true;
+        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
+        return;
+    }
+
+    // 7. Ricerca nel Dizionario Enciclopedico
+    let wordToSearch = cleanQuery
+        .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
+        .trim();
+
+    if (wordToSearch.length >= 2) {
+        for (const [term, def] of Object.entries(appConfig.dictionary)) {
+            if (wordToSearch === term || cleanQuery.includes(term)) {
+                ultimaCategoriaTrattata = "DIZIONARIO";
+                rispondiBot(def);
+                return;
+            }
+        }
+    }
+
+    // 8. Ricerca FAQ
+    let matchedFaq = null;
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            if (cleanQuery.includes(kw) || kw.includes(cleanQuery) || calcolaSomiglianza(cleanQuery, kw) > 0.65) {
+                matchedFaq = faq;
+            }
+        });
+    });
+
+    if (matchedFaq) {
+        ultimaCategoriaTrattata = matchedFaq.id; 
+        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+        rispondiBot(resp);
+    } else {
+        ultimaCategoriaTrattata = ""; 
+        rispondiBot(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`);
+    }
+}
+
+function calcolaSomiglianza(s1, s2) {
+    let parole1 = s1.split(" ");
+    let parole2 = s2.split(" ");
+    let matchCount = 0;
+    parole1.forEach(p1 => {
+        parole2.forEach(p2 => {
+            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
+                matchCount++;
+            }
+        });
+    });
+    return matchCount / Math.max(parole1.length, parole2.length);
+}
+
+function rispondiBot(testo) {
+    appendMessage(testo, "bot");
+}
+
+function quickAction(id) {
+    let found = appConfig.faqs.find(f => f.id === id);
+    if (found) {
+        ultimaCategoriaTrattata = found.id;
+        rispondiBot(found.responses[0]);
+    }
+}
+
+function appendMessage(text, sender) {
+    const chatBox = document.getElementById("chat-messages");
+    if (!chatBox) return;
+    
+    const messageDiv = document.createElement("div");
+    const isBot = (sender === "bot");
+    messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
+
+    const avatarDiv = document.createElement("div");
+    avatarDiv.classList.add("message-avatar");
+    avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-content");
+    bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
+
+    if (isBot) {
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(bubble);
+    } else {
+        messageDiv.appendChild(bubble);
+        messageDiv.appendChild(avatarDiv);
+    }
+
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function resetChat() {
+    inAttesaSceltaForm = false;
+    ultimaCategoriaTrattata = "";
+    const chatBox = document.getElementById("chat-messages");
+    if (!chatBox) return;
+    chatBox.innerHTML = `
+        <div class="message bot-message">
+            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="message-content">
+                👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
+                Conversazione riavviata! Come posso aiutarti oggi?
+            </div>
+        </div>
+    `;
+}
+
+// Funzione per la data e l'ora in tempo reale in alto a destra
+function startClock() {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    
+    function updateDateTime() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const dataFormattata = now.toLocaleDateString('it-IT', options);
+        const oraFormattata = now.toLocaleTimeString('it-IT');
+        
+        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
+    }
+    
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
