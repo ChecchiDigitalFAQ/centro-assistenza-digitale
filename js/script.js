@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO GIGANTE per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO MILLENARIO ESTESO per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,7 +8,7 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
-    // DIZIONARIO ED ENCICLOPEDIA GIGANTE (A-Z)
+    // DIZIONARIO ED ENCICLOPEDIA ESTESA (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
@@ -91,7 +91,6 @@ let appConfig = {
         "neolitico": "📖 **Neolitico:** Età della pietra pulita e levigata, caratterizzata dall'agricoltura.",
         "osmose": "📖 **Osmosi:** Diffusione di un solvente attraverso una membrana semipermeabile.",
         "paradigma": "📖 **Paradigma:** Modello di riferimento o schema teorico esplicativo.",
-        "photosynthesis": "📖 **Fotosintesi:** Processo di sintesi di composti organici alla luce solare nelle piante.",
         "pianeta": "📖 **Pianeta:** Corpo celeste che orbita attorno a una stella senza emettere luce propria.",
         "piramide": "📖 **Piramide:** Solido geometrico con base poligonale e facce triangolari convergenti in un vertice.",
         "plasma": "📖 **Plasma:** Stato della materia costituito da un gas ionizzato ad altissima temperatura.",
@@ -117,13 +116,13 @@ let appConfig = {
             "type": "school",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "cose arturo", "chi e arturo"],
             "responses": [
-                "🤖 **Ciao! Sono Arturo**, l'assistente digitale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio.\n\n" +
+                "🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio, progettato per offrire supporto immediato a tutta la comunità scolastica.\n\n" +
                 "💡 **Cosa posso fare per te?**\n" +
-                "• 📚 **Enciclopedia e Dizionario:** Chiedimi la definizione di qualsiasi termine tecnico, scientifico, matematico o letterario (es. *\"Cos'è un algoritmo?\"* o *\"Definizione di osmosi\"*).\n" +
-                "• 🧮 **Calcoli Veloci:** Posso risolvere espressioni o calcoli al volo per te (es. *\"15 * 4\"*).\n" +
-                "• 📋 **Modulistica e Form:** Posso guidarti rapidamente verso i moduli e i form ufficiali della scuola (fotocopie, piani di lavoro, permessi, esperti esterni).\n" +
-                "• 🏫 **Informazioni Istituzionali:** Fornisco contatti, orari e indicazioni sui servizi digitali dell'istituto (Teams, Registro Argo, email istituzionali).\n\n" +
-                "Scrivi pure la tua domanda qui sotto o usa i pulsanti rapidi a sinistra!"
+                "• 📋 **Ricerca di Form e Modulistica:** Ti aiuto a trovare e compilare i moduli ufficiali dell'istituto (richiesta fotocopie, autorizzazione esperti esterni, piani di lavoro, permessi).\n" +
+                "• 🧭 **Orientamento e Informazioni:** Guido studenti, docenti e famiglie tra le risorse, le attività e l'offerta formativa della scuola.\n" +
+                "• 💻 **Account e Servizi Digitali:** Fornisco indicazioni e supporto per l'accesso agli account istituzionali, Microsoft 365, Teams e al registro elettronico Argo.\n" +
+                "• 📚 **Enciclopedia e Calcoli:** Puoi chiedermi la definizione di centinaia di termini enciclopedici o calcoli matematici al volo.\n\n" +
+                "Scrivi pure la tua richiesta qui sotto o seleziona un argomento rapido!"
             ]
         },
         {
@@ -160,13 +159,13 @@ let appConfig = {
             "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
             "type": "form",
             "keywords": ["ingresso esperti esterni", "esperti esterni", "esperti", "autorizzazione esperti", "form esperti"],
-            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguinte link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
+            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
         },
         {
             "id": "GESTIONE_PASSWORD",
             "type": "school",
-            "keywords": ["password", "smarrito la password", "recuperare password", "password persa", "non ricordo la password", "credenziali"],
-            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono password differenti:\n\n1️⃣ Le credenziali per **Microsoft 365 e Teams**.\n2️⃣ Le credenziali separate per il registro elettronico **Argo**.\n\nDimmi quale delle due password ti serve recuperare così ti spiego come fare!"]
+            "keywords": ["password", "smarrito la password", "recuperare password", "password persa", "non ricordo la password", "credenziali", "account istituzionali", "account argo"],
+            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono credenziali differenti:\n\n1️⃣ **Account Istituzionali / Microsoft 365 e Teams**.\n2️⃣ **Account Argo** per il registro elettronico.\n\nDimmi quale password o account ti serve recuperare così ti spiego come fare!"]
         },
         {
             "id": "MODERAZIONE_ESPLICITA",
@@ -304,7 +303,7 @@ function processUserQuery(query) {
         } catch (e) {}
     }
 
-    // 3. Ricerca nel Dizionario Gigante
+    // 3. Ricerca nel Dizionario
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
