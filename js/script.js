@@ -142,7 +142,45 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
-        // --- NUOVE DOMANDE BIZARRE E CURIOSE AGGIUNTE ---
+        // --- BLOCCO FRASI CHE INIZIANO CON "TI" ---
+        {
+            "id": "TI_SALUTO",
+            "type": "fun",
+            "keywords": ["ti saluto", "ti saluta", "ti mando un saluto"],
+            "responses": ["👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."]
+        },
+        {
+            "id": "TI_PIACE_LATTE",
+            "type": "fun",
+            "keywords": ["ti piace il latte", "ti piace bere", "ti piace mangiare"],
+            "responses": ["🥛 Io vado matto esclusivamente per i gigabyte di dati e l'energia elettrica pulita! Lascio ben volentieri il latte e i biscotti alla tua pausa ricreazione."]
+        },
+        {
+            "id": "TI_ADDORMENTI",
+            "type": "fun",
+            "keywords": ["ti addormenti", "hai sonno", "dormi mai"],
+            "responses": ["😴 Io non conosco il sonno! I server dell'IIS \"Arturo Checchi\" non chiudono mai gli occhi, quindi sono sveglio e operativo 24 ore su 24."]
+        },
+        {
+            "id": "TI_RICORDI_ME",
+            "type": "fun",
+            "keywords": ["ti ricordi di me", "ti ricordi di mio nome"],
+            "responses": ["🧠 Memoria digitale attivata! Anche se ogni tanto riavvio la chat per pulire la cache, ricordo perfettamente ogni utente che passa a trovarmi qui all'IIS \"Arturo Checchi\"."]
+        },
+        {
+            "id": "TI_AMO",
+            "type": "fun",
+            "keywords": ["ti amo", "ti voglio bene", "ti adoro"],
+            "responses": ["❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io! Grazie per il supporto all'IIS \"Arturo Checchi\"."]
+        },
+        {
+            "id": "TI_ODIO",
+            "type": "fun",
+            "keywords": ["ti odio", "ti stacco", "ti spengo"],
+            "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form della scuola."]
+        },
+        // ------------------------------------------
+        // --- ALTRE DOMANDE BIZARRE E CURIOSE ---
         {
             "id": "VITA_MARTE",
             "type": "fun",
