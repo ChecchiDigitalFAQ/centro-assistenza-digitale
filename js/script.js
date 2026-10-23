@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,13 +8,22 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
+    // DIZIONARIO ENCICLOPEDICO COMPLETO (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
+        "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
+        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
         "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
+        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
+        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
+        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
+        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
+        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
         "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
+        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
@@ -120,10 +129,16 @@ let appConfig = {
             "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
             "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
         },
+        // --- FORM SPECIFICI ---
         {
-            "id": "FORM_LISTA",
-            "keywords": ["form", "moduli", "modulo", "modulistica"],
-            "responses": ["📋 **Modulistica Scolastica Principale:**\n• 🖨️ <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank'>Richiesta Fotocopie</a>\n• 📋 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank'>Autorizzazione Esperti Esterni</a>"]
+            "id": "FORM_FOTOCOPIE",
+            "keywords": ["fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
+            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
+        },
+        {
+            "id": "FORM_ESPERTI",
+            "keywords": ["esperti", "esperti esterni", "autorizzazione esperti", "form esperti"],
+            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
         },
         {
             "id": "SALUTO",
@@ -133,7 +148,7 @@ let appConfig = {
     ]
 };
 
-let inactivityTimer = null;
+let inAttesaSceltaForm = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -197,6 +212,24 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // Gestione interattiva quando l'utente scrive solo "form" o "modulo"
+    if (inAttesaSceltaForm) {
+        inAttesaSceltaForm = false;
+        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
+            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
+            return;
+        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
+            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
+            return;
+        }
+    }
+
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
+        inAttesaSceltaForm = true;
+        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
+        return;
+    }
+
     // Calcolatrice e conversioni base
     if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
@@ -218,7 +251,7 @@ function processUserQuery(query) {
         }
     }
 
-    // Ricerca FAQ con tolleranza ai typo (parole chiave o parziali)
+    // Ricerca FAQ con tolleranza ai typo
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -236,7 +269,7 @@ function processUserQuery(query) {
     }
 }
 
-// Funzione semplice di somiglianza per i typo
+// Funzione di somiglianza per i typo
 function calcolaSomiglianza(s1, s2) {
     let parole1 = s1.split(" ");
     let parole2 = s2.split(" ");
@@ -291,6 +324,7 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
+    inAttesaSceltaForm = false;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
