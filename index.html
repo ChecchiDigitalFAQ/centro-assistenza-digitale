@@ -3,54 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistente Virtuale - Arturo | IIS "Arturo Checchi"</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- FontAwesome per le icone visive -->
+    <title>Arturo - Assistente Virtuale | IIS "Arturo Checchi"</title>
+    <!-- FontAwesome per le icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Foglio di stile principale -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <div class="app-container">
-        <!-- BARRA LATERALE: Logo, Contatti Istituzionali e Pulsanti Rapidi -->
+        <!-- BARRA LATERALE (SIDEBAR) -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="logo.png" alt="Logo IIS Arturo Checchi" class="logo" onerror="this.style.display='none'">
+                <img src="logo.png" alt="Logo IIS Arturo Checchi" class="logo">
                 <h2>IIS "Arturo Checchi"</h2>
-                <p class="subtitle">Assistente Virtuale Arturo 🤖</p>
+                <span class="subtitle">Assistente Virtuale Arturo 🤖</span>
             </div>
 
             <div class="sidebar-content">
-                <!-- Sezione Accesso Rapido / FAQ -->
+                <!-- Sezione Accesso Rapido -->
                 <div class="sidebar-section">
                     <h3><i class="fa-solid fa-bolt"></i> Accesso Rapido</h3>
-                    <div class="quick-buttons" id="faq-buttons-container">
-                        <button class="quick-btn" data-query="orario segreteria"><i class="fa-solid fa-clock"></i> Orari Segreteria</button>
-                        <button class="quick-btn" data-query="Argo"><i class="fa-solid fa-graduation-cap"></i> Registro Argo</button>
-                        <button class="quick-btn" data-query="Teams"><i class="fa-solid fa-video"></i> Microsoft Teams</button>
-                        <button class="quick-btn" data-query="modulistica"><i class="fa-solid fa-file-lines"></i> Modulistica</button>
+                    <div id="faq-buttons-container" class="quick-buttons">
+                        <!-- Generato dinamicamente via JS con icone differenti -->
                     </div>
                 </div>
 
-                <!-- Sezione Contatti Istituzionali Permanenti -->
+                <!-- Sezione Contatti Istituzionali Cliccabili -->
                 <div class="sidebar-section">
-                    <h3><i class="fa-solid fa-address-book"></i> Contatti Istituzionali</h3>
+                    <h3><i class="fa-solid fa-school"></i> Contatti Istituzionali</h3>
                     <div class="contact-card">
-                        <p><i class="fa-solid fa-location-dot"></i> <strong>Indirizzo:</strong> Via Dante Alighieri, Fucecchio (FI)</p>
-                        <p><i class="fa-solid fa-phone"></i> <strong>Telefono:</strong> 0571 20261</p>
-                        <p><i class="fa-solid fa-envelope"></i> <strong>Email:</strong> fiis00700c@istruzione.it</p>
-                        <p><i class="fa-solid fa-paper-plane"></i> <strong>PEC:</strong> fiis00700c@pec.istruzione.it</p>
+                        <p>
+                            <a href="https://maps.google.com/?q=Viale+Gramsci+7+Fucecchio" target="_blank" class="contact-link">
+                                <i class="fa-solid fa-location-dot"></i> <strong>Indirizzo:</strong><br>
+                                Viale Gramsci 7 - 50054 Fucecchio (FI)
+                            </a>
+                        </p>
+                        <p>
+                            <a href="tel:+39057120889" class="contact-link">
+                                <i class="fa-solid fa-phone"></i> <strong>Telefono:</strong><br>
+                                0571 20889
+                            </a>
+                        </p>
+                        <p>
+                            <a href="mailto:FIIS00300C@istruzione.it" class="contact-link">
+                                <i class="fa-solid fa-envelope"></i> <strong>Email:</strong><br>
+                                FIIS00300C@istruzione.it
+                            </a>
+                        </p>
+                        <p>
+                            <a href="mailto:FIIS00300C@pec.istruzione.it" class="contact-link">
+                                <i class="fa-solid fa-paper-plane"></i> <strong>PEC:</strong><br>
+                                FIIS00300C@pec.istruzione.it
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Footer Sidebar: Nuova Conversazione & Admin -->
             <div class="sidebar-footer">
                 <button id="new-chat-btn" class="action-btn-danger">
                     <i class="fa-solid fa-rotate-right"></i> Nuova Conversazione
                 </button>
-                <a href="admin.html" class="admin-link">
-                    <i class="fa-solid fa-gear"></i> Pannello di Amministrazione
-                </a>
             </div>
         </aside>
 
@@ -66,20 +79,21 @@
                 </div>
             </header>
 
-            <!-- Cronologia dei Messaggi -->
-            <div class="chat-messages" id="chat-messages">
+            <!-- Contenitore Messaggi della Chat -->
+            <div id="chat-messages" class="chat-messages">
                 <div class="message bot-message">
+                    <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
                     <div class="message-content">
-                        <p>👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".</p>
-                        <p style="margin-top: 6px;">Posso aiutarti con i termini del dizionario, informazioni scolastiche, calcoli matematici al volo o rispondere alle tue curiosità. Come posso aiutarti oggi?</p>
+                        👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
+                        Posso aiutarti con i termini del dizionario, informazioni scolastiche, calcoli matematici al volo o rispondere alle tue curiosità. Come posso aiutarti oggi?
                     </div>
                 </div>
             </div>
 
-            <!-- Barra di Input -->
+            <!-- Area Input e Invio Messaggi (leggermente piu in alto) -->
             <div class="chat-input-container">
-                <form id="chat-form" autocomplete="off">
-                    <input type="text" id="user-input" placeholder="Scrivi una domanda, un termine o un'espressione (es. 15 * 4)..." required>
+                <form id="chat-form">
+                    <input type="text" id="user-input" placeholder="Scrivi una domanda, un termine o un'espressione (es. 15 * 4)..." autocomplete="off">
                     <button type="submit" id="send-btn">
                         <i class="fa-solid fa-paper-plane"></i> Invia
                     </button>
@@ -88,7 +102,6 @@
         </main>
     </div>
 
-    <!-- Script principale -->
     <script src="js/script.js"></script>
 </body>
 </html>
