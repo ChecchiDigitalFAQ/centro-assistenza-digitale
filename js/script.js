@@ -131,7 +131,7 @@ let appConfig = {
         },
         {
             "id": "SALUTO_INIZIALE",
-            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
+            "keywords": ["salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
             "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         },
         {
@@ -243,15 +243,15 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DEI TERMINI BREVI ISOLATI ("SÌ", "NO", "OK") E FILTRO CASUALE
-    if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok") {
+    // 1. GESTIONE PULITA DI "SÌ", "NO", "OK" (SENZA MAI FAR RIPARTIRE IL BENVENUTO)
+    if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
-        rispondiBot("👍 Perfetto! Dimmi pure, come posso aiutarti oggi all'IIS \"Arturo Checchi\"?");
+        rispondiBot("👍 Perfetto! Se hai bisogno di approfondire o di un'altra informazione, chiedi pure.");
         return;
     }
     if (cleanQuery === "no") {
         inAttesaSceltaForm = false;
-        rispondiBot("Va bene! Se hai bisogno di qualcos'altro o di consultare qualche modulo, sono qui a tua disposizione.");
+        rispondiBot("Va bene! Se ti serve altro in futuro, sono qui a disposizione.");
         return;
     }
     if (cleanQuery.length < 2) {
