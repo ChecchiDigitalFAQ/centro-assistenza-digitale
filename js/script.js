@@ -105,7 +105,7 @@ let appConfig = {
         "universo": "📖 **Universo:** L'insieme di tutta la materia, dell'energia, dello spazio e del tempo.",
         "vaccino": "📖 **Vaccino:** Preparato biologico volto a procurare immunità attiva verso una specifica malattia.",
         "velocita": "📖 **Velocità:** Rapporto tra lo spazio percorso da un corpo e il tempo impiegato.",
-        "virus": "📖 **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
+        "virus": "📖 | **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
         "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas.",
         "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano."
     },
@@ -142,14 +142,28 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
-        // --- FAQ METEO / PREVISIONI (IRONICA) ---
+        
+        // --- FAQ ESTESE PER SIMPATIA E ANTIPATIA (TUTTE LE VARIABILI) ---
+        {
+            "id": "SIMPATIA",
+            "type": "fun",
+            "keywords": ["simpatico", "simpaticissimo", "molto simpatico", "che simpatico", "sei simpatico", "sei simpaticissimo", "quanto sei simpatico", "troppo simpatico", "simpa", "sei un mito", "sei forte"],
+            "responses": ["😄 Grazie di cuore! Faccio del mio meglio per unire l'utilità scolastica a un po' di buon umore all'IIS \"Arturo Checchi\"! 😎"]
+        },
+        {
+            "id": "ANTIPATIA",
+            "type": "fun",
+            "keywords": ["antipatico", "antipaticissimo", "molto antipatico", "che antipatico", "sei antipatico", "sei antipaticissimo", "quanto sei antipatico", "troppo antipatico", "anti", "sei noioso", "che noia", "sei pesante", "insopportabile"],
+            "responses": ["😅 Oh no, mi dispiace! Prometto di impegnarmi di più per strapparti un sorriso la prossima volta che parliamo di scuola! 😉"]
+        },
+        // -------------------------------------------------------------
+
         {
             "id": "METEO",
             "type": "fun",
             "keywords": ["che tempo fa", "meteo", "previsioni", "piove", "sole", "tempo domani", "tempo oggi", "previsioni meteo"],
             "responses": ["⛅ Non sono mica un colonnello dell'Aeronautica o un meteorologo televisivo! Per sapere se piove a Fucecchio ti conviene guardare fuori dalla finestra o dare un'occhiata a un sito meteo ufficiale. Io mi occupo della scuola dell'IIS \"Arturo Checchi\"! 🏫"]
         },
-        // ----------------------------------------
         {
             "id": "CREATORE",
             "type": "personal",
@@ -425,12 +439,12 @@ function processUserQuery(query) {
         }
     }
 
-    // 5. Ricerca FAQ avanzata
+    // 5. Ricerca FAQ avanzata (con controllo flessibile delle keyword)
     let bestMatch = null;
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
-            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword)) {
                 bestMatch = item;
             }
         });
