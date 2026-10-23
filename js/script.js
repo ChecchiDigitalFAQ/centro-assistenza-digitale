@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO GIGANTE per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi, Dizionario ENCICLOPEDICO e Sezione Intrattenimento per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,6 +8,24 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
+    // DATABASE BARZELLETE (Rotazione continua)
+    barzellete: [
+        "😂 Il professore di matematica interroga un alunno: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!无可 360 gradi!'",
+        "😂 Un alunno entra in classe con un ritardo spaventoso. Il professore lo guarda severo: 'Si può sapere perché arrivi a quest'ora?!' E lui: 'Prof, c'era un cartello per strada che diceva: *Scuola, rallentare!* E io ho rallentato!'",
+        "😂 Due studenti parlano prima del compito in classe: 'Hai studiato?' 'No, spero nell'ispirazione divina.' 'E se Dio è ateo?' 'Siamo spacciati!'",
+        "😂 Il maestro chiede alla classe: 'Qual è il colmo per un elettricista?' La classe tace. E lui: 'Condurre una vita piena di corrente e avere una moglie che gli fa scintille!'",
+        "😂 'Papà, papà! Mi fai un favore?' 'Dimmi tutto, figlio mio.' 'Mi firmi la giustificazione per il brutto voto?' 'Certo, ma prima fammi vedere il voto.' 'Ecco... 2.' 'Mmm... qui non serve una firma, ci vuole un miracolo divino!'"
+    ],
+
+    // DATABASE INDOVINELLI (Rotazione continua)
+    indovinelli: [
+        "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è?\n*(Risposta: Il buio!)*",
+        "🧩 **Indovinello:** Ha un solo occhio ma non ci vede. Che cos'è?\n*(Risposta: L'ago!)*",
+        "🧩 **Indovinello:** Tutti ce l'hanno, tutti lo perdono, ma nessuno sa dove l'abbia messo. Che cos'è?\n*(Risposta: Il filo del discorso / La memoria!)*",
+        "🧩 **Indovinello:** Cammina senza piedi, vola senza ali e piange senza occhi. Che cos'è?\n*(Risposta: La nuvola!)*",
+        "🧩 **Indovinello:** Se mi nomini mi distruggi. Chi sono?\n*(Risposta: Il silenzio!)*"
+    ],
+
     // DIZIONARIO ENCICLOPEDICO ESTESO (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
@@ -30,7 +48,7 @@ let appConfig = {
         "api": "📖 **API:** Application Programming Interface. Protocolli che consentono a software diversi di comunicare tra loro.",
         "app": "📖 **Applicazione (App):** Programma informatico progettato per svolgere specifiche attività su dispositivi digitali.",
         "archeologia": "📖 **Archeologia:** Scienza che studia le civiltà e le culture del passato attraverso i resti materiali.",
-        "architettura": "📖 **Architettura:** Arte e tecnica di progettare e costruire edifici e spazi urbani.",
+        "architettura": "📖 **Architettura:** Arte e tecnica di progettare e costuire edifici e spazi urbani.",
         "aristocrazia": "📖 **Aristocrazia:** Forma di governo in cui il potere supremo è detenuto dai nobili o dai migliori.",
         "armonia": "📖 **Armonia:** Combinazione equilibrata e gradevole di suoni, colori, forme o elementi distinti.",
         "asteroide": "📖 **Asteroide:** Piccolo corpo celeste roccioso o metallico che orbita attorno al Sole.",
@@ -112,7 +130,7 @@ let appConfig = {
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
-            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario enciclopedico!"]
+            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, definizioni e farti divertire con barzellette e indovinelli!"]
         },
         {
             "id": "CHI_SEI",
@@ -179,6 +197,8 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let ultimaCategoriaTrattata = ""; 
+let indiceBarzelletta = 0;
+let indiceIndovinello = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -255,199 +275,30 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. MOTORE DI CALCOLO MATEMATICO AL VOLO E RADICI QUADRATE
+    // 2. MOTORE BARZELLETTE CON ROTAZIONE AUTOMATICA CONTINUA
+    if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
+        let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
+        indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length; // Passa alla successiva in ciclo
+        rispondiBot(testoBarzelletta + "\n\n*(Vuoi un'altra barzelletta? Scrivimelo pure!)*");
+        return;
+    }
+
+    // 3. MOTORE INDOVINELLI CON ROTAZIONE AUTOMATICA CONTINUA
+    if (cleanQuery.includes("indovinello") || cleanQuery.includes("rompicapo") || cleanQuery.includes("indovina")) {
+        let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
+        indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length; // Passa al successivo in ciclo
+        rispondiBot(testoIndovinello + "\n\n*(Vuoi un altro indovinello? Chiedimelo pure!)*");
+        return;
+    }
+
+    // 4. MOTORE DI CALCOLO MATEMATICO AL VOLO E RADICI QUADRATE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let numeriEstratti = query.replace(/[^0-9.]/g, "");
         if (numeriEstratti !== "") {
             let num = parseFloat(numeriEstratti);
             let risultato = Math.sqrt(num);
-            rispondiBot(`🔢 La radice quadrata di **${num}** è **${ris risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!`);
+            rispondiBot(`🔢 La radice quadrata di **${num}** è **${risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!`);
             return;
         } else {
-            rispondiBot("🔢 Per calcolare la radice quadrata, scrivimi il numero (es. *radice quadrata di 81*).");
-            return;
-        }
-    }
-
-    // Calcoli aritmetici diretti (es. 8*9, 15+4, ecc. con numeri e simboli matematici)
-    let mathCheckQuery = query.replace(/\s+/g, "").replace(/x/g, "*");
-    if (/^[0-9+\-*/().]+$/.test(mathCheckQuery) && /[+\-*/]/.test(mathCheckQuery)) {
-        try {
-            let evalResult = Function('"use strict";return (' + mathCheckQuery + ')')();
-            if (!isNaN(evalResult)) {
-                rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!`);
-                return;
-            }
-        } catch (e) {
-            // Ignora errori di parsing matematico e prosegui
-        }
-    }
-
-    // Filtro per lettere isolate casuali
-    if (cleanQuery.length < 2) {
-        inAttesaSceltaForm = false;
-        ultimaCategoriaTrattata = "";
-        rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
-        return;
-    }
-
-    // 3. GESTIONE DELLA LINEARITÀ DEL DISCORSO (PERCHÉ / QUANDO)
-    if (cleanQuery === "perche" || cleanQuery === "perché") {
-        if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
-            return;
-        } else {
-            rispondiBot("🤔 A cosa ti riferisci di preciso con questo 'perché'? Chiedimi pure un'informazione specifica sull'istituto!");
-            return;
-        }
-    }
-    if (cleanQuery === "quando") {
-        if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
-            return;
-        } else {
-            rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
-            return;
-        }
-    }
-
-    // 4. Gestione interattiva dei form
-    if (inAttesaSceltaForm) {
-        inAttesaSceltaForm = false;
-        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
-            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
-            return;
-        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
-            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
-            return;
-        }
-    }
-
-    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
-        inAttesaSceltaForm = true;
-        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
-        return;
-    }
-
-    // 5. Ricerca nel Dizionario Enciclopedico
-    let wordToSearch = cleanQuery
-        .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
-        .trim();
-
-    if (wordToSearch.length >= 2) {
-        for (const [term, def] of Object.entries(appConfig.dictionary)) {
-            if (wordToSearch === term || cleanQuery.includes(term)) {
-                ultimaCategoriaTrattata = "DIZIONARIO";
-                rispondiBot(def);
-                return;
-            }
-        }
-    }
-
-    // 6. Ricerca FAQ
-    let matchedFaq = null;
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            if (cleanQuery.includes(kw) || kw.includes(cleanQuery) || calcolaSomiglianza(cleanQuery, kw) > 0.65) {
-                matchedFaq = faq;
-            }
-        });
-    });
-
-    if (matchedFaq) {
-        ultimaCategoriaTrattata = matchedFaq.id; 
-        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
-        rispondiBot(resp);
-    } else {
-        ultimaCategoriaTrattata = ""; 
-        rispondiBot(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`);
-    }
-}
-
-function calcolaSomiglianza(s1, s2) {
-    let parole1 = s1.split(" ");
-    let parole2 = s2.split(" ");
-    let matchCount = 0;
-    parole1.forEach(p1 => {
-        parole2.forEach(p2 => {
-            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
-                matchCount++;
-            }
-        });
-    });
-    return matchCount / Math.max(parole1.length, parole2.length);
-}
-
-function rispondiBot(testo) {
-    appendMessage(testo, "bot");
-}
-
-function quickAction(id) {
-    let found = appConfig.faqs.find(f => f.id === id);
-    if (found) {
-        ultimaCategoriaTrattata = found.id;
-        rispondiBot(found.responses[0]);
-    }
-}
-
-function appendMessage(text, sender) {
-    const chatBox = document.getElementById("chat-messages");
-    if (!chatBox) return;
-    
-    const messageDiv = document.createElement("div");
-    const isBot = (sender === "bot");
-    messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
-
-    const avatarDiv = document.createElement("div");
-    avatarDiv.classList.add("message-avatar");
-    avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
-
-    const bubble = document.createElement("div");
-    bubble.classList.add("message-content");
-    bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
-
-    if (isBot) {
-        messageDiv.appendChild(avatarDiv);
-        messageDiv.appendChild(bubble);
-    } else {
-        messageDiv.appendChild(bubble);
-        messageDiv.appendChild(avatarDiv);
-    }
-
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function resetChat() {
-    inAttesaSceltaForm = false;
-    ultimaCategoriaTrattata = "";
-    const chatBox = document.getElementById("chat-messages");
-    if (!chatBox) return;
-    chatBox.innerHTML = `
-        <div class="message bot-message">
-            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
-            <div class="message-content">
-                👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
-                Conversazione riavviata! Come posso aiutarti oggi?
-            </div>
-        </div>
-    `;
-}
-
-// Funzione per la data e l'ora in tempo reale in alto a destra
-function startClock() {
-    const clockEl = document.getElementById("live-clock");
-    if (!clockEl) return;
-    
-    function updateDateTime() {
-        const now = new Date();
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        const dataFormattata = now.toLocaleDateString('it-IT', options);
-        const oraFormattata = now.toLocaleTimeString('it-IT');
-        
-        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
-    }
-    
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-}
+            rispondiBot("🔢
+                        
