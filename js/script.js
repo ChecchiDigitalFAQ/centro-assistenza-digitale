@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario integrato COMPLETO per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario integrato AMPLIATO per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,122 +8,92 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
-    // DIZIONARIO ED ENCICLOPEDIA LOCALE COMPLETA (A-Z)
+    // DIZIONARIO ED ENCICLOPEDIA LOCALE AMPLIATA (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
         "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
         "aforisma": "📖 **Aforisma:** Breve massima o sentenza che esprime in modo denso e sintetico una verità o un principio morale.",
-        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità rappresentate tramite simboli.",
-        "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni per risolvere un problema.",
+        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
+        "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
         "allegoria": "📖 **Allegoria:** Figura retorica mediante la quale un concetto astratto viene espresso attraverso un'immagine concreta.",
-        "allitterazione": "📖 **Allitterazione:** Ripetizione dello stesso suono o della stessa sillaba all'inizio o all'interno di più parole vicine.",
-        "amministratore": "📖 **Amministratore:** Persona responsabile della gestione e configurazione avanzata di un sistema informatico o di un'organizzazione.",
-        "analogia": "📖 **Analogia:** Rapporto di somiglianza tra due elementi o situazioni diverse, usato per spiegare un concetto.",
-        "android": "📖 **Android:** Sistema operativo mobile open source basato sul kernel Linux, sviluppato da Google per smartphone e tablet.",
-        "anfora": "📖 **Anfora:** Vaso antico di terracotta con due manici e collo stretto, usato per contenere vino, olio o grano.",
-        "antigene": "📖 **Antigene:** Sostanza capace di indurre una risposta immunitaria e la produzione di anticorpi nell'organismo.",
-        "antitesi": "📖 **Antitesi:** Figura retorica che accosta due concetti opposti per far risaltare il loro contrasto.",
-        "antropologia": "📖 **Antropologia:** Scienza che studia l'essere umano dal punto di vista biologico, culturale, sociale ed evolutivo.",
-        "api": "📖 **API:** Application Programming Interface. Insieme di definizioni e protocolli usati per far comunicare software diversi.",
-        "app": "📖 **Applicazione (App):** Programma informatico progettato per consentire all'utente di svolgere specifiche attività su PC o dispositivi mobili.",
-        "archeologia": "📖 **Archeologia:** Scienza che studia le civiltà antiche attraverso il recupero e l'analisi dei reperti materiali.",
-        "armonia": "📖 **Armonia:** Combinazione gradevole ed equilibrata di suoni, colori, forme o elementi distinti.",
+        "allitterazione": "📖 **Allitterazione:** Ripetizione dello stesso suono o della stessa sillaba all'inizio o all'interno di parole vicine.",
+        "amministratore": "📖 **Amministratore:** Persona responsabile della gestione, configurazione e sicurezza di un sistema o organizzazione.",
+        "analogia": "📖 **Analogia:** Rapporto di somiglianza tra elementi o situazioni diverse, usato per spiegare un concetto.",
+        "android": "📖 **Android:** Sistema operativo mobile open source basato su kernel Linux, sviluppato da Google.",
+        "anfora": "📖 **Anfora:** Antico vaso di terracotta con due manici e collo stretto, usato per contenere vino o olio.",
+        "antigene": "📖 **Antigene:** Sostanza capace di indurre una risposta immunitaria e la produzione di anticorpi.",
+        "antitesi": "📖 **Antitesi:** Figura retorica che accosta due concetti o parole di senso opposto per risaltare il contrasto.",
+        "antropologia": "📖 **Antropologia:** Scienza che studia l'essere umano sotto l'aspetto biologico, culturale e sociale.",
+        "api": "📖 **API:** Application Programming Interface. Protocolli che consentono a software diversi di comunicare tra loro.",
+        "app": "📖 **Applicazione (App):** Programma informatico progettato per svolgere specifiche attività su dispositivi digitali.",
+        "archeologia": "📖 **Archeologia:** Scienza che studia le civiltà e le culture del passato attraverso i resti materiali.",
+        "armonia": "📖 **Armonia:** Combinazione equilibrata e gradevole di suoni, colori, forme o elementi distinti.",
+        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
         "audiobook": "📖 **Audiobook:** Libro recitato da uno speaker o attore e registrato in formato audio digitale.",
-        "autonomia": "📖 **Autonomia:** Capacità di un individuo o di un ente di governarsi da solo e di prendere decisioni indipendenti.",
-        "backup": "📖 **Backup:** Copia di sicurezza di file o dati informatici creata per prevenire la perdita involontaria di informazioni.",
+        "autonomia": "📖 **Autonomia:** Capacità di un individuo o di un ente di governarsi da solo e prendere decisioni.",
+        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
         "barometro": "📖 **Barometro:** Strumento scientifico utilizzato per misurare la pressione atmosferica.",
-        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di nucleo ben definito.",
-        "biologia": "📖 **Biologia:** Scienza scientifica che studia i viventi, la loro struttura, funzione, crescita ed evoluzione.",
-        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine del World Wide Web.",
-        "bug": "📖 **Bug:** Errore, anomalia o difetto nel codice sorgente di un software che causa un funzionamento imprevisto o errato.",
-        "cappannone": "📖 **Capannone:** Grande edificio ad un solo piano adibito a magazzino, produzione industriale o laboratorio.",
-        "cartografia": "📖 **Cartografia:** Scienza e tecnica della preparazione e del disegno di carte geografiche e mappe.",
-        "catalizzatore": "📖 **Catalizzatore:** Sostanza chimica che aumenta la velocità di una reazione senza consumarsi nel processo.",
-        "cellula": "📖 **Cellula:** L'unità strutturale e funzionale di base di tutti gli organismi viventi.",
-        "chiaroscuro": "📖 **Chiaroscuro:** Tecnica pittorica basata sull'uso accentuato dei contrasti tra luce e ombra per dare rilievo alle figure.",
-        "chimerico": "📖 **Chimerico:** Che è frutto di pura fantasia, utopico, irreale o impossibile da realizzare.",
-        "clorofilla": "📖 **Clorofilla:** Pigmento verde presente nelle piante indispensabile per la fotosintesi clorofilliana.",
+        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di un nucleo cellulare ben definito.",
+        "biologia": "📖 **Biologia:** Scienza che studia la vita, gli organismi viventi, la loro struttura e la loro evoluzione.",
+        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
+        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
+        "cappannone": "📖 **Capannone:** Grande edificio ad un solo piano adibito a magazzino, produzione o laboratorio.",
+        "cartografia": "📖 **Cartografia:** Scienza e tecnica della preparazione, studio e disegno delle carte geografiche.",
+        "catalizzatore": "📖 **Catalizzatore:** Sostanza che aumenta la velocità di una reazione chimica senza consumarsi.",
+        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
+        "chiaroscuro": "📖 **Chiaroscuro:** Tecnica pittorica basata sull'uso dei contrasti tra luce e ombra.",
+        "clorofilla": "📖 **Clorofilla:** Pigmento verde presente nelle piante indispensabile per la fotosintesi.",
         "cloud": "📖 **Cloud Computing:** Rete di server remoti accessibili via internet per memorizzare dati ed elaborare programmi.",
-        "cometa": "📖 **Cometa:** Corpo celeste roccioso e ghiacciato che sviluppa una chioma luminosa quando si avvicina al Sole.",
-        "comunicazione": "📖 **Comunicazione:** Processo di trasmissione di informazioni, idee e messaggi tra un emittente e un ricevente.",
-        "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il vero e proprio 'cervello' del computer.",
-        "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile ed aggiornabile.",
-        "democrazia": "📖 **Democrazia:** Forma di governo in cui il potere sovrano appartiene al popolo, che lo esercita direttamente o tramite rappresentanti.",
-        "didattica": "📖 **Didattica:** Scienza dell'insegnamento e dei metodi di apprendimento scolastico ed educativo.",
-        "diploma": "📖 **Diploma:** Titolo di studio ufficiale rilasciato al completamento di un percorso di istruzione scolastica o accademica.",
-        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che racchiude tutte le informazioni genetiche dell'organismo.",
-        "dramma": "📖 **Dramma:** Opera teatrale o cinematografica caratterizzata dallo sviluppo inteso di conflitti ed emozioni forti.",
-        "ecosistema": "📖 **Ecosistema:** Insieme degli organismi viventi e dell'ambiente fisico con cui interagiscono in un determinato territorio.",
-        "educazione": "📖 **Educazione:** Processo continuo di sviluppo delle facoltà intellettuali, morali e fisiche dell'individuo.",
+        "cometa": "📖 **Cometa:** Corpo celeste ghiacciato che sviluppa una chioma luminosa quando si avvicina al Sole.",
+        "comunicazione": "📖 **Comunicazione:** Processo di trasmissione di informazioni e messaggi tra un emittente e un ricevente.",
+        "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
+        "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
+        "democrazia": "📖 **Democrazia:** Forma di governo in cui il potere sovrano appartiene al popolo.",
+        "didattica": "📖 **Didattica:** Scienza dell'insegnamento e dei metodi di apprendimento educativo.",
+        "diploma": "📖 **Diploma:** Titolo di studio ufficiale rilasciato al completamento di un percorso scolastico.",
+        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
+        "ecosistema": "📖 **Ecosistema:** Insieme degli organismi viventi e dell'ambiente fisico di un territorio.",
         "elettricita": "📖 **Elettricità:** Insieme dei fenomeni fisici associati alla presenza e al flusso di cariche elettriche.",
-        "elettrone": "📖 **Elettrone:** Particella subatomica con carica elettrica negativa che orbita attorno al nucleo atomico.",
-        "email": "📖 **E-mail:** Posta elettronica. Servizio per la trasmissione di messaggi digitali via internet tra utenti.",
-        "enciclopedia": "📖 **Enciclopedia:** Opera che raccoglisce in modo sistematico il complesso delle conoscenze umane o di una disciplina.",
         "energia": "📖 **Energia:** Grandezza fisica che misura la capacità di un sistema di compiere un lavoro.",
-        "entropia": "📖 **Entropia:** In termodinamica, misura del grado di disordine o di indisponibilità di energia di un sistema isolato.",
-        "enzima": "📖 **Enzima:** Proteina ad azione catalitica grado di accelerare specifiche reazioni biochimiche nell'organismo.",
-        "equazione": "📖 **Equazione:** Uguaglianza matematica tra due espressioni algebriche contenente una o più incognite.",
-        "ermeneutica": "📖 **Ermeneutica:** Arte e metodologia dell'interpretazione, della spiegazione e della traduzione dei testi.",
-        "etica": "📖 **Etica:** Ramo della filosofia che studia i principi e i valori che guidano il comportamento umano distinguendo il bene dal male.",
-        "evoluzione": "📖 **Evoluzione:** Processo di graduale e continuo cambiamento biologico delle specie viventi nel corso delle generazioni.",
-        "filantropo": "📖 **Filantropo:** Persona che si dedica a opere di bene, alla beneficenza e ad aiutare il prossimo per amore dell'umanità.",
-        "filologia": "📖 **Filologia:** Disciplina che studia i testi letterari ed i documenti scritti per ricostruirne la forma originale.",
-        "fisiologia": "📖 **Fisiologia:** Scienza biologica che studia il funzionamento degli organismi viventi e dei loro organi.",
-        "frazione": "📖 **Frazione:** Rappresentazione matematica del rapporto tra due numeri interi detti numeratore e denominatore.",
-        "fusione": "📖 **Fusione Nucleare:** Reazione nucleare in cui due nuclei atomici leggeri si uniscono per formarne uno più pesante.",
-        "galassia": "📖 **Galassia:** Insieme gigantesco di stelle, sistemi, gas e polveri legati insieme dalla forza di gravità.",
-        "genoma": "📖 **Genoma:** Il corredo genetico completo di un organismo contenuto nel suo DNA.",
-        "gravita": "📖 **Gravità:** Forza fondamentale di attrazione reciproca esercitata tra corpi dotati di massa.",
-        "hardware": "📖 **Hardware:** La parte fisica e tangibile di un computer (componenti, schermo, tastiera).",
-        "html": "📖 **HTML:** HyperText Markup Language. Linguaggio di marcatura usato per definire la struttura delle pagine web.",
-        "idillio": "📖 **Idillio:** Breve componimento poetico d'ispirazione pastorale, incentrato su temi sereni e naturali.",
-        "indirizzo ip": "📖 **Indirizzo IP:** Etichetta numerica che identifica in modo univoco un dispositivo collegato a una rete informatica.",
-        "internet": "📖 **Internet:** Rete globale di calcolatori collegati tra loro che comunicano tramite protocolli standardizzati.",
-        "istruzione": "📖 **Istruzione:** L'attività metodica di insegnamento e trasmissione delle conoscenze e competenze culturali.",
-        "java": "📖 **Java:** Linguaggio di programmazione orientato agli oggetti ampiamente utilizzato nello sviluppo di applicazioni.",
-        "json": "📖 **JSON:** JavaScript Object Notation. Formato leggero basato su testo per lo scambio ed il trasferimento di dati digitali.",
-        "kernel": "📖 **Kernel:** Il core centrale del sistema operativo che gestisce direttamente l'hardware e l'allocazione delle risorse.",
-        "laboratorio": "📖 **Laboratorio:** Locale attrezzato con strumenti specifici per la sperimentazione scientifica o la didattica pratica.",
-        "lan": "📖 **LAN:** Local Area Network. Rete informatica privata che collega computer in un'area geografica limitata.",
-        "litote": "📖 **Litote:** Figura retorica che consiste nell'affermare un concetto negando il suo contrario.",
-        "malware": "📖 **Malware:** Qualsiasi programma informatico malevolo progettato per danneggiare, spiare o compromettere un sistema.",
-        "maratona": "📖 **Maratona:** Corsa podistica sulla distanza olimpica di 42,195 km. In senso figurato indica una prova lunga e impegnativa.",
-        "matematica": "📖 **Matematica:** Scienza che studia le quantità, le structures spaziali, le forme ed i concetti di calcolo e misura.",
-        "mecenate": "📖 **Mecenate:** Persona di ampie disponibilità economiche che protegge e sostiene finanziariamente artisti, letterati e studiosi.",
-        "metafora": "📖 **Metafora:** Figura retorica che sostituisce un termine con un altro legato da un rapporto di somiglianza.",
-        "metodologia": "📖 **Metodologia:** Studio dei metodi e dei principi guida applicati in una ricerca scientifica o nella didattica.",
-        "metonimia": "📖 **Metonimia:** Figura retorica che consiste nel sostituire un termine con un altro legato da una relazione di contiguità.",
-        "museo": "📖 **Museo:** Istituzione permanente che raccoglisce, conserva, studia ed espone opere d'arte o reperti storici e scientifici.",
-        "neologismo": "📖 **Neologismo:** Parola o espressione nuova introdotta di recente all'interno di una lingua.",
-        "normativa": "📖 **Normativa:** Insieme di leggi, regolamenti e norme che disciplinano un determinato settore o attività.",
-        "omeostasi": "📖 **Omeostasi:** Attitudine degli organismi viventi a mantenere costante il proprio ambiente interno.",
-        "onomatopea": "📖 **Onomatopea:** Figura retorica che consiste nel riprodurre o evocare, tramite i suoni di una parola, un rumore naturale o un'azione.",
-        "ossimoro": "📖 **Ossimoro:** Unione di due parole di significato opposto e apparentemente inconciliabile.",
-        "paragrafo": "📖 **Paragrafo:** Porzione di testo compresa tra due punti a capo, formata da una o più frasi incentrate su un unico concetto.",
-        "password": "📖 **Password:** Parola chiave o sequenza segreta di caratteri usata per autenticarsi ed accedere ad un account protetto.",
-        "pec": "📖 **PEC:** Posta Elettronica Certificata. Email con valore legale pari ad una raccomandata con ricevuta di ritorno.",
-        "procedura": "📖 **Procedura:** Insieme di istruzioni riutilizzabili che eseguono un compito senza restituire un valore formale di ritorno.",
-        "prosopopea": "📖 **Prosopopea:** Personificazione retorica mediante la quale si fanno parlare oggetti inanimati, defunti o concetti astratti.",
-        "python": "📖 **Python:** Linguaggio di programmazione ad alto livello famoso per la sua sintassi semplice e versatilità.",
-        "ram": "📖 **RAM:** Random Access Memory. Memoria ad accesso casuale ad alta velocità usata dal computer per i dati in esecuzione.",
-        "relitto": "📖 **Relitto:** Ciò che rimane di una nave, di un aereo o di un veicolo distrutto o affondato.",
-        "router": "📖 **Router:** Dispositivo di rete che instrada i pacchetti di dati tra reti informatiche diverse.",
-        "server": "📖 **Server:** Elaboratore ad alte prestazioni destinato a gestire ed erogare risorse e servizi a molteplici client.",
-        "sillogismo": "📖 **Sillogismo:** Tipo di ragionamento deduttivo della logica aristotelica formato da due premesse e una conclusione.",
-        "similitudine": "📖 **Similitudine:** Figura retorica che paragona un elemento all'altro.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni di un computer.",
-        "url": "📖 **URL:** Uniform Resource Locator. Indirizzo web.",
-        "usb": "📖 **USB:** Universal Serial Bus. Standard di connessione.",
-        "virus": "📖 **Virus:** Codice malevolo."
+        "fotone": "📖 **Fotone:** Particella elementare che costituisce la radiazione elettromagnetica e la luce.",
+        "galassia": "📖 **Galassia:** Immense aggregazioni di stelle, gas e polveri tenute insieme dalla gravità.",
+        "gravita": "📖 **Gravità:** Forza di attrazione reciproca tra corpi dotati di massa.",
+        "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
+        "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
+        "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
+        "piramide": "📖 **Piramide:** Solido geometrico con base poligonale e facce triangolari convergenti in un vertice.",
+        "pianeta": "📖 **Pianeta:** Corpo celeste che orbita attorno a una stella senza emettere luce propria.",
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
+        "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas."
     },
 
     faqs: [
+        {
+            "id": "AIUTO",
+            "type": "school",
+            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "cose arturo", "chi e arturo"],
+            "responses": [
+                "🤖 **Ciao! Sono Arturo**, l'assistente digitale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio.\n\n" +
+                "💡 **Cosa posso fare per te?**\n" +
+                "• 📚 **Enciclopedia e Dizionario:** Chiedimi la definizione di qualsiasi termine tecnico, scientifico, matematico o letterario (es. *\"Cos'è un algoritmo?\"* o *\"Definizione di osmosi\"*).\n" +
+                "• 🧮 **Calcoli Veloci:** Posso risolvere espressioni o calcoli al volo per te (es. *\"15 * 4\"*).\n" +
+                "• 📋 **Modulistica e Form:** Posso guidarti rapidamente verso i moduli e i form ufficiali della scuola (fotocopie, piani di lavoro, permessi, esperti esterni).\n" +
+                "• 🏫 **Informazioni Istituzionali:** Fornisco contatti, orari e indicazioni sui servizi digitali dell'istituto (Teams, Registro Argo, email istituzionali).\n\n" +
+                "Scrivi pure la tua domanda qui sotto o usa i pulsanti rapidi a sinistra!"
+            ]
+        },
         {
             "id": "CHI_SEI",
             "type": "chat",
             "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome", "nome", "ti chiami"],
             "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
+        },
+        {
+            "id": "DOVE_VIVI",
+            "type": "chat",
+            "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei umano", "sei un robot", "cosa sei"],
+            "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
         },
         {
             "id": "CREATORE",
@@ -291,7 +261,7 @@ function processUserQuery(query) {
         } catch (e) {}
     }
 
-    // 3. Ricerca nel Dizionario Universale
+    // 3. Ricerca nel Dizionario Ampliato
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -305,7 +275,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 4. Ricerca FAQ migliorata
+    // 4. Ricerca FAQ avanzata
     let bestMatch = null;
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
