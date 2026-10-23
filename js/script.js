@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO MILLENARIO ESTESO per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO GIGANTE per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -121,8 +121,7 @@ let appConfig = {
                 "• 📋 **Ricerca di Form e Modulistica:** Ti aiuto a trovare e compilare i moduli ufficiali dell'istituto (richiesta fotocopie, autorizzazione esperti esterni, piani di lavoro, permessi).\n" +
                 "• 🧭 **Orientamento e Informazioni:** Guido studenti, docenti e famiglie tra le risorse, le attività e l'offerta formativa della scuola.\n" +
                 "• 💻 **Account e Servizi Digitali:** Fornisco indicazioni e supporto per l'accesso agli account istituzionali, Microsoft 365, Teams e al registro elettronico Argo.\n" +
-                "• 📚 **Enciclopedia e Calcoli:** Puoi chiedermi la definizione di centinaia di termini enciclopedici o calcoli matematici al volo.\n\n" +
-                "Scrivi pure la tua richiesta qui sotto o seleziona un argomento rapido!"
+                "• 📚 **Enciclopedia e Calcoli:** Puoi chiedermi la definizione di centinaia di termini enciclopedici o calcoli matematici al volo."
             ]
         },
         {
@@ -180,6 +179,12 @@ let appConfig = {
             "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         },
         {
+            "id": "COMPLIMENTO",
+            "type": "chat",
+            "keywords": ["bravo", "ottimo", "perfetto", "grazie", "eccellente", "sei forte", "grande"],
+            "responses": ["😊 Grazie mille! Sono sempre felice di poter dare una mano alla comunità dell'IIS \"Arturo Checchi\"."]
+        },
+        {
             "id": "CONTATTI",
             "type": "school",
             "keywords": ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete", "indirizzo", "contatti"],
@@ -209,6 +214,7 @@ let appConfig = {
 let inactivityTimer = null;
 const RESET_TIME_MS = 30 * 60 * 1000;
 let contatoreInappropriato = 0;
+let inAttesaScelta = false; // Stato per gestire Sì/No
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -279,7 +285,20 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. Moderazione
+    // 1. Gestione dello stato di attesa (Sì / No)
+    if (inAttesaScelta) {
+        inAttesaScelta = false;
+        if (cleanQuery === "si" || cleanQuery === "sì") {
+            appendMessage("Chiedi pure!", "bot");
+            return;
+        } else if (cleanQuery === "no") {
+            appendMessage("👋 Va bene! Ti auguro una buona giornata. A presto!", "bot");
+            return;
+        }
+        // Se l'utente scrive direttamente un'altra domanda, prosegue normalmente sotto
+    }
+
+    // 2. Moderazione
     const paroleInappropriate = ["sesso", "porno", "scopare", "uccidere"];
     if (paroleInappropriate.some(p => cleanQuery.includes(p))) {
         contatoreInappropriato++;
@@ -291,19 +310,19 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Calcolatrice matematica al volo
+    // 3. Calcolatrice matematica al volo
     const mathExpression = extractMathExpression(cleanQuery);
     if (mathExpression) {
         try {
             const result = Function(`'use strict'; return (${mathExpression})`)();
             if (!isNaN(result)) {
-                appendMessage(`🧮 Ho calcolato l'espressione per te:\n**${mathExpression} = ${result}**`, "bot");
+                rispondiConChiusura(`🧮 Ho calcolato l'espressione per te:\n**${mathExpression} = ${result}**`);
                 return;
             }
         } catch (e) {}
     }
 
-    // 3. Ricerca nel Dizionario
+    // 4. Ricerca nel Dizionario
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -311,13 +330,13 @@ function processUserQuery(query) {
     if (wordToSearch !== "") {
         for (const [term, definition] of Object.entries(appConfig.dictionary)) {
             if (wordToSearch === term || cleanQuery.includes(term)) {
-                appendMessage(definition, "bot");
+                rispondiConChiusura(definition);
                 return;
             }
         }
     }
 
-    // 4. Ricerca FAQ avanzata
+    // 5. Ricerca FAQ avanzata
     let bestMatch = null;
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
@@ -330,10 +349,19 @@ function processUserQuery(query) {
 
     if (bestMatch) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
-        appendMessage(responseText, "bot");
+        rispondiConChiusura(responseText);
     } else {
         appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
     }
+}
+
+// Funzione di utilità per accodare la domanda di cortesia e attivare l'attesa del Sì/No
+function rispondiConChiusura(testoRisposta) {
+    appendMessage(testoRisposta, "bot");
+    setTimeout(() => {
+        appendMessage("Cos'altro posso fare per te? Vuoi chiedere altro?", "bot");
+        inAttesaScelta = true;
+    }, 400);
 }
 
 function extractMathExpression(text) {
@@ -349,7 +377,7 @@ function quickAction(actionId) {
     const match = appConfig.faqs.find(item => item.id === actionId);
     if (match) {
         const responseText = match.responses[0];
-        appendMessage(responseText, "bot");
+        rispondiConChiusura(responseText);
     } else {
         processUserQuery(actionId);
     }
@@ -392,6 +420,7 @@ function appendMessage(text, sender) {
 
 function resetChat() {
     contatoreInappropriato = 0;
+    inAttesaScelta = false;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
