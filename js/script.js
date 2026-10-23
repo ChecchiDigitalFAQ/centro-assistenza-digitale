@@ -1,3 +1,4 @@
+// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -7,6 +8,7 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
+    // DIZIONARIO ENCICLOPEDICO COMPLETO (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
@@ -25,70 +27,109 @@ let appConfig = {
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
-        "osmosi": "📖 **Osmosi:** Diffusione di un solvente attraverso una membrana semipermeabile."
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare."
     },
 
     faqs: [
         {
-            "id": "SALUTO",
-            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey"],
-            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale dell'IIS Arturo Checchi. Come posso aiutarti oggi?"]
+            "id": "AIUTO",
+            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
+            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario!"]
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome", "cimo tu chiami", "comu ti chiami"],
-            "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale dell'IIS Arturo Checchi!"]
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo ti chiami", "comu ti chiami"],
+            "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
-            "id": "NASCITA_LUOGO",
-            "keywords": ["quando sei nato", "dove sei nato", "dove vivi", "dove ti trovi", "eta", "sei un robot"],
-            "responses": ["🤖 Sono nato nel mondo digitale e vivo nei server dell'**IIS Arturo Checchi** a Fucecchio! Non ho un'età vera e propria, ma sono sempre aggiornato."]
+            "id": "DOVE_VIVI",
+            "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
+            "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
+        },
+        // --- DOMANDE PERSONALI SUI "TI..." ---
+        {
+            "id": "TI_NUTELLA",
+            "keywords": ["ti piace la nutella", "nutella", "cioccolata"],
+            "responses": ["🍫 Adorerei farne il pieno, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati!"]
         },
         {
-            "id": "BARZELLETTA",
-            "keywords": ["barzelletta", "raccontami una barzelletta", "fammi ridere", "battuta", "indovinello"],
-            "responses": [
-                "😄 Perché i computer vanno in vacanza? Per ricaricare le batterie!",
-                "😄 Cosa fa un punto e virgola su una spiaggia? Il punto di domanda!",
-                "😄 Perché il Wi-Fi della scuola è sempre sereno? Perché naviga nell'aria!"
-            ]
+            "id": "TI_MARE",
+            "keywords": ["ti piace il mare", "mare", "spiaggia"],
+            "responses": ["🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti!"]
         },
         {
-            "id": "AIUTO",
-            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "come funzioni", "cos'e arturo"],
-            "responses": ["Posso aiutarti a trovare informazioni generali, contatti, orari di segreteria, moduli per docenti/studenti, definizioni del dizionario e supporto per Teams e Argo!"]
+            "id": "TI_ANIMALI",
+            "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali", "ti piacciono gli uccelli"],
+            "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."]
         },
         {
-            "id": "CONTATTI",
-            "keywords": ["contatti", "telefono", "email", "pec", "dove siete", "indirizzo"],
-            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it\n📨 **PEC:** FIIS00300C@pec.istruzione.it"]
+            "id": "TI_PERSONE",
+            "keywords": ["ti piacciono le donne", "ti piacciono gli uomini", "ti piacciono le persone"],
+            "responses": ["❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti!"]
+        },
+        {
+            "id": "TI_DORMIRE",
+            "keywords": ["ti piace dormire", "ti addormenti", "hai sonno", "dormi"],
+            "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."]
+        },
+        {
+            "id": "TI_SALUTO",
+            "keywords": ["ti saluto", "ti saluta"],
+            "responses": ["👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."]
+        },
+        {
+            "id": "TI_AMO",
+            "keywords": ["ti amo", "ti voglio bene", "ti adoro"],
+            "responses": ["❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io!"]
+        },
+        {
+            "id": "TI_ODIO",
+            "keywords": ["ti odio", "ti stacco", "ti spengo"],
+            "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."]
+        },
+        // --- SPAZIO E CURIOSITÀ ---
+        {
+            "id": "MARTE_LUNA",
+            "keywords": ["marte", "sulla luna", "ci sei stato su marte"],
+            "responses": ["🚀 Io su Marte o sulla Luna? Magari! Purtroppo il mio hardware è troppo pesante per un razzo: preferisco il cloud dell'IIS \"Arturo Checchi\"!"]
+        },
+        {
+            "id": "BARZELLETTE",
+            "keywords": ["barzelletta", "fammi ridere", "un'altra"],
+            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
+        },
+        {
+            "id": "INDOVINELLO",
+            "keywords": ["indovinello"],
+            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)"]
+        },
+        // --- SCUOLA E UFFICI ---
+        {
+            "id": "CREATORE",
+            "keywords": ["chi ti ha creato", "creatore", "programmato", "sviluppato"],
+            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"]
         },
         {
             "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
-            "responses": ["👔 La Dirigenza riceve su appuntamento. Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
+            "keywords": ["dirigenza", "preside", "dirigente", "chi e il preside", "chi e la preside", "dirigente scolastico", "preside del checchi"],
+            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
-            "id": "SEGRETERIE",
-            "keywords": ["segreteria", "uffici", "orari segreteria", "didattica", "personale", "plessi", "sedi", "sede centrale", "ite"],
-            "responses": ["📋 La segreteria si divide in **Didattica** e **Personale**. Gli sportelli sono aperti al pubblico dal lunedì al venerdì dalle 08:00 alle 10:00."]
+            "id": "COLLABORATORI_DIRIGENTE",
+            "keywords": ["collaboratori", "collaboratore", "vicepreside", "vice preside"],
+            "responses": ["👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."]
         },
         {
-            "id": "MICROSOFT365",
-            "keywords": ["teams", "microsoft", "argo", "registro", "servizi digitali", "password"],
-            "responses": ["💻 Per i servizi digitali (Teams, Outlook, Argo) puoi recuperare la password o richiedere assistenza rivolgendoti all'Animatore Digitale o alla segreteria."]
+            "id": "SEDI_ISTITUTO",
+            "keywords": ["plessi", "quanti plessi", "sedi", "sede centrale", "ite"],
+            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**), oltre alle altre sedi dell'istituto."]
         },
         {
-            "id": "RINGRAZIAMENTO",
-            "keywords": ["ok grazie", "grazie e basta", "grazie per l'aiuto", "grazie sei un grande", "grazie di tutto", "grazie mille", "perfetto grazie", "molto gentile", "grazie", "ti ringrazio", "perfetto", "sei un mito"],
-            "responses": ["😊 Prego! È un vero piacere poter dare una mano. Se hai bisogno di altro per l'IIS \"Arturo Checchi\", chiedi pure! A presto! 👋"]
+            "id": "CONTATTI",
+            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
+            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
         },
-        {
-            "id": "SALUTO_FINALE",
-            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio"],
-            "responses": ["👋 Ricambio con affetto il saluto! Ti auguro una splendida giornata. A presto da Arturo e da tutta la comunità dell'IIS \"Arturo Checchi\"! 🏫"]
-        },
+        // --- FORM SPECIFICI ---
         {
             "id": "FORM_FOTOCOPIE",
             "keywords": ["fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
@@ -98,6 +139,11 @@ let appConfig = {
             "id": "FORM_ESPERTI",
             "keywords": ["esperti", "esperti esterni", "autorizzazione esperti", "form esperti"],
             "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
+        },
+        {
+            "id": "SALUTO",
+            "keywords": ["ciao", "salve", "buongiorno", "buonasera"],
+            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         }
     ]
 };
@@ -106,7 +152,6 @@ let inAttesaSceltaForm = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
-    startClock();
 });
 
 function initApp() {
@@ -163,10 +208,11 @@ function processUserQuery(query) {
         .replace(/[ìí]/g, "i")
         .replace(/[òó]/g, "o")
         .replace(/[ùú]/g, "u")
-        .replace(/[,!]/g, "")
+        .replace(/[?.,!]/g, "")
         .replace(/\s+/g, " ")
         .trim();
 
+    // Gestione interattiva quando l'utente scrive solo "form" o "modulo"
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -184,19 +230,28 @@ function processUserQuery(query) {
         return;
     }
 
-    let wordToSearch = cleanQuery
-        .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
-        .trim();
+    // Calcolatrice e conversioni base
+    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
+            return;
+        }
+    }
+    if (cleanQuery.includes("quintale")) {
+        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
+        return;
+    }
 
-    if (wordToSearch !== "") {
-        for (const [term, def] of Object.entries(appConfig.dictionary)) {
-            if (wordToSearch === term || cleanQuery.includes(term)) {
-                rispondiBot(def);
-                return;
-            }
+    // Ricerca Dizionario
+    for (const [term, def] of Object.entries(appConfig.dictionary)) {
+        if (cleanQuery.includes(term)) {
+            rispondiBot(def);
+            return;
         }
     }
 
+    // Ricerca FAQ con tolleranza ai typo
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -214,6 +269,7 @@ function processUserQuery(query) {
     }
 }
 
+// Funzione di somiglianza per i typo
 function calcolaSomiglianza(s1, s2) {
     let parole1 = s1.split(" ");
     let parole2 = s2.split(" ");
@@ -280,13 +336,4 @@ function resetChat() {
             </div>
         </div>
     `;
-}
-
-function startClock() {
-    const clockEl = document.getElementById("live-clock");
-    if (!clockEl) return;
-    setInterval(() => {
-        const now = new Date();
-        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleTimeString()}`;
-    }, 1000);
 }
