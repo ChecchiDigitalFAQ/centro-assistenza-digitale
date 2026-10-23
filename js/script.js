@@ -214,7 +214,7 @@ let appConfig = {
 let inactivityTimer = null;
 const RESET_TIME_MS = 30 * 60 * 1000;
 let contatoreInappropriato = 0;
-let inAttesaScelta = false; // Stato per gestire Sì/No/Chiusura
+let inAttesaScelta = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -295,7 +295,6 @@ function processUserQuery(query) {
             appendMessage("👋 Va bene! Ti auguro una buona giornata. A presto!", "bot");
             return;
         }
-        // Se l'utente scrive direttamente una nuova domanda, prosegue sotto
     }
 
     // 2. Moderazione
@@ -351,7 +350,13 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         rispondiConChiusura(responseText);
     } else {
-        appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
+        // INTELLIGENZA DIFFERENZIATA: Controlliamo se è una sola parola / frase vaga oppure una domanda strutturata
+        const paroleArray = cleanQuery.split(" ");
+        if (paroleArray.length <= 1) {
+            appendMessage(`🤔 Non ho capito bene cosa intendi con "${query}". Potresti riformulare o farmi una domanda più precisa sull'istituto?`, "bot");
+        } else {
+            appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
+        }
     }
 }
 
