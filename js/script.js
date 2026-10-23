@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -29,7 +29,7 @@ let appConfig = {
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo tu chiami"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo ti chiami", "comu ti chiami"],
             "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
@@ -134,7 +134,6 @@ let appConfig = {
 };
 
 let inactivityTimer = null;
-let inAttesaScelta = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -198,44 +197,32 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Gestione stato Sì / No
-    if (inAttesaScelta) {
-        inAttesaScelta = false;
-        if (cleanQuery.includes("si") || cleanQuery.includes("sì")) {
-            appendMessage("Chiedi pure!", "bot");
-            return;
-        } else {
-            appendMessage("👋 Va bene! Buona giornata da Arturo.", "bot");
-            return;
-        }
-    }
-
     // Calcolatrice e conversioni base
     if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
-            rispondiConChiusura(`${num} chili equivalgono a **${num * 1000} grammi**!`);
+            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
             return;
         }
     }
     if (cleanQuery.includes("quintale")) {
-        rispondiConChiusura("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
+        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
         return;
     }
 
     // Ricerca Dizionario
     for (const [term, def] of Object.entries(appConfig.dictionary)) {
         if (cleanQuery.includes(term)) {
-            rispondiConChiusura(def);
+            rispondiBot(def);
             return;
         }
     }
 
-    // Ricerca FAQ con tolleranza ai typo (parole chiave incluse)
+    // Ricerca FAQ con tolleranza ai typo (parole chiave o parziali)
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
-            if (cleanQuery.includes(kw) || kw.includes(cleanQuery)) {
+            if (cleanQuery.includes(kw) || kw.includes(cleanQuery) || calcolaSomiglianza(cleanQuery, kw) > 0.65) {
                 matchedFaq = faq;
             }
         });
@@ -243,24 +230,35 @@ function processUserQuery(query) {
 
     if (matchedFaq) {
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
-        rispondiConChiusura(resp);
+        rispondiBot(resp);
     } else {
         appendMessage(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`, "bot");
     }
 }
 
-function rispondiConChiusura(testo) {
-    appendMessage(testo, "bot");
-    setTimeout(() => {
-        appendMessage("Cos'altro posso fare per te? Vuoi chiedere altro?", "bot");
-        inAttesaScelta = true;
-    }, 300);
+// Funzione semplice di somiglianza per i typo
+function calcolaSomiglianza(s1, s2) {
+    let parole1 = s1.split(" ");
+    let parole2 = s2.split(" ");
+    let matchCount = 0;
+    parole1.forEach(p1 => {
+        parole2.forEach(p2 => {
+            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
+                matchCount++;
+            }
+        });
+    });
+    return matchCount / Math.max(parole1.length, parole2.length);
 }
 
-quickAction = function(id) {
+function rispondiBot(testo) {
+    appendMessage(testo, "bot");
+}
+
+function quickAction(id) {
     let found = appConfig.faqs.find(f => f.id === id);
     if (found) {
-        rispondiConChiusura(found.responses[0]);
+        rispondiBot(found.responses[0]);
     }
 }
 
@@ -293,7 +291,6 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
-    inAttesaScelta = false;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
