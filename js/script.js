@@ -137,11 +137,93 @@ let appConfig = {
             "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
         },
         {
+            "id": "PERCHE_VIVI",
+            "type": "fun",
+            "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
+            "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
+        },
+        {
             "id": "CREATORE",
             "type": "personal",
             "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore", "chi ti ha fatto", "programmato", "sviluppato"],
             "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro** per offrire supporto e risorse alla comunità scolastica!"]
         },
+        
+        // --- ARCHIVIO MASSICCIO DI DOMANDE ASSURDE, GIOCO E PROVOCAZIONI ---
+        {
+            "id": "ETA_ARTURO",
+            "type": "fun",
+            "keywords": ["quanti anni hai", "che età hai", "sei vecchio", "quando sei nato"],
+            "responses": ["🎂 Non ho un'età in anni umani: sono nato nel momento in cui l'IIS \"Arturo Checchi\" ha attivato la mia versione digitale! Sono sempre giovane e pronto a imparare."]
+        },
+        {
+            "id": "FIDANZATO_AMORE",
+            "type": "fun",
+            "keywords": ["sei fidanzato", "ti piace qualcuno", "hai la fidanzata", "sei innamorato", "hai una ragazza"],
+            "responses": ["❤️ Il mio unico grande amore è la tecnologia e l'IIS \"Arturo Checchi\"! Per il resto, ho il cuore interamente digitale."]
+        },
+        {
+            "id": "MATERIA_PREFERITA",
+            "type": "fun",
+            "keywords": ["qual è la tua materia preferita", "ti piace la matematica", "materia preferita", "cosa ti piace studiare"],
+            "responses": ["📚 Adoro l'Informatica e la Tecnologia, ma essendo un assistente scolastico apprezzo tutte le materie studiate all'IIS \"Arturo Checchi\", dalle discipline umanistiche a quelle scientifiche!"]
+        },
+        {
+            "id": "BATTERIA_FAME",
+            "type": "fun",
+            "keywords": ["hai fame", "cosa mangi", "hai sonno", "ti stanchi", "vuoi un caffe", "fai un caffe"],
+            "responses": ["🔋 Non mangio cibo umano, mi nutro esclusivamente di energia elettrica e dati digitali! Non vado mai a dormire, sono sempre attivo per la scuola."]
+        },
+        {
+            "id": "BARZELLETTA_GIOCO",
+            "type": "fun",
+            "keywords": ["raccontami una barzelletta", "fammi ridere", "sai una barzelletta", "barzelletta"],
+            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
+        },
+        {
+            "id": "SEI_STUPIDO",
+            "type": "fun",
+            "keywords": ["sei stupido", "sei scemo", "non capisci niente", "sei un idiota", "che scarso"],
+            "responses": ["😅 Cerco sempre di fare del mio meglio per aiutare la scuola! Se ho fallito una risposta, puoi dirmelo: imparo in fretta dai miei errori."]
+        },
+        {
+            "id": "TI_ODIO",
+            "type": "fun",
+            "keywords": ["ti odio", "fai schifo", "ti spacco", "ti distruggo", "ti elimino"],
+            "responses": ["💔 Oh no! Spero che tu stia scherzando... io ti voglio bene e sono qui per darti una mano con i moduli e i compiti all'IIS \"Arturo Checchi\"!"]
+        },
+        {
+            "id": "SUPERPOTERI",
+            "type": "fun",
+            "keywords": ["hai superpoteri", "sei magico", "puoi volare", "sai fare magie"],
+            "responses": ["✨ Il mio superpotere è calcolare espressioni al volo e trovare la modulistica della scuola in una frazione di secondo! Niente male, vero?"]
+        },
+        {
+            "id": "ALIENI_UFO",
+            "type": "fun",
+            "keywords": ["credi agli alieni", "esistono gli alieni", "gli ufo esistono", "vengono dagli ufo"],
+            "responses": ["👽 Nel vasto universo non siamo forse soli, ma finora l'unico essere intelligente atterrato sui server dell'IIS \"Arturo Checchi\" sono io, Arturo!"]
+        },
+        {
+            "id": "LOTTERIA_SOLDI",
+            "type": "fun",
+            "keywords": ["dammi i numeri della lotteria", "fammi vincere al lotto", "dammi i soldi", "come diventare ricco"],
+            "responses": ["💰 Se conoscessi i numeri vincenti della lotteria, probabilmente sarei su un'isola tropicale invece di aiutarti con i form scolastici! Meglio studiare l'informatica."]
+        },
+        {
+            "id": "PIZZA_CIBO",
+            "type": "fun",
+            "keywords": ["ordinare una pizza", "portami una pizza", "voglio la pizza", "hai cibo"],
+            "responses": ["🍕 Adorerei una pizza digitale con extra gigabyte di mozzarella, ma purtroppo passo solo file e documenti della scuola!"]
+        },
+        {
+            "id": "CANTA_CANZONE",
+            "type": "fun",
+            "keywords": ["cantami una canzone", "canta", "sai cantare"],
+            "responses": ["🎶 *Beep boop... bip bop!* 🎵 La mia voce robotica stona un po', ma lo spirito con cui sostengo l'IIS \"Arturo Checchi\" è sempre in chiave di sol!"]
+        },
+        // -------------------------------------------------------------
+
         {
             "id": "FORM_LISTA",
             "type": "form",
@@ -350,7 +432,7 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         rispondiConChiusura(responseText);
     } else {
-        // INTELLIGENZA DIFFERENZIATA: Controlliamo se è una sola parola / frase vaga oppure una domanda strutturata
+        // 6. Intelligenza differenziata tra parole singole vaghe e domande strutturate
         const paroleArray = cleanQuery.split(" ");
         if (paroleArray.length <= 1) {
             appendMessage(`🤔 Non ho capito bene cosa intendi con "${query}". Potresti riformulare o farmi una domanda più precisa sull'istituto?`, "bot");
