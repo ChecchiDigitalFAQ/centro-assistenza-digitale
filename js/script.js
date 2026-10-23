@@ -41,7 +41,7 @@ let appConfig = {
         "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
         "barometro": "📖 **Barometro:** Strumento scientifico utilizzato per misurare la pressione atmosferica.",
         "barocco": "📖 **Barocco:** Movimento culturale e artistico del Seicento caratterizzato da sfarzo ed esuberanza.",
-        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di un nucleo cellulare ben definito.",
+        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota procariota privo di un nucleo cellulare ben definito.",
         "big bang": "📖 **Big Bang:** Modello cosmologico che descrive l'origine e l'evoluzione iniziale dell'universo.",
         "biografia": "📖 **Biografia:** Narrazione scritta della vita di una persona.",
         "biologia": "📖 **Biologia:** Scienza che studia la vita, gli organismi viventi, la loro struttura e la loro evoluzione.",
@@ -142,7 +142,17 @@ let appConfig = {
         {
             "id": "CREATORE",
             "keywords": ["chi ti ha creato", "creatore", "programmato", "sviluppato"],
-            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"]
+            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**! 💻"]
+        },
+        {
+            "id": "PERCHE_CREATO",
+            "keywords": ["perche", "perché ti hanno creato", "perche esisti"],
+            "responses": ["💡 Sono stato creato per semplificare la vita scolastica, aiutare studenti e docenti con i moduli, fornire risposte rapide e dare informazioni ufficiali sull'IIS \"Arturo Checchi\" in tempo reale!"]
+        },
+        {
+            "id": "QUANDO_CREATO",
+            "keywords": ["quando", "quando sei stato creato", "quando sei nato"],
+            "responses": ["📅 Sono nato e cresciuto digitalmente nei laboratori informatici dell'IIS \"Arturo Checchi\" grazie al lavoro di sviluppo di Luca Vorraro!"]
         },
         {
             "id": "DIRIGENZA",
@@ -178,6 +188,7 @@ let appConfig = {
 };
 
 let inAttesaSceltaForm = false;
+let ultimaCategoriaTrattata = ""; // Memoria conversazionale per mantenere la linearità del discorso
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -249,6 +260,16 @@ function processUserQuery(query) {
         return;
     }
 
+    // MEMORIA DIALOGO: Se l'utente scrive solo "perche" o "quando", Arturo capisce il contesto precedente
+    if ((cleanQuery === "perche" || cleanQuery === "perché") && ultimaCategoriaTrattata === "CREATORE") {
+        rispondiBot("💡 Sono stato creato per semplificare la vita scolastica, aiutare studenti e docenti con i moduli, fornire risposte rapide e dare informazioni ufficiali sull'IIS \"Arturo Checchi\" in tempo reale!");
+        return;
+    }
+    if (cleanQuery === "quando" && ultimaCategoriaTrattata === "CREATORE") {
+        rispondiBot("📅 Sono nato e cresciuto digitalmente nei laboratori informatici dell'IIS \"Arturo Checchi\" grazie al lavoro di sviluppo di Luca Vorraro!");
+        return;
+    }
+
     // 1. Gestione interattiva dei form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
@@ -275,6 +296,7 @@ function processUserQuery(query) {
     if (wordToSearch.length >= 2) {
         for (const [term, def] of Object.entries(appConfig.dictionary)) {
             if (wordToSearch === term || cleanQuery.includes(term)) {
+                ultimaCategoriaTrattata = "DIZIONARIO";
                 rispondiBot(def);
                 return;
             }
@@ -292,9 +314,11 @@ function processUserQuery(query) {
     });
 
     if (matchedFaq) {
+        ultimaCategoriaTrattata = matchedFaq.id; // Memorizza l'argomento corrente
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
     } else {
+        ultimaCategoriaTrattata = "";
         appendMessage(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`, "bot");
     }
 }
@@ -320,6 +344,7 @@ function rispondiBot(testo) {
 function quickAction(id) {
     let found = appConfig.faqs.find(f => f.id === id);
     if (found) {
+        ultimaCategoriaTrattata = found.id;
         rispondiBot(found.responses[0]);
     }
 }
@@ -354,6 +379,7 @@ function appendMessage(text, sender) {
 
 function resetChat() {
     inAttesaSceltaForm = false;
+    ultimaCategoriaTrattata = "";
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
