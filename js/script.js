@@ -535,7 +535,7 @@ let appConfig = {
                 "esperto esterno"
             ],
             "responses": [
-                "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"
+                "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"
             ]
         },
         {
@@ -552,7 +552,7 @@ let appConfig = {
                 "richiedere fotocopie"
             ],
             "responses": [
-                "🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"
+                "🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"
             ]
         },
         {
@@ -570,7 +570,7 @@ let appConfig = {
                 "piano lavoro liceo"
             ],
             "responses": [
-                "📑 **Piano di Lavoro Annuale del Docente (Liceo / ITE / ITT):**\n\nPuoi compilare il Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Piano di Lavoro Liceo / ITE / ITT</a>"
+                "📑 **Piano di Lavoro Annuale del Docente (Liceo / ITE / ITT):**\n\nPuoi compilare il Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Piano di Lavoro Liceo / ITE / ITT</a>"
             ]
         },
         {
@@ -588,7 +588,7 @@ let appConfig = {
                 "piani di lavoro ipia"
             ],
             "responses": [
-                "📑 **Piano di Lavoro Annuale Docente (IPIA e Classi Prime ITE/ITT):**\n\nPuoi accedere e compilare il modulo al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/cd1wGeKYiK' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Piano di Lavoro IPIA / Prime ITE-ITT</a>"
+                "📑 **Piano di Lavoro Annuale Docente (IPIA e Classi Prime ITE/ITT):**\n\nPuoi accedere e compilare il modulo al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/cd1wGeKYiK' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Piano di Lavoro IPIA / Prime ITE-ITT</a>"
             ]
         },
         {
@@ -606,7 +606,7 @@ let appConfig = {
                 "permessi brevi"
             ],
             "responses": [
-                "💰 **Registrazione Sostituzioni Retribuite e Recupero Permessi Brevi:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/pv7mxGHyC5' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Sostituzioni e Permessi Brevi</a>"
+                "💰 **Registrazione Sostituzioni Retribuite e Recupero Permessi Brevi:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/pv7mxGHyC5' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Sostituzioni e Permessi Brevi</a>"
             ]
         },
         {
@@ -623,7 +623,7 @@ let appConfig = {
                 "consegna tablet liceo"
             ],
             "responses": [
-                "💻 **Registro Consegna Dispositivi Digitali (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere al Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/vUGNdwbHAi' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Consegna Dispositivi (Plesso Liceo)</a>"
+                "💻 **Registro Consegna Dispositivi Digitali (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere al Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/vUGNdwbHAi' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Consegna Dispositivi (Plesso Liceo)</a>"
             ]
         },
         {
@@ -641,7 +641,7 @@ let appConfig = {
                 "dispositivi bes"
             ],
             "responses": [
-                "💻 **Richiesta Notebook per Alunni BES (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere e compilare la richiesta al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/UbiQvMczBF' target='_blank' style='color: #004085; font-weight: bold;'>Apri Form Richiesta Notebook BES (Plesso Liceo)</a>"
+                "💻 **Richiesta Notebook per Alunni BES (Solo Plesso Liceo):**\n\n⚠️ *Nota:* Questo modulo è valido esclusivamente per il **Plesso Liceo**.\n\nPuoi accedere e compilare la richiesta al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/UbiQvMczBF' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Notebook BES (Plesso Liceo)</a>"
             ]
         },
 
@@ -769,9 +769,8 @@ let appConfig = {
 
 let personalQueryCount = 0;
 let inactivityTimer = null;
-const RESET_TIME_MS = 30 * 60 * 1000; // Timer inattività predefinito (30 min)
+const RESET_TIME_MS = 30 * 60 * 1000;
 
-// MACCHINA A STATI CONVERSAZIONALE
 let conversationState = null;
 let pendingFormMatch = null;
 let contatoreInappropriato = 0;
@@ -782,21 +781,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initApp() {
     renderQuickButtons();
+    setupEventListeners();
+    aggiornaOrologio();
+    setInterval(aggiornaOrologio, 1000);
     resetInactivityTimer();
 }
 
 function renderQuickButtons() {
-    const container = document.getElementById("quickButtonsContainer");
+    // Compatibilità sia con 'faq-buttons-container' (nuovo HTML) che 'quickButtonsContainer' (vecchio script)
+    const container = document.getElementById("faq-buttons-container") || document.getElementById("quickButtonsContainer");
     if (!container) return;
     
     container.innerHTML = "";
     appConfig.quickButtons.forEach(btn => {
         const buttonEl = document.createElement("button");
         buttonEl.className = "quick-btn";
-        buttonEl.innerText = btn.label;
+        buttonEl.innerHTML = `<i class="fa-solid fa-bolt"></i> ${btn.label.replace(/^[^\s]+\s/, '')}`;
         buttonEl.onclick = () => quickAction(btn.id);
         container.appendChild(buttonEl);
     });
+}
+
+function setupEventListeners() {
+    const chatForm = document.getElementById("chat-form");
+    if (chatForm) {
+        chatForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
+    }
+
+    const newChatBtn = document.getElementById("new-chat-btn");
+    if (newChatBtn) {
+        newChatBtn.addEventListener("click", resetChat);
+    }
 }
 
 function handleKeyPress(event) {
@@ -806,7 +824,8 @@ function handleKeyPress(event) {
 }
 
 function sendMessage() {
-    const inputField = document.getElementById("userInput");
+    // Compatibilità sia con 'user-input' (nuovo HTML) che 'userInput' (vecchio script)
+    const inputField = document.getElementById("user-input") || document.getElementById("userInput");
     if (!inputField) return;
     const message = inputField.value.trim();
 
@@ -823,7 +842,6 @@ function sendMessage() {
 }
 
 function processUserQuery(query) {
-    // 1. Normalizzazione del testo
     let rawQuery = query.toLowerCase()
         .replace(/’/g, "'")
         .replace(/[èé]/g, "e")
@@ -939,7 +957,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. RICERCA DIZIONARIO UNIVERSALE (Migliaia di termini enciclopedici)
+    // 5. RICERCA DIZIONARIO UNIVERSALE
     const dictionaryTriggers = [
         "che cos'e'", "che cos'e", "che cos e'", "che cos e",
         "cos'e'", "cos'e", "cos e'", "cos e", "cosa e'", "cosa e",
@@ -1017,7 +1035,6 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         appendMessage(responseText, "bot");
     } else {
-        // 7. FALLBACK INTELLIGENTE CON REGISTRAZIONE RICHIESTA
         personalQueryCount = 0;
         appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
     }
@@ -1048,6 +1065,7 @@ function quickAction(actionId) {
 }
 
 function appendMessage(text, sender) {
+    // Compatibilità sia con 'chatBox' (vecchio codice) che 'chat-messages' (nuovo layout)
     const chatBox = document.getElementById("chatBox") || document.getElementById("chat-messages");
     if (!chatBox) return;
     
@@ -1092,6 +1110,16 @@ function resetInactivityTimer() {
     inactivityTimer = setTimeout(() => {
         resetChat();
     }, RESET_TIME_MS);
+}
+
+function aggiornaOrologio() {
+    const liveClock = document.getElementById("live-clock");
+    if (!liveClock) return;
+    const ora = new Date();
+    const opzioniData = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const dataStr = ora.toLocaleDateString('it-IT', opzioniData);
+    const oraStr = ora.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    liveClock.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataStr} - ${oraStr}`;
 }
 
 function similarity(s1, s2) {
