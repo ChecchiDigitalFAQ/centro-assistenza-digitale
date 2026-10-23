@@ -105,150 +105,7 @@ let appConfig = {
         "velocita": "📖 **Velocità:** Rapporto tra lo spazio percorso da un corpo e il tempo impiegato.",
         "virus": "📖 **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
         "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas.",
-        "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano.",
-        "anodo": "📖 **Anodo:** Elettrodo positivo di un dispositivo da cui fuoriescono gli elettroni.",
-        "antropocene": "📖 **Antropocene:** Era geologica attuale in cui l'essere umano ha modificato il pianeta.",
-        "apocalisse": "📖 **Apocalisse:** Genere letterario di carattere visionario e profetico.",
-        "approssimazione": "📖 **Approssimazione:** Metodo per ottenere un valore vicino a quello esatto ma più semplice da gestire.",
-        "asterloide": "📖 **Asteroide:** Piccolo corpo celeste roccioso orbitante attorno al Sole.",
-        "baricentro": "📖 **Baricentro:** Punto di applicazione della risultante delle forze di gravità su un corpo.",
-        "biosfera": "📖 **Biosfera:** Insieme delle zone della Terra in cui è presente la vita.",
-        "bit": "📖 **Bit:** Binary Digit, l'unità di misura fondamentale dell'informazione digitale.",
-        "blockchain": "📖 **Blockchain:** Registro digitale decentralizzato basato su crittografia.",
-        "bosone": "📖 **Bosone:** Particella elementare con spin intero che segue la statistica di Bose-Einstein.",
-        "bytecode": "📖 **Bytecode:** Codice intermedio eseguito da una macchina virtuale.",
-        "calcolo": "📖 **Calcolo:** Procedimento logico-matematico per giungere a un risultato.",
-        "catalisi": "📖 **Catalisi:** Variazione della velocità di una reazione chimica tramite un catalizzatore.",
-        "catodo": "📖 **Catodo:** Elettrodo negativo di un dispositivo verso cui fluiscono gli elettroni.",
-        "cibernetica": "📖 **Cibernetica:** Scienza che studia i sistemi di controllo e comunicazione negli animali e nelle macchine.",
-        "cinematica": "📖 **Cinematica:** Ramo della fisica che descrive il moto dei corpi indipendentemente dalle cause.",
-        "codifica": "📖 **Codifica:** Traduzione di un'informazione in un determinato formato o codice.",
-        "coesione": "📖 **Coesione:** Forza di attrazione tra molecole della stessa sostanza.",
-        "colloide": "📖 **Colloide:** Miscela in cui una sostanza è dispersa finemente in un'altra.",
-        "compiler": "📖 **Compilatore:** Software che traduce il codice sorgente in linguaggio macchina.",
-        "convezione": "📖 **Convezione:** Modalità di propagazione del calore nei fluidi per movimento di materia.",
-        "cosmologia": "📖 **Cosmologia:** Scienza che studia l'origine, la struttura e l'evoluzione dell'universo.",
-        "coulomb": "📖 **Coulomb:** Unità di misura della carica elettrica nel Sistema Internazionale.",
-        "covalente": "📖 **Covalente:** Legame chimico basato sulla condivisione di coppie di elettroni.",
-        "crono": "📖 **Crono:** Prefisso o radice che fa riferimento al tempo.",
-        "darwinismo": "📖 **Darwinismo:** Teoria dell'evoluzione delle specie tramite selezione naturale.",
-        "decibel": "📖 **Decibel:** Unità di misura logaritmica del livello di pressione sonora.",
-        "deduzione": "📖 **Deduzione:** Ragionamento logico che procede dal generale al particolare.",
-        "densita": "📖 **Densità:** Rapporto tra la massa di un corpo e il suo volume.",
-        "derivata": "📖 **Derivata:** Limite del rapporto incrementale al tendere a zero dell'incremento.",
-        "dialettica": "📖 **Dialettica:** Arte del confronto di idee e tesi contrapposte.",
-        "difrazione": "📖 **Difrazione:** Fenomeno di flessione delle onde quando incontrano un ostacolo.",
-        "dinamica": "📖 **Dinamica:** Ramo della meccanica che studia il moto dei corpi in relazione alle forze.",
-        "diodo": "📖 **Diodo:** Componente elettronico a semiconduttore che permette il flusso di corrente in un solo verso.",
-        "discreto": "📖 **Discreto:** In matematica e informatica, riferito a valori distinti e separati, non continui.",
-        "dogma": "📖 **Dogma:** Verità ritenuta certa e indiscutibile all'interno di un sistema di pensiero.",
-        "doping": "📖 **Doping:** Uso di sostanze o metodi illeciti per migliorare le prestazioni fisiche.",
-        "ecologia": "📖 **Ecologia:** Scienza che studia le interazioni tra gli organismi e il loro ambiente.",
-        "eclissi": "📖 **Eclissi:** Oscuramento temporaneo di un corpo celeste da parte di un altro.",
-        "elettrone": "📖 **Elettrone:** Particella subatomica con carica elettrica negativa.",
-        "emulsione": "📖 **Emulsione:** Dispersione di un liquido immiscibile all'interno di un altro.",
-        "entropia": "📖 **Entropia:** Misura del grado di disordine di un sistema termodinamico.",
-        "enzima": "📖 **Enzima:** Proteina che funge da catalizzatore biologico nelle reazioni metaboliche.",
-        "epistemologia": "📖 **Epistemologia:** Studio critico della natura e dei limiti della conoscenza scientifica.",
-        "equazione": "📖 **Equazione:** Uguaglianza tra due espressioni algebriche verificata per particolari valori.",
-        "eresia": "📖 **Heresia:** Dottrina che si oppone ai dogmi stabiliti da un'autorità religiosa.",
-        "esecutivo": "📖 **Esecutivo:** Organo dello Stato incaricato di applicare le leggi.",
-        "esoterismo": "📖 **Esoterismo:** Insieme di dottrine riservate a pochi iniziati.",
-        "etica": "📖 **Etica:** Branca della filosofia che studia i fondamenti morali dell'azione umana.",
-        "etologia": "📖 **Etologia:** Scienza che studia il comportamento degli animali nel loro ambiente naturale.",
-        "euristica": "📖 **Euristica:** Strategia di risoluzione dei problemi basata sull'intuito e sull'esperienza.",
-        "esponenziale": "📖 **Esponenziale:** Crescita o decrescita molto rapida proporzionale al valore attuale.",
-        "farmacologia": "📖 **Farmacologia:** Scienza che studia l'azione dei farmaci sugli organismi viventi.",
-        "fenomenologia": "📖 **Fenomenologia:** Corrente filosofica che studia i fenomeni per come appaiono alla coscienza.",
-        "ferromagnetismo": "📖 **Ferromagnetismo:** Forte magnetismo esibito da materiali come il ferro.",
-        "fissione": "📖 **Fissione nucleare:** Scissione del nucleo di un atomo pesante in frammenti più leggeri.",
-        "fluido": "📖 **Fluido:** Sostanza capace di deformarsi continuamente se sottoposta a sforzo di taglio.",
-        "fotosintesi": "📖 **Fotosintesi:** Processo di sintesi di composti organici a partire da luce solare e CO2.",
-        "frequenza": "📖 **Frequenza:** Numero di cicli di un'onda in un'unità di tempo.",
-        "fusione": "📖 **Fusione nucleare:** Unione di nuclei atomici leggeri per formarne uno più pesante.",
-        "galvanometro": "📖 **Galvanometro:** Strumento per la misura di deboli correnti elettriche.",
-        "geodesia": "📖 **Geodesia:** Scienza che misura e rappresenta la forma e le dimensioni della Terra.",
-        "geomorfologia": "📖 **Geomorfologia:** Scienza che studia le forme della superficie terrestre.",
-        "gerarchia": "📖 **Gerarchia:** Ordinamento di elementi secondo un criterio di subordinazione.",
-        "glandola": "📖 **Ghiandola:** Organo deputato alla produzione e secrezione di sostanze.",
-        "gluone": "📖 **Gluone:** Particella mediatrice dell'interazione forte tra quark.",
-        "grafica": "📖 **Grafica:** Insieme delle tecniche di rappresentazione visiva su supporto bidimensionale.",
-        "gravitazione": "📖 **Gravitazione:** Forza di attrazione universale tra corpi dotati di massa.",
-        "grecismo": "📖 **Grecismo:** Termine o locuzione derivata dalla lingua greca.",
-        "idraulica": "📖 **Idraulica:** Ramo della fisica applicata che studia il comportamento dei liquidi.",
-        "idrolisi": "📖 **Idrolisi:** Reazione chimica di scissione di un composto operata dall'acqua.",
-        "inerzia": "📖 **Inerzia:** Proprietà dei corpi di opporsi a variazioni del loro stato di moto.",
-        "infinito": "📖 **Infinito:** Concetto matematico e filosofico che indica assenza di limiti o fine.",
-        "infrastruttura": "📖 **Infrastruttura:** Insieme di opere e impianti di base per il funzionamento di un sistema.",
-        "isotopo": "📖 **Isotopo:** Atomo di uno stesso elemento con lo stesso numero atomico ma diversa massa.",
-        "kinetica": "📖 **Cinetica:** Studio delle forze che producono o modificano il movimento.",
-        "latitudine": "📖 **Latitudine:** Distanza angolare di un punto dall'equatore terrestre.",
-        "limite": "📖 **Limite:** Operatore matematico che descrive il comportamento di una funzione.",
-        "logica": "📖 **Logica:** Scienza che studia le regole del ragionamento corretto.",
-        "longitudine": "📖 **Longitudine:** Distanza angolare di un punto dal meridiano di Greenwich.",
-        "macromolecola": "📖 **Macromolecola:** Molecola di grandi dimensioni, tipica dei polimeri biologici.",
-        "magnetismo": "📖 **Magnetismo:** Insieme dei fenomeni fisici legati ai campi magnetici.",
-        "matrice": "📖 **Matrice:** Tabella ordinata di elementi disposti in righe e colonne.",
-        "meccanica": "📖 **Meccanica:** Scienza che studia il moto e l'equilibrio dei corpi fisici.",
-        "metabolismo": "📖 **Metabolismo:** Insieme delle reazioni chimiche che avvengono in un organismo.",
-        "metodologia": "📖 **Metodologia:** Studio dei metodi impiegati in una disciplina scientifica o filosofica.",
-        "microrganismo": "📖 **Microrganismo:** Organismo vivente visibile solo al microscopio.",
-        "mitocondrio": "📖 **Mitocondrio:** Organulo cellulare deputato alla produzione di energia (ATP).",
-        "mole": "📖 **Mole:** Unità di misura della quantità di sostanza nel Sistema Internazionale.",
-        "momentum": "📖 **Momento:** Grandezza fisica data dal prodotto di una forza per un braccio.",
-        "mutazione": "📖 **Mutazione:** Variazione casuale e stabile del materiale genetico.",
-        "nanometro": "📖 **Nanometro:** Un miliardesimo di metro, unità di misura nanotecnologica.",
-        "neutrone": "📖 **Neutrone:** Particella subatomica priva di carica elettrica presente nel nucleo.",
-        "nucleotide": "📖 **Nucleotide:** Unità strutturale fondamentale degli acidi nucleici (DNA e RNA).",
-        "odontoiatria": "📖 **Odontoiatria:** Scienza medica che studia la cura dei denti e del cavo orale.",
-        "olistica": "📖 **Olistico:** Approccio che considera un sistema nella sua interezza e non solo nei pezzi.",
-        "ontologia": "📖 **Ontologia:** Studio filosofico dell'essere in quanto tale.",
-        "ortografia": "📖 **Ortografia:** Insieme delle regole per scrivere correttamente le parole di una lingua.",
-        "ossidazione": "📖 **Ossidazione:** Reazione chimica in cui un atomo perde elettroni.",
-        "paradigma": "📖 **Paradigma:** Schema o modello concettuale di riferimento condiviso.",
-        "paradosso": "📖 **Paradosso:** Affermazione che appare logica ma porta a una contraddizione.",
-        "partenogenesi": "📖 **Partenogenesi:** Riproduzione a partire da uova non fecondate.",
-        "patogeno": "📖 **Patogeno:** Agente esterno capace di causare una malattia infettiva.",
-        "photon": "📖 **Fotone:** Quanta di radiazione elettromagnetica e della luce.",
-        "fotosfera": "📖 **Fotosfera:** Strato luminoso superficiale del Sole.",
-        "polimero": "📖 **Polimero:** Macromolecola costituita dall'ripetizione di unità più semplici (monomeri).",
-        "positrone": "📖 **Positrone:** Antiparticella dell'elettrone con carica positiva.",
-        "potenziale": "📖 **Potenziale elettrico:** Lavoro necessario per spostare una carica in un campo elettrico.",
-        "pragmatismo": "📖 **Pragmatismo:** Corrente filosofica che valuta le idee in base alle conseguenze pratiche.",
-        "probabilita": "📖 **Probabilità:** Misura numerica della possibilità che si verifichi un evento.",
-        "protone": "📖 **Protone:** Particella subatomica con carica positiva presente nel nucleo.",
-        "quantistica": "📖 **Fisica Quantistica:** Teoria che descrive la natura a scala atomica e subatomica.",
-        "quarks": "📖 **Quark:** Particella elementare costituente fondamentale di protoni e neutroni.",
-        "radiattivita": "📖 **Radioattività:** Emissione spontanea di radiazioni da parte di nuclei instabili.",
-        "relativita": "📖 **Relatività:** Teoria fisica di Einstein sullo spazio, il tempo e la gravità.",
-        "risonanza": "📖 **Risonanza:** Fenomeno di forte amplificazione quando la frequenza coincide.",
-        "ribosoma": "📖 **Ribosoma:** Organulo cellulare responsabile della sintesi delle proteine.",
-        "sarcasmo": "📖 **Sarcasmo:** Ironia amara e tagliente usata per deridere qualcuno.",
-        "semiconduttore": "📖 **Semiconduttore:** Materiale con conducibilità elettrica intermedia tra conduttore e isolante.",
-        "sillogismo": "📖 **Sillogismo:** Ragionamento deduttivo formato da due premesse e una conclusione.",
-        "sintassi": "📖 **Sintassi:** Insieme di regole grammaticali che governano la struttura delle frasi.",
-        "solstizio": "📖 **Solstizio:** Momento in cui il Sole raggiunge la massima o minima altezza.",
-        "statistica": "📖 **Statistica:** Scienza che raccoglie, analizza e interpreta dati quantitativi.",
-        "stochastica": "📖 **Stocastico:** Processo o fenomeno caratterizzato da elementi di casualità.",
-        "sub atomico": "📖 **Subatomico:** Relativo a particelle più piccole dell'atomo.",
-        "suggello": "📖 **Suggello:** Conclusione definitiva o marchio di garanzia.",
-        "tassonomia": "📖 **Tassonomia:** Scienza della classificazione gerarchica degli organismi viventi.",
-        "teleologia": "📖 **Teleologia:** Concezione filosofica orientata a uno scopo o fine ultimo.",
-        "temperatura": "📖 **Temperatura:** Grandezza fisica che misura lo stato termico di un sistema.",
-        "teorema": "📖 **Teorema:** Proposizione che viene dimostrata vera a partire da assiomi.",
-        "topologia": "📖 **Topologia:** Ramo della matematica che studia le proprietà invarianti per deformazione.",
-        "trigonometria": "📖 **Trigonometria:** Ramo della matematica che studia i triangoli e le funzioni connesse.",
-        "troposfera": "📖 **Troposfera:** Strato più basso dell'atmosfera terrestre.",
-        "ultravioletto": "📖 **Ultravioletto:** Radiazione elettromagnetica con frequenza superiore alla luce visibile.",
-        "unita": "📖 **Unità:** Valore di riferimento standard per la misura di grandezze fisiche.",
-        "valenza": "📖 **Valenza:** Capacità di combinazione di un atomo con altri elementi chimici.",
-        "vettore": "📖 **Vettore:** Entità geometrica caratterizzata da modulo, direzione e verso.",
-        "viscosita": "📖 **Viscosità:** Resistenza di un fluido allo scorrimento e alla deformazione.",
-        "volt": "📖 **Volt:** Unità di misura della tensione o potenziale elettrico.",
-        "watt": "📖 **Watt:** Unità di misura della potenza nel Sistema Internazionale.",
-        "xenofobia": "📖 **Xenofobia:** Avversione generica verso gli stranieri o ciò che è straniero.",
-        "zooantropologia": "📖 **Zooantropologia:** Studio della relazione tra esseri umani e altre specie animali.",
-        "zigote": "📖 **Zigote:** Cellula derivata dalla fecondazione di una cellula uovo da parte di uno spermatozoo."
+        "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano."
     },
 
     faqs: [
@@ -259,7 +116,7 @@ let appConfig = {
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo tu chiami", "comu ti chiami"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami"],
             "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
@@ -274,63 +131,13 @@ let appConfig = {
         },
         {
             "id": "SALUTO_INIZIALE",
-            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
+            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "buon pomeriggio", "hey", "si", "ok"],
             "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         },
         {
             "id": "SALUTO_FINALE",
-            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio"],
+            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio", "no"],
             "responses": ["👋 Ricambio con affetto il saluto! Ti auguro una splendida giornata. A presto da Arturo e da tutta la comunità dell'IIS \"Arturo Checchi\"! 🏫"]
-        },
-        {
-            "id": "TI_NUTELLA",
-            "keywords": ["ti piace la nutella", "nutella", "cioccolata"],
-            "responses": ["🍫 Adorerei farne il pieno, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati!"]
-        },
-        {
-            "id": "TI_MARE",
-            "keywords": ["ti piace il mare", "mare", "spiaggia"],
-            "responses": ["🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti!"]
-        },
-        {
-            "id": "TI_ANIMALI",
-            "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali", "ti piacciono gli uccelli"],
-            "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."]
-        },
-        {
-            "id": "TI_PERSONE",
-            "keywords": ["ti piacciono le donne", "ti piacciono gli uomini", "ti piacciono le persone"],
-            "responses": ["❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti!"]
-        },
-        {
-            "id": "TI_DORMIRE",
-            "keywords": ["ti piace dormire", "ti addormenti", "hai sonno", "dormi"],
-            "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."]
-        },
-        {
-            "id": "TI_AMO",
-            "keywords": ["ti amo", "ti voglio bene", "ti adoro"],
-            "responses": ["❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io!"]
-        },
-        {
-            "id": "TI_ODIO",
-            "keywords": ["ti odio", "ti stacco", "ti spengo"],
-            "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."]
-        },
-        {
-            "id": "MARTE_LUNA",
-            "keywords": ["marte", "sulla luna", "ci sei stato su marte"],
-            "responses": ["🚀 Io su Marte o sulla Luna? Magari! Purtroppo il mio hardware è troppo pesante per un razzo: preferisco il cloud dell'IIS \"Arturo Checchi\"!"]
-        },
-        {
-            "id": "BARZELLETTE",
-            "keywords": ["barzelletta", "fammi ridere", "un'altra"],
-            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
-        },
-        {
-            "id": "INDOVINELLO",
-            "keywords": ["indovinello"],
-            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)"]
         },
         {
             "id": "CREATORE",
@@ -339,7 +146,7 @@ let appConfig = {
         },
         {
             "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "chi e il preside", "chi e la preside", "dirigente scolastico", "preside del checchi"],
+            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
             "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
@@ -435,32 +242,14 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DEI SALUTI MULTILINGUE INTERNAZIONALI
-    const salutiMappa = {
-        "nihao": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
-        "nǐ hǎo": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
-        "hello": { eco: "Hello!", nomeLingua: "l'inglese" },
-        "hi": { eco: "Hi there!", nomeLingua: "l'inglese" },
-        "hey": { eco: "Hey!", nomeLingua: "l'inglese" },
-        "bonjour": { eco: "Bonjour!", nomeLingua: "il francese" },
-        "hola": { eco: "¡Hola!", nomeLingua: "lo spagnolo" },
-        "guten tag": { eco: "Guten Tag!", nomeLingua: "il tedesco" }
-    };
-
-    let salutoStranieroTrovato = null;
-    for (const [chiave, info] of Object.entries(salutiMappa)) {
-        if (cleanQuery === chiave || cleanQuery.startsWith(chiave + " ")) {
-            salutoStranieroTrovato = info;
-            break;
-        }
-    }
-
-    if (salutoStranieroTrovato) {
-        rispondiBot(`🌍 **${salutoStranieroTrovato.eco}** Mi fa molto piacere il tuo saluto internazionale! Per tutto il resto della scuola e dei form all'IIS "Arturo Checchi" mi tocca usare rigorosamente l'italiano! 😉`);
+    // FILTRO INTELLIGENTE: Blocca lettere singole casuali (come "f", "e", "c"), ma accetta "si", "no" e parole normali
+    if (cleanQuery.length < 2 && cleanQuery !== "si" && cleanQuery !== "no") {
+        inAttesaSceltaForm = false;
+        appendMessage(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`, "bot");
         return;
     }
 
-    // 2. Gestione interattiva dei form
+    // 1. Gestione interattiva dei form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -478,25 +267,12 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Calcolatrice e conversioni base
-    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
-        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
-        if (!isNaN(num)) {
-            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
-            return;
-        }
-    }
-    if (cleanQuery.includes("quintale")) {
-        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
-        return;
-    }
-
-    // 4. Ricerca nel Dizionario Enciclopedico
+    // 2. Ricerca nel Dizionario Enciclopedico
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
 
-    if (wordToSearch !== "") {
+    if (wordToSearch.length >= 2) {
         for (const [term, def] of Object.entries(appConfig.dictionary)) {
             if (wordToSearch === term || cleanQuery.includes(term)) {
                 rispondiBot(def);
@@ -505,7 +281,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 5. Ricerca FAQ
+    // 3. Ricerca FAQ
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
