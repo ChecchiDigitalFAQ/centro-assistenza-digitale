@@ -3,7 +3,7 @@
 :root {
     --primary-color: #1e3a8a;
     --primary-dark: #1e293b;
-    --accent-color: #f59e0b;
+    --accent-color: #3b82f6; /* Blu/Celeste coordinato */
     --bg-main: #f8fafc;
     --bg-sidebar: #ffffff;
     --text-main: #1e293b;
@@ -115,7 +115,6 @@ body {
     box-shadow: 0 2px 4px rgba(0,0,0,0.03);
 }
 
-/* Sfumature e colori differenti per ogni voce di accesso rapido */
 .quick-btn:nth-child(1) { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #1e40af; border-color: #bfdbfe; }
 .quick-btn:nth-child(2) { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: #166534; border-color: #bbf7d0; }
 .quick-btn:nth-child(3) { background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); color: #86198f; border-color: #f5d0fe; }
@@ -236,7 +235,7 @@ body {
     gap: 6px;
 }
 
-/* Contenitore Messaggi con Spaziatura ottimizzata */
+/* Contenitore Messaggi */
 .chat-messages {
     flex: 1;
     padding: 25px;
@@ -266,10 +265,10 @@ body {
 
 .user-message {
     align-self: flex-end;
-    flex-direction: row-reverse; /* Mette l'avatar a destra per l'utente */
+    flex-direction: row-reverse;
 }
 
-/* Icone Avatar dentro la Chat */
+/* Icone Avatar */
 .message-avatar {
     width: 32px;
     height: 32px;
@@ -288,7 +287,7 @@ body {
 }
 
 .user-message .message-avatar {
-    background-color: var(--accent-color);
+    background-color: var(--accent-color); /* Blu/Celeste */
     color: #ffffff;
 }
 
@@ -313,9 +312,9 @@ body {
     border-top-right-radius: 2px;
 }
 
-/* Input e Form di Invio (Sollevato leggermente piu in alto) */
+/* Input e Form di Invio (Sollevato verso l'alto) */
 .chat-input-container {
-    padding: 15px 25px 25px 25px; /* Spaziatura superiore ridotta per alzarlo visivamente */
+    padding: 15px 25px 25px 25px;
     border-top: 1px solid var(--border-color);
     background-color: #ffffff;
 }
