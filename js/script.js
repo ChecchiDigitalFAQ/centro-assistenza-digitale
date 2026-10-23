@@ -57,7 +57,7 @@ let appConfig = {
         "chiaroscuro": "📖 **Chiaroscuro:** Tecnica pittorica basata sull'uso dei contrasti tra luce e ombra.",
         "chimerico": "📖 **Chimerico:** Fantastico, irreale, privo di fondamento concreto.",
         "clorofilla": "📖 **Clorofilla:** Pigmento verde presente nelle piante indispensabile per la fotosintesi.",
-        "cloud": "📖 **Cloud Computing:** Rete di server remoti accessibili via internet per memorizzare dati ed elaborare programmi.",
+        "cloud": "Capacità di archiviazione dati remota via internet.",
         "codice": "📖 **Codice:** Sistema di segni e regole per la trasmissione di informazioni.",
         "cometa": "📖 **Cometa:** Corpo celeste ghiacciato che sviluppa una chioma luminosa quando si avvicina al Sole.",
         "comunicazione": "📖 **Comunicazione:** Processo di trasmissione di informazioni e messaggi tra un emittente e un ricevente.",
@@ -142,6 +142,14 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
+        // --- FAQ METEO / PREVISIONI (IRONICA) ---
+        {
+            "id": "METEO",
+            "type": "fun",
+            "keywords": ["che tempo fa", "meteo", "previsioni", "piove", "sole", "tempo domani", "tempo oggi", "previsioni meteo"],
+            "responses": ["⛅ Non sono mica un colonnello dell'Aeronautica o un meteorologo televisivo! Per sapere se piove a Fucecchio ti conviene guardare fuori dalla finestra o dare un'occhiata a un sito meteo ufficiale. Io mi occupo della scuola dell'IIS \"Arturo Checchi\"! 🏫"]
+        },
+        // ----------------------------------------
         {
             "id": "CREATORE",
             "type": "personal",
