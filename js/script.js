@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario integrato completo per Arturo 2.0 | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario integrato COMPLETO per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,7 +8,7 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
-    // DIZIONARIO ED ENCICLOPEDIA LOCALE (Integrale e completo A-Z)
+    // DIZIONARIO ED ENCICLOPEDIA LOCALE COMPLETA (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
@@ -111,95 +111,55 @@ let appConfig = {
         "router": "📖 **Router:** Dispositivo di rete che instrada i pacchetti di dati tra reti informatiche diverse.",
         "server": "📖 **Server:** Elaboratore ad alte prestazioni destinato a gestire ed erogare risorse e servizi a molteplici client.",
         "sillogismo": "📖 **Sillogismo:** Tipo di ragionamento deduttivo della logica aristotelica formato da due premesse e una conclusione.",
-        "similitudine": "📖 **Similitudine:** Figura retorica che paragona due elementi esplicitamente usando connettivi come *come*, *sembra*, *pare*.",
-        "sinecdoche": "📖 **Sinecdoche:** Figura retorica che esprime una parola usando la parte per il tutto o il tutto per la parte.",
-        "sinestesia": "📖 **Sinestesia:** Figura retorica che accosta due termini appartenenti a sfere sensoriali differenti.",
-        "software": "📖 **Software:** L'insieme dei programmi e istruzioni che permettono ad un computer di funzionare.",
-        "sql": "📖 **SQL:** Structured Query Language. Linguaggio standard per la creazione, gestione ed interrogazione di database.",
-        "tutela": "📖 **GDPR:** Regolamento Generale sulla Protezione dei Dati personali in vigore nell'Unione Europea.",
-        "url": "📖 **URL:** Uniform Resource Locator. Indirizzo univoco che identifica la posizione di una risorsa sulla rete Internet.",
-        "usb": "📖 **USB:** Universal Serial Bus. Standard di connessione via cavo per collegare periferiche e scambiare dati o energia.",
-        "virus": "📖 **Virus Informatico:** Codice malevolo in grado di replicarsi autonomamente all'interno di altri programmi o file.",
-        "wifi": "📖 **Wi-Fi:** Tecnologia di connessione senza fili che consente a dispositivi digitali di accedere ad una rete locale."
+        "similitudine": "📖 **Similitudine:** Figura retorica che paragona un elemento all'altro.",
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni di un computer.",
+        "url": "📖 **URL:** Uniform Resource Locator. Indirizzo web.",
+        "usb": "📖 **USB:** Universal Serial Bus. Standard di connessione.",
+        "virus": "📖 **Virus:** Codice malevolo."
     },
 
     faqs: [
         {
-            "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
-            "type": "form",
-            "label": "l'autorizzazione per l'ingresso di esperti esterni",
-            "keywords": ["richiesta autorizzazione ingresso esperti esterni", "ingresso esperti esterni", "esperti esterni", "esperti", "autorizzazione esperti", "form esperti esterni", "modulo esperti esterni", "esperto esterno"],
-            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
-        },
-        {
-            "id": "FORM_RICHIESTA_FOTOCOPIE",
-            "type": "form",
-            "label": "la richiesta di stampa fotocopie",
-            "keywords": ["richiesta fotocopie", "fotocopie", "form fotocopie", "modulo fotocopie", "fare fotocopie", "stampa fotocopie", "richiedere fotocopie"],
-            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
-        },
-        {
-            "id": "FORM_PIANO_LAVORO_LICEO_ITE_ITT",
-            "type": "form",
-            "label": "il Piano di Lavoro Annuale per Liceo, ITE o ITT",
-            "keywords": ["piano lavoro annuale del docente indirizzo liceo ite itt", "piano di lavoro liceo", "piano di lavoro ite", "piano di lavoro itt", "piani di lavoro liceo ite itt", "form piano di lavoro liceo", "modulo piano di lavoro liceo ite itt", "piano lavoro liceo"],
-            "responses": ["📑 **Piano di Lavoro Annuale del Docente (Liceo / ITE / ITT):**\n\nPuoi compilare il Form al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Piano di Lavoro Liceo / ITE / ITT</a>"]
-        },
-        {
-            "id": "FORM_PIANO_LAVORO_IPIA_PRIME_ITE_ITT",
-            "type": "form",
-            "label": "il Piano di Lavoro Annuale per IPIA e Classi Prime ITE/ITT",
-            "keywords": ["piano di lavoro annuale docente ipia e classi prime ite itt", "piano di lavoro ipia", "piano di lavoro prime ite", "piano di lavoro prime itt", "form piano di lavoro ipia", "modulo piano di lavoro ipia", "piano lavoro ipia", "piani di lavoro ipia"],
-            "responses": ["📑 **Piano di Lavoro Annuale Docente (IPIA e Classi Prime ITE/ITT):**\n\nPuoi accedere e compilare il modulo al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/cd1wGeKYiK' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Piano di Lavoro IPIA / Prime ITE-ITT</a>"]
-        },
-        {
-            "id": "FORM_SOSTITUZIONI_RECUPERO_PERMESSI",
-            "type": "form",
-            "label": "la registrazione di sostituzioni retribuite o recupero permessi brevi",
-            "keywords": ["registrazione sostituzioni retribuite e recupero permessi brevi", "sostituzioni retribuite", "recupero permessi brevi", "sostituzioni docenti", "form sostituzioni", "modulo sostituzioni", "registro sostituzioni", "permessi brevi"],
-            "responses": ["💰 **Registrazione Sostituzioni Retribuite e Recupero Permessi Brevi:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/pv7mxGHyC5' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Sostituzioni e Permessi Brevi</a>"]
+            "id": "CHI_SEI",
+            "type": "chat",
+            "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome", "nome", "ti chiami"],
+            "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
             "id": "CREATORE",
             "type": "personal",
-            "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore", "chi ti ha fatto"],
+            "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore", "chi ti ha fatto", "programmato", "sviluppato"],
             "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro** per offrire supporto e risorse alla comunità scolastica!"]
         },
         {
-            "id": "SCOPO_ARTURO",
-            "type": "personal",
-            "keywords": ["perche ti hanno creato", "a cosa servi", "cosa fai", "perche esisti"],
-            "responses": ["💡 Sono stato creato per aiutare la comunità scolastica dell'IIS \"Arturo Checchi\" ad accedere facilmente a svariate informazioni, modulistica, supporto tecnico e risorse dell'istituto."]
+            "id": "FORM_LISTA",
+            "type": "form",
+            "keywords": ["form", "moduli", "modulo", "modulistica", "elenco form", "tutti i form"],
+            "responses": ["📋 **Modulistica e Form Scolastici:**\n\nEcco i principali moduli disponibili:\n• 🖨️ <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank'>Richiesta Fotocopie</a>\n• 📋 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank'>Autorizzazione Esperti Esterni</a>\n• 📑 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank'>Piano di Lavoro Docenti</a>\n• 💰 <a href='https://forms.cloud.microsoft/e/pv7mxGHyC5' target='_blank'>Sostituzioni e Permessi Brevi</a>"]
         },
         {
-            "id": "PRIVACY_DATI_PERSONALI",
-            "type": "school",
-            "keywords": ["numero di telefono di", "numero di", "dammi il numero", "telefono di", "email di", "cellulare di", "dove abita"],
-            "responses": ["🔒 Per motivi di **privacy**, non sono autorizzato a fornire informazioni personali su docenti, studenti o personale dell'istituto. Posso però aiutarti con le informazioni di carattere istituzionale!"]
+            "id": "FORM_RICHIESTA_FOTOCOPIE",
+            "type": "form",
+            "keywords": ["richiesta fotocopie", "fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
+            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
         },
         {
-            "id": "STRUTTURA_EMAIL",
-            "type": "school",
-            "keywords": ["email istituzionale", "struttura mail", "come sono fatte le email", "formato email", "indirizzo email scuola"],
-            "responses": ["📧 Le email istituzionali dell'IIS \"Arturo Checchi\" seguono queste strutture standard:\n\n• **Studenti**: `nome.cognome@istitutochecchi.edu.it`\n• **Docenti e Personale**: `NomeCognome@istitutochecchi.edu.it`"]
+            "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
+            "type": "form",
+            "keywords": ["ingresso esperti esterni", "esperti esterni", "esperti", "autorizzazione esperti", "form esperti"],
+            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
         },
         {
             "id": "GESTIONE_PASSWORD",
             "type": "school",
-            "keywords": ["password", "ho smarrito la password", "recuperare password", "password persa", "non ricordo la password"],
-            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono password differenti:\n\n1️⃣ Le credenziali per **Microsoft 365 e Teams** (che utilizzano lo stesso accesso).\n2️⃣ Le credenziali separate per il registro elettronico **Argo**.\n\nDimmi quale delle deux password ti serve recuperare così ti spiego come fare!"]
+            "keywords": ["password", "smarrito la password", "recuperare password", "password persa", "non ricordo la password", "credenziali"],
+            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono password differenti:\n\n1️⃣ Le credenziali per **Microsoft 365 e Teams**.\n2️⃣ Le credenziali separate per il registro elettronico **Argo**.\n\nDimmi quale delle due password ti serve recuperare così ti spiego come fare!"]
         },
         {
             "id": "MODERAZIONE_ESPLICITA",
             "type": "moderation",
-            "keywords": ["sesso", "fai sesso", "porno", "pornografia", "scopare", "uccidere"],
+            "keywords": ["sesso", "porno", "scopare", "uccidere"],
             "responses": ["😊 Su questi argomenti preferisco mantenere toni consoni all'ambiente scolastico. Concentriamoci pure sulle attività dell'IIS \"Arturo Checchi\"!"]
-        },
-        {
-            "id": "INSULTI_OFFESE",
-            "type": "moderation",
-            "keywords": ["sei stupido", "non capisci niente", "brutto", "inutile", "vaffanculo", "stronzo"],
-            "responses": ["🤖 Ho molta pazienza, ma zero memoria per gli insulti! Se hai finito, come posso aiutarti sul serio per la scuola?"]
         },
         {
             "id": "SALUTO",
@@ -208,21 +168,9 @@ let appConfig = {
             "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         },
         {
-            "id": "BARZELLETTA",
-            "type": "chat",
-            "keywords": ["barzelletta", "raccontami una barzelletta", "fammi ridere", "indovinello"],
-            "responses": ["😄 Perché i programmatori preferiscono la notte? Perché di giorno ci sono troppi bug che danno fastidio alla luce del sole!"]
-        },
-        {
-            "id": "AIUTO",
-            "type": "school",
-            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni"],
-            "responses": ["Sono l'assistente digitale dell'**IIS Arturo Checchi**! Posso aiutarti a trovare informazioni, orari di segreteria, modulistica docenti e supporto sui servizi digitali."]
-        },
-        {
             "id": "CONTATTI",
             "type": "school",
-            "keywords": ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete", "indirizzo"],
+            "keywords": ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete", "indirizzo", "contatti"],
             "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it\n✉️ **PEC:** FIIS00300C@pec.istruzione.it"]
         },
         {
@@ -240,17 +188,14 @@ let appConfig = {
         {
             "id": "MICROSOFT365",
             "type": "school",
-            "keywords": ["teams", "microsoft", "argo", "registro", "m365"],
+            "keywords": ["teams", "microsoft", "argo", "registro", "m365", "servizi digitali"],
             "responses": ["💻 Per i servizi digitali (Microsoft 365, Teams, Registro Elettronico Argo) puoi rivolgerti all'assistenza tecnica o consultare le sezioni dedicate sul sito della scuola."]
         }
     ]
 };
 
-let personalQueryCount = 0;
 let inactivityTimer = null;
 const RESET_TIME_MS = 30 * 60 * 1000;
-let conversationState = null;
-let pendingFormMatch = null;
 let contatoreInappropriato = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -266,7 +211,7 @@ function initApp() {
 }
 
 function renderQuickButtons() {
-    const container = document.getElementById("faq-buttons-container") || document.getElementById("quickButtonsContainer");
+    const container = document.getElementById("faq-buttons-container");
     if (!container) return;
     
     container.innerHTML = "";
@@ -295,7 +240,7 @@ function setupEventListeners() {
 }
 
 function sendMessage() {
-    const inputField = document.getElementById("user-input") || document.getElementById("userInput");
+    const inputField = document.getElementById("user-input");
     if (!inputField) return;
     const message = inputField.value.trim();
 
@@ -318,6 +263,7 @@ function processUserQuery(query) {
         .replace(/[ìí]/g, "i")
         .replace(/[òó]/g, "o")
         .replace(/[ùú]/g, "u")
+        .replace(/[?.,!]/g, "")
         .replace(/\s+/g, " ")
         .trim();
 
@@ -327,10 +273,8 @@ function processUserQuery(query) {
         contatoreInappropriato++;
         if (contatoreInappropriato === 1) {
             appendMessage("😊 Su questi argomenti preferisco mantenere toni consoni all'ambiente scolastico. Concentriamoci pure sulle attività dell'IIS \"Arturo Checchi\"!", "bot");
-        } else if (contatoreInappropriato === 2) {
-            appendMessage("⚠️ Insisti su argomenti del tutto inopportuni. Ti invito calorosamente a concentrarti sull'aspetto scolastico e sulle informazioni utili per la scuola.", "bot");
         } else {
-            appendMessage("🛑 La nostra conversazione può anche terminare qui, visto che continui a insistere su argomenti non consoni all'assistente scolastico. Ti auguro una buona giornata.", "bot");
+            appendMessage("🛑 La nostra conversazione può anche terminare qui, visto che continui a insistere su argomenti non consoni all'assistente scolastico.", "bot");
         }
         return;
     }
@@ -349,7 +293,6 @@ function processUserQuery(query) {
 
     // 3. Ricerca nel Dizionario Universale
     let wordToSearch = cleanQuery
-        .replace(/['’?.,!]/g, " ")
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
 
@@ -362,12 +305,12 @@ function processUserQuery(query) {
         }
     }
 
-    // 4. Ricerca FAQ
+    // 4. Ricerca FAQ migliorata
     let bestMatch = null;
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
-            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword)) {
+            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
                 bestMatch = item;
             }
         });
@@ -402,7 +345,7 @@ function quickAction(actionId) {
 }
 
 function appendMessage(text, sender) {
-    const chatBox = document.getElementById("chatBox") || document.getElementById("chat-messages");
+    const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     
     const messageDiv = document.createElement("div");
@@ -437,7 +380,7 @@ function appendMessage(text, sender) {
 
 function resetChat() {
     contatoreInappropriato = 0;
-    const chatBox = document.getElementById("chatBox") || document.getElementById("chat-messages");
+    const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
         <div class="message bot-message">
