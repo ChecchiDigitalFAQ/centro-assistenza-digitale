@@ -214,7 +214,7 @@ let appConfig = {
 let inactivityTimer = null;
 const RESET_TIME_MS = 30 * 60 * 1000;
 let contatoreInappropriato = 0;
-let inAttesaScelta = false; // Stato per gestire Sì/No
+let inAttesaScelta = false; // Stato per gestire Sì/No/Chiusura
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -285,17 +285,17 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. Gestione dello stato di attesa (Sì / No)
+    // 1. Gestione dello stato di attesa (Sì / No / Chiusura)
     if (inAttesaScelta) {
         inAttesaScelta = false;
-        if (cleanQuery === "si" || cleanQuery === "sì") {
+        if (cleanQuery.includes("si") || cleanQuery.includes("sì")) {
             appendMessage("Chiedi pure!", "bot");
             return;
-        } else if (cleanQuery === "no") {
+        } else if (cleanQuery.includes("no") || cleanQuery.includes("nulla") || cleanQuery.includes("niente") || cleanQuery.includes("basta") || cleanQuery.includes("grazie")) {
             appendMessage("👋 Va bene! Ti auguro una buona giornata. A presto!", "bot");
             return;
         }
-        // Se l'utente scrive direttamente un'altra domanda, prosegue normalmente sotto
+        // Se l'utente scrive direttamente una nuova domanda, prosegue sotto
     }
 
     // 2. Moderazione
@@ -355,7 +355,7 @@ function processUserQuery(query) {
     }
 }
 
-// Funzione di utilità per accodare la domanda di cortesia e attivare l'attesa del Sì/No
+// Funzione di utilità per accodare la domanda di cortesia e attivare l'attesa
 function rispondiConChiusura(testoRisposta) {
     appendMessage(testoRisposta, "bot");
     setTimeout(() => {
