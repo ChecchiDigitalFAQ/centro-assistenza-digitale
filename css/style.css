@@ -9,11 +9,11 @@
     --text-main: #1e293b;
     --text-muted: #64748b;
     --border-color: #e2e8f0;
-    --bot-msg-bg: #f1f5f9;
+    --bot-msg-bg: #ffffff;
     --user-msg-bg: #1e3a8a;
     --user-msg-text: #ffffff;
     --radius: 12px;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -48,7 +48,6 @@ body {
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.02);
     z-index: 10;
-    transition: transform 0.3s ease;
 }
 
 .sidebar-header {
@@ -58,7 +57,7 @@ body {
 }
 
 .sidebar-header .logo {
-    max-width: 65px;
+    max-width: 60px;
     margin-bottom: 8px;
     object-fit: contain;
 }
@@ -94,7 +93,7 @@ body {
     gap: 8px;
 }
 
-/* Pulsanti Rapidi Colorati e Vivaci */
+/* Pulsanti Rapidi Differenziati e Colorati */
 .quick-buttons {
     display: flex;
     flex-direction: column;
@@ -102,75 +101,76 @@ body {
 }
 
 .quick-btn {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border: 1px solid #bfdbfe;
-    padding: 11px 14px;
+    border: 1px solid transparent;
+    padding: 10px 14px;
     border-radius: 10px;
     text-align: left;
     font-size: 0.9rem;
-    color: #1e40af;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 12px;
     font-weight: 600;
     transition: all 0.25s ease;
-    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
 }
+
+/* Sfumature e colori differenti per ogni voce di accesso rapido */
+.quick-btn:nth-child(1) { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); color: #1e40af; border-color: #bfdbfe; }
+.quick-btn:nth-child(2) { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: #166534; border-color: #bbf7d0; }
+.quick-btn:nth-child(3) { background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%); color: #86198f; border-color: #f5d0fe; }
+.quick-btn:nth-child(4) { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); color: #92400e; border-color: #fde68a; }
+.quick-btn:nth-child(5) { background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); color: #9f1239; border-color: #fecdd3; }
 
 .quick-btn:hover {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-    border-color: #1d4ed8;
-    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+    filter: brightness(0.95);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
 
-.quick-btn:hover i {
-    color: #ffffff;
-}
-
-.quick-btn i {
-    color: #2563eb;
-    font-size: 1.1rem;
-    transition: color 0.25s ease;
-}
-
-/* Card Contatti Istituzionali */
+/* Card Contatti Istituzionali Cliccabili */
 .contact-card {
     background-color: #f8fafc;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 12px;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 0.82rem;
+    line-height: 1.4;
 }
 
 .contact-card p {
     margin-bottom: 8px;
-    display: flex;
-    flex-direction: column;
 }
 
 .contact-card p:last-child {
     margin-bottom: 0;
 }
 
-.contact-card i {
+.contact-link {
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: color 0.2s;
+}
+
+.contact-link:hover {
     color: var(--primary-color);
-    margin-right: 5px;
+}
+
+.contact-link i {
+    color: var(--primary-color);
+    margin-bottom: 2px;
 }
 
 /* Footer Sidebar */
 .sidebar-footer {
     border-top: 1px solid var(--border-color);
     padding-top: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .action-btn-danger {
+    width: 100%;
     background-color: #fef2f2;
     border: 1px solid #fecaca;
     color: #dc2626;
@@ -188,25 +188,6 @@ body {
 
 .action-btn-danger:hover {
     background-color: #fee2e2;
-}
-
-.admin-link {
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px;
-    border-radius: 6px;
-    transition: background 0.2s;
-}
-
-.admin-link:hover {
-    background-color: #f1f5f9;
-    color: var(--text-main);
 }
 
 /* --- AREA PRINCIPALE DI CHAT --- */
@@ -255,7 +236,7 @@ body {
     gap: 6px;
 }
 
-/* Contenitore Messaggi */
+/* Contenitore Messaggi con Spaziatura ottimizzata */
 .chat-messages {
     flex: 1;
     padding: 25px;
@@ -268,6 +249,8 @@ body {
 
 .message {
     display: flex;
+    align-items: flex-start;
+    gap: 10px;
     max-width: 75%;
     animation: fadeIn 0.3s ease;
 }
@@ -283,6 +266,30 @@ body {
 
 .user-message {
     align-self: flex-end;
+    flex-direction: row-reverse; /* Mette l'avatar a destra per l'utente */
+}
+
+/* Icone Avatar dentro la Chat */
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.bot-message .message-avatar {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.user-message .message-avatar {
+    background-color: var(--accent-color);
+    color: #ffffff;
 }
 
 .message-content {
@@ -294,7 +301,7 @@ body {
 }
 
 .bot-message .message-content {
-    background-color: #ffffff;
+    background-color: var(--bot-msg-bg);
     color: var(--text-main);
     border: 1px solid var(--border-color);
     border-top-left-radius: 2px;
@@ -306,9 +313,9 @@ body {
     border-top-right-radius: 2px;
 }
 
-/* Input e Form di Invio */
+/* Input e Form di Invio (Sollevato leggermente piu in alto) */
 .chat-input-container {
-    padding: 20px 25px;
+    padding: 15px 25px 25px 25px; /* Spaziatura superiore ridotta per alzarlo visivamente */
     border-top: 1px solid var(--border-color);
     background-color: #ffffff;
 }
@@ -351,39 +358,23 @@ body {
     background-color: #1e293b;
 }
 
-/* --- OTTIMIZZAZIONE RESPONSIVE PER SMARTPHONE --- */
+/* --- RESPONSIVE PER SMARTPHONE --- */
 @media (max-width: 768px) {
-    body {
-        height: 100vh;
-        height: -webkit-fill-available;
-    }
     .app-container {
         flex-direction: column;
     }
     .sidebar {
         width: 100%;
-        height: auto;
-        max-height: 35vh;
-        padding: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        max-height: 30vh;
+        padding: 10px;
     }
-    .sidebar-header .logo {
-        max-width: 40px;
-    }
-    .sidebar-header h2 {
-        font-size: 0.95rem;
-    }
-    .sidebar-header .subtitle {
+    .sidebar-header .subtitle, .contact-card, .sidebar-section h3 {
         display: none;
-    }
-    .contact-card, .sidebar-section h3 {
-        display: none; /* Nasconde i contatti lunghi su mobile per lasciare spazio alla chat */
     }
     .quick-buttons {
         flex-direction: row;
         overflow-x: auto;
         gap: 6px;
-        padding-bottom: 4px;
     }
     .quick-btn {
         flex: 0 0 auto;
@@ -391,18 +382,9 @@ body {
         padding: 6px 10px;
     }
     .sidebar-footer {
-        display: none; /* Pulsante nuova chat e admin accessibili diversamente o compatti */
+        display: none;
     }
     .chat-main {
-        height: 65vh;
-    }
-    .chat-messages {
-        padding: 15px;
-    }
-    .message {
-        max-width: 90%;
-    }
-    .chat-input-container {
-        padding: 12px 15px;
+        height: 70vh;
     }
 }
