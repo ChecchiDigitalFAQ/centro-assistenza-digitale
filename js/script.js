@@ -337,8 +337,8 @@ function processUserQuery(query) {
     } else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
-        // PARACADUTE CONVERSAZIONALE AMICHEVOLE PER DOMANDE FUORI AMBITO (es. meteo, pensieri casuali)
-        rispondiBot(`🤖 Hmm, su argomenti come "${query}" non ho dati nei miei sistemi scolastici! Sono l'assistente dell'IIS "Arturo Checchi": posso aiutarti con i form, le informazioni sui plessi, i calcoli o farti fare quattro risate con una barzelletta!`);
+        // PARACADUTE SIMPATICO E BRILLANTE PER DOMANDE FUORI AMBITO
+        rispondiBot(`🌦️ Eh, magari sapessi che tempo fa là fuori! Purtroppo vivo interamente nel cloud dell'IIS "Arturo Checchi" e non ho una finestra sul mondo esterno. Posso però aiutarti con i form della scuola, darti informazioni sui plessi, fare calcoli al volo o raccontarti una barzelletta!`);
     }
 }
 
