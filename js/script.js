@@ -105,7 +105,7 @@ let appConfig = {
         "universo": "📖 **Universo:** L'insieme di tutta la materia, dell'energia, dello spazio e del tempo.",
         "vaccino": "📖 **Vaccino:** Preparato biologico volto a procurare immunità attiva verso una specifica malattia.",
         "velocita": "📖 **Velocità:** Rapporto tra lo spazio percorso da un corpo e il tempo impiegato.",
-        "virus": "📖 | **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
+        "virus": "📖 **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
         "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas.",
         "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano."
     },
@@ -118,10 +118,10 @@ let appConfig = {
             "responses": [
                 "🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio, progettato per offrire supporto immediato a tutta la comunità scolastica.\n\n" +
                 "💡 **Cosa posso fare per te?**\n" +
-                "• 📋 **Ricerca di Form e Modulistica:** Ti aiuto a trovare e compilare i moduli ufficiali dell'istituto (richiesta fotocopie, autorizzazione esperti esterni, piani di lavoro, permessi).\n" +
-                "• 🧭 **Orientamento e Informazioni:** Guido studenti, docenti e famiglie tra le risorse, le attività e l'offerta formativa della scuola.\n" +
-                "• 💻 **Account e Servizi Digitali:** Fornisco indicazioni e supporto per l'accesso agli account istituzionali, Microsoft 365, Teams e al registro elettronico Argo.\n" +
-                "• 📚 **Enciclopedia e Calcoli:** Puoi chiedermi la definizione di centinaia di termini enciclopedici o calcoli matematici al volo."
+                "• 📋 **Ricerca di Form e Modulistica:** Ti aiuto a trovare e compilare i moduli ufficiali dell'istituto.\n" +
+                "• 🧭 **Orientamento e Informazioni:** Guido studenti, docenti e famiglie tra le risorse della scuola.\n" +
+                "• 💻 **Account e Servizi Digitali:** Supporto per Microsoft 365, Teams e registro Argo.\n" +
+                "• 🧮 **Calcolatrice Scientifica e Dizionario:** Risolvo radici quadrate, potenze, espressioni e definizioni al volo!"
             ]
         },
         {
@@ -142,8 +142,6 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
-        
-        // --- FAQ ESTESE PER SIMPATIA E ANTIPATIA (TUTTE LE VARIABILI) ---
         {
             "id": "SIMPATIA",
             "type": "fun",
@@ -156,8 +154,6 @@ let appConfig = {
             "keywords": ["antipatico", "antipaticissimo", "molto antipatico", "che antipatico", "sei antipatico", "sei antipaticissimo", "quanto sei antipatico", "troppo antipatico", "anti", "sei noioso", "che noia", "sei pesante", "insopportabile"],
             "responses": ["😅 Oh no, mi dispiace! Prometto di impegnarmi di più per strapparti un sorriso la prossima volta che parliamo di scuola! 😉"]
         },
-        // -------------------------------------------------------------
-
         {
             "id": "METEO",
             "type": "fun",
@@ -170,8 +166,6 @@ let appConfig = {
             "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore", "chi ti ha fatto", "programmato", "sviluppato"],
             "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro** per offrire supporto e risorse alla comunità scolastica!"]
         },
-        
-        // --- ARCHIVIO MASSICCIO DI DOMANDE ASSURDE, GIOCO E PROVOCAZIONI ---
         {
             "id": "ETA_ARTURO",
             "type": "fun",
@@ -244,8 +238,6 @@ let appConfig = {
             "keywords": ["cantami una canzone", "canta", "sai cantare"],
             "responses": ["🎶 *Beep boop... bip bop!* 🎵 La mia voce robotica stona un po', ma lo spirito con cui sostengo l'IIS \"Arturo Checchi\" è sempre in chiave di sol!"]
         },
-        // -------------------------------------------------------------
-
         {
             "id": "FORM_LISTA",
             "type": "form",
@@ -413,16 +405,11 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Calcolatrice matematica al volo
-    const mathExpression = extractMathExpression(cleanQuery);
-    if (mathExpression) {
-        try {
-            const result = Function(`'use strict'; return (${mathExpression})`)();
-            if (!isNaN(result)) {
-                rispondiConChiusura(`🧮 Ho calcolato l'espressione per te:\n**${mathExpression} = ${result}**`);
-                return;
-            }
-        } catch (e) {}
+    // 3. CALCOLATRICE SCIENTIFICA POTENZIATA (Radici, Potenze, Algebra)
+    const mathResult = evaluateAdvancedMath(cleanQuery, query);
+    if (mathResult !== null) {
+        rispondiConChiusura(`🧮 Ho eseguito il calcolo scientifico per te:\n**${mathResult}**`);
+        return;
     }
 
     // 4. Ricerca nel Dizionario
@@ -439,7 +426,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 5. Ricerca FAQ avanzata (con controllo flessibile delle keyword)
+    // 5. Ricerca FAQ avanzata
     let bestMatch = null;
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
@@ -459,9 +446,43 @@ function processUserQuery(query) {
         if (paroleArray.length <= 1) {
             appendMessage(`🤔 Non ho capito bene cosa intendi con "${query}". Potresti riformulare o farmi una domanda più precisa sull'istituto?`, "bot");
         } else {
-            appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
+            appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su這個 argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
         }
     }
+}
+
+// MOTORE DI CALCOLO SCIENTIFICO AVANZATO (Radici, Potenze, Espressioni)
+function evaluateAdvancedMath(cleanText, originalText) {
+    try {
+        let text = cleanText.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
+
+        // Conversione linguistica di radice quadrata (es. "radice di 25" -> "Math.sqrt(25)")
+        text = text.replace(/radice quadrata di\s*([0-9.]+)/g, "Math.sqrt($1)");
+        text = text.replace(/radice di\s*([0-9.]+)/g, "Math.sqrt($1)");
+        text = text.replace(/√\s*([0-9.]+)/g, "Math.sqrt($1)");
+
+        // Potenze linguistiche (es. "2 alla 3" o "2 elevato a 3")
+        text = text.replace(/([0-9.]+)\s*alla\s*([0-9.]+)/g, "Math.pow($1, $2)");
+        text = text.replace(/([0-9.]+)\s*elevato\s*(?:alla|a)\s*([0-9.]+)/g, "Math.pow($1, $2)");
+
+        // Sostituzione operatori standard e simboli matematici
+        text = text.replace(/x/g, "*").replace(/:/g, "/").replace(/potentia/g, "^");
+        
+        // Gestione dell'operatore di potenza JavaScript (^) oppure standard
+        // Traduciamo le espressioni tipo 2^3 in Math.pow(2, 3)
+        text = text.replace(/([0-9.]+)\s*\^\s*([0-9.]+)/g, "Math.pow($1, $2)");
+
+        // Pulizia finale e validazione di sicurezza (per accettare solo numeri, Math, operatori e parentesi)
+        let sanitized = text.replace(/[^0-9+\-*/().Math,sqrtpow\s]/g, "");
+
+        if (sanitized.length > 0 && /[0-9]/.test(sanitized) && (sanitized.includes("+") || sanitized.includes("-") || sanitized.includes("*") || sanitized.includes("/") || sanitized.includes("Math."))) {
+            let res = Function(`'use strict'; return (${sanitized})`)();
+            if (!isNaN(res) && isFinite(res)) {
+                return `${originalText.trim()} = **${res}**`;
+            }
+        }
+    } catch (e) {}
+    return null;
 }
 
 // Funzione di utilità per accodare la domanda di cortesia e attivare l'attesa
@@ -471,15 +492,6 @@ function rispondiConChiusura(testoRisposta) {
         appendMessage("Cos'altro posso fare per te? Vuoi chiedere altro?", "bot");
         inAttesaScelta = true;
     }, 400);
-}
-
-function extractMathExpression(text) {
-    let cleaned = text.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
-    cleaned = cleaned.replace(/x/g, "*").replace(/:/g, "/").replace(/,/g, ".");
-    if (/^[0-9+\-*/().\s]+$/.test(cleaned) && /[0-9]/.test(cleaned) && /[+\-*/]/.test(cleaned)) {
-        return cleaned;
-    }
-    return null;
 }
 
 function quickAction(actionId) {
@@ -555,8 +567,8 @@ function aggiornaOrologio() {
     const liveClock = document.getElementById("live-clock");
     if (!liveClock) return;
     const ora = new Date();
-    const opzioniData = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-    const dataStr = ora.toLocaleDateString('it-IT', opzioniData);
+    const opzioniData = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' fr };
+    const dataStr = ora.toLocaleDateString('it-IT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
     const oraStr = ora.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     liveClock.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataStr} - ${oraStr}`;
 }
