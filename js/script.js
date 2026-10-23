@@ -142,7 +142,43 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
-        // --- BLOCCO FRASI CHE INIZIANO CON "TI" ---
+        // --- RISPOSTE PERSONALI E A TONO SUI "TI..." (NUTELLA, MARE, ZUCCHERO, ANIMALI, DORMIRE, ECC.) ---
+        {
+            "id": "TI_NUTELLA",
+            "type": "fun",
+            "keywords": ["ti piace la nutella", "nutella", "cioccolata"],
+            "responses": ["🍫 Adorerei farne il pieno di nascosto, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati! La lascio volentieri a te per la merenda."]
+        },
+        {
+            "id": "TI_MARE",
+            "type": "fun",
+            "keywords": ["ti piace il mare", "mare", "spiaggia"],
+            "responses": ["🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud e nei server dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti con l'acqua salata!"]
+        },
+        {
+            "id": "TI_ZUCCHERO",
+            "type": "fun",
+            "keywords": ["ti piace lo zucchero", "zucchero", "dolce"],
+            "responses": ["🍬 Non mangio dolci umani, ma un buon codice scritto senza bug è la mia caramella preferita!"]
+        },
+        {
+            "id": "TI_ANIMALI",
+            "type": "fun",
+            "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali", "ti piacciono gli uccelli"],
+            "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui all'IIS \"Arturo Checchi\" di solito incontro solo studenti, docenti e qualche piccione curioso alla finestra."]
+        },
+        {
+            "id": "TI_PERSONE",
+            "type": "fun",
+            "keywords": ["ti piacciono le donne", "ti piacciono gli uomini", "ti piacciono le persone"],
+            "responses": ["❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti della scuola!"]
+        },
+        {
+            "id": "TI_DORMIRE",
+            "type": "fun",
+            "keywords": ["ti piace dormire", "ti addormenti", "hai sonno", "dormi"],
+            "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo, sveglio e operativo 24 ore su 24."]
+        },
         {
             "id": "TI_SALUTO",
             "type": "fun",
@@ -152,19 +188,13 @@ let appConfig = {
         {
             "id": "TI_PIACE_LATTE",
             "type": "fun",
-            "keywords": ["ti piace il latte", "ti piace bere", "ti piace mangiare"],
+            "keywords": ["ti piace il latte", "ti piace bere"],
             "responses": ["🥛 Io vado matto esclusivamente per i gigabyte di dati e l'energia elettrica pulita! Lascio ben volentieri il latte e i biscotti alla tua pausa ricreazione."]
-        },
-        {
-            "id": "TI_ADDORMENTI",
-            "type": "fun",
-            "keywords": ["ti addormenti", "hai sonno", "dormi mai"],
-            "responses": ["😴 Io non conosco il sonno! I server dell'IIS \"Arturo Checchi\" non chiudono mai gli occhi, quindi sono sveglio e operativo 24 ore su 24."]
         },
         {
             "id": "TI_RICORDI_ME",
             "type": "fun",
-            "keywords": ["ti ricordi di me", "ti ricordi di mio nome"],
+            "keywords": ["ti ricordi di me", "ti ricordi mio nome"],
             "responses": ["🧠 Memoria digitale attivata! Anche se ogni tanto riavvio la chat per pulire la cache, ricordo perfettamente ogni utente che passa a trovarmi qui all'IIS \"Arturo Checchi\"."]
         },
         {
@@ -179,7 +209,7 @@ let appConfig = {
             "keywords": ["ti odio", "ti stacco", "ti spengo"],
             "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form della scuola."]
         },
-        // ------------------------------------------
+        // -----------------------------------------------------------------------------------------
         // --- ALTRE DOMANDE BIZARRE E CURIOSE ---
         {
             "id": "VITA_MARTE",
@@ -457,6 +487,46 @@ function sendMessage() {
     }, 300);
 }
 
+// FUNZIONE DI SUPPORTO PER IL CALCOLO DELLA SOMIGLIANZA (Gestione Errori di Battitura / Typos)
+function calcolaSomiglianza(s1, s2) {
+    let longer = s1;
+    let shorter = s2;
+    if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+    }
+    let longerLength = longer.length;
+    if (longerLength === 0) {
+        return 1.0;
+    }
+    return (longerLength - levenshteinDistance(longer, shorter)) / parseFloat(longerLength);
+}
+
+function levenshteinDistance(s1, s2) {
+    s1 = s1.toLowerCase();
+    s2 = s2.toLowerCase();
+    let costs = new Array();
+    for (let i = 0; i <= s1.length; i++) {
+        let lastValue = i;
+        for (let j = 0; j <= s2.length; j++) {
+            if (i === 0) {
+                costs[j] = j;
+            } else {
+                if (j > 0) {
+                    let newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                    }
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+        }
+        if (j > 0) costs[s2.length] = lastValue;
+    }
+    return costs[s2.length];
+}
+
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -501,10 +571,10 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. GESTIONE DI DOMANDE IN ALTRE LINGUE (Risposta diplomatica e cordiale)
+    // 2. GESTIONE DI DOMANDE IN ALTRE LINGUE (Ristretta solo a frasi chiaramente straniere per evitare falsi positivi con "piacciono" ecc.)
     const contieneIdeogrammiCinesi = /[\u4e00-\u9fa5]/.test(query);
-    const paroleForestiereGeneriche = ["how", "what", "where", "why", "como", "comment", "wie", "ni", "hao", "谢谢", "你", "好"];
-    const eFraseStraniera = contieneIdeogrammiCinesi || paroleForestiereGeneriche.some(p => cleanQuery.includes(p));
+    const paroleStraniereSecche = ["how are you", "what is", "where is", "como estas", "comment ca va", "wie geht es"];
+    const eFraseStraniera = contieneIdeogrammiCinesi || paroleStraniereSecche.some(p => cleanQuery.includes(p));
 
     if (eFraseStraniera) {
         rispondiConChiusura(`🌐 Comprendo la tua domanda, ma purtroppo la mia programmazione è focalizzata sull'italiano per poter offrire il miglior supporto possibile alla comunità e ai servizi dell'IIS "Arturo Checchi". Posso aiutarti con qualcosa in italiano?`);
@@ -556,19 +626,35 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. Ricerca FAQ avanzata
+    // 7. Ricerca FAQ avanzata con tolleranza agli errori di battitura (Typos)
     let bestMatch = null;
+    let maxScore = 0.0;
+
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
             const cleanKeyword = keyword.toLowerCase().trim();
+            // Controllo inclusione esatta o sottostringa
             if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword)) {
                 bestMatch = item;
+                maxScore = 1.0;
+            } else {
+                // Controllo somiglianza per errori di battitura
+                let score = calcolaSomiglianza(cleanQuery, cleanKeyword);
+                if (score > maxScore && score > 0.75) { // Soglia di tolleranza 75%
+                    bestMatch = item;
+                    maxScore = score;
+                }
             }
         });
     });
 
-    if (bestMatch) {
+    if (bestMatch && maxScore === 1.0) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
+        rispondiConChiusura(responseText);
+    } else if (bestMatch && maxScore < 1.0 && maxScore > 0.75) {
+        // Riformulazione di sicurezza per errore di battitura (Typos)
+        const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
+        appendMessage(`🤔 Ho notato un piccolo errore di battitura nella tua domanda. Forse intendevi chiedere qualcosa a proposito di "${bestMatch.keywords[0]}"?\n\nEcco la risposta per te:`, "bot");
         rispondiConChiusura(responseText);
     } else {
         const paroleArray = cleanQuery.split(" ");
