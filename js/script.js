@@ -142,7 +142,7 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
-        // --- RISPOSTE PERSONALI E A TONO SUI "TI..." (NUTELLA, MARE, ZUCCHERO, ANIMALI, DORMIRE, ECC.) ---
+        // --- RISPOSTE PERSONALI E A TONO SUI "TI..." ---
         {
             "id": "TI_NUTELLA",
             "type": "fun",
@@ -487,7 +487,7 @@ function sendMessage() {
     }, 300);
 }
 
-// FUNZIONE DI SUPPORTO PER IL CALCOLO DELLA SOMIGLIANZA (Gestione Errori di Battitura / Typos)
+// FUNZIONE DI SUPPORTO PER IL CALCOLO DELLA SOMIGLIANZA (Levenshtein)
 function calcolaSomiglianza(s1, s2) {
     let longer = s1;
     let shorter = s2;
@@ -527,6 +527,53 @@ function levenshteinDistance(s1, s2) {
     return costs[s2.length];
 }
 
+// MOTORE DI CORREZIONE E RICONOSCIMENTO PAROLE (Gestione Typos per singola parola chiave)
+function trovaMigliorMatch(cleanQuery) {
+    let paroleUtente = cleanQuery.split(" ");
+    let bestMatch = null;
+    let maxPunteggio = 0;
+    let parolaTrovataSimile = "";
+
+    appConfig.faqs.forEach(item => {
+        item.keywords.forEach(keyword => {
+            let cleanKeyword = keyword.toLowerCase().trim();
+            
+            // 1. Corrispondenza esatta o sottostringa
+            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
+                let punteggio = cleanKeyword.length;
+                if (punteggio > maxPunteggio) {
+                    maxPunteggio = punteggio;
+                    bestMatch = item;
+                    parolaTrovataSimile = keyword;
+                }
+            } else {
+                // 2. Controllo somiglianza parola per parola (per gestire errori come "cimo" -> "come")
+                let paroleKeyword = cleanKeyword.split(" ");
+                let corrispondenzeParole = 0;
+
+                paroleUtente.forEach(pu => {
+                    paroleKeyword.forEach(pk => {
+                        if (pu === pk || calcolaSomiglianza(pu, pk) > 0.70) {
+                            corrispondenzeParole++;
+                        }
+                    });
+                });
+
+                if (corrispondenzeParole > 0) {
+                    let punteggio = corrispondenzeParole * 10;
+                    if (punteggio > maxPunteggio) {
+                        maxPunteggio = punteggio;
+                        bestMatch = item;
+                        parolaTrovataSimile = keyword;
+                    }
+                }
+            }
+        });
+    });
+
+    return { match: bestMatch, keywordMatch: parolaTrovataSimile, score: maxPunteggio };
+}
+
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -539,7 +586,7 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DEI SALUTI MULTILINGUE (Mappa con lingua e nome esatto associato)
+    // 1. GESTIONE DEI SALUTI MULTILINGUE
     const salutiMappa = {
         "nihao": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
         "nǐ hǎo": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
@@ -571,7 +618,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. GESTIONE DI DOMANDE IN ALTRE LINGUE (Ristretta solo a frasi chiaramente straniere per evitare falsi positivi con "piacciono" ecc.)
+    // 2. GESTIONE DI DOMANDE IN ALTRE LINGUE
     const contieneIdeogrammiCinesi = /[\u4e00-\u9fa5]/.test(query);
     const paroleStraniereSecche = ["how are you", "what is", "where is", "como estas", "comment ca va", "wie geht es"];
     const eFraseStraniera = contieneIdeogrammiCinesi || paroleStraniereSecche.some(p => cleanQuery.includes(p));
@@ -626,35 +673,17 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. Ricerca FAQ avanzata con tolleranza agli errori di battitura (Typos)
-    let bestMatch = null;
-    let maxScore = 0.0;
+    // 7. Ricerca FAQ avanzata con rilevamento intelligente dei Typos e Riformulazione
+    let resultMatch = trovaMigliorMatch(cleanQuery);
 
-    appConfig.faqs.forEach(item => {
-        item.keywords.forEach(keyword => {
-            const cleanKeyword = keyword.toLowerCase().trim();
-            // Controllo inclusione esatta o sottostringa
-            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword)) {
-                bestMatch = item;
-                maxScore = 1.0;
-            } else {
-                // Controllo somiglianza per errori di battitura
-                let score = calcolaSomiglianza(cleanQuery, cleanKeyword);
-                if (score > maxScore && score > 0.75) { // Soglia di tolleranza 75%
-                    bestMatch = item;
-                    maxScore = score;
-                }
-            }
-        });
-    });
-
-    if (bestMatch && maxScore === 1.0) {
-        const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
-        rispondiConChiusura(responseText);
-    } else if (bestMatch && maxScore < 1.0 && maxScore > 0.75) {
-        // Riformulazione di sicurezza per errore di battitura (Typos)
-        const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
-        appendMessage(`🤔 Ho notato un piccolo errore di battitura nella tua domanda. Forse intendevi chiedere qualcosa a proposito di "${bestMatch.keywords[0]}"?\n\nEcco la risposta per te:`, "bot");
+    if (resultMatch.match) {
+        const responseText = resultMatch.match.responses[Math.floor(Math.random() * resultMatch.match.responses.length)];
+        
+        // Se la query utente differisce molto dalla keyword esatta, Arturo riformula gentilmente la domanda
+        if (cleanQuery !== resultMatch.keywordMatch.toLowerCase()) {
+            appendMessage(`🤔 Ho notato un piccolo errore di battitura ("${query}"). Forse intendevi chiedere *"${resultMatch.keywordMatch}"*?\n\nEcco la risposta per te:`, "bot");
+        }
+        
         rispondiConChiusura(responseText);
     } else {
         const paroleArray = cleanQuery.split(" ");
@@ -671,7 +700,6 @@ function evaluateAdvancedMath(cleanText, originalText) {
     try {
         let text = cleanText.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
 
-        // Conversioni di unità (Kg <-> grammi, quintali)
         if (text.includes("quanti grammi sono") && text.includes("kili")) {
             let num = parseFloat(text.replace(/[^0-9.]/g, ""));
             if (!isNaN(num)) return `${num} chili equivalgono a **${num * 1000} grammi**!`;
