@@ -337,7 +337,8 @@ function processUserQuery(query) {
     } else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
-        rispondiBot(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`);
+        // PARACADUTE CONVERSAZIONALE AMICHEVOLE PER DOMANDE FUORI AMBITO (es. meteo, pensieri casuali)
+        rispondiBot(`🤖 Hmm, su argomenti come "${query}" non ho dati nei miei sistemi scolastici! Sono l'assistente dell'IIS "Arturo Checchi": posso aiutarti con i form, le informazioni sui plessi, i calcoli o farti fare quattro risate con una barzelletta!`);
     }
 }
 
