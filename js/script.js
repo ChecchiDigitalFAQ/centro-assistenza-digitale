@@ -105,8 +105,7 @@ let appConfig = {
         "velocita": "📖 **Velocità:** Rapporto tra lo spazio percorso da un corpo e il tempo impiegato.",
         "virus": "📖 **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
         "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas.",
-        "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano."
-        "algoritmo": "📖 **Algoritmo:** Sequenza finita di istruzioni ben definite per risolvere un problema computazionale.",
+        "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano.",
         "anodo": "📖 **Anodo:** Elettrodo positivo di un dispositivo da cui fuoriescono gli elettroni.",
         "antropocene": "📖 **Antropocene:** Era geologica attuale in cui l'essere umano ha modificato il pianeta.",
         "apocalisse": "📖 **Apocalisse:** Genere letterario di carattere visionario e profetico.",
@@ -176,7 +175,6 @@ let appConfig = {
         "grafica": "📖 **Grafica:** Insieme delle tecniche di rappresentazione visiva su supporto bidimensionale.",
         "gravitazione": "📖 **Gravitazione:** Forza di attrazione universale tra corpi dotati di massa.",
         "grecismo": "📖 **Grecismo:** Termine o locuzione derivata dalla lingua greca.",
-        "euristica": "📖 **Euristica:** Procedimento di ricerca di una soluzione non rigoroso ma efficiente.",
         "idraulica": "📖 **Idraulica:** Ramo della fisica applicata che studia il comportamento dei liquidi.",
         "idrolisi": "📖 **Idrolisi:** Reazione chimica di scissione di un composto operata dall'acqua.",
         "inerzia": "📖 **Inerzia:** Proprietà dei corpi di opporsi a variazioni del loro stato di moto.",
@@ -382,12 +380,9 @@ let appConfig = {
 let inAttesaSceltaForm = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-    initApp();
-});
-
-fn initApp = function() { // (mantenuto compatibile)
     initAppCore();
-}
+    startClock();
+});
 
 function initAppCore() {
     renderQuickButtons();
@@ -601,4 +596,13 @@ function resetChat() {
             </div>
         </div>
     `;
+}
+
+function startClock() {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    setInterval(() => {
+        const now = new Date();
+        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${now.toLocaleTimeString()}`;
+    }, 1000);
 }
