@@ -381,7 +381,7 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DEI SALUTI MULTILINGUE (Risponde a tono al saluto e spiega simpaticamente i limiti)
+    // 1. GESTIONE DEI SALUTI MULTILINGUE (Risponde a tono e spiega simpaticamente i limiti)
     const salutiMappa = {
         "nihao": "Nǐ hǎo! (你好)",
         "nǐ hǎo": "Nǐ hǎo! (你好)",
