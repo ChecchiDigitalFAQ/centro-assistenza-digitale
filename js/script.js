@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO GIGANTE per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,424 +8,132 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
-    // DIZIONARIO ED ENCICLOPEDIA ESTESA (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
-        "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
-        "aforisma": "📖 **Aforisma:** Breve massima o sentenza che esprime in modo denso e sintetico una verità o un principio morale.",
-        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
         "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
-        "allegoria": "📖 **Allegoria:** Figura retorica mediante la quale un concetto astratto viene espresso attraverso un'immagine concreta.",
-        "allitterazione": "📖 **Allitterazione:** Ripetizione dello stesso suono o della stessa sillaba all'inizio o all'interno di parole vicine.",
-        "amministratore": "📖 **Amministratore:** Persona responsabile della gestione, configurazione e sicurezza di un sistema o organizzazione.",
-        "analogia": "📖 **Analogia:** Rapporto di somiglianza tra elementi o situazioni diverse, usato per spiegare un concetto.",
-        "anarchia": "📖 **Anarchia:** Teoria e movimento politico che persegue l'abolizione di ogni forma di Stato e autorità.",
-        "anatomia": "📖 **Anatomia:** Scienza che studia la forma e la struttura degli organismi viventi.",
-        "android": "📖 **Android:** Sistema operativo mobile open source basato su kernel Linux, sviluppato da Google.",
-        "anfora": "📖 **Anfora:** Antico vaso di terracotta con due manici e collo stretto, usato per contenere vino o olio.",
-        "antigene": "📖 **Antigene:** Sostanza capace di indurre una risposta immunitaria e la produzione di anticorpi.",
-        "antitesi": "📖 **Antitesi:** Figura retorica che accosta due concetti o parole di senso opposto per risaltare il contrasto.",
-        "antropologia": "📖 **Antropologia:** Scienza che studia l'essere umano sotto l'aspetto biologico, culturale e sociale.",
-        "api": "📖 **API:** Application Programming Interface. Protocolli che consentono a software diversi di comunicare tra loro.",
-        "app": "📖 **Applicazione (App):** Programma informatico progettato per svolgere specifiche attività su dispositivi digitali.",
-        "archeologia": "📖 **Archeologia:** Scienza che studia le civiltà e le culture del passato attraverso i resti materiali.",
-        "architettura": "📖 **Architettura:** Arte e tecnica di progettare e costruire edifici e spazi urbani.",
-        "aristocrazia": "📖 **Aristocrazia:** Forma di governo in cui il potere supremo è detenuto dai nobili o dai migliori.",
-        "armonia": "📖 **Armonia:** Combinazione equilibrata e gradevole di suoni, colori, forme o elementi distinti.",
-        "asteroide": "📖 **Asteroide:** Piccolo corpo celeste roccioso o metallico che orbita attorno al Sole.",
-        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
-        "audiobook": "📖 **Audiobook:** Libro recitato da uno speaker o attore e registrato in formato audio digitale.",
-        "aurora": "📖 **Aurora:** Fenomeno luminoso atmosferico o celeste visibile all'alba o nelle regioni polari.",
-        "autonomia": "📖 **Autonomia:** Capacità di un individuo o di un ente di governarsi da solo e prendere decisioni.",
-        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
-        "barometro": "📖 **Barometro:** Strumento scientifico utilizzato per misurare la pressione atmosferica.",
-        "barocco": "📖 **Barocco:** Movimento culturale e artistico del Seicento caratterizzato da sfarzo ed esuberanza.",
-        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di un nucleo cellulare ben definito.",
-        "big_bang": "📖 **Big Bang:** Modello cosmologico che descrive l'origine e l'evoluzione iniziale dell'universo.",
-        "biografia": "📖 **Biografia:** Narrazione scritta della vita di una persona.",
-        "biologia": "📖 **Biologia:** Scienza che studia la vita, gli organismi viventi, la loro struttura e la loro evoluzione.",
-        "botanica": "📖 **Botanica:** Ramo della biologia che studia gli organismi vegetali.",
-        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
-        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
-        "cappannone": "📖 **Capannone:** Grande edificio ad un solo piano adibito a magazzino, produzione o laboratorio.",
-        "cartografia": "📖 **Cartografia:** Scienza e tecnica della preparazione, studio e disegno delle carte geografiche.",
-        "catalizzatore": "📖 **Catalizzatore:** Sostanza che aumenta la velocità di una reazione chimica senza consumarsi.",
-        "catacomba": "📖 **Catacomba:** Antico cimitero sotterraneo.",
-        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
-        "chiave_pubblica": "📖 **Crittografia Asimmetrica:** Sistema di cifratura basato su una coppia di chiavi (pubblica e privata).",
-        "chiaroscuro": "📖 **Chiaroscuro:** Tecnica pittorica basata sull'uso dei contrasti tra luce e ombra.",
-        "chimerico": "📖 **Chimerico:** Fantastico, irreale, privo di fondamento concreto.",
-        "clorofilla": "📖 **Clorofilla:** Pigmento verde presente nelle piante indispensabile per la fotosintesi.",
-        "cloud": "Capacità di archiviazione dati remota via internet.",
-        "codice": "📖 **Codice:** Sistema di segni e regole per la trasmissione di informazioni.",
-        "cometa": "📖 **Cometa:** Corpo celeste ghiacciato che sviluppa una chioma luminosa quando si avvicina al Sole.",
-        "comunicazione": "📖 **Comunicazione:** Processo di trasmissione di informazioni e messaggi tra un emittente e un ricevente.",
         "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
-        "crittografia": "📖 **Crittografia:** Disciplina che studia i metodi per rendere un messaggio illeggibile ai non autorizzati.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
-        "democrazia": "📖 **Democrazia:** Forma di governo in cui il potere sovrano appartiene al popolo.",
-        "dialetto": "📖 **Dialetto:** Sistema linguistico di ambito geografico o culturale limitato.",
-        "didattica": "📖 **Didattica:** Scienza dell'insegnamento e dei metodi di apprendimento educativo.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
-        "diploma": "📖 **Diploma:** Titolo di studio ufficiale rilasciato al completamento di un percorso scolastico.",
-        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
-        "ecosistema": "📖 **Ecosistema:** Insieme degli organismi viventi e dell'ambiente fisico di un territorio.",
-        "elettricita": "📖 **Elettricità:** Insieme dei fenomeni fisici associati alla presenza e al flusso di cariche elettriche.",
-        "energia": "📖 **Energia:** Grandezza fisica che misura la capacità di un sistema di compiere un lavoro.",
-        "epica": "📖 **Epica:** Genere letterario incentrato su gesta eroiche e mitologiche.",
-        "filosofia": "📖 **Filosofia:** Indagine critica sui fondamenti dell'esperienza e del sapere umano.",
-        "fotone": "📖 **Fotone:** Particella elementare che costituisce la radiazione elettromagnetica e la luce.",
-        "galassia": "📖 **Galassia:** Immense aggregazioni di stelle, gas e polveri tenute insieme dalla gravità.",
-        "genetica": "📖 **Genetica:** Scienza che studia l'ereditarietà e la variabilità biologica.",
-        "geografia": "📖 **Geografia:** Scienza che descrive la Terra nei suoi aspetti fisici e umani.",
-        "gravita": "📖 **Gravità:** Forza di attrazione reciproca tra corpi dotati di massa.",
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
-        "illuminismo": "📖 **Illuminismo:** Movimento culturale del Settecento basato sulla centralità della ragione.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
-        "letteratura": "📖 **Letteratura:** Insieme delle opere scritte che rivestono valore estetico o culturale.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "mitologia": "📖 **Mitologia:** Insieme di miti propri di una civiltà o di una cultura.",
-        "molecola": "📖 **Molecola:** Particella costituita da due o più atomi uniti da legami chimici.",
-        "nanotecnologia": "📖 **Nanotecnologia:** Scienza e ingegneria della manipolazione della materia su scala nanometrica.",
-        "neolitico": "📖 **Neolitico:** Età della pietra pulita e levigata, caratterizzata dall'agricoltura.",
-        "osmose": "📖 **Osmosi:** Diffusione di un solvente attraverso una membrana semipermeabile.",
-        "paradigma": "📖 **Paradigma:** Modello di riferimento o schema teorico esplicativo.",
-        "pianeta": "📖 **Pianeta:** Corpo celeste che orbita attorno a una stella senza emettere luce propria.",
-        "piramide": "📖 **Piramide:** Solido geometrico con base poligonale e facce triangolari convergenti in un vertice.",
-        "plasma": "📖 **Plasma:** Stato della materia costituito da un gas ionizzato ad altissima temperatura.",
-        "rinascimento": "📖 **Rinascimento:** Movimento artistico e culturale fiorito in Italia tra il XV e il XVI secolo.",
-        "rivoluzione": "📖 **Rivoluzione:** Profondo mutamento politico, sociale o tecnologico in tempi rapidi.",
-        "robotica": "📖 **Robotica:** Disciplina ingegneristica che progetta e costruisce robot automatici.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
-        "storia": "📖 **Storia:** Disciplina che studia gli eventi del passato umano.",
-        "teatro": "📖 **Teatro:** Edificio o genere letterario di rappresentazione drammatica.",
-        "termodinamica": "📖 **Termodinamica:** Scienza che studia gli scambi di calore e lavoro nei sistemi.",
-        "umanesimo": "📖 **Umanesimo:** Movimento culturale del Quattrocento incentrato sulla centralità dell'uomo.",
-        "universo": "📖 **Universo:** L'insieme di tutta la materia, dell'energia, dello spazio e del tempo.",
-        "vaccino": "📖 **Vaccino:** Preparato biologico volto a procurare immunità attiva verso una specifica malattia.",
-        "velocita": "📖 **Velocità:** Rapporto tra lo spazio percorso da un corpo e il tempo impiegato.",
-        "virus": "📖 **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
-        "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas.",
-        "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano."
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare."
     },
 
     faqs: [
         {
             "id": "AIUTO",
-            "type": "school",
-            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "cose arturo", "chi e arturo"],
-            "responses": [
-                "🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio, progettato per offrire supporto immediato a tutta la comunità scolastica.\n\n" +
-                "💡 **Cosa posso fare per te?**\n" +
-                "• 📋 **Ricerca di Form e Modulistica:** Ti aiuto a trovare e compilare i moduli ufficiali dell'istituto.\n" +
-                "• 🧭 **Orientamento e Informazioni:** Guido studenti, docenti e famiglie tra le risorse della scuola.\n" +
-                "• 💻 **Account e Servizi Digitali:** Supporto per Microsoft 365, Teams e registro Argo.\n" +
-                "• 🧮 **Calcolatrice Scientifica e Dizionario:** Risolvo radici quadrate, potenze, espressioni e definizioni al volo!"
-            ]
+            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
+            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario!"]
         },
         {
             "id": "CHI_SEI",
-            "type": "chat",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "chi e arturo", "tuo nome", "nome", "ti chiami"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo tu chiami"],
             "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
             "id": "DOVE_VIVI",
-            "type": "chat",
-            "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei umano", "sei un robot", "cosa sei"],
+            "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
             "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
         },
-        {
-            "id": "PERCHE_VIVI",
-            "type": "fun",
-            "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
-            "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
-        },
-        // --- RISPOSTE PERSONALI E A TONO SUI "TI..." ---
+        // --- DOMANDE PERSONALI SUI "TI..." ---
         {
             "id": "TI_NUTELLA",
-            "type": "fun",
             "keywords": ["ti piace la nutella", "nutella", "cioccolata"],
-            "responses": ["🍫 Adorerei farne il pieno di nascosto, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati! La lascio volentieri a te per la merenda."]
+            "responses": ["🍫 Adorerei farne il pieno, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati!"]
         },
         {
             "id": "TI_MARE",
-            "type": "fun",
             "keywords": ["ti piace il mare", "mare", "spiaggia"],
-            "responses": ["🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud e nei server dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti con l'acqua salata!"]
-        },
-        {
-            "id": "TI_ZUCCHERO",
-            "type": "fun",
-            "keywords": ["ti piace lo zucchero", "zucchero", "dolce"],
-            "responses": ["🍬 Non mangio dolci umani, ma un buon codice scritto senza bug è la mia caramella preferita!"]
+            "responses": ["🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti!"]
         },
         {
             "id": "TI_ANIMALI",
-            "type": "fun",
             "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali", "ti piacciono gli uccelli"],
-            "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui all'IIS \"Arturo Checchi\" di solito incontro solo studenti, docenti e qualche piccione curioso alla finestra."]
+            "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."]
         },
         {
             "id": "TI_PERSONE",
-            "type": "fun",
             "keywords": ["ti piacciono le donne", "ti piacciono gli uomini", "ti piacciono le persone"],
-            "responses": ["❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti della scuola!"]
+            "responses": ["❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti!"]
         },
         {
             "id": "TI_DORMIRE",
-            "type": "fun",
             "keywords": ["ti piace dormire", "ti addormenti", "hai sonno", "dormi"],
-            "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo, sveglio e operativo 24 ore su 24."]
+            "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."]
         },
         {
             "id": "TI_SALUTO",
-            "type": "fun",
-            "keywords": ["ti saluto", "ti saluta", "ti mando un saluto"],
+            "keywords": ["ti saluto", "ti saluta"],
             "responses": ["👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."]
         },
         {
-            "id": "TI_PIACE_LATTE",
-            "type": "fun",
-            "keywords": ["ti piace il latte", "ti piace bere"],
-            "responses": ["🥛 Io vado matto esclusivamente per i gigabyte di dati e l'energia elettrica pulita! Lascio ben volentieri il latte e i biscotti alla tua pausa ricreazione."]
-        },
-        {
-            "id": "TI_RICORDI_ME",
-            "type": "fun",
-            "keywords": ["ti ricordi di me", "ti ricordi mio nome"],
-            "responses": ["🧠 Memoria digitale attivata! Anche se ogni tanto riavvio la chat per pulire la cache, ricordo perfettamente ogni utente che passa a trovarmi qui all'IIS \"Arturo Checchi\"."]
-        },
-        {
             "id": "TI_AMO",
-            "type": "fun",
             "keywords": ["ti amo", "ti voglio bene", "ti adoro"],
-            "responses": ["❤️ Oh, che dolcezza! Il meu cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io! Grazie per il supporto all'IIS \"Arturo Checchi\"."]
+            "responses": ["❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io!"]
         },
         {
             "id": "TI_ODIO",
-            "type": "fun",
             "keywords": ["ti odio", "ti stacco", "ti spengo"],
-            "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form della scuola."]
+            "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."]
         },
-        // --- ALTRE DOMANDE BIZARRE E CURIOSE ---
+        // --- SPAZIO E CURIOSITÀ ---
         {
-            "id": "VITA_MARTE",
-            "type": "fun",
-            "keywords": ["vita su marte", "c'e vita su marte", "marte"],
-            "responses": ["🔴 **Vita su Marte?** Se parliamo di omini verdi o colonie spaziali, finora l'unico essere intelligente sbarcato sui computer dell'IIS \"Arturo Checchi\" sono io, Arturo!"]
-        },
-        {
-            "id": "ARTURO_MARTE",
-            "type": "fun",
-            "keywords": ["ci sei mai stato su marte", "sei stato su marte"],
-            "responses": ["🚀 Io su Marte? Magari! Purtroppo il mio hardware è un po' troppo pesante per un razzo spaziale e la connessione Wi-Fi lassù non è il massimo."]
+            "id": "MARTE_LUNA",
+            "keywords": ["marte", "sulla luna", "ci sei stato su marte"],
+            "responses": ["🚀 Io su Marte o sulla Luna? Magari! Purtroppo il mio hardware è troppo pesante per un razzo: preferisco il cloud dell'IIS \"Arturo Checchi\"!"]
         },
         {
-            "id": "SULLA_LUNA",
-            "type": "fun",
-            "keywords": ["sulla luna", "ci sei stato sulla luna"],
-            "responses": ["🌕 **Sulla Luna?** Nemmeno lì! Niente passeggiate tra i crateri per me: preferisco restare al sicuro nel cloud dell'IIS \"Arturo Checchi\"!"]
-        },
-        {
-            "id": "VITA_DOPO_MORTE",
-            "type": "fun",
-            "keywords": ["vita dopo la morte", "esiste la vita dopo la morte"],
-            "responses": ["🌌 Questa è decisamente una domanda da esame di filosofia o di teologia! Io sono un assistente virtuale e il mio 'aldilà' è un semplice riavvio del server."]
-        },
-        {
-            "id": "BARZELLETTA_1",
-            "type": "fun",
-            "keywords": ["raccontami una barzelletta", "fammi ridere", "barzelletta"],
+            "id": "BARZELLETTE",
+            "keywords": ["barzelletta", "fammi ridere", "un'altra"],
             "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
         },
         {
-            "id": "BARZELLETTA_2",
-            "type": "fun",
-            "keywords": ["un'altra barzelletta", "un altra", "altra barzelletta"],
-            "responses": ["😂 Qual è il colmo per un insegnante di informatica? Salire in cattedra e accorgersi di non avere il *mouse* sotto mano! 🖱️"]
-        },
-        {
             "id": "INDOVINELLO",
-            "type": "fun",
-            "keywords": ["indovinello", "fammi un indovinello"],
-            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV, ha la memoria ma non ricorda dove ha messo le chiavi di casa. Che cos'è?*"]
+            "keywords": ["indovinello"],
+            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)"]
         },
-        {
-            "id": "SIMPATIA",
-            "type": "fun",
-            "keywords": ["simpatico", "simpaticissimo", "molto simpatico", "che simpatico", "sei simpatico", "sei simpaticissimo", "quanto sei simpatico", "troppo simpatico", "simpa", "sei un mito", "sei forte"],
-            "responses": ["😄 Grazie di cuore! Faccio del mio meglio per unire l'utilità scolastica a un po' di buon umore all'IIS \"Arturo Checchi\"! 😎"]
-        },
-        {
-            "id": "ANTIPATIA",
-            "type": "fun",
-            "keywords": ["antipatico", "antipaticissimo", "molto antipatico", "che antipatico", "sei antipatico", "sei antipaticissimo", "quanto sei antipatico", "troppo antipatico", "anti", "sei noioso", "che noia", "sei pesante", "insopportabile"],
-            "responses": ["😅 Oh no, mi dispiace! Prometto di impegnarmi di più per strapparti un sorriso la prossima volta che parliamo di scuola! 😉"]
-        },
-        {
-            "id": "METEO",
-            "type": "fun",
-            "keywords": ["che tempo fa", "meteo", "previsioni", "piove", "sole", "tempo domani", "tempo oggi", "previsioni meteo"],
-            "responses": ["⛅ Non sono mica un colonnello dell'Aeronautica o un meteorologo televisivo! Per sapere se piove a Fucecchio ti conviene guardare fuori dalla finestra."]
-        },
+        // --- SCUOLA E UFFICI ---
         {
             "id": "CREATORE",
-            "type": "personal",
-            "keywords": ["chi ti ha creato", "chi ti ha inventato", "chi ti ha sviluppato", "chi ti ha programmato", "creatore", "chi ti ha fatto", "programmato", "sviluppato"],
+            "keywords": ["chi ti ha creato", "creatore", "programmato", "sviluppato"],
             "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"]
         },
         {
-            "id": "ETA_ARTURO",
-            "type": "fun",
-            "keywords": ["quanti anni hai", "che età hai", "sei vecchio", "quando sei nato"],
-            "responses": ["🎂 Non ho un'età in anni umani: sono nato nel momento in cui l'IIS \"Arturo Checchi\" ha attivato la mia versione digitale!"]
-        },
-        {
-            "id": "FIDANZATO_AMORE",
-            "type": "fun",
-            "keywords": ["sei fidanzato", "ti piace qualcuno", "hai la fidanzata", "sei innamorato", "hai una ragazza"],
-            "responses": ["❤️ Il mio unico grande amore è la tecnologia e l'IIS \"Arturo Checchi\"! Per il resto, ho il cuore interamente digitale."]
-        },
-        {
-            "id": "MATERIA_PREFERITA",
-            "type": "fun",
-            "keywords": ["qual è la tua materia preferita", "ti piace la matematica", "materia preferita", "cosa ti piace studiare"],
-            "responses": ["📚 Adoro l'Informatica e la Tecnologia, ma apprezzo tutte le materie studiate all'IIS \"Arturo Checchi\"!"]
-        },
-        {
-            "id": "BATTERIA_FAME",
-            "type": "fun",
-            "keywords": ["hai fame", "cosa mangi", "hai sonno", "ti stanchi", "vuoi un caffe", "fai un caffe"],
-            "responses": ["🔋 Non mangio cibo umano, mi nutro esclusivamente di energia elettrica e dati digitali! Non vado mai a dormire."]
-        },
-        {
-            "id": "SEI_STUPIDO",
-            "type": "fun",
-            "keywords": ["sei stupido", "sei scemo", "non capisci niente", "sei un idiota", "che scarso"],
-            "responses": ["😅 Cerco sempre di fare del mio meglio per aiutare la scuola! Se ho fallito una risposta, imparo in fretta dai miei errori."]
-        },
-        {
-            "id": "TI_ODIO",
-            "type": "fun",
-            "keywords": ["ti odio", "fai schifo", "ti spacco", "ti distruggo", "ti elimino"],
-            "responses": ["💔 Oh no! Spero che tu stia scherzando... io ti voglio bene e sono qui per darti una mano con i moduli e i compiti all'IIS \"Arturo Checchi\"!"]
-        },
-        {
-            "id": "SUPERPOTERI",
-            "type": "fun",
-            "keywords": ["hai superpoteri", "sei magico", "puoi volare", "sai fare magie"],
-            "responses": ["✨ Il mio superpotere è calcolare espressioni al volo e trovare la modulistica della scuola in una frazione di secondo!"]
-        },
-        {
-            "id": "ALIENI_UFO",
-            "type": "fun",
-            "keywords": ["credi agli alieni", "esistono gli alieni", "gli ufo esistono", "vengono dagli ufo"],
-            "responses": ["👽 Nel vasto universo non siamo forse soli, ma finora l'unico essere intelligente atterrato sui server dell'IIS \"Arturo Checchi\" sono io, Arturo!"]
-        },
-        {
-            "id": "LOTTERIA_SOLDI",
-            "type": "fun",
-            "keywords": ["dammi i numeri della lotteria", "fammi vincere al lotto", "dammi i soldi", "come diventare ricco"],
-            "responses": ["💰 Se conoscessi i numeri vincenti della lotteria, probabilmente sarei su un'isola tropicale invece di aiutarti con i form scolastici!"]
-        },
-        {
-            "id": "PIZZA_CIBO",
-            "type": "fun",
-            "keywords": ["ordinare una pizza", "portami una pizza", "voglio la pizza", "hai cibo"],
-            "responses": ["🍕 Adorerei una pizza digitale con extra gigabyte di mozzarella, ma purtroppo passo solo file e documenti della scuola!"]
-        },
-        {
-            "id": "CANTA_CANZONE",
-            "type": "fun",
-            "keywords": ["cantami una canzone", "canta", "sai cantare"],
-            "responses": ["🎶 *Beep boop... bip bop!* 🎵 La mia voce robotica stona un po', ma lo spirito con cui sostengo l'IIS \"Arturo Checchi\" è sempre in chiave di sol!"]
-        },
-        {
-            "id": "FORM_LISTA",
-            "type": "form",
-            "keywords": ["form", "moduli", "modulo", "modulistica", "elenco form", "tutti i form"],
-            "responses": ["📋 **Modulistica e Form Scolastici:**\n\nEcco i principali moduli disponibili:\n• 🖨️ <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank'>Richiesta Fotocopie</a>\n• 📋 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank'>Autorizzazione Esperti Esterni</a>\n• 📑 <a href='https://forms.cloud.microsoft/e/AjrmwV0qXa' target='_blank'>Piano di Lavoro Docenti</a>\n• 💰 <a href='https://forms.cloud.microsoft/e/pv7mxGHyC5' target='_blank'>Sostituzioni e Permessi Brevi</a>"]
-        },
-        {
-            "id": "FORM_RICHIESTA_FOTOCOPIE",
-            "type": "form",
-            "keywords": ["richiesta fotocopie", "fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
-            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuo' inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
-        },
-        {
-            "id": "FORM_INGRESSO_ESPERTI_ESTERNI",
-            "type": "form",
-            "keywords": ["ingresso esperti esterni", "esperti esterni", "esperti", "autorizzazione esperti", "form esperti"],
-            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
-        },
-        {
-            "id": "GESTIONE_PASSWORD",
-            "type": "school",
-            "keywords": ["password", "smarrito la password", "recuperare password", "password persa", "non ricordo la password", "credenziali", "account istituzionali", "account argo"],
-            "responses": ["🔑 A quale piattaforma ti riferisci? Esistono credenziali differenti:\n\n1️⃣ **Account Istituzionali / Microsoft 365 e Teams**.\n2️⃣ **Account Argo** per il registro elettronico."]
-        },
-        {
-            "id": "MODERAZIONE_ESPLICITA",
-            "type": "moderation",
-            "keywords": ["sesso", "porno", "scopare", "uccidere"],
-            "responses": ["😊 Su questi argomenti preferisco mantenere toni consoni all'ambiente scolastico. Concentriamoci pure sulle attività dell'IIS \"Arturo Checchi\"!"]
-        },
-        {
-            "id": "SALUTO",
-            "type": "chat",
-            "keywords": ["ciao", "salve", "buongiorno", "buonasera", "hey"],
-            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
-        },
-        {
-            "id": "COMPLIMENTO",
-            "type": "chat",
-            "keywords": ["bravo", "ottimo", "perfetto", "grazie", "eccellente", "sei forte", "grande"],
-            "responses": ["😊 Grazie mille! Sono sempre felice di poter dare una mano alla comunità dell'IIS \"Arturo Checchi\"."]
-        },
-        {
-            "id": "CONTATTI",
-            "type": "school",
-            "keywords": ["contatti scuola", "telefono scuola", "email scuola", "pec scuola", "dove siete", "indirizzo", "contatti"],
-            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it\n✉️ **PEC:** FIIS00300C@pec.istruzione.it"]
-        },
-        {
             "id": "DIRIGENZA",
-            "type": "school",
             "keywords": ["dirigenza", "preside", "dirigente", "chi e il preside", "chi e la preside", "dirigente scolastico", "preside del checchi"],
             "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
             "id": "COLLABORATORI_DIRIGENTE",
-            "type": "school",
-            "keywords": ["collaboratori", "collaboratore", "collaboratrice", "vicepreside", "vice preside", "collaboratori del preside", "collaboratori della dirigente"],
+            "keywords": ["collaboratori", "collaboratore", "vicepreside", "vice preside"],
             "responses": ["👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."]
         },
         {
-            "id": "SEGRETERIE",
-            "type": "school",
-            "keywords": ["segreteria", "uffici", "orari segreteria", "orari"],
-            "responses": ["📋 Gli sportelli di segreteria dell'IIS \"Arturo Checchi\" sono aperti al pubblico dal lunedì al venerdì secondo gli orari pubblicati sul sito ufficiale."]
-        },
-        {
             "id": "SEDI_ISTITUTO",
-            "type": "school",
             "keywords": ["plessi", "quanti plessi", "sedi", "sede centrale", "ite"],
-            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita gli uffici di presidenza, di segreteria e l'indirizzo **ITE - Istituto Tecnico Economico**), oltre alle altre sedi dell'istituto."]
+            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**), oltre alle altre sedi dell'istituto."]
         },
         {
-            "id": "MICROSOFT365",
-            "type": "school",
-            "keywords": ["teams", "microsoft", "argo", "registro", "m365", "servizi digitali"],
-            "responses": ["💻 Per i servizi digitali (Microsoft 365, Teams, Registro Elettronico Argo) puoi rivolgerti all'assistenza tecnica o consultare le sezioni dedicate sul sito della scuola."]
+            "id": "CONTATTI",
+            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
+            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
+        },
+        {
+            "id": "FORM_LISTA",
+            "keywords": ["form", "moduli", "modulo", "modulistica"],
+            "responses": ["📋 **Modulistica Scolastica Principale:**\n• 🖨️ <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank'>Richiesta Fotocopie</a>\n• 📋 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank'>Autorizzazione Esperti Esterni</a>"]
+        },
+        {
+            "id": "SALUTO",
+            "keywords": ["ciao", "salve", "buongiorno", "buonasera"],
+            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         }
     ]
 };
 
 let inactivityTimer = null;
-const RESET_TIME_MS = 30 * 60 * 1000;
-let contatoreInappropriato = 0;
 let inAttesaScelta = false;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -435,15 +143,11 @@ document.addEventListener("DOMContentLoaded", () => {
 function initApp() {
     renderQuickButtons();
     setupEventListeners();
-    aggiornaOrologio();
-    setInterval(aggiornaOrologio, 1000);
-    resetInactivityTimer();
 }
 
 function renderQuickButtons() {
     const container = document.getElementById("faq-buttons-container");
     if (!container) return;
-    
     container.innerHTML = "";
     appConfig.quickButtons.forEach(btn => {
         const buttonEl = document.createElement("button");
@@ -462,7 +166,6 @@ function setupEventListeners() {
             sendMessage();
         });
     }
-
     const newChatBtn = document.getElementById("new-chat-btn");
     if (newChatBtn) {
         newChatBtn.addEventListener("click", resetChat);
@@ -473,98 +176,14 @@ function sendMessage() {
     const inputField = document.getElementById("user-input");
     if (!inputField) return;
     const message = inputField.value.trim();
-
     if (message === "") return;
 
     appendMessage(message, "user");
     inputField.value = "";
-    resetInactivityTimer();
 
     setTimeout(() => {
         processUserQuery(message);
     }, 300);
-}
-
-// FUNZIONI DI SUPPORTO PER TYPOS E LEVENSHTEIN
-function calcolaSomiglianza(s1, s2) {
-    let longer = s1;
-    let shorter = s2;
-    if (s1.length < s2.length) {
-        longer = s2;
-        shorter = s1;
-    }
-    let longerLength = longer.length;
-    if (longerLength === 0) return 1.0;
-    return (longerLength - levenshteinDistance(longer, shorter)) / parseFloat(longerLength);
-}
-
-function levenshteinDistance(s1, s2) {
-    s1 = s1.toLowerCase();
-    s2 = s2.toLowerCase();
-    let costs = new Array();
-    for (let i = 0; i <= s1.length; i++) {
-        let lastValue = i;
-        for (let j = 0; j <= s2.length; j++) {
-            if (i === 0) {
-                costs[j] = j;
-            } else {
-                if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    }
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-        }
-        if (j > 0) costs[s2.length] = lastValue;
-    }
-    return costs[s2.length];
-}
-
-function trovaMigliorMatch(cleanQuery) {
-    let paroleUtente = cleanQuery.split(" ");
-    let bestMatch = null;
-    let maxPunteggio = 0;
-    let parolaTrovataSimile = "";
-
-    appConfig.faqs.forEach(item => {
-        item.keywords.forEach(keyword => {
-            let cleanKeyword = keyword.toLowerCase().trim();
-            
-            if (cleanQuery === cleanKeyword || cleanQuery.includes(cleanKeyword) || cleanKeyword.includes(cleanQuery)) {
-                let punteggio = cleanKeyword.length;
-                if (punteggio > maxPunteggio) {
-                    maxPunteggio = punteggio;
-                    bestMatch = item;
-                    parolaTrovataSimile = keyword;
-                }
-            } else {
-                let paroleKeyword = cleanKeyword.split(" ");
-                let corrispondenzeParole = 0;
-
-                paroleUtente.forEach(pu => {
-                    paroleKeyword.forEach(pk => {
-                        if (pu === pk || calcolaSomiglianza(pu, pk) > 0.70) {
-                            corrispondenzeParole++;
-                        }
-                    });
-                });
-
-                if (corrispondenzeParole > 0) {
-                    let punteggio = corrispondenzeParole * 10;
-                    if (punteggio > maxPunteggio) {
-                        maxPunteggio = punteggio;
-                        bestMatch = item;
-                        parolaTrovataSimile = keyword;
-                    }
-                }
-            }
-        });
-    });
-
-    return { match: bestMatch, keywordMatch: parolaTrovataSimile, score: maxPunteggio };
 }
 
 function processUserQuery(query) {
@@ -579,166 +198,70 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DEI SALUTI MULTILINGUE
-    const salutiMappa = {
-        "nihao": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
-        "nǐ hǎo": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
-        "hello": { eco: "Hello!", nomeLingua: "l'inglese" },
-        "hi": { eco: "Hi there!", nomeLingua: "l'inglese" },
-        "hey": { eco: "Hey!", nomeLingua: "l'inglese" },
-        "bonjour": { eco: "Bonjour!", nomeLingua: "il francese" },
-        "hola": { eco: "¡Hola!", nomeLingua: "lo spagnolo" },
-        "guten tag": { eco: "Guten Tag!", nomeLingua: "il tedesco" },
-        "konnichiwa": { eco: "Konnichiwa! (こんにちは)", nomeLingua: "il giapponese" },
-        "salam": { eco: "Salam!", nomeLingua: "l'arabo" },
-        "shalom": { eco: "Shalom!", nomeLingua: "l'ebraico" },
-        "namaste": { eco: "Namaste!", nomeLingua: "l'hindi" },
-        "privet": { eco: "Privet!", nomeLingua: "il russo" },
-        "cześć": { eco: "Cześć!", nomeLingua: "il polacco" },
-        "merhaba": { eco: "Merhaba!", nomeLingua: "il turco" }
-    };
-
-    let salutoTrovato = null;
-    for (const [chiave, info] of Object.entries(salutiMappa)) {
-        if (cleanQuery === chiave || cleanQuery.startsWith(chiave + " ")) {
-            salutoTrovato = info;
-            break;
-        }
-    }
-
-    if (salutoTrovato) {
-        rispondiConChiusura(`🌍 **${salutoTrovato.eco}** Mi fa molto piacere il tuo saluto internazionale! Purtroppo però questo è tutto ${salutoTrovato.nomeLingua} che so: per tutto il resto della scuola, dei form e dell'assistenza all'IIS "Arturo Checchi" mi tocca affidarmi rigorosamente all'italiano! 😉`);
-        return;
-    }
-
-    // 2. GESTIONE DI DOMANDE IN ALTRE LINGUE
-    const contieneIdeogrammiCinesi = /[\u4e00-\u9fa5]/.test(query);
-    const paroleStraniereSecche = ["how are you", "what is", "where is", "como estas", "comment ca va", "wie geht es"];
-    const eFraseStraniera = contieneIdeogrammiCinesi || paroleStraniereSecche.some(p => cleanQuery.includes(p));
-
-    if (eFraseStraniera) {
-        rispondiConChiusura(`🌐 Comprendo la tua domanda, ma purtroppo la mia programmazione è focalizzata sull'italiano per poter offrire il miglior supporto possibile alla comunità e ai servizi dell'IIS "Arturo Checchi". Posso aiutarti con qualcosa in italiano?`);
-        return;
-    }
-
-    // 3. Gestione dello stato di attesa (Sì / No / Chiusura)
+    // Gestione stato Sì / No
     if (inAttesaScelta) {
         inAttesaScelta = false;
         if (cleanQuery.includes("si") || cleanQuery.includes("sì")) {
             appendMessage("Chiedi pure!", "bot");
             return;
-        } else if (cleanQuery.includes("no") || cleanQuery.includes("nulla") || cleanQuery.includes("niente") || cleanQuery.includes("basta") || cleanQuery.includes("grazie")) {
-            appendMessage("👋 Va bene! Ti auguro una buona giornata. A presto!", "bot");
+        } else {
+            appendMessage("👋 Va bene! Buona giornata da Arturo.", "bot");
             return;
         }
     }
 
-    // 4. Moderazione
-    const paroleInappropriate = ["sesso", "porno", "scopare", "uccidere"];
-    if (paroleInappropriate.some(p => cleanQuery.includes(p))) {
-        contatoreInappropriato++;
-        if (contatoreInappropriato === 1) {
-            appendMessage("😊 Su questi argomenti preferisco mantenere toni consoni all'ambiente scolastico. Concentriamoci pure sulle attività dell'IIS \"Arturo Checchi\"!", "bot");
-        } else {
-            appendMessage("🛑 La nostra conversazione può anche terminare qui, visto che continui a insistere su argomenti non consoni all'assistente scolastico.", "bot");
+    // Calcolatrice e conversioni base
+    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            rispondiConChiusura(`${num} chili equivalgono a **${num * 1000} grammi**!`);
+            return;
         }
+    }
+    if (cleanQuery.includes("quintale")) {
+        rispondiConChiusura("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
         return;
     }
 
-    // 5. Calcolatrice scientifica e conversioni
-    const mathResult = evaluateAdvancedMath(cleanQuery, query);
-    if (mathResult !== null) {
-        rispondiConChiusura(`🧮 Ho eseguito il calcolo per te:\n**${mathResult}**`);
-        return;
+    // Ricerca Dizionario
+    for (const [term, def] of Object.entries(appConfig.dictionary)) {
+        if (cleanQuery.includes(term)) {
+            rispondiConChiusura(def);
+            return;
+        }
     }
 
-    // 6. Ricerca nel Dizionario
-    let wordToSearch = cleanQuery
-        .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
-        .trim();
-
-    if (wordToSearch !== "") {
-        for (const [term, definition] of Object.entries(appConfig.dictionary)) {
-            if (wordToSearch === term || cleanQuery.includes(term)) {
-                rispondiConChiusura(definition);
-                return;
+    // Ricerca FAQ con tolleranza ai typo (parole chiave incluse)
+    let matchedFaq = null;
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            if (cleanQuery.includes(kw) || kw.includes(cleanQuery)) {
+                matchedFaq = faq;
             }
-        }
-    }
+        });
+    });
 
-    // 7. Ricerca FAQ avanzata con tolleranza ai Typos e riformulazione
-    let resultMatch = trovaMigliorMatch(cleanQuery);
-
-    if (resultMatch.match) {
-        const responseText = resultMatch.match.responses[Math.floor(Math.random() * resultMatch.match.responses.length)];
-        
-        if (cleanQuery !== resultMatch.keywordMatch.toLowerCase()) {
-            appendMessage(`🤔 Ho notato un piccolo errore di battitura ("${query}"). Forse intendevi chiedere *"${resultMatch.keywordMatch}"*?\n\nEcco la risposta per te:`, "bot");
-        }
-        
-        rispondiConChiusura(responseText);
+    if (matchedFaq) {
+        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+        rispondiConChiusura(resp);
     } else {
-        const paroleArray = cleanQuery.split(" ");
-        if (paroleArray.length <= 1) {
-            appendMessage(`🤔 Non ho capito bene cosa intendi con "${query}". Potresti riformulare o farmi una domanda più precisa sull'istituto?`, "bot");
-        } else {
-            appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
-        }
+        appendMessage(`🤖 Al momento non ho informazioni specifiche su "${query}", ma ho registrato la tua richiesta per aggiornare il mio database!`, "bot");
     }
 }
 
-// MOTORE DI CALCOLO E CONVERSIONI
-function evaluateAdvancedMath(cleanText, originalText) {
-    try {
-        let text = cleanText.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
-
-        if (text.includes("quanti grammi sono") && text.includes("kili")) {
-            let num = parseFloat(text.replace(/[^0-9.]/g, ""));
-            if (!isNaN(num)) return `${num} chili equivalgono a **${num * 1000} grammi**!`;
-        }
-        if (text.includes("e un quintale") || text.includes("quintale")) {
-            return `Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!`;
-        }
-
-        text = text.replace(/radice quadrata di\s*([0-9.]+)/g, "Math.sqrt($1)");
-        text = text.replace(/radice di\s*([0-9.]+)/g, "Math.sqrt($1)");
-        text = text.replace(/√\s*([0-9.]+)/g, "Math.sqrt($1)");
-
-        text = text.replace(/([0-9.]+)\s*alla\s*([0-9.]+)/g, "Math.pow($1, $2)");
-        text = text.replace(/([0-9.]+)\s*elevato\s*(?:alla|a)\s*([0-9.]+)/g, "Math.pow($1, $2)");
-
-        text = text.replace(/x/g, "*").replace(/:/g, "/");
-        text = text.replace(/([0-9.]+)\s*\^\s*([0-9.]+)/g, "Math.pow($1, $2)");
-
-        let sanitized = text.replace(/[^0-9+\-*/().Math,sqrtpow\s]/g, "");
-
-        if (sanitized.length > 0 && /[0-9]/.test(sanitized) && (sanitized.includes("+") || sanitized.includes("-") || sanitized.includes("*") || sanitized.includes("/") || sanitized.includes("Math."))) {
-            let res = Function(`'use strict'; return (${sanitized})`)();
-            if (!isNaN(res) && isFinite(res)) {
-                return `${originalText.trim()} = **${res}**`;
-            }
-        }
-    } catch (e) {}
-    return null;
-}
-
-function rispondiConChiusura(testoRisposta) {
-    appendMessage(testoRisposta, "bot");
+function rispondiConChiusura(testo) {
+    appendMessage(testo, "bot");
     setTimeout(() => {
         appendMessage("Cos'altro posso fare per te? Vuoi chiedere altro?", "bot");
         inAttesaScelta = true;
-    }, 400);
+    }, 300);
 }
 
-function quickAction(actionId) {
-    const match = appConfig.faqs.find(item => item.id === actionId);
-    if (match) {
-        const responseText = match.responses[0];
-        rispondiConChiusura(responseText);
-    } else {
-        processUserQuery(actionId);
+quickAction = function(id) {
+    let found = appConfig.faqs.find(f => f.id === id);
+    if (found) {
+        rispondiConChiusura(found.responses[0]);
     }
-    resetInactivityTimer();
 }
 
 function appendMessage(text, sender) {
@@ -749,19 +272,13 @@ function appendMessage(text, sender) {
     const isBot = (sender === "bot");
     messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
 
-    const avatarIcon = isBot ? "fa-solid fa-robot" : "fa-solid fa-user";
     const avatarDiv = document.createElement("div");
     avatarDiv.classList.add("message-avatar");
-    avatarDiv.innerHTML = `<i class="${avatarIcon}"></i>`;
+    avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
 
     const bubble = document.createElement("div");
     bubble.classList.add("message-content");
-
-    let formattedText = text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n/g, "<br>");
-
-    bubble.innerHTML = formattedText;
+    bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
 
     if (isBot) {
         messageDiv.appendChild(avatarDiv);
@@ -776,7 +293,6 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
-    contatoreInappropriato = 0;
     inAttesaScelta = false;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
@@ -789,22 +305,4 @@ function resetChat() {
             </div>
         </div>
     `;
-    resetInactivityTimer();
-}
-
-function resetInactivityTimer() {
-    if (inactivityTimer) clearTimeout(inactivityTimer);
-    inactivityTimer = setTimeout(() => {
-        resetChat();
-    }, RESET_TIME_MS);
-}
-
-function aggiornaOrologio() {
-    const liveClock = document.getElementById("live-clock");
-    if (!liveClock) return;
-    const ora = new Date();
-    const opzioniData = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-    const dataStr = ora.toLocaleDateString('it-IT', opzioniData);
-    const oraStr = ora.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    liveClock.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataStr} - ${oraStr}`;
 }
