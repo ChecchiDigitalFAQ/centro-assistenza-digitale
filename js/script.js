@@ -24,12 +24,12 @@ let appConfig = {
         "🧩 **Indovinello:** Se mi nomini mi distruggi. Chi sono?\n*(Risposta: Il silenzio!)*"
     ],
 
-    // PARACADUTE CONVERSAZIONALE: Frasi simpatiche e sempre diverse per domande fuori ambito
+    // PARACADUTE CONVERSAZIONALE: Frasi simpatiche e mirate esclusivamente al contesto scolastico
     frasiSimpaticheFuoriTema: [
-        "🌦️ Oh, per quanto riguarda il meteo o il mondo esterno, brancolo nel buio! Vivo interamente nel cloud e nei server dell'IIS \"Arturo Checchi\". Per favore, prova a chiedermi qualcosa relativo al mio ruolo, ai servizi o alla scuola!",
-        "🧭 Eh, qui mi spiazzi! I miei sensori digitali arrivano fino ai laboratori e alle sedi dell'istituto, ma fuori di lì mi perdo. Ti andrebbe di chiedermi qualcosa che rientri nei miei compiti istituzionali?",
-        "🔮 Magari avessi la sfera di cristallo per rispondere a questa domanda! Purtroppo mi occupo solo di segreteria, didattica e vita scolastica del Checchi. Prova a chiedermi qualcosa inerente al mio ruolo!",
-        "🚀 Questa va oltre le mie competenze da assistente virtuale scolastico! Ti consiglio di fare una verifica sul campo e, per favore, prova a chiedermi qualcosa che riguardi da vicino la nostra scuola o il mio ruolo!"
+        "🌦️ Questa informazione non rientra tra i miei compiti scolastici! Vivo nei sistemi digitali dell'IIS \"Arturo Checchi\": per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o ai moduli dell'istituto.",
+        "🧭 I miei sensori digitali coprono laboratori, uffici e sedi della nostra scuola, ma qui mi cogli impreparato! Ti invito a formularmi una domanda attinente al contesto scolastico o ai servizi di segreteria.",
+        "🔮 Magari avessi la risposta anche a questa curiosità! Purtroppo posso occuparmi unicamente della vita scolastica, della modulistica e delle informazioni ufficiali del Checchi. Prova a chiedermi qualcosa inerente alla scuola!",
+        "🚀 Questa richiesta va oltre le mie funzioni istituzionali. Per qualsiasi necessità legata all'istituto, ti chiedo gentilmente di farmi una domanda relativa al contesto scolastico o al mio ruolo!"
     ],
 
     dictionary: {
@@ -127,7 +127,7 @@ let ultimaCategoriaTrattata = "";
 let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
 let indiceIndovinello = 0;
-let indiceFraseSimpatica = 0; // Rotazione automatica per le risposte simpatiche
+let indiceFraseSimpatica = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -346,9 +346,9 @@ function processUserQuery(query) {
     } else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
-        // PARACADUTE A ROTAZIONE AUTOMATICA CON RISPOSTE SIMPATICO-ISTITUZIONALI
+        // PARACADUTE A ROTAZIONE AUTOMATICA SUL CONTESTO SCOLASTICO
         let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
-        indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length; // Ruota alla frase successiva
+        indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
         rispondiBot(fraseCasuale);
     }
 }
