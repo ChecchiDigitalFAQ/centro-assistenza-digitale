@@ -142,6 +142,50 @@ let appConfig = {
             "keywords": ["perché vivi", "perche vivi", "sei vivo", "vivi", "esisti", "che senso ha la vita"],
             "responses": ["🤖 Io non vivo in senso biologico, ma esisto nel cloud per assistere tutta la comunità dell'IIS \"Arturo Checchi\" e rendere più semplici le ricerche di scuola!"]
         },
+        // --- NUOVE DOMANDE BIZARRE E CURIOSE AGGIUNTE ---
+        {
+            "id": "VITA_MARTE",
+            "type": "fun",
+            "keywords": ["vita su marte", "c'e vita su marte", "marte"],
+            "responses": ["🔴 **Vita su Marte?** Se parliamo di omini verdi o colonie spaziali, finora l'unico essere intelligente sbarcato sui computer dell'IIS \"Arturo Checchi\" sono io, Arturo! Scherzi a parte, gli scienziati cercano acqua e microbi, ma per ora c'è solo tanta sabbia rossa."]
+        },
+        {
+            "id": "ARTURO_MARTE",
+            "type": "fun",
+            "keywords": ["ci sei mai stato su marte", "sei stato su marte"],
+            "responses": ["🚀 Io su Marte? Magari! Purtroppo il mio hardware è un po' troppo pesante per un razzo spaziale e la connessione Wi-Fi lassù non è il massimo. Io vivo comodamente nel cloud dell'IIS \"Arturo Checchi\"!"]
+        },
+        {
+            "id": "SULLA_LUNA",
+            "type": "fun",
+            "keywords": ["sulla luna", "ci sei stato sulla luna"],
+            "responses": ["🌕 **Sulla Luna?** Nemmeno lì! Niente passeggiate tra i crateri per me: preferisco restare al sicuro nel cloud dell'IIS \"Arturo Checchi\", dove non c'è il rischio di dimenticarsi la tuta spaziale nell'armadietto!"]
+        },
+        {
+            "id": "VITA_DOPO_MORTE",
+            "type": "fun",
+            "keywords": ["vita dopo la morte", "esiste la vita dopo la morte"],
+            "responses": ["🌌 Questa è decisamente una domanda da esame di filosofia o di teologia! Io sono un assistente virtuale e il mio 'aldilà' è un semplice riavvio del server. Per i grandi misteri dell'esistenza, ti conviene chiedere ai professori dell'IIS \"Arturo Checchi\"!"]
+        },
+        {
+            "id": "BARZELLETTA_1",
+            "type": "fun",
+            "keywords": ["raccontami una barzelletta", "fammi ridere", "barzelletta"],
+            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
+        },
+        {
+            "id": "BARZELLETTA_2",
+            "type": "fun",
+            "keywords": ["un'altra barzelletta", "un altra", "altra barzelletta"],
+            "responses": ["😂 Qual è il colmo per un insegnante di informatica? Salire in cattedra e accorgersi di non avere il *mouse* sotto mano! 🖱️"]
+        },
+        {
+            "id": "INDOVINELLO",
+            "type": "fun",
+            "keywords": ["indovinello", "fammi un indovinello"],
+            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV, ha la memoria ma non ricorda dove ha messo le chiavi di casa. Che cos'è?* (Indovinhi la risposta?)"]
+        },
+        // ------------------------------------------------
         {
             "id": "SIMPATIA",
             "type": "fun",
@@ -189,12 +233,6 @@ let appConfig = {
             "type": "fun",
             "keywords": ["hai fame", "cosa mangi", "hai sonno", "ti stanchi", "vuoi un caffe", "fai un caffe"],
             "responses": ["🔋 Non mangio cibo umano, mi nutro esclusivamente di energia elettrica e dati digitali! Non vado mai a dormire, sono sempre attivo per la scuola."]
-        },
-        {
-            "id": "BARZELLETTA_GIOCO",
-            "type": "fun",
-            "keywords": ["raccontami una barzelletta", "fammi ridere", "sai una barzelletta", "barzelletta"],
-            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
         },
         {
             "id": "SEI_STUPIDO",
@@ -289,14 +327,26 @@ let appConfig = {
         {
             "id": "DIRIGENZA",
             "type": "school",
-            "keywords": ["dirigenza", "preside", "dirigente"],
-            "responses": ["👔 La Dirigenza riceve su appuntamento tramite la segreteria dell'istituto."]
+            "keywords": ["dirigenza", "preside", "dirigente", "chi e il preside", "chi e la preside", "dirigente scolastico", "preside del checchi"],
+            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
+        },
+        {
+            "id": "COLLABORATORI_DIRIGENTE",
+            "type": "school",
+            "keywords": ["collaboratori", "collaboratore", "collaboratrice", "vicepreside", "vice preside", "collaboratori del preside", "collaboratori della dirigente"],
+            "responses": ["👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."]
         },
         {
             "id": "SEGRETERIE",
             "type": "school",
             "keywords": ["segreteria", "uffici", "orari segreteria", "orari"],
             "responses": ["📋 Gli sportelli di segreteria dell'IIS \"Arturo Checchi\" sono aperti al pubblico dal lunedì al venerdì secondo gli orari pubblicati sul sito ufficiale."]
+        },
+        {
+            "id": "SEDI_ISTITUTO",
+            "type": "school",
+            "keywords": ["plessi", "quanti plessi", "sedi", "sede centrale", "ite"],
+            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita gli uffici di presidenza, di segreteria e l'indirizzo **ITE - Istituto Tecnico Economico**), oltre alle altre sedi dell'istituto."]
         },
         {
             "id": "MICROSOFT365",
@@ -447,10 +497,10 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. Calcolatrice scientifica potenziata
+    // 5. Calcolatrice scientifica e conversioni di unità di misura
     const mathResult = evaluateAdvancedMath(cleanQuery, query);
     if (mathResult !== null) {
-        rispondiConChiusura(`🧮 Ho eseguito il calcolo scientifico per te:\n**${mathResult}**`);
+        rispondiConChiusura(`🧮 Ho eseguito il calcolo per te:\n**${mathResult}**`);
         return;
     }
 
@@ -492,10 +542,19 @@ function processUserQuery(query) {
     }
 }
 
-// MOTORE DI CALCOLO SCIENTIFICO AVANZATO
+// MOTORE DI CALCOLO E CONVERSIONI
 function evaluateAdvancedMath(cleanText, originalText) {
     try {
         let text = cleanText.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
+
+        // Conversioni di unità (Kg <-> grammi, quintali)
+        if (text.includes("quanti grammi sono") && text.includes("kili")) {
+            let num = parseFloat(text.replace(/[^0-9.]/g, ""));
+            if (!isNaN(num)) return `${num} chili equivalgono a **${num * 1000} grammi**!`;
+        }
+        if (text.includes("e un quintale") || text.includes("quintale")) {
+            return `Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!`;
+        }
 
         text = text.replace(/radice quadrata di\s*([0-9.]+)/g, "Math.sqrt($1)");
         text = text.replace(/radice di\s*([0-9.]+)/g, "Math.sqrt($1)");
