@@ -381,7 +381,48 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. Gestione dello stato di attesa (Sì / No / Chiusura)
+    // 1. GESTIONE DEI SALUTI MULTILINGUE (Risponde a tono al saluto e spiega simpaticamente i limiti)
+    const salutiMappa = {
+        "nihao": "Nǐ hǎo! (你好)",
+        "nǐ hǎo": "Nǐ hǎo! (你好)",
+        "hello": "Hello!",
+        "hi": "Hi there!",
+        "bonjour": "Bonjour!",
+        "hola": "¡Hola!",
+        "guten tag": "Guten Tag!",
+        "konnichiwa": "Konnichiwa! (こんにちは)",
+        "salam": "Salam!",
+        "shalom": "Shalom!",
+        "namaste": "Namaste!",
+        "privet": "Privet!",
+        "cześć": "Cześć!",
+        "merhaba": "Merhaba!"
+    };
+
+    let salutoTrovato = null;
+    for (const [chiave, rimando] of Object.entries(salutiMappa)) {
+        if (cleanQuery === chiave || cleanQuery.startsWith(chiave + " ")) {
+            salutoTrovato = rimando;
+            break;
+        }
+    }
+
+    if (salutoTrovato) {
+        rispondiConChiusura(`🌍 **${salutoTrovato}** Mi fa molto piacere il tuo saluto internazionale! Purtroppo però questo è tutto il cinese (o l'altra lingua) che so: per tutto il resto della scuola, dei form e dell'assistenza all'IIS \"Arturo Checchi\" mi tocca affidarmi rigorosamente all'italiano! 😉`);
+        return;
+    }
+
+    // 2. GESTIONE DI DOMANDE IN ALTRE LINGUE (Risposta diplomatica e cordiale)
+    const contieneIdeogrammiCinesi = /[\u4e00-\u9fa5]/.test(query);
+    const paroleForestiereGeneriche = ["how", "what", "where", "why", "como", "comment", "wie", "ni", "hao", "谢谢", "你", "好"];
+    const eFraseStraniera = contieneIdeogrammiCinesi || paroleForestiereGeneriche.some(p => cleanQuery.includes(p));
+
+    if (eFraseStraniera) {
+        rispondiConChiusura(`🌐 Comprendo la tua domanda, ma purtroppo la mia programmazione è focalizzata sull'italiano per poter offrire il miglior supporto possibile alla comunità e ai servizi dell'IIS \"Arturo Checchi\". Posso aiutarti con qualcosa in italiano?`);
+        return;
+    }
+
+    // 3. Gestione dello stato di attesa (Sì / No / Chiusura)
     if (inAttesaScelta) {
         inAttesaScelta = false;
         if (cleanQuery.includes("si") || cleanQuery.includes("sì")) {
@@ -393,7 +434,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 2. Moderazione
+    // 4. Moderazione
     const paroleInappropriate = ["sesso", "porno", "scopare", "uccidere"];
     if (paroleInappropriate.some(p => cleanQuery.includes(p))) {
         contatoreInappropriato++;
@@ -405,14 +446,14 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. CALCOLATRICE SCIENTIFICA POTENZIATA (Radici, Potenze, Algebra)
+    // 5. Calcolatrice scientifica potenziata
     const mathResult = evaluateAdvancedMath(cleanQuery, query);
     if (mathResult !== null) {
         rispondiConChiusura(`🧮 Ho eseguito il calcolo scientifico per te:\n**${mathResult}**`);
         return;
     }
 
-    // 4. Ricerca nel Dizionario
+    // 6. Ricerca nel Dizionario
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -426,7 +467,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 5. Ricerca FAQ avanzata
+    // 7. Ricerca FAQ avanzata
     let bestMatch = null;
     appConfig.faqs.forEach(item => {
         item.keywords.forEach(keyword => {
@@ -441,38 +482,30 @@ function processUserQuery(query) {
         const responseText = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
         rispondiConChiusura(responseText);
     } else {
-        // 6. Intelligenza differenziata tra parole singole vaghe e domande strutturate
         const paroleArray = cleanQuery.split(" ");
         if (paroleArray.length <= 1) {
             appendMessage(`🤔 Non ho capito bene cosa intendi con "${query}". Potresti riformulare o farmi una domanda più precisa sull'istituto?`, "bot");
         } else {
-            appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su這個 argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
+            appendMessage(`🤖 Al momento purtroppo non ho ancora informazioni specifiche su questo argomento ("${query}"), ma ho registrato la tua richiesta: aggiornerò presto il mio database per poterti rispondere al meglio!`, "bot");
         }
     }
 }
 
-// MOTORE DI CALCOLO SCIENTIFICO AVANZATO (Radici, Potenze, Espressioni)
+// MOTORE DI CALCOLO SCIENTIFICO AVANZATO
 function evaluateAdvancedMath(cleanText, originalText) {
     try {
         let text = cleanText.replace(/quanto fa/g, "").replace(/calcola/g, "").trim();
 
-        // Conversione linguistica di radice quadrata (es. "radice di 25" -> "Math.sqrt(25)")
         text = text.replace(/radice quadrata di\s*([0-9.]+)/g, "Math.sqrt($1)");
         text = text.replace(/radice di\s*([0-9.]+)/g, "Math.sqrt($1)");
         text = text.replace(/√\s*([0-9.]+)/g, "Math.sqrt($1)");
 
-        // Potenze linguistiche (es. "2 alla 3" o "2 elevato a 3")
         text = text.replace(/([0-9.]+)\s*alla\s*([0-9.]+)/g, "Math.pow($1, $2)");
         text = text.replace(/([0-9.]+)\s*elevato\s*(?:alla|a)\s*([0-9.]+)/g, "Math.pow($1, $2)");
 
-        // Sostituzione operatori standard e simboli matematici
-        text = text.replace(/x/g, "*").replace(/:/g, "/").replace(/potentia/g, "^");
-        
-        // Gestione dell'operatore di potenza JavaScript (^) oppure standard
-        // Traduciamo le espressioni tipo 2^3 in Math.pow(2, 3)
+        text = text.replace(/x/g, "*").replace(/:/g, "/");
         text = text.replace(/([0-9.]+)\s*\^\s*([0-9.]+)/g, "Math.pow($1, $2)");
 
-        // Pulizia finale e validazione di sicurezza (per accettare solo numeri, Math, operatori e parentesi)
         let sanitized = text.replace(/[^0-9+\-*/().Math,sqrtpow\s]/g, "");
 
         if (sanitized.length > 0 && /[0-9]/.test(sanitized) && (sanitized.includes("+") || sanitized.includes("-") || sanitized.includes("*") || sanitized.includes("/") || sanitized.includes("Math."))) {
@@ -485,7 +518,6 @@ function evaluateAdvancedMath(cleanText, originalText) {
     return null;
 }
 
-// Funzione di utilità per accodare la domanda di cortesia e attivare l'attesa
 function rispondiConChiusura(testoRisposta) {
     appendMessage(testoRisposta, "bot");
     setTimeout(() => {
@@ -567,8 +599,8 @@ function aggiornaOrologio() {
     const liveClock = document.getElementById("live-clock");
     if (!liveClock) return;
     const ora = new Date();
-    const opzioniData = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' fr };
-    const dataStr = ora.toLocaleDateString('it-IT', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+    const opzioniData = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const dataStr = ora.toLocaleDateString('it-IT', opzioniData);
     const oraStr = ora.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     liveClock.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataStr} - ${oraStr}`;
 }
