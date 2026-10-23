@@ -381,34 +381,35 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DEI SALUTI MULTILINGUE (Risponde a tono e spiega simpaticamente i limiti)
+    // 1. GESTIONE DEI SALUTI MULTILINGUE (Mappa con lingua e nome esatto associato)
     const salutiMappa = {
-        "nihao": "Nǐ hǎo! (你好)",
-        "nǐ hǎo": "Nǐ hǎo! (你好)",
-        "hello": "Hello!",
-        "hi": "Hi there!",
-        "bonjour": "Bonjour!",
-        "hola": "¡Hola!",
-        "guten tag": "Guten Tag!",
-        "konnichiwa": "Konnichiwa! (こんにちは)",
-        "salam": "Salam!",
-        "shalom": "Shalom!",
-        "namaste": "Namaste!",
-        "privet": "Privet!",
-        "cześć": "Cześć!",
-        "merhaba": "Merhaba!"
+        "nihao": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
+        "nǐ hǎo": { eco: "Nǐ hǎo! (你好)", nomeLingua: "il cinese" },
+        "hello": { eco: "Hello!", nomeLingua: "l'inglese" },
+        "hi": { eco: "Hi there!", nomeLingua: "l'inglese" },
+        "hey": { eco: "Hey!", nomeLingua: "l'inglese" },
+        "bonjour": { eco: "Bonjour!", nomeLingua: "il francese" },
+        "hola": { eco: "¡Hola!", nomeLingua: "lo spagnolo" },
+        "guten tag": { eco: "Guten Tag!", nomeLingua: "il tedesco" },
+        "konnichiwa": { eco: "Konnichiwa! (こんにちは)", nomeLingua: "il giapponese" },
+        "salam": { eco: "Salam!", nomeLingua: "l'arabo" },
+        "shalom": { eco: "Shalom!", nomeLingua: "l'ebraico" },
+        "namaste": { eco: "Namaste!", nomeLingua: "l'hindi" },
+        "privet": { eco: "Privet!", nomeLingua: "il russo" },
+        "cześć": { eco: "Cześć!", nomeLingua: "il polacco" },
+        "merhaba": { eco: "Merhaba!", nomeLingua: "il turco" }
     };
 
     let salutoTrovato = null;
-    for (const [chiave, rimando] of Object.entries(salutiMappa)) {
+    for (const [chiave, info] of Object.entries(salutiMappa)) {
         if (cleanQuery === chiave || cleanQuery.startsWith(chiave + " ")) {
-            salutoTrovato = rimando;
+            salutoTrovato = info;
             break;
         }
     }
 
     if (salutoTrovato) {
-        rispondiConChiusura(`🌍 **${salutoTrovato}** Mi fa molto piacere il tuo saluto internazionale! Purtroppo però questo è tutto il cinese (o l'altra lingua) che so: per tutto il resto della scuola, dei form e dell'assistenza all'IIS \"Arturo Checchi\" mi tocca affidarmi rigorosamente all'italiano! 😉`);
+        rispondiConChiusura(`🌍 **${salutoTrovato.eco}** Mi fa molto piacere il tuo saluto internazionale! Purtroppo però questo è tutto ${salutoTrovato.nomeLingua} che so: per tutto il resto della scuola, dei form e dell'assistenza all'IIS "Arturo Checchi" mi tocca affidarmi rigorosamente all'italiano! 😉`);
         return;
     }
 
@@ -418,7 +419,7 @@ function processUserQuery(query) {
     const eFraseStraniera = contieneIdeogrammiCinesi || paroleForestiereGeneriche.some(p => cleanQuery.includes(p));
 
     if (eFraseStraniera) {
-        rispondiConChiusura(`🌐 Comprendo la tua domanda, ma purtroppo la mia programmazione è focalizzata sull'italiano per poter offrire il miglior supporto possibile alla comunità e ai servizi dell'IIS \"Arturo Checchi\". Posso aiutarti con qualcosa in italiano?`);
+        rispondiConChiusura(`🌐 Comprendo la tua domanda, ma purtroppo la mia programmazione è focalizzata sull'italiano per poter offrire il miglior supporto possibile alla comunità e ai servizi dell'IIS "Arturo Checchi". Posso aiutarti con qualcosa in italiano?`);
         return;
     }
 
