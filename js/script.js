@@ -1,4 +1,4 @@
-// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
+// Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO GIGANTE per Arturo | IIS "Arturo Checchi"
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -8,24 +8,111 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
+    // DIZIONARIO ENCICLOPEDICO ESTESO (A-Z)
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
+        "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
+        "aforisma": "📖 **Aforisma:** Breve massima o sentenza che esprime in modo denso e sintetico una verità o un principio morale.",
+        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
         "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
+        "allegoria": "📖 **Allegoria:** Figura retorica mediante la quale un concetto astratto viene espresso attraverso un'immagine concreta.",
+        "allitterazione": "📖 **Allitterazione:** Ripetizione dello stesso suono o della stessa sillaba all'inizio o all'interno di parole vicine.",
+        "amministratore": "📖 **Amministratore:** Persona responsabile della gestione, configurazione e sicurezza di un sistema o organizzazione.",
+        "analogia": "📖 **Analogia:** Rapporto di somiglianza tra elementi o situazioni diverse, usato per spiegare un concetto.",
+        "anarchia": "📖 **Anarchia:** Teoria e movimento politico che persegue l'abolizione di ogni forma di Stato e autorità.",
+        "anatomia": "📖 **Anatomia:** Scienza che studia la forma e la struttura degli organismi viventi.",
+        "android": "📖 **Android:** Sistema operativo mobile open source basato su kernel Linux, sviluppato da Google.",
+        "anfora": "📖 **Anfora:** Antico vaso di terracotta con due manici e collo stretto, usato per contenere vino o olio.",
+        "antigene": "📖 **Antigene:** Sostanza capace di indurre una risposta immunitaria e la produzione di anticorpi.",
+        "antitesi": "📖 **Antitesi:** Figura retorica che accosta due concetti o parole di senso opposto per risaltare il contrasto.",
+        "antropologia": "📖 **Antropologia:** Scienza che studia l'essere umano sotto l'aspetto biologico, culturale e sociale.",
+        "api": "📖 **API:** Application Programming Interface. Protocolli che consentono a software diversi di comunicare tra loro.",
+        "app": "📖 **Applicazione (App):** Programma informatico progettato per svolgere specifiche attività su dispositivi digitali.",
+        "archeologia": "📖 **Archeologia:** Scienza che studia le civiltà e le culture del passato attraverso i resti materiali.",
+        "architettura": "📖 **Architettura:** Arte e tecnica di progettare e costruire edifici e spazi urbani.",
+        "aristocrazia": "📖 **Aristocrazia:** Forma di governo in cui il potere supremo è detenuto dai nobili o dai migliori.",
+        "armonia": "📖 **Armonia:** Combinazione equilibrata e gradevole di suoni, colori, forme o elementi distinti.",
+        "asteroide": "📖 **Asteroide:** Piccolo corpo celeste roccioso o metallico che orbita attorno al Sole.",
+        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
+        "audiobook": "📖 **Audiobook:** Libro recitato da uno speaker o attore e registrato in formato audio digitale.",
+        "aurora": "📖 **Aurora:** Fenomeno luminoso atmosferico o celeste visibile all'alba o nelle regioni polari.",
+        "autonomia": "📖 **Autonomia:** Capacità di un individuo o di un ente di governarsi da solo e prendere decisioni.",
+        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
+        "barometro": "📖 **Barometro:** Strumento scientifico utilizzato per misurare la pressione atmosferica.",
+        "barocco": "📖 **Barocco:** Movimento culturale e artistico del Seicento caratterizzato da sfarzo ed esuberanza.",
+        "batterio": "📖 **Batterio:** Microorganismo unicellulare procariota privo di un nucleo cellulare ben definito.",
+        "big bang": "📖 **Big Bang:** Modello cosmologico che descrive l'origine e l'evoluzione iniziale dell'universo.",
+        "biografia": "📖 **Biografia:** Narrazione scritta della vita di una persona.",
+        "biologia": "📖 **Biologia:** Scienza che studia la vita, gli organismi viventi, la loro struttura e la loro evoluzione.",
+        "botanica": "📖 **Botanica:** Ramo della biologia che studia gli organismi vegetali.",
+        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
+        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
+        "capannone": "📖 **Capannone:** Grande edificio ad un solo piano adibito a magazzino, produzione o laboratorio.",
+        "cartografia": "📖 **Cartografia:** Scienza e tecnica della preparazione, studio e disegno delle carte geografiche.",
+        "catalizzatore": "📖 **Catalizzatore:** Sostanza che aumenta la velocità di una reazione chimica senza consumarsi.",
+        "catacomba": "📖 **Catacomba:** Antico cimitero sotterraneo.",
+        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
+        "chiaroscuro": "📖 **Chiaroscuro:** Tecnica pittorica basata sull'uso dei contrasti tra luce e ombra.",
+        "clorofilla": "📖 **Clorofilla:** Pigmento verde presente nelle piante indispensabile per la fotosintesi.",
+        "cloud": "📖 **Cloud Computing:** Paradigma di calcolo che offre l'archiviazione e l'elaborazione di dati remota via internet.",
+        "codice": "📖 **Codice:** Sistema di segni e regole per la trasmissione di informazioni.",
+        "cometa": "📖 **Cometa:** Corpo celeste ghiacciato che sviluppa una chioma luminosa quando si avvicina al Sole.",
+        "comunicazione": "📖 **Comunicazione:** Processo di trasmissione di informazioni e messaggi tra un emittente e un ricevente.",
         "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
+        "crittografia": "📖 **Crittografia:** Disciplina che studia i metodi per rendere un messaggio illeggibile ai non autorizzati.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
+        "democrazia": "📖 **Democrazia:** Forma di governo in cui il potere sovrano appartiene al popolo.",
+        "dialetto": "📖 **Dialetto:** Sistema linguistico di ambito geografico o culturale limitato.",
+        "didattica": "📖 **Didattica:** Scienza dell'insegnamento e dei metodi di apprendimento educativo.",
+        "diploma": "📖 **Diploma:** Titolo di studio ufficiale rilasciato al completamento di un percorso scolastico.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
+        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
+        "ecosistema": "📖 **Ecosistema:** Insieme degli organismi viventi e dell'ambiente fisico di un territorio.",
+        "elettricita": "📖 **Elettricità:** Insieme dei fenomeni fisici associati alla presenza e al flusso di cariche elettriche.",
+        "energia": "📖 **Energia:** Grandezza fisica che misura la capacità di un sistema di compiere un lavoro.",
+        "epica": "📖 **Epica:** Genere letterario incentrato su gesta eroiche e mitologiche.",
+        "filosofia": "📖 **Filosofia:** Indagine critica sui fondamenti dell'esperienza e del sapere umano.",
+        "fotone": "📖 **Fotone:** Particella elementare che costituisce la radiazione elettromagnetica e la luce.",
+        "galassia": "📖 **Galassia:** Immense aggregazioni di stelle, gas e polveri tenute insieme dalla gravità.",
+        "genetica": "📖 **Genetica:** Scienza che studia l'ereditarietà e la variabilità biologica.",
+        "geografia": "📖 **Geografia:** Scienza che descrive la Terra nei suoi aspetti fisici e umani.",
+        "gravita": "📖 **Gravità:** Forza di attrazione reciproca tra corpi dotati di massa.",
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
+        "illuminismo": "📖 **Illuminismo:** Movimento culturale del Settecento basato sulla centralità della ragione.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
+        "letteratura": "📖 **Letteratura:** Insieme delle opere scritte che rivestono valore estetico o culturale.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare."
+        "mitologia": "📖 **Mitologia:** Insieme di miti propri di una civiltà o di una cultura.",
+        "molecola": "📖 **Molecola:** Particella costituita da due o più atomi uniti da legami chimici.",
+        "nanotecnologia": "📖 **Nanotecnologia:** Scienza e ingegneria della manipolazione della materia su scala nanometrica.",
+        "neolitico": "📖 **Neolitico:** Età della pietra pulita e levigata, caratterizzata dall'agricoltura.",
+        "osmosi": "📖 **Osmosi:** Diffusione di un solvente attraverso una membrana semipermeabile.",
+        "paradigma": "📖 **Paradigma:** Modello di riferimento o schema teorico esplicativo.",
+        "pianeta": "📖 **Pianeta:** Corpo celeste che orbita attorno a una stella senza emettere luce propria.",
+        "piramide": "📖 **Piramide:** Solido geometrico con base poligonale e facce triangolari convergenti in un vertice.",
+        "plasma": "📖 **Plasma:** Stato della materia costituito da un gas ionizzato ad altissima temperatura.",
+        "rinascimento": "📖 **Rinascimento:** Movimento artistico e culturale fiorito in Italia tra il XV e il XVI secolo.",
+        "rivoluzione": "📖 **Rivoluzione:** Profondo mutamento politico, sociale o tecnologico in tempi rapidi.",
+        "robotica": "📖 **Robotica:** Disciplina ingegneristica che progetta e costruisce robot automatici.",
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
+        "storia": "📖 **Storia:** Disciplina che studia gli eventi del passato umano.",
+        "teatro": "📖 **Teatro:** Edificio o genere letterario di rappresentazione drammatica.",
+        "termodinamica": "📖 **Termodinamica:** Scienza che studia gli scambi di calore e lavoro nei sistemi.",
+        "umanesimo": "📖 **Umanesimo:** Movimento culturale del Quattrocento incentrato sulla centralità dell'uomo.",
+        "universo": "📖 **Universo:** L'insieme di tutta la materia, dell'energia, dello spazio e del tempo.",
+        "vaccino": "📖 **Vaccino:** Preparato biologico volto a procurare immunità attiva verso una specifica malattia.",
+        "velocita": "📖 **Velocità:** Rapporto tra lo spazio percorso da un corpo e il tempo impiegato.",
+        "virus": "📖 **Virus:** Agente infettivo submicroscopico che si replica solo all'interno di cellule ospiti.",
+        "vulcano": "📖 **Vulcano:** Spaccatura della crosta terrestre da cui fuoriescono magma, ceneri e gas.",
+        "zeta": "📖 **Zeta:** Ventiseiesima e ultima lettera dell'alfabeto italiano."
     },
 
     faqs: [
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
-            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario!"]
+            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario enciclopedico!"]
         },
         {
             "id": "CHI_SEI",
@@ -153,7 +240,11 @@ document.addEventListener("DOMContentLoaded", () => {
     initApp();
 });
 
-function initApp() {
+fn initApp = function() { // (mantenuto compatibile)
+    initAppCore();
+}
+
+function initAppCore() {
     renderQuickButtons();
     setupEventListeners();
 }
@@ -267,11 +358,17 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. Ricerca Dizionario
-    for (const [term, def] of Object.entries(appConfig.dictionary)) {
-        if (cleanQuery.includes(term)) {
-            rispondiBot(def);
-            return;
+    // 4. Ricerca nel Dizionario Enciclopedico
+    let wordToSearch = cleanQuery
+        .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
+        .trim();
+
+    if (wordToSearch !== "") {
+        for (const [term, def] of Object.entries(appConfig.dictionary)) {
+            if (wordToSearch === term || cleanQuery.includes(term)) {
+                rispondiBot(def);
+                return;
+            }
         }
     }
 
