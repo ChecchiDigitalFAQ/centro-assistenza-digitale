@@ -352,4 +352,121 @@ body {
     #user-input {
         font-size: 16px !important;
     }
+/* ==========================================================
+   OTTIMIZZAZIONE MOBILE DEFINITIVA PER SMARTPHONE
+   ========================================================== */
+@media (max-width: 768px) {
+    /* Permette alla pagina di adattarsi all'altezza reale dello schermo del telefono */
+    html, body {
+        height: 100%;
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
+
+    .app-container {
+        flex-direction: column;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    /* Rende la barra laterale superiore compatta con scorrimento orizzontale dei pulsanti */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 130px;
+        flex-shrink: 0;
+        padding: 5px 10px;
+    }
+
+    .sidebar-header {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .logo {
+        width: 35px;
+        margin-bottom: 0;
+    }
+
+    .sidebar-header h2 {
+        font-size: 0.95rem;
+        margin-bottom: 0;
+    }
+
+    .subtitle, .contact-card, .sidebar-footer {
+        display: none; /* Nasconde gli elementi superflui su smartphone per massimizzare lo spazio della chat */
+    }
+
+    .sidebar-section {
+        margin-bottom: 5px;
+    }
+
+    .sidebar-section h3 {
+        font-size: 0.75rem;
+        margin-bottom: 4px;
+    }
+
+    .quick-buttons {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 6px;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .quick-btn {
+        flex: 0 0 auto;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+
+    /* Area principale della chat a tutto schermo verticale rimanente */
+    .chat-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 130px);
+    }
+
+    .chat-header {
+        padding: 8px 15px;
+    }
+
+    .arturo-status h1 {
+        font-size: 1rem;
+    }
+
+    .chat-tools-info {
+        font-size: 0.8rem;
+    }
+
+    .chat-messages {
+        flex: 1;
+        padding: 12px;
+        overflow-y: auto;
+    }
+
+    .message {
+        max-width: 85%;
+    }
+
+    /* Evita lo zoom automatico e fissa l'input in basso sopra la tastiera */
+    .chat-input-container {
+        padding: 10px 15px;
+        background: #ffffff;
+        position: sticky;
+        bottom: 0;
+    }
+
+    #user-input {
+        font-size: 16px !important;
+        padding: 10px 14px;
+    }
 }
