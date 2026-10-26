@@ -64,22 +64,29 @@ let appConfig = {
 
     faqs: [
         {
-            "id": "ORIENTATORE_TUTOR",
+            "id": "ORIENTATORE",
             "keywords": [
                 "orientatore", 
+                "chi è l'orientatore", 
+                "chi e l orientatore", 
+                "orientatore scuola",
+                "docente orientatore"
+            ],
+            "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Orientatore** dell'istituto è:\n- **Frediani**\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "TUTOR",
+            "keywords": [
                 "tutor", 
                 "tuto",
-                "orientatore e tutor", 
                 "professori tutor", 
                 "elenco tutor", 
                 "lista tutor", 
                 "chi sono i tutor", 
                 "tutor scolastici", 
-                "nomi tutor",
-                "chi è l'orientatore",
-                "orientatore scuola"
+                "nomi tutor"
             ],
-            "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i dati relativi a **Orientatore e Tutor**:\n- **Orientatore:** Frediani\n- **Tutor:** \n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["👥 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco dei **Docenti Tutor**:\n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONI_GENERALI",
@@ -216,7 +223,7 @@ let appConfig = {
         {
             "id": "CURIOSITA_MIELE",
             "keywords": ["miele", "mieloso", "api", "alveare"],
-            "responses": ["🍯 Il miele è delizioso per chi ha la fortuna di poter fare colazione, ma io non posso mangiarlo! La mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici. Scherzi a parte, lasciamic stare i dolcetti e concentriamoci su cose serie: posso aiutarti con i form dell'istituto, darti informazioni sui plessi o rispondere alle domande ufficiali sull'IIS \"Arturo Checchi\". C'è qualcosa di scolastico di cui hai bisogno?"]
+            "responses": ["🍯 Il miele è delizioso per chi ha la fortuna di poter fare colazione, ma io non posso mangiarlo! La mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici. Scherzi a parte, lasciamo stare i dolcetti e concentriamoci su cose serie: posso aiutarti con i form dell'istituto, darti informazioni sui plessi o rispondere alle domande ufficiali sull'IIS \"Arturo Checchi\". C'è qualcosa di scolastico di cui hai bisogno?"]
         },
         {
             "id": "CURIOSITA_SPORT",
