@@ -56,7 +56,7 @@ let appConfig = {
         {
             "id": "INVALSI",
             "keywords": ["invalsi"],
-            "responses": ["📊 Per quanto riguarda l'**Invalsi**, mi stai chiedendo la definizione generale dell'ente o vuoi sapere chi sono i referenti e la commissione interna all'IIS \"Arturo Checchi\"?\n\n*(Specificamelo pure digitando **responsabili** o **definizione**!)*"]
+            "responses": ["📊 Per quanto riguarda l'**Invalsi**, mi stai chiedendo la definizione generale dell'ente o vuoi sapere chi sono i referenti e la commissione interna all'IIS \"Arturo Checchi\"?\n\n*(Digitami pure **responsabili** o **definizione**!)*"]
         },
         {
             "id": "INVALSI_RESPONSABILI",
@@ -258,7 +258,8 @@ let appConfig = {
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
 let inAttesaDisambiguazione = false; 
-let opzioniDisambiguazione = [];     // Elenco delle opzioni trovate per parole chiave multiple (es. vari tipi di team)
+let opzioniDisambiguazione = [];     
+let argomentoInAttesa = null;        // Memorizza l'argomento principale (es. "INVALSI") quando si attende "responsabili" o "definizione"
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -334,22 +335,41 @@ function processUserQuery(query) {
         faqCandidata = null;
     }
 
-    // GESTIONE DELLA DISAMBIGUAZIONE MULTIPLA (es. l'utente ha scritto "team" e sceglie quale visualizzare)
-    if (inAttesaDisambiguazione && opzioniDisambiguazione.length > 0) {
-        inAttesaDisambiguazione = false;
-        let scelte = opzioniDisambiguazione;
-        opzioniDisambiguazione = [];
+    // GESTIONE INTELLIGENTE DEL CONTESTO IN ATTESA DI DISAMBIGUAZIONE O SCELTA
+    if (inAttesaDisambiguazione) {
+        // Caso A: L'utente stava scegliendo tra più sezioni (es. elenco numerato)
+        if (opzioniDisambiguazione.length > 0) {
+            let scelte = opzioniDisambiguazione;
+            opzioniDisambiguazione = [];
+            inAttesaDisambiguazione = false;
 
-        // Cerca se l'utente ha digitato parte di una delle opzioni o un numero
-        let sceltaTrovata = scelte.find(opt => cleanQuery.includes(opt.id.toLowerCase()) || cleanQuery.includes(opt.label.toLowerCase()) || cleanQuery === String(scelte.indexOf(opt) + 1));
-        
-        if (sceltaTrovata) {
-            ultimaCategoriaTrattata = sceltaTrovata.id;
-            rispondiBot(sceltaTrovata.responses[0]);
-            return;
-        } else {
-            // Se non ha scelto un'opzione valida, prova a interpretare la risposta come un testo normale
-            // (proseguendo con la normale analisi)
+            let sceltaTrovata = scelte.find(opt => cleanQuery.includes(opt.id.toLowerCase()) || cleanQuery.includes(opt.label.toLowerCase()) || cleanQuery === String(scelte.indexOf(opt) + 1));
+            
+            if (sceltaTrovata) {
+                ultimaCategoriaTrattata = sceltaTrovata.id;
+                rispondiBot(sceltaTrovata.responses[0]);
+                return;
+            }
+        } 
+        // Caso B: L'utente aveva inserito una parola singola (es. "invalsi") e ora risponde "responsabili" o "definizione"
+        else if (argomentoInAttesa) {
+            let argomento = argomentoInAttesa;
+            argomentoInAttesa = null;
+            inAttesaDisambiguazione = false;
+
+            if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
+                let faqResp = appConfig.faqs.find(f => f.id === argomento + "_RESPONSABILI" || (f.id.includes(argomento) && f.id.includes("RESPONSABILI")));
+                if (faqResp) {
+                    rispondiBot(faqResp.responses[0]);
+                    return;
+                }
+            } else if (cleanQuery.includes("definizion") || cleanQuery.includes("cos") || cleanQuery.includes("significat")) {
+                let faqBase = appConfig.faqs.find(f => f.id === argomento);
+                if (faqBase) {
+                    rispondiBot(faqBase.responses[0]);
+                    return;
+                }
+            }
         }
     }
 
@@ -463,7 +483,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il meu sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
@@ -506,21 +526,24 @@ function processUserQuery(query) {
         }
     }
 
-    // CONTROLLO INTELLIGENTE MULTI-RISCONTRO (es. se l'utente scrive "team", trova TUTTE le FAQ che parlano di team)
+    // CONTROLLO INTELLIGENTE MULTI-RISCONTRO (es. se l'utente scrive "team")
     let matchingFaqs = appConfig.faqs.filter(faq => faq.keywords.some(kw => kw.includes(cleanQuery) || calcolaSomiglianzaStringa(cleanQuery, kw) >= 0.75));
     
     if (matchingFaqs.length > 1) {
         inAttesaDisambiguazione = true;
         opzioniDisambiguazione = matchingFaqs;
+        argomentoInAttesa = null;
         contatoreCuriosita = 0;
         
         let elencoOpzioni = matchingFaqs.map((f, index) => `${index + 1}️⃣ **${f.id.replace(/_/g, ' ')}**`).join("\n");
         rispondiBot(`🔍 Ho trovato diverse sezioni relative a **"${query}"** nel database dell'istituto. A quale ti riferisci?\n\n${elencoOpzioni}\n\n*(Digita il numero o il nome della sezione che ti interessa!)*`);
         return;
     } else if (matchingFaqs.length === 1 && !cleanQuery.includes(" ")) {
-        // Se c'è una sola corrispondenza ma è una parola singola, chiedi disambiguazione definizione/responsabili come prima
+        // Se c'è una sola corrispondenza ma è una parola singola, attiva la richiesta di disambiguazione e memorizza l'argomento
         let matchingFaq = matchingFaqs[0];
-        ultimaCategoriaTrattata = matchingFaq.id;
+        inAttesaDisambiguazione = true;
+        argomentoInAttesa = matchingFaq.id;
+        opzioniDisambiguazione = [];
         contatoreCuriosita = 0;
         rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Digitami pure **responsabili** o **definizione** per avere l'informazione esatta!)*`);
         return;
@@ -660,6 +683,7 @@ function resetChat() {
     inAttesaConfermaFaq = false;
     inAttesaDisambiguazione = false;
     opzioniDisambiguazione = [];
+    argomentoInAttesa = null;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
