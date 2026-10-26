@@ -26,7 +26,7 @@ let appConfig = {
 
     frasiSimpaticheFuoriTema: [
         "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda, ma sto imparando in fretta e a breve integrerò questa richiesta nel mio database! Per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o al mio ruolo.",
-        "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al più presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
+        "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al mi presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
         "🔮 Non ho ancora una risposta precisa per questa richiesta, ma la annoto subito per integrarla a breve! Prova a chiedermi qualcosa inerente alla scuola, alla modulistica o all'organigramma dell'istituto.",
         "🚀 Su questo argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
     ],
@@ -335,56 +335,57 @@ function processUserQuery(query) {
         faqCandidata = null;
     }
 
-    // GESTIONE ROBUSTA DELLA DISAMBIGUAZIONE (Se l'utente sceglie un'opzione dall'elenco multiplo)
-    if (inAttesaDisambiguazione && opzioniDisambiguazione.length > 0) {
-        let scelte = opzioniDisambiguazione;
+    // ==========================================
+    // PRIORITÀ ASSOLUTA: GESTIONE DELLA DISAMBIGUAZIONE IN CORSO
+    // ==========================================
+    if (inAttesaDisambiguazione) {
         
-        // Verifica se l'utente ha digitato un numero valido (es. "3") o parte del nome dell'opzione (es. "team digitale")
-        let sceltaTrovata = null;
-        
-        // Controllo per numero
-        let numeroScelto = parseInt(cleanQuery);
-        if (!isNaN(numeroScelto) && numeroScelto >= 1 && numeroScelto <= scelte.length) {
-            sceltaTrovata = scelte[numeroScelto - 1];
-        } else {
-            // Controllo per corrispondenza di testo (es. contiene parole chiave dell'id o dell'etichetta)
-            sceltaTrovata = scelte.find(opt => {
-                let idNorm = opt.id.toLowerCase().replace(/_/g, " ");
-                return cleanQuery.includes(idNorm) || idNorm.includes(cleanQuery);
-            });
-        }
+        // 1. Se l'utente sta scegliendo da un elenco numerato (es. pluririscontro come "team")
+        if (opzioniDisambiguazione.length > 0) {
+            let scelte = opzioniDisambiguazione;
+            let sceltaTrovata = null;
+            
+            let numeroScelto = parseInt(cleanQuery);
+            if (!isNaN(numeroScelto) && numeroScelto >= 1 && numeroScelto <= scelte.length) {
+                sceltaTrovata = scelte[numeroScelto - 1];
+            } else {
+                sceltaTrovata = scelte.find(opt => {
+                    let idNorm = opt.id.toLowerCase().replace(/_/g, " ");
+                    return cleanQuery.includes(idNorm) || idNorm.includes(cleanQuery);
+                });
+            }
 
-        if (sceltaTrovata) {
             inAttesaDisambiguazione = false;
             opzioniDisambiguazione = [];
             argomentoInAttesa = null;
-            ultimaCategoriaTrattata = sceltaTrovata.id;
-            rispondiBot(sceltaTrovata.responses[0]);
-            return;
-        } else {
-            // Se l'utente scrive qualcos'altro, resetta la disambiguazione e procedi con la normale ricerca
-            inAttesaDisambiguazione = false;
-            opzioniDisambiguazione = [];
-        }
-    }
 
-    // GESTIONE DEL SECONDO LIVELLO (es. utente ha scritto "invalsi" e ora risponde "responsabili")
-    if (inAttesaDisambiguazione && argomentoInAttesa) {
-        let argomento = argomentoInAttesa;
-        argomentoInAttesa = null;
-        inAttesaDisambiguazione = false;
-
-        if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
-            let faqResp = appConfig.faqs.find(f => f.id === argomento + "_RESPONSABILI" || (f.id.includes(argomento) && f.id.includes("RESPONSABILI")));
-            if (faqResp) {
-                rispondiBot(faqResp.responses[0]);
+            if (sceltaTrovata) {
+                ultimaCategoriaTrattata = sceltaTrovata.id;
+                rispondiBot(sceltaTrovata.responses[0]);
                 return;
             }
-        } else if (cleanQuery.includes("definizion") || cleanQuery.includes("cos") || cleanQuery.includes("significat")) {
-            let faqBase = appConfig.faqs.find(f => f.id === argomento);
-            if (faqBase) {
-                rispondiBot(faqBase.responses[0]);
-                return;
+        } 
+        
+        // 2. Se l'utente sta rispondendo alla domanda "definizione o responsabili" (es. dopo aver digitato "invalsi")
+        else if (argomentoInAttesa) {
+            let argomento = argomentoInAttesa;
+            inAttesaDisambiguazione = false;
+            argomentoInAttesa = null;
+
+            if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
+                let faqResp = appConfig.faqs.find(f => f.id === argomento + "_RESPONSABILI" || (f.id.includes(argomento) && f.id.includes("RESPONSABILI")));
+                if (faqResp) {
+                    rispondiBot(faqResp.responses[0]);
+                    return;
+                }
+            } else if (cleanQuery.includes("definizion") || cleanQuery.includes("cos") || cleanQuery.includes("significat")) {
+                let faqBase = appConfig.faqs.find(f => f.id === argomento);
+                if (faqBase) {
+                    rispondiBot(faqBase.responses[0]);
+                    return;
+                }
+            } else {
+                // Se scrive qualcos'altro, sblocca lo stato e fai proseguire la query normalmente
             }
         }
     }
@@ -592,7 +593,7 @@ function processUserQuery(query) {
     if (highestScore >= 0.35 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ هذا quello che intendevi? Rispondi con **Sì** o **No**!`);
         return;
     }
 
