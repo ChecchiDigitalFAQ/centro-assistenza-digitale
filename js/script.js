@@ -66,7 +66,7 @@ let appConfig = {
         {
             "id": "ORIENTATORE_TUTOR",
             "keywords": ["orientatore", "tutor", "orientatore e tutor", "professori tutor", "elenco tutor"],
-            "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i dati relativi a **Orientatore e Tutor**[cite: 14, 15]:\n- **Orientatore:** Frediani[cite: 14]\n- **Tutor:** \n1. Nazzi[cite: 14]\n2. Guarino[cite: 14]\n3. Vaccaro[cite: 14]\n4. Tortorella[cite: 14]\n5. Desideri[cite: 14]\n6. Senese[cite: 14]\n7. Scardaccione[cite: 14]\n8. Tamberi[cite: 14]\n9. Cerbioni[cite: 14]\n10. Menale[cite: 14]\n11. Rasori[cite: 15]\n12. Faraoni[cite: 15]\n13. Frisone[cite: 15]\n14. Galfano[cite: 15]\n15. Sibione[cite: 15]\n16. Canneri[cite: 15]\n17. Tognarelli[cite: 15]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i dati relativi a **Orientatore e Tutor**:\n- **Orientatore:** Frediani\n- **Tutor:** \n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONI_GENERALI",
@@ -180,8 +180,8 @@ let appConfig = {
         },
         {
             "id": "RESPONSABILI_LABORATORI",
-            "keywords": ["laboratorio", "laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "keywords": ["laboratorio", "laboratori", "responsabili laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto", "fisica", "scienze"],
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica / Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
 
         // CURIOSITÀ E BIZZARRIE
@@ -377,11 +377,11 @@ function processUserQuery(query) {
 
     // =========================================================================
     // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
-    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", "orientatore", "tutor", ecc.) attivino logiche errate.
+    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", "laboratorio", ecc.) attivino logiche errate.
     // =========================================================================
-    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "orientatore", "tutor", "chi"];
+    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "orientatore", "tutor", "laboratorio", "laboratori", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
-        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o ruolo ti riferisci (es. *chi è l'orientatore*, *elenco tutor*), così posso darti l'informazione corretta dall'organigramma!");
+        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto, laboratorio o ruolo ti riferisci (es. *laboratorio di informatica*, *responsabile laboratori*), così posso darti l'informazione corretta dall'organigramma!");
         return;
     }
 
@@ -511,7 +511,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il meu sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
