@@ -202,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Macchina a stati intelligente con gestione della scelta sull'organigramma.
+ * Macchina a stati flessibile per interpretare qualsiasi risposta negativa o colloquiale.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -217,28 +217,31 @@ function processUserQuery(query) {
         .trim();
 
     // =========================================================================
-    // GESTIONE STATO IN ATTESA SCELTA ORGANIGRAMMA
+    // 1. GESTIONE PRIORITARIA DELLO STATO ATTIVO: ORGANIGRAMMA
     // =========================================================================
     if (inAttesaSceltaOrganigramma) {
         inAttesaSceltaOrganigramma = false;
-        if (cleanQuery.includes("pdf") || cleanQuery.includes("scarica") || cleanQuery.includes("documento") || cleanQuery.includes("link") || cleanQuery.includes("intero")) {
+        
+        // Se l'utente chiede esplicitamente il PDF o il documento completo
+        if (cleanQuery.includes("pdf") || cleanQuery.includes("scarica") || cleanQuery.includes("documento") || cleanQuery.includes("link") || cleanQuery.includes("intero") || cleanQuery.includes("completo") || cleanQuery.includes("si") || cleanQuery.includes("sì")) {
             rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
-        } else if (cleanQuery.includes("specifico") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile") || cleanQuery.includes("tutor") || cleanQuery.includes("plesso") || cleanQuery.includes("laboratorio") || cleanQuery.includes("si") || cleanQuery.includes("sì")) {
-            rispondiBot("🤖 Certamente! Dimmi pure chi o cosa ti interessa nello specifico (es. *responsabili di plesso*, *tutor*, *figura sicurezza* o *laboratori*).");
+        } else {
+            // Qualsiasi altra risposta (es. "no", "no grazie", "no va bene così", "nulla ciao", ecc.) 
+            // blocca il PDF e invita l'utente a digitare la specifica richiesta.
+            rispondiBot("🤖 Va bene! Dimmi pure quale informazione specifica ti interessa conoscere dall'organigramma (es. *responsabili di plesso*, *tutor*, *figure di sicurezza* o *laboratori*).");
             return;
         }
     }
 
-    // Reset preventivo degli stati attivi se l'utente cambia argomento
+    // Reset preventivo degli altri stati attivi se l'utente cambia argomento
     inAttesaSceltaResponsabile = false;
     inAttesaSceltaTipoPlesso = false;
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
-    inAttesaSceltaOrganigramma = false;
 
     // =========================================================================
-    // INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
+    // 2. INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
     // =========================================================================
     if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
         inAttesaSceltaOrganigramma = true;
@@ -247,7 +250,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
+    // 3. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
     // =========================================================================
     if (cleanQuery.includes("modellistica 1")) {
         rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
@@ -337,7 +340,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
+    // 4. VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
     // =========================================================================
     let matchedGlobalFaq = null;
     let highestGlobalScore = 0;
@@ -361,7 +364,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
+    // 5. VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
     // =========================================================================
     const paroleContestoMancante = ["referente", "referenti", "commissione", "commissioni", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
@@ -370,7 +373,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // CONTINUAZIONE CONVERSAZIONALE
+    // 6. CONTINUAZIONE CONVERSAZIONALE
     // =========================================================================
     const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
     if (intentiContinuazione.includes(cleanQuery)) {
