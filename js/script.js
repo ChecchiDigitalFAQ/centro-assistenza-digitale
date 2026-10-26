@@ -66,22 +66,32 @@ let appConfig = {
         {
             "id": "COMMISSIONI_GENERALI",
             "keywords": ["elenco commissioni", "tutte le commissioni"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche:\n- **Elettorale:** Galleni, Senese, Carli, Freschi\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n- **Competizioni Scientifiche:** Tafi, Tamberi\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n- **Orario:** Donato, Frisone / Menale (ADSS)\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche[cite: 14]:\n- **Elettorale:** Galleni, Senese, Carli, Freschi[cite: 14]\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)[cite: 14]\n- **Competizioni Scientifiche:** Tafi, Tamberi[cite: 14]\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini[cite: 14]\n- **Orario:** Donato, Frisone / Menale (ADSS)[cite: 14]\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONE_ORARIO",
             "keywords": ["commissione orario", "orario lezioni", "orario scolastico"],
-            "responses": ["⏱️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Orario** è composta da:\n- Donato, Frisone / Menale (ADSS)\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["⏱️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Orario** è composta da[cite: 14]:\n- Donato, Frisone / Menale (ADSS)[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "COMMISSIONE_FSL",
+            "keywords": ["commissione fsl", "fsl"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione FSL** è composta da[cite: 14]:\n- Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "COMMISSIONE_SCIENTIFICHE",
+            "keywords": ["competizioni scientifiche", "commissione competizioni scientifiche"],
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la commissione per le **Competizioni Scientifiche** è composta da[cite: 14]:\n- Tafi, Tamberi[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONE_ELETTORALE",
             "keywords": ["commissione elettorale", "elettorale"],
-            "responses": ["🗳️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Elettorale** è composta da:\n- Galleni, Senese, Carli, Freschi\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["🗳️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Elettorale** è composta da[cite: 14]:\n- Galleni, Senese, Carli, Freschi[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMITATO_VALUTAZIONE",
             "keywords": ["comitato di valutazione", "valutazione docenti"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Comitato di Valutazione** è composto da:\n- Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Comitato di Valutazione** è composto da[cite: 14]:\n- Vaccaro, Cillerai, Vincenti, Lalli (supplente)[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_BULLISMO_RESPONSABILI",
@@ -91,7 +101,7 @@ let appConfig = {
         {
             "id": "REFERENTI_AREA_DIDATTICA",
             "keywords": ["referenti didattica", "referenti progetti", "alunni stranieri", "dsa", "bes", "studente atleta", "ed civica", "scienze motorie", "formazione", "referenti area didattica"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Referenti di Area Didattica e Progetti**:\n- **Referente Alunni Stranieri:** Nazzi\n- **Referente DSA / BES:** Canu\n- **Referente Studente-Atleta:** Angelini\n- **Ed. Civica:** Donati - Orsini\n- **Referente Scienze Motorie:** Lotti\n- **Referente Formazione ADSS:** Ferrai - Testa\n- **Referente Formazione:** Frati\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Referenti di Area Didattica e Progetti**[cite: 14]:\n- **Referente Alunni Stranieri:** Nazzi[cite: 14]\n- **Referente DSA / BES:** Canu[cite: 14]\n- **Referente Studente-Atleta:** Angelini[cite: 14]\n- **Ed. Civica:** Donati - Orsini[cite: 14]\n- **Referente Scienze Motorie:** Lotti[cite: 14]\n- **Referente Formazione ADSS:** Ferrai - Testa[cite: 14]\n- **Referente Formazione:** Frati[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "INVALSI_RESPONSABILI",
@@ -173,7 +183,7 @@ let appConfig = {
         {
             "id": "CURIOSITA_SESSO",
             "keywords": ["sesso", "amore fisico", "fidanzata", "fidanzato", "relazioni intime"],
-            "responses": ["😳 Ops! Qui entriamo in un territorio decisamente off-limits per un assistente virtuale scolastico! Il mio unico grande amore sono i database e la fibra ottica dell'IIS \"Arturo Checchi\". Per favore, rimaniamo su argomenti legati al contesto scolastico o ai servizi dell'istituto! 🏫🤖"]
+            "responses": ["😳 Ops! Qui entriamo in un territorio decisamente off-limits per un assistente virtuale scolastico! Il mio unico grande amore sono i database e la fibra ottica dell'IIS \"Arturo Checchi\". Per favore, rimaniamo su argomenti legati al contesto scolastico o sui servizi dell'istituto! 🏫🤖"]
         },
         {
             "id": "CURIOSITA_MARMELLATA",
