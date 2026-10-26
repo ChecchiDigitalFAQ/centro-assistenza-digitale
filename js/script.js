@@ -28,7 +28,7 @@ let appConfig = {
         "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda, ma sto imparando in fretta e a breve integrerò questa richiesta nel mio database! Per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o al mio ruolo.",
         "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al più presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
         "🔮 Non ho ancora una risposta precisa per questa richiesta, ma la annoto subito per integrarla a breve! Prova a chiedermi qualcosa inerente alla scuola, alla modulistica o all'organigramma dell'istituto.",
-        "🚀 Su questo argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
+        "🚀 Su這個 argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
     ],
 
     dictionary: {
@@ -56,7 +56,7 @@ let appConfig = {
         // ORGANIGRAMMA A.S. 2026-2027
         {
             "id": "ACCOGLIENZA",
-            "keywords": ["accoglienza", "team accoglienza", "referente accoglienza", "commissione accoglienza"],
+            "keywords": ["accoglienza", "accogliena", "acoglienza", "accogliza", "team accoglienza", "referente accoglienza", "commissione accoglienza"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**."]
         },
         {
@@ -304,6 +304,11 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // Reset degli stati di attesa precedenti se l'utente digita direttamente una nuova richiesta (es. cliccando ripetutamente un pulsante o scrivendo un termine)
+    if (!inAttesaConfermaFaq && !inAttesaSceltaForm) {
+        faqCandidata = null;
+    }
+
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
@@ -414,7 +419,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il mole sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
@@ -457,14 +462,14 @@ function processUserQuery(query) {
         }
     }
 
-    // MOTORE GLOBALE DI INTERCETTAZIONE INTELLIGENTE A DOPPIO LIVELLO (PER TUTTE LE FAQ)
+    // MOTORE GLOBALE DI INTERCETTAZIONE INTELLIGENTE A DOPPIO LIVELLO
     
-    // Livello 1: Cerca corrispondenza parziale o alta similitudine (>= 0.50) su qualsiasi FAQ del database
+    // Livello 1: Cerca corrispondenza parziale o alta similitudine (>= 0.45) su qualsiasi FAQ del database
     let directMatchFaq = null;
     appConfig.faqs.forEach(faq => {
         if (directMatchFaq) return;
         faq.keywords.forEach(kw => {
-            if (cleanQuery.includes(kw) || calcolaSomiglianza(cleanQuery, kw) >= 0.50) {
+            if (cleanQuery.includes(kw) || calcolaSomiglianza(cleanQuery, kw) >= 0.45) {
                 directMatchFaq = faq;
             }
         });
@@ -479,7 +484,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // Livello 2: Fallback probabilistico globale esteso a tutto il database (soglia ridotta a 0.22 per catturare qualsiasi typo o formulazione errata)
+    // Livello 2: Fallback probabilistico globale esteso a tutto il database (soglia a 0.22 per catturare typo o formulazioni errate)
     let highestScore = 0;
     let probableFaq = null;
     appConfig.faqs.forEach(faq => {
