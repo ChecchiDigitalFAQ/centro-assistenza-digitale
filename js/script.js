@@ -60,82 +60,82 @@ let appConfig = {
         {
             "id": "INVALSI_RESPONSABILI",
             "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi", "invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "ED_SALUTE",
             "keywords": ["educazione alla salute", "salute", "benessere", "educazione alla salute e benessere", "ed. salute"],
-            "responses": ["💚 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), per l'area **Ed. Salute / Benessere a scuola** i riferimenti sono:\n- **Referente:** Catalano\n- **Commissione:** Canneri, Tognarelli, Panchetti"]
+            "responses": ["💚 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), per l'area **Ed. Salute / Benessere a scuola** i riferimenti sono:\n- **Referente:** Catalano\n- **Commissione:** Canneri, Tognarelli, Panchetti\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "NIV",
             "keywords": ["niv", "nucleo interno valutazione", "nucleo interno"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **NIV (Nucleo Interno Valutazione)** è composto da:\n- DS, Frediani, Bolzan, Donato"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **NIV (Nucleo Interno Valutazione)** è composto da:\n- DS, Frediani, Bolzan, Donato\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "ACCOGLIENZA_RESPONSABILI",
             "keywords": ["referenti accoglienza", "commissione accoglienza", "responsabili accoglienza", "accoglienza"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**.\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
             "keywords": ["team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero", "mobilità", "mobilita"],
-            "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
+            "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_DIGITALE_RESPONSABILI",
             "keywords": ["team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale", "digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "MICROSOFT365",
             "keywords": ["microsoft", "teams", "m365", "argo", "servizi digitali", "piattaforma"],
-            "responses": ["💻 L'IIS \"Arturo Checchi\" utilizza l'ecosistema **Microsoft 365** e il registro elettronico **Argo** per la didattica digitale, la gestione dei canali Teams e i servizi cloud istituzionali."]
+            "responses": ["💻 L'IIS \"Arturo Checchi\" utilizza l'ecosistema **Microsoft 365** e il registro elettronico **Argo** per la didattica digitale, la gestione dei canali Teams e i servizi cloud istituzionali.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILE_SEDE_CENTRALE",
             "keywords": ["sede centrale", "viale gramsci", "responsabile sede centrale", "responsabile centrale", "centrale"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**."]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILE_LICEO",
             "keywords": ["liceo", "via padre checchi", "responsabile liceo", "responsabili liceo"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**."]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILE_MODA",
             "keywords": ["moda", "calzaturiero", "piazza vittorio veneto", "plesso moda", "responsabile moda"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**."]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "ORGANIGRAMMA_PASSATO",
             "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
-            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!"]
+            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_PLESSI_GENERALI",
             "keywords": ["responsabili di plesso", "responsabile di plesso", "plessi", "sedi", "sede"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri"]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "FUNZIONI_STRUMENTALI",
             "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "REFERENTI_SPECIALI",
             "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "SICUREZZA",
             "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_LABORATORI",
             "keywords": ["laboratorio", "laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini"]
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
 
         // CURIOSITÀ E BIZZARRIE
@@ -332,6 +332,19 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
+    // REGOLA 0: GESTIONE CONTINUAZIONE (Se l'utente risponde "aiutami con altro", "sì", ecc.)
+    // =========================================================================
+    const paroleContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
+    if (paroleContinuazione.includes(cleanQuery)) {
+        ultimaCategoriaTrattata = "";
+        ultimoGiocoProposto = "";
+        inAttesaSceltaForm = false;
+        inAttesaConfermaFaq = false;
+        rispondiBot("🤖 Certamente! Dimmi pure, quale altra informazione ti serve o di quale servizio dell'IIS \"Arturo Checchi\" hai bisogno?");
+        return;
+    }
+
+    // =========================================================================
     // REGOLA 1: RICERCA DIRETTA NELLE FAQ CON SOGLIA RIGIDA (Evita falsi positivi)
     // =========================================================================
     let bestMatchFaq = null;
@@ -349,7 +362,6 @@ function processUserQuery(query) {
         });
     });
 
-    // Soglia innalzata a 0.85 per evitare che parole vaghe (es. "responsabile") attivino FAQ a caso
     if (highestScore >= 0.85 && bestMatchFaq) {
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
@@ -396,44 +408,12 @@ function processUserQuery(query) {
         }
     }
 
-    if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
-        inAttesaSceltaForm = false;
-        contatoreCuriosita = 0;
-        if (ultimoGiocoProposto === "BARZELLETTA") {
-            let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
-            indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
-            rispondiBot(testoBarzelletta + "\n\n*(Vuoi un'altra barzelletta? Scrivimelo pure!)*");
-            return;
-        } else if (ultimoGiocoProposto === "INDOVINELLO") {
-            let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
-            indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length;
-            rispondiBot(testoIndovinello + "\n\n*(Vuoi un altro indovinello? Chiedimelo pure!)*");
-            return;
-        } else {
-            rispondiBot("👍 Perfetto! Se hai bisogno di approfondire o di un'altra informazione sull'IIS \"Arturo Checchi\", chiedi pure.");
-            return;
-        }
-    }
-    if (cleanQuery === "no") {
-        inAttesaSceltaForm = false;
-        contatoreCuriosita = 0;
-        if (ultimoGiocoProposto === "BARZELLETTA" || ultimoGiocoProposto === "INDOVINELLO") {
-            ultimoGiocoProposto = "";
-            rispondiBot("Va bene, niente più barzellette o indovinelli per ora! Se ti serve altro sui servizi o sulla scuola, chiedi pure.");
-            return;
-        } else {
-            ultimoGiocoProposto = "";
-            rispondiBot("Ricevuto! Se hai bisogno di qualcos'altro o di consultare qualche modulo, sono qui a disposizione.");
-            return;
-        }
-    }
-
     if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
         ultimoGiocoProposto = "BARZELLETTA";
         contatoreCuriosita = 0;
         let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
         indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
-        rispondiBot(testoBarzelletta + "\n\n*(Vuoi un'altra barzelletta? Scrivimelo pure!)*");
+        rispondiBot(testoBarzelletta + "\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
@@ -442,7 +422,7 @@ function processUserQuery(query) {
         contatoreCuriosita = 0;
         let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
         indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length;
-        rispondiBot(testoIndovinello + "\n\n*(Vuoi un altro indovinello? Chiedimelo pure!)*");
+        rispondiBot(testoIndovinello + "\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
@@ -452,7 +432,7 @@ function processUserQuery(query) {
         if (numeriEstratti !== "") {
             let num = parseFloat(numeriEstratti);
             let risultato = Math.sqrt(num);
-            rispondiBot(`🔢 La radice quadrata di **${num}** è **${risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!`);
+            rispondiBot(`🔢 La radice quadrata di **${num}** è **${risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!\n\n*(Cos'altro vuoi chiedermi?)*`);
             return;
         } else {
             rispondiBot("🔢 Per calcolare la radice quadrata, scrivimi il numero (es. *radice quadrata di 81*).");
@@ -466,7 +446,7 @@ function processUserQuery(query) {
             let evalResult = Function('"use strict";return (' + mathCheckQuery + ')')();
             if (!isNaN(evalResult)) {
                 contatoreCuriosita = 0;
-                rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!`);
+                rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!\n\n*(Cos'altro vuoi chiedermi?)*`);
                 return;
             }
         } catch (e) {}
@@ -503,10 +483,10 @@ function processUserQuery(query) {
         inAttesaSceltaForm = false;
         contatoreCuriosita = 0;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
-            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
+            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
-            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
+            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         }
     }
@@ -518,7 +498,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // Se la somiglianza è bassa, evitiamo di forzare una FAQ a caso e diamo una risposta pulita fuori tema
     ultimaCategoriaTrattata = ""; 
     ultimoGiocoProposto = "";
     
