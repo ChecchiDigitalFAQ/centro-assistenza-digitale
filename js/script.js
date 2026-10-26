@@ -53,36 +53,41 @@ let appConfig = {
     },
 
     faqs: [
-        // ORGANIGRAMMA A.S. 2026-2027
+        // ORGANIGRAMMA A.S. 2026-2027 (Con citazione ufficiale della delibera)
+        {
+            "id": "ORGANIGRAMMA_PASSATO",
+            "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi"],
+            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26)[cite: 3]. Non ho archivi storici relativi agli anni precedenti!"]
+        },
         {
             "id": "FUNZIONI_STRUMENTALI",
             "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
-            "responses": ["🛠️ Ecco le **Funzioni Strumentali** per l'anno scolastico:\n- **Inclusione (Referenti H):** Testa e Cillerai[cite: 5]\n- **PTOF:** Freschi e Tamberi[cite: 5]\n- **Orientamento in entrata:** Tafi[cite: 5]\n- **FLS:** Gennai e Palmieri[cite: 5]"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai[cite: 5]\n- **PTOF:** Freschi e Tamberi[cite: 5]\n- **Orientamento in entrata:** Tafi[cite: 5]\n- **FLS:** Gennai e Palmieri[cite: 5]"]
         },
         {
             "id": "RESPONSABILI_PLESSI",
             "keywords": ["responsabili di plesso", "viale gramsci", "via padre checchi", "piazza vittorio veneto", "plessi", "sedi"],
-            "responses": ["🏫 Ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Viale Gramsci:** Lalli[cite: 5]\n- **Sede Via Padre Checchi:** Frediani, Frati e Canu[cite: 5]\n- **Sede Piazza Vittorio Veneto:** Galleni e Palmieri[cite: 5]"]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Viale Gramsci:** Lalli[cite: 5]\n- **Sede Via Padre Checchi:** Frediani, Frati e Canu[cite: 5]\n- **Sede Piazza Vittorio Veneto:** Galleni e Palmieri[cite: 5]"]
         },
         {
             "id": "TEAM_DIGITALE",
             "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici"],
-            "responses": ["💻 Il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato[cite: 5]\n- **Team:** Frediani, Bolzan e Turini[cite: 5]\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino[cite: 5]"]
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato[cite: 5]\n- **Team:** Frediani, Bolzan e Turini[cite: 5]\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino[cite: 5]"]
         },
         {
             "id": "REFERENTI_SPECIALI",
             "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta", "invalsi"],
-            "responses": ["📋 Ecco alcuni dei principali referenti per i progetti d'istituto:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
         },
         {
             "id": "SICUREZZA",
             "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
-            "responses": ["🦺 Per la sicurezza dell'istituto le figure di riferimento sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
         },
         {
             "id": "RESPONSABILI_LABORATORI",
             "keywords": ["laboratorio", "laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto"],
-            "responses": ["🔬 L'istituto dispone di numerosi laboratori e impianti sportivi. Ad esempio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\nVuoi conoscere il responsabile di uno specifico laboratorio? Chiedi pure!"]
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini"]
         },
 
         // CURIOSITÀ E BIZZARRIE
@@ -202,8 +207,8 @@ let appConfig = {
 };
 
 let inAttesaSceltaForm = false;
-let inAttesaConfermaFaq = false; // Stato per la conferma intelligente della FAQ dubbia
-let faqCandidata = null;         // Memorizza temporalmente la FAQ trovata per il controllo
+let inAttesaConfermaFaq = false; 
+let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
@@ -274,7 +279,6 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE CONFERMA INTELLIGENTE DI UNA FAQ DUBBIA (IN ATTESA DI SÌ/NO)
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
@@ -290,7 +294,6 @@ function processUserQuery(query) {
         }
     }
 
-    // 2. GESTIONE STANDARD DI SÌ / NO (Form, Giochi, ecc.)
     if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
         contatoreCuriosita = 0;
@@ -323,7 +326,6 @@ function processUserQuery(query) {
         }
     }
 
-    // 3. MOTORE BARZELLETTE
     if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
         ultimoGiocoProposto = "BARZELLETTA";
         contatoreCuriosita = 0;
@@ -333,7 +335,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. MOTORE INDOVINELLI
     if (cleanQuery.includes("indovinello") || cleanQuery.includes("rompicapo") || cleanQuery.includes("indovina")) {
         ultimoGiocoProposto = "INDOVINELLO";
         contatoreCuriosita = 0;
@@ -343,7 +344,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. RADICI QUADRATE E CALCOLATRICE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         contatoreCuriosita = 0;
         let numeriEstratti = query.replace(/[^0-9.]/g, "");
@@ -378,7 +378,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 6. LINEARITÀ DEL DISCORSO
     if (cleanQuery === "perche" || cleanQuery === "perché") {
         if (ultimaCategoriaTrattata === "CREATORE") {
             rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
@@ -398,7 +397,6 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. FORM
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         contatoreCuriosita = 0;
@@ -418,7 +416,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 8. DIZIONARIO
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -435,7 +432,6 @@ function processUserQuery(query) {
         }
     }
 
-    // 9. RICERCA FAQ CON SIMILITUDINE AVANZATA E CONTROLLO DI DUBBIO
     let bestMatchFaq = null;
     let highestScore = 0;
 
@@ -449,7 +445,6 @@ function processUserQuery(query) {
         });
     });
 
-    // Se la confidenza è alta (> 0.65), risponde direttamente
     if (highestScore > 0.65 && bestMatchFaq) {
         ultimaCategoriaTrattata = bestMatchFaq.id; 
         ultimoGiocoProposto = "";
@@ -457,13 +452,11 @@ function processUserQuery(query) {
         let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
         rispondiBot(resp);
     } 
-    // Se la confidenza è in una fascia di dubbio (tra 0.40 e 0.65), Arturo chiede conferma all'utente
     else if (highestScore >= 0.40 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = bestMatchFaq;
         rispondiBot(`🤔 Non ho capito perfettamente la tua richiesta, ma stavi forse chiedendo informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**?\n\nRispondi con **Sì** se ho indovinato, oppure con **No**!`);
     } 
-    // Al di sotto di 0.40 scatta il paracadute con notifica di futuro aggiornamento
     else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
