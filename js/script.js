@@ -65,8 +65,23 @@ let appConfig = {
     faqs: [
         {
             "id": "COMMISSIONI_GENERALI",
-            "keywords": ["commissioni", "commissione elettorale", "comitato di valutazione", "competizioni scientifiche", "fsl", "orario", "orientamento in entrata"],
+            "keywords": ["elenco commissioni", "tutte le commissioni"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche[cite: 13]:\n- **Elettorale:** Galleni, Senese, Carli, Freschi[cite: 13]\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)[cite: 13]\n- **Competizioni Scientifiche:** Tafi, Tamberi[cite: 13]\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini[cite: 13]\n- **Orario:** Donato, Frisone / Menale (ADSS)[cite: 13]\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "COMMISSIONE_ORARIO",
+            "keywords": ["commissione orario", "orario lezioni", "orario scolastico"],
+            "responses": ["⏱️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Orario** è composta da[cite: 13]:\n- Donato, Frisone / Menale (ADSS)[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "COMMISSIONE_ELETTORALE",
+            "keywords": ["commissione elettorale", "elettorale"],
+            "responses": ["🗳️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Elettorale** è composta da[cite: 13]:\n- Galleni, Senese, Carli, Freschi[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "COMITATO_VALUTAZIONE",
+            "keywords": ["comitato di valutazione", "valutazione docenti"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Comitato di Valutazione** è composto da[cite: 13]:\n- Vaccaro, Cillerai, Vincenti, Lalli (supplente)[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_BULLISMO_RESPONSABILI",
@@ -349,9 +364,9 @@ function processUserQuery(query) {
     // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
     // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", ecc.) attivino logiche errate.
     // =========================================================================
-    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "chi"];
+    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
-        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o area ti riferisci (es. *responsabile Invalsi*, *referente DSA*, *commissione orario*), così posso darti l'informazione corretta dall'organigramma!");
+        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o commissione ti riferisci (es. *comitato di valutazione*, *commissione elettorale*, *commissione orario*), così posso darti l'informazione corretta dall'organigramma!");
         return;
     }
 
@@ -481,7 +496,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il meu sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
