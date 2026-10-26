@@ -53,7 +53,7 @@ let appConfig = {
     },
 
     faqs: [
-        // ORGANIGRAMMA A.S. 2026-2027 (Con citazione ufficiale della delibera)
+        // ORGANIGRAMMA A.S. 2026-2027
         {
             "id": "ORGANIGRAMMA_PASSATO",
             "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi"],
@@ -66,8 +66,8 @@ let appConfig = {
         },
         {
             "id": "RESPONSABILI_PLESSI",
-            "keywords": ["responsabili di plesso", "viale gramsci", "via padre checchi", "piazza vittorio veneto", "plessi", "sedi"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Viale Gramsci:** Lalli[cite: 5]\n- **Sede Via Padre Checchi:** Frediani, Frati e Canu[cite: 5]\n- **Sede Piazza Vittorio Veneto:** Galleni e Palmieri[cite: 5]"]
+            "keywords": ["responsabili di plesso", "responsabile di plesso", "liceo", "sede centrale", "moda", "calzaturiero", "viale gramsci", "via padre checchi", "piazza vittorio veneto", "plessi", "sedi", "sede"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli[cite: 3, 5]\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu[cite: 3, 5]\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri[cite: 3, 5]"]
         },
         {
             "id": "TEAM_DIGITALE",
@@ -77,7 +77,7 @@ let appConfig = {
         {
             "id": "REFERENTI_SPECIALI",
             "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta", "invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi[cite: 7]\n- **DSA / BES:** Canu[cite: 7]\n- **Studente-Atleta:** Angelini[cite: 7]\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
         },
         {
             "id": "SICUREZZA",
@@ -455,114 +455,4 @@ function processUserQuery(query) {
     else if (highestScore >= 0.40 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Non ho capito perfettamente la tua richiesta, ma stavi forse chiedendo informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**?\n\nRispondi con **Sì** se ho indovinato, oppure con **No**!`);
-    } 
-    else {
-        ultimaCategoriaTrattata = ""; 
-        ultimoGiocoProposto = "";
-        
-        contatoreCuriosita++;
-        if (contatoreCuriosita > 3) {
-            rispondiBot(`🛑 Senti un po', mi piace fare quattro chiacchiere, ma mi sa che stiamo esagerando con le domande fuori tema! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
-            contatoreCuriosita = 0;
-            return;
-        }
-
-        let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
-        indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
-        rispondiBot(fraseCasuale);
-    }
-}
-
-function calcolaSomiglianza(s1, s2) {
-    let parole1 = s1.split(" ");
-    let parole2 = s2.split(" ");
-    let matchCount = 0;
-    parole1.forEach(p1 => {
-        parole2.forEach(p2 => {
-            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
-                matchCount++;
-            }
-        });
-    });
-    return matchCount / Math.max(parole1.length, parole2.length);
-}
-
-function rispondiBot(testo) {
-    appendMessage(testo, "bot");
-}
-
-function quickAction(id) {
-    let found = appConfig.faqs.find(f => f.id === id);
-    if (found) {
-        ultimaCategoriaTrattata = found.id;
-        ultimoGiocoProposto = "";
-        contatoreCuriosita = 0;
-        rispondiBot(found.responses[0]);
-    }
-}
-
-function appendMessage(text, sender) {
-    const chatBox = document.getElementById("chat-messages");
-    if (!chatBox) return;
-    
-    const messageDiv = document.createElement("div");
-    const isBot = (sender === "bot");
-    messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
-
-    const avatarDiv = document.createElement("div");
-    avatarDiv.classList.add("message-avatar");
-    avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
-
-    const bubble = document.createElement("div");
-    bubble.classList.add("message-content");
-    bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
-
-    if (isBot) {
-        messageDiv.appendChild(avatarDiv);
-        messageDiv.appendChild(bubble);
-    } else {
-        messageDiv.appendChild(bubble);
-        messageDiv.appendChild(avatarDiv);
-    }
-
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function resetChat() {
-    inAttesaSceltaForm = false;
-    inAttesaConfermaFaq = false;
-    faqCandidata = null;
-    ultimaCategoriaTrattata = "";
-    ultimoGiocoProposto = "";
-    contatoreCuriosita = 0;
-    const chatBox = document.getElementById("chat-messages");
-    if (!chatBox) return;
-    chatBox.innerHTML = `
-        <div class="message bot-message">
-            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
-            <div class="message-content">
-                👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
-                Conversazione riavviata! Come posso aiutarti oggi?
-            </div>
-        </div>
-    `;
-}
-
-function startClock() {
-    const clockEl = document.getElementById("live-clock");
-    if (!clockEl) return;
-    
-    function updateDateTime() {
-        const now = new Date();
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        const dataFormattata = now.toLocaleDateString('it-IT', options);
-        const oraFormattata = now.toLocaleTimeString('it-IT');
-        
-        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
-    }
-    
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
-}
+        rispondiBot(`🤔 Non ho capito perfettamente la tua richiesta, ma stavi forse chiedendo informazioni relative a **
