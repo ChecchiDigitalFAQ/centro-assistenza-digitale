@@ -335,39 +335,15 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // FASE 1: PRIORITÀ ASSOLUTA ALLE FAQ MIRATE (Es. "team digitale", "team mobilità")
+    // FASE 1: INTERCETTAZIONE DELLA PAROLA SECCA "TEAM" (PRIMA DI TUTTO)
     // =========================================================================
-    let bestMatchFaq = null;
-    let highestScore = 0;
-
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestScore) {
-                highestScore = score;
-                bestMatchFaq = faq;
-            }
-        });
-    });
-
-    if (highestScore >= 0.80 && bestMatchFaq) {
-        // Resettiamo eventuali stati in sospeso se l'utente fa una domanda chiara e mirata
-        inAttesaSceltaTeam = false;
-        contestoAttivo = null;
-        
-        ultimaCategoriaTrattata = bestMatchFaq.id;
-        ultimoGiocoProposto = "";
-        contatoreCuriosita = 0;
-        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
-        rispondiBot(resp);
+    if (cleanQuery === "team") {
+        inAttesaSceltaTeam = true;
+        rispondiBot("👥 All'interno dell'istituto abbiamo diverse tipologie di team (es. **Team Digitale**, **Team Mobilità Internazionale**, **Accoglienza**).\n\nVuoi la **definizione** generale di team o preferisci sapere i responsabili di uno specifico gruppo tra questi?");
         return;
     }
 
-    // =========================================================================
-    // FASE 2: GESTIONE DEI TERMINI GENERICI O IN SOSPESO (es. utente ha scritto solo "team")
-    // =========================================================================
+    // Se l'utente sta rispondendo alla scelta del team
     if (inAttesaSceltaTeam) {
         if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
             inAttesaSceltaTeam = false;
@@ -415,13 +391,39 @@ function processUserQuery(query) {
         }
     }
 
-    // Se l'utente scrive ESATTAMENTE la parola singola "team" (senza specificare altro)
-    if (cleanQuery === "team") {
-        inAttesaSceltaTeam = true;
-        rispondiBot("👥 All'interno dell'istituto abbiamo diverse tipologie di team (es. **Team Digitale**, **Team Mobilità Internazionale**, **Accoglienza**).\n\nVuoi la **definizione** generale di team o preferisci sapere i responsabili di uno specifico gruppo tra questi?");
+    // =========================================================================
+    // FASE 2: MOTORIZZAZIONE DELLE FAQ MIRATE (Es. "team digitale", "team mobilità")
+    // =========================================================================
+    let bestMatchFaq = null;
+    let highestScore = 0;
+
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
+
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatchFaq = faq;
+            }
+        });
+    });
+
+    if (highestScore >= 0.80 && bestMatchFaq) {
+        inAttesaSceltaTeam = false;
+        contestoAttivo = null;
+        
+        ultimaCategoriaTrattata = bestMatchFaq.id;
+        ultimoGiocoProposto = "";
+        contatoreCuriosita = 0;
+        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
+        rispondiBot(resp);
         return;
     }
 
+    // =========================================================================
+    // FASE 3: GESTIONE DEI CONTESTI DI SCELTA IN SOSPESO (es. "invalsi", "accoglienza", ecc.)
+    // =========================================================================
     if (contestoAttivo) {
         let argomento = contestoAttivo;
         contestoAttivo = null; 
@@ -458,7 +460,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // FASE 3: COMANDI RAPIDI, GIOCHI, MODULI E CALCOLI
+    // FASE 4: COMANDI RAPIDI, GIOCHI, MODULI E CALCOLI
     // =========================================================================
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
@@ -605,7 +607,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // FASE 4: DIZIONARIO ENCICLOPEDICO (Ultima spiaggia se non è una FAQ istituzionale)
+    // FASE 5: DIZIONARIO ENCICLOPEDICO (Ultima spiaggia)
     // =========================================================================
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
