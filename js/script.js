@@ -26,7 +26,7 @@ let appConfig = {
 
     frasiSimpaticheFuoriTema: [
         "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda, ma sto imparando in fretta e a breve integrerò questa richiesta nel mio database! Per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o al mio ruolo.",
-        "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al mi presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
+        "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al più presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
         "🔮 Non ho ancora una risposta precisa per questa richiesta, ma la annoto subito per integrarla a breve! Prova a chiedermi qualcosa inerente alla scuola, alla modulistica o all'organigramma dell'istituto.",
         "🚀 Su questo argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
     ],
@@ -49,7 +49,13 @@ let appConfig = {
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare."
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
+        // Nuovi termini aggiunti per il contesto scolastico e organizzativo:
+        "invalsi": "📖 **INVALSI:** Istituto Nazionale per la Valutazione del Sistema Educativo di Istruzione e di Formazione, ente che valora gli apprendimenti degli studenti.",
+        "team": "📖 **Team:** Gruppo di persone che lavorano insieme in modo coordinato per il raggiungimento di un obiettivo comune, sia in ambito scolastico che digitale.",
+        "accoglienza": "📖 **Accoglienza:** Servizio e insieme di attività volte a favorire l'inserimento e l'integrazione dei nuovi studenti all'interno dell'istituto.",
+        "mobilita": "📖 **Mobilità Internazionale:** Insieme di progetti e programmi (es. Erasmus+) che consentono a studenti e docenti di effettuare esperienze formative all'estero.",
+        "digitale": "📖 **Digitale:** Riferito all'uso di tecnologie informatiche, piattaforme cloud (come Microsoft 365) e strumenti multimediali a supporto della didattica."
     },
 
     faqs: [
@@ -384,8 +390,6 @@ function processUserQuery(query) {
                     rispondiBot(faqBase.responses[0]);
                     return;
                 }
-            } else {
-                // Se scrive qualcos'altro, sblocca lo stato e fai proseguire la query normalmente
             }
         }
     }
@@ -527,6 +531,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // CONTROLLO NEL DIZIONARIO ENCICLOPEDICO (Include ora anche Invalsi, Team, Accoglienza, Mobilità, Digitale)
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -593,7 +598,7 @@ function processUserQuery(query) {
     if (highestScore >= 0.35 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ هذا quello che intendevi? Rispondi con **Sì** o **No**!`);
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
         return;
     }
 
