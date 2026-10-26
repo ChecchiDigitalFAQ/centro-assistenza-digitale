@@ -47,7 +47,7 @@ let appConfig = {
         "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
         "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
         "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
-        "cpu": "Perfetto! Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
+        "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
         "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
@@ -202,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Macchina a stati flessibile con gestione ottimizzata delle chiusure e risposte colloquiali.
+ * Intercettazione immediata di parole di chiusura/annullamento (niente, nulla, grazie, ecc.)
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -217,17 +217,29 @@ function processUserQuery(query) {
         .trim();
 
     // =========================================================================
+    // 0. INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO (Niente, Nulla, Grazie)
+    // =========================================================================
+    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "ciao"];
+    if (paroleChiusura.includes(cleanQuery)) {
+        inAttesaSceltaOrganigramma = false;
+        inAttesaSceltaResponsabile = false;
+        inAttesaSceltaTipoPlesso = false;
+        inAttesaSceltaTipoLaboratorio = false;
+        inAttesaSedeLaboratorioInformatica = false;
+        rispondiBot("🤖 Perfetto! Se hai bisogno di altro o di altre informazioni sui servizi dell'IIS \"Arturo Checchi\", sono qui!");
+        return;
+    }
+
+    // =========================================================================
     // 1. GESTIONE PRIORITARIA DELLO STATO ATTIVO: ORGANIGRAMMA
     // =========================================================================
     if (inAttesaSceltaOrganigramma) {
         inAttesaSceltaOrganigramma = false;
         
-        // Se l'utente chiede esplicitamente il PDF o il documento completo
         if (cleanQuery.includes("pdf") || cleanQuery.includes("scarica") || cleanQuery.includes("documento") || cleanQuery.includes("link") || cleanQuery.includes("intero") || cleanQuery.includes("completo") || cleanQuery.includes("si") || cleanQuery.includes("sì")) {
             rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
-            // Qualsiasi risposta di chiusura o rifiuto ("no", "niente", "nulla", "grazie", ecc.)
             rispondiBot("🤖 Va bene così! Se hai bisogno di altre informazioni sui servizi o sull'organigramma dell'IIS \"Arturo Checchi\", chiedi pure!");
             return;
         }
