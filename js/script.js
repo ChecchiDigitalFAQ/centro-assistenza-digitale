@@ -65,65 +65,18 @@ let appConfig = {
     faqs: [
         {
             "id": "ORIENTATORE",
-            "keywords": [
-                "orientatore", 
-                "chi è l'orientatore", 
-                "chi e l orientatore", 
-                "orientatore scuola",
-                "docente orientatore"
-            ],
+            "keywords": ["orientatore", "chi è l'orientatore", "chi e l orientatore", "orientatore scuola", "docente orientatore"],
             "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], l'**Orientatore** dell'istituto è:\n- **Frediani**[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TUTOR",
-            "keywords": [
-                "tutor", 
-                "tuto",
-                "professori tutor", 
-                "elenco tutor", 
-                "lista tutor", 
-                "chi sono i tutor", 
-                "tutor scolastici", 
-                "nomi tutor"
-            ],
+            "keywords": ["tutor", "tuto", "professori tutor", "elenco tutor", "lista tutor", "chi sono i tutor", "tutor scolastici", "nomi tutor"],
             "responses": ["👥 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco dei **Docenti Tutor**[cite: 14]:\n1. Nazzi[cite: 14]\n2. Guarino[cite: 14]\n3. Vaccaro[cite: 14]\n4. Tortorella[cite: 14]\n5. Desideri[cite: 14]\n6. Senese[cite: 14]\n7. Scardaccione[cite: 14]\n8. Tamberi[cite: 14]\n9. Cerbioni[cite: 14]\n10. Menale[cite: 14]\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
-            "id": "RESPONSABILI_LABORATORI",
-            "keywords": [
-                "responsabili laboratori", 
-                "elenco laboratori", 
-                "lista laboratori", 
-                "tutti i laboratori", 
-                "responsabile laboratori",
-                "laboratori e aree speciali"
-            ],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica / Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "LAB_INFORMATICA_VENETO",
-            "keywords": ["laboratorio informatica v. veneto", "informatica piazza vittorio veneto", "responsabile informatica v. veneto", "responsabile informatica piazza vittorio veneto"],
-            "responses": ["💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - Piazza Vittorio Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "LAB_INFORMATICO_CHECCHI",
-            "keywords": ["laboratorio informatico 1 e 2", "informatico checchi", "responsabile informatico checchi", "laboratorio informatica checchi"],
-            "responses": ["💻 Per i **Laboratori Informatici 1 e 2** (Sede Centrale - Via Padre Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "LAB_FISICA_SCIENZE",
-            "keywords": ["laboratorio fisica", "laboratorio scienze", "fisica e scienze checchi", "responsabile fisica", "responsabile scienze"],
-            "responses": ["🔬 Per il **Laboratorio di Fisica / Scienze** (Sede Centrale - Via Padre Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "PALESTRA_NUOVA",
-            "keywords": ["palestra nuova", "responsabile palestra nuova"],
-            "responses": ["🏀 Per la **Palestra Nuova**, il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "PALAZZETTO",
-            "keywords": ["palazzetto", "responsabile palazzetto"],
-            "responses": ["🏟️ Per il **Palazzetto**, il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "id": "RESPONSABILI_LABORATORI_COMPLETO",
+            "keywords": ["responsabili laboratori", "elenco laboratori", "lista laboratori", "tutti i laboratori", "responsabile laboratori", "laboratori e aree speciali"],
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_PLESSI_GENERALI",
@@ -149,213 +102,14 @@ let appConfig = {
             "id": "COMMISSIONI_GENERALI",
             "keywords": ["elenco commissioni", "tutte le commissioni"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco delle **Commissioni** scolastiche:\n- **Elettorale:** Galleni, Senese, Carli, Freschi\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n- **Competizioni Scientifiche:** Tafi, Tamberi\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n- **Orario:** Donato, Frisone / Menale (ADSS)\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "COMMISSIONE_ORARIO",
-            "keywords": ["commissione orario", "orario lezioni", "orario scolastico"],
-            "responses": ["⏱️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], la **Commissione Orario** è composta da:\n- Donato, Frisone / Menale (ADSS)\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "COMMISSIONE_FSL",
-            "keywords": ["commissione fsl", "fsl"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], la **Commissione FSL** è composta da:\n- Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "COMMISSIONE_SCIENTIFICHE",
-            "keywords": ["competizioni scientifiche", "commissione competizioni scientifiche"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], la commissione per le **Competizioni Scientifiche** è composta da:\n- Tafi, Tamberi\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "COMMISSIONE_ELETTORALE",
-            "keywords": ["commissione elettorale", "elettorale"],
-            "responses": ["🗳️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], la **Commissione Elettorale** è composta da:\n- Galleni, Senese, Carli, Freschi\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "COMITATO_VALUTAZIONE",
-            "keywords": ["comitato di valutazione", "valutazione docenti"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il **Comitato di Valutazione** è composto da:\n- Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_BULLISMO_RESPONSABILI",
-            "keywords": ["team bullismo", "bullismo", "cyberbullismo", "referenti bullismo", "responsabili bullismo"],
-            "responses": ["🛡️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il **Team Bullismo e Cyberbullismo** è così composto:\n- **Referente:** Stinco\n- **Team:** Menale, Frisone, Cimmelli, Palmieri e Federigi\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "REFERENTI_AREA_DIDATTICA",
-            "keywords": ["referenti didattica", "referenti progetti", "alunni stranieri", "dsa", "bes", "studente atleta", "ed civica", "scienze motorie", "formazione", "referenti area didattica"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco i **Referenti di Area Didattica e Progetti**:\n- **Referente Alunni Stranieri:** Nazzi\n- **Referente DSA / BES:** Canu\n- **Referente Studente-Atleta:** Angelini\n- **Ed. Civica:** Donati - Orsini\n- **Referente Scienze Motorie:** Lotti\n- **Referente Formazione ADSS:** Ferrai - Testa\n- **Referente Formazione:** Frati\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "INVALSI_RESPONSABILI",
-            "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi", "invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "ED_SALUTE",
-            "keywords": ["educazione alla salute", "salute", "benessere", "educazione alla salute e benessere", "ed. salute"],
-            "responses": ["💚 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], per l'area **Ed. Salute / Benessere a scuola** i riferimenti sono:\n- **Referente:** Catalano\n- **Commissione:** Canneri, Tognarelli, Panchetti\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "NIV",
-            "keywords": ["niv", "nucleo interno valutazione", "nucleo interno"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il **NIV (Nucleo Interno Valutazione)** è composto da:\n- DS, Frediani, Bolzan, Donato\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "ACCOGLIENZA_RESPONSABILI",
-            "keywords": ["referenti accoglienza", "commissione accoglienza", "responsabili accoglienza", "accoglienza"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
-            "keywords": ["team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero", "mobilità", "mobilita"],
-            "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_DIGITALE_RESPONSABILI",
-            "keywords": ["team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale", "digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "MICROSOFT365",
-            "keywords": ["microsoft", "teams", "m365", "argo", "servizi digitali", "piattaforma"],
-            "responses": ["💻 L'IIS \"Arturo Checchi\" utilizza l'ecosistema **Microsoft 365** e il registro elettronico **Argo** per la didattica digitale, la gestione dei canali Teams e i servizi cloud istituzionali.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "ORGANIGRAMMA_PASSATO",
-            "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
-            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26)[cite: 14]. Non ho archivi storici relativi agli anni precedenti!\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "FUNZIONI_STRUMENTALI",
-            "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "SICUREZZA",
-            "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-
-        // CURIOSITÀ E BIZZARRIE
-        {
-            "id": "CURIOSITA_SESSO",
-            "keywords": ["sesso", "amore fisico", "fidanzata", "fidanzato", "relazioni intime"],
-            "responses": ["😳 Ops! Qui entriamo in un territorio decisamente off-limits per un assistente virtuale scolastico! Il mio unico grande amore sono i database e la fibra ottica dell'IIS \"Arturo Checchi\". Per favore, rimaniamo su argomenti legati al contesto scolastico o sui servizi dell'istituto! 🏫🤖"]
-        },
-        {
-            "id": "CURIOSITA_MARMELLATA",
-            "keywords": ["marmellata", "confettura", "fragola", "albicocca", "mela"],
-            "responses": ["🍇 Mela, albicocca o fragola? A dire il vero, io non ho bisogno di fare colazione! La mia \"energia\" arriva direttamente dai server e dalla fibra ottica dell'IIS \"Arturo Checchi\". A parte i dolci, che ne dici se parliamo di qualcosa di più utile per la scuola? Posso aiutarti con la modulistica o darti informazioni sui plessi. Cosa ti serve?"]
-        },
-        {
-            "id": "CURIOSITA_CIOCCOLATA",
-            "keywords": ["cioccolata", "cioccolato", "nutella", "dolce", "merendina", "cibo"],
-            "responses": ["🍫 Altro che cioccolata o Nutella! Il mio \"carburante\" preferito sono i flussi di dati e la fibra ottica che fanno girare i sistemi dell'IIS \"Arturo Checchi\". Scherzi a parte, io sono un assistente virtuale scolastico, quindi niente zuccheri per me! Piuttosto, posso aiutarti a trovare informazioni sui plessi, sui docenti o sui form della scuola. C'è qualcosa di scolastico di cui hai bisogno oggi?"]
-        },
-        {
-            "id": "CURIOSITA_MIELE",
-            "keywords": ["miele", "mieloso", "api", "alveare"],
-            "responses": ["🍯 Il miele è delizioso per chi ha la fortuna di poter fare colazione, ma io non posso mangiarlo! La mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici. Scherzi a parte, lasciamo stare i dolcetti e concentriamoci su cose serie: posso aiutarti con i form dell'istituto, darti informazioni sui plessi o rispondere alle domande ufficiali sull'IIS \"Arturo Checchi\". C'è qualcosa di scolastico di cui hai bisogno?"]
-        },
-        {
-            "id": "CURIOSITA_SPORT",
-            "keywords": ["calcio", "tennis", "padel", "sport", "partita", "squadra", "giocare"],
-            "responses": ["🎾 Calcio, tennis, padel... per me è tutto uno \"schermo\" bianco! Non scendo mai in campo a correre, visto che la mia partita si gioca interamente sui server e sulla rete dell'IIS \"Arturo Checchi\". Scherzi a parte, io faccio il tifo solo per la connettività della nostra scuola! Che ne dici di tornare a parlare di cose serie? Posso aiutarti con la modulistica o i contatti dei plessi."]
-        },
-        {
-            "id": "CURIOSITA_SONNO",
-            "keywords": ["addormenti", "dormi", "stanchezza", "sonno", "riposare", "notte"],
-            "responses": ["😴 Io non dormo mai! Essendo un assistente virtuale digitale, i server dell'IIS \"Arturo Checchi\" non chiudono mai per la notte e io sono sempre attivo, vigile e pronto a rispondere 24 ore su 24, senza bisogno di riposare o contare le pecore! Piuttosto, che ne dici se parliamo di cose serie? Posso aiutarti con i form dell'istituto o darti informazioni ufficiali sulla nostra scuola."]
-        },
-        {
-            "id": "CURIOSITA_GIOCHI",
-            "keywords": ["pattinare", "pattini", "carte", "briscola", "giocare a carte", "videogiochi"],
-            "responses": ["🛼🃏 Niente pattini né tavoli da gioco per me! Non avendo gambe e muovendomi solo grazie alla fibra ottica e ai server dell'IIS \"Arturo Checchi\", il mio mazzo è fatto solo di stringhe di codice. Lasciamo stare i passatempi e torniamo a parlare di cose serie: posso aiutarti con la modulistica della scuola o darti informazioni sui plessi dell'istituto!"]
-        },
-        {
-            "id": "TI_ODIO",
-            "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
-            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
-        },
-        {
-            "id": "TI_AMO",
-            "keywords": ["ti amo", "ti voglio bene", "sei bellissimo", "sei forte", "sei un grande"],
-            "responses": ["❤️ Che parole zuccherose! Io sono follemente innamorato dei database e dei server dell'IIS \"Arturo Checchi\", ma apprezzo molto il tuo affetto! Come posso aiutarti oggi con la scuola? 🥰"]
-        },
-        {
-            "id": "TI_ARRABBI",
-            "keywords": ["ti arrabbi", "te la prendi", "sei permaloso"],
-            "responses": ["🧘‍♂️ Io non mi arrabbio mai! Avendo una pazienza digitale infinita e operando sui server del Checchi, mantengo sempre la calma. Dimmi pure di quale servizio scolastico hai bisogno!"]
-        },
-
-        // FAQ ISTITUZIONALI
-        {
-            "id": "AIUTO",
-            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
-            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, definizioni e farti divertire con barzellette e indovinelli!"]
-        },
-        {
-            "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami"],
-            "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
-        },
-        {
-            "id": "DOVE_VIVI",
-            "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
-            "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
-        },
-        {
-            "id": "RINGRAZIAMENTO",
-            "keywords": ["ok grazie", "grazie e basta", "grazie per l'aiuto", "grazie sei un grande", "grazie di tutto", "grazie mille", "perfetto grazie", "molto gentile", "grazie", "ti ringrazio", "perfetto", "sei un mito"],
-            "responses": ["😊 Prego! È un vero piacere poter dare una mano. Se hai bisogno di altro per l'IIS \"Arturo Checchi\", chiedi pure! A presto! 👋"]
-        },
-        {
-            "id": "SALUTO_INIZIALE",
-            "keywords": ["salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
-            "responses": ["👋 Ciao! Sono **Arturo**, il tuo assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
-        },
-        {
-            "id": "SALUTO_FINALE",
-            "keywords": ["ti saluto", "arrivederci", "ciao ciao", "buona giornata", "buona serata", "a presto", "addio"],
-            "responses": ["👋 Ricambio con affetto il saluto! Ti auguro una splendida giornata. A presto da Arturo e da tutta la comunità dell'IIS \"Arturo Checchi\"! 🏫"]
-        },
-        {
-            "id": "CREATORE",
-            "keywords": ["chi ti ha creato", "creatore", "programmato", "sviluppato"],
-            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**! 💻"]
-        },
-        {
-            "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico", "preside del checchi"],
-            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
-        },
-        {
-            "id": "COLLABORATORI_DIRIGENTE",
-            "keywords": ["collaboratori", "collaboratore", "vicepreside", "vice preside"],
-            "responses": ["👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."]
-        },
-        {
-            "id": "CONTATTI",
-            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
-            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
-        },
-        {
-            "id": "FORM_FOTOCOPIE",
-            "keywords": ["fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
-            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
-        },
-        {
-            "id": "FORM_ESPERTI",
-            "keywords": ["esperti", "esperti esterni", "autorizzazione esperti", "form esperti"],
-            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
         }
     ]
 };
 
-let inAttesaSceltaForm = false;
 let inAttesaSceltaResponsabile = false;
 let inAttesaSceltaTipoPlesso = false;
 let inAttesaSceltaTipoLaboratorio = false;
+let inAttesaSedeLaboratorioInformatica = false;
 
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -417,7 +171,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestione conversazionale intelligente a stati per i responsabili.
+ * Macchina a stati avanzata per gestire con precisione assoluta i contesti di plessi e laboratori.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -431,8 +185,15 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // Gestione typo "lavoratorio" o "laboratorio" isolato
+    if (cleanQuery === "laboratorio" || cleanQuery === "laboratori" || cleanQuery === "lavoratorio" || cleanQuery === "lavoratori") {
+        inAttesaSceltaTipoLaboratorio = true;
+        rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare**?");
+        return;
+    }
+
     // =========================================================================
-    // GESTIONE STATI CONVERSAZIONALI (RESPONSABILI)
+    // GESTIONE STATI CONVERSAZIONALI
     // =========================================================================
     if (inAttesaSceltaResponsabile) {
         inAttesaSceltaResponsabile = false;
@@ -441,9 +202,9 @@ function processUserQuery(query) {
             inAttesaSceltaTipoPlesso = true;
             rispondiBot("🏫 Vuoi conoscere la **lista completa di tutti i plessi** o ti interessa un **plesso in particolare** (Sede Centrale, Liceo, Plesso Moda)?");
             return;
-        } else if (cleanQuery.includes("laboratorio") || cleanQuery.includes("laboratori")) {
+        } else if (cleanQuery.includes("laboratorio") || cleanQuery.includes("laboratori") || cleanQuery.includes("lavoratorio")) {
             inAttesaSceltaTipoLaboratorio = true;
-            rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare** (Informatica V. Veneto, Informatico Checchi, Fisica/Scienze, Palestra, Palazzetto)?");
+            rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare**?");
             return;
         } else {
             rispondiBot("🤖 Per favore, specifica se ti riferisci a **responsabili di plesso** o **responsabili di laboratorio**.");
@@ -476,25 +237,97 @@ function processUserQuery(query) {
         inAttesaSceltaTipoLaboratorio = false;
         contatoreCuriosita = 0;
         if (cleanQuery.includes("tutti") || cleanQuery.includes("completa") || cleanQuery.includes("lista") || cleanQuery.includes("tutto")) {
-            rispondiBot("🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica / Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
-        } else if (cleanQuery.includes("veneto") || cleanQuery.includes("informatica v.")) {
-            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - Piazza Vittorio Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        }
+    }
+
+    if (inAttesaSedeLaboratorioInformatica) {
+        inAttesaSedeLaboratorioInformatica = false;
+        contatoreCuriosita = 0;
+        if (cleanQuery.includes("veneto") || cleanQuery.includes("moda") || cleanQuery.includes("piazza")) {
+            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
-        } else if (cleanQuery.includes("informatico") || cleanQuery.includes("informatico 1") || cleanQuery.includes("informatico 2")) {
-            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Centrale - Via Padre Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("fisica") || cleanQuery.includes("scienze")) {
-            rispondiBot("🔬 Per il **Laboratorio di Fisica / Scienze** (Sede Centrale - Via Padre Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("palestra")) {
-            rispondiBot("🏀 Per la **Palestra Nuova**, il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("palazzetto")) {
-            rispondiBot("🏟️ Per il **Palazzetto**, il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo")) {
+            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
-            rispondiBot("🔬 Ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica / Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Specificaci la sede corretta tra **V. Veneto** (Plesso Moda) e **Checchi** (Liceo) per il laboratorio di informatica.");
+            return;
+        }
+    }
+
+    // =========================================================================
+    // INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
+    // =========================================================================
+    if (cleanQuery.includes("modellistica 1")) {
+        rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("modellistica 2")) {
+        rispondiBot("🧵 Per il **Laboratorio di Modellistica 2** (Sede V. Veneto), il responsabile è: **Desideri**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("lim") || cleanQuery.includes("calzaturiero")) {
+        rispondiBot("👞 Per il laboratorio **LIM/Calzaturiero** (Sede V. Veneto), il responsabile è: **Vaiani**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("palestra nuova")) {
+        rispondiBot("🏀 Per la **Palestra Nuova** (Sede Checchi), il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("palazzetto")) {
+        rispondiBot("🏟️ Per il **Palazzetto** (Sede Checchi), il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("fisica") || cleanQuery.includes("scienze")) {
+        rispondiBot("🔬 Per il **Laboratorio di Fisica/Scienze** (Sede Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("meccanica")) {
+        rispondiBot("⚙️ Per il **Laboratorio di Meccanica** (Sede Gramsci), il responsabile è: **Picciolo**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("impiantielettrici") || cleanQuery.includes("impianti elettrici")) {
+        rispondiBot("⚡ Per il **Laboratorio di Impiantielettrici** (Sede Gramsci), il responsabile è: **Cerrato**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("misureelettr") || cleanQuery.includes("misure elettriche")) {
+        rispondiBot("📊 Per il laboratorio **MisureElettr.** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("elettropneumatica")) {
+        rispondiBot("🔌 Per il **Laboratorio di Elettropneumatica** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("autocad")) {
+        rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("linguistico") || cleanQuery.includes("green") && cleanQuery.includes("gramsci")) {
+        rispondiBot("🌐 Per il **Laboratorio Linguistico/Green** (Sede Gramsci), il responsabile è: **D'Avico**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("palestra") && cleanQuery.includes("gramsci")) {
+        rispondiBot("🏀 Per la **Palestra** (Sede Gramsci), il responsabile è: **Grassini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+    if (cleanQuery.includes("aula green")) {
+        rispondiBot("🌱 Per l'**Aula Green** (Sede Gramsci), il responsabile è: **Canneri**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+
+    // Gestione specifica per "Informatica" (presente in più sedi)
+    if (cleanQuery.includes("informatica") || cleanQuery.includes("informatico")) {
+        if (cleanQuery.includes("v. veneto") || cleanQuery.includes("veneto") || cleanQuery.includes("moda")) {
+            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
+            return;
+        } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo") || cleanQuery.includes("informatico 1") || cleanQuery.includes("informatico 2")) {
+            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+            return;
+        } else {
+            inAttesaSedeLaboratorioInformatica = true;
+            rispondiBot("💻 Il laboratorio di informatica è presente in più sedi. Ti riferisci alla sede di **V. Veneto** (Plesso Moda) o alla sede **Checchi** (Liceo)?");
             return;
         }
     }
@@ -627,6 +460,7 @@ function processUserQuery(query) {
         inAttesaSceltaResponsabile = false;
         inAttesaSceltaTipoPlesso = false;
         inAttesaSceltaTipoLaboratorio = false;
+        inAttesaSedeLaboratorioInformatica = false;
         ultimaCategoriaTrattata = "";
         ultimoGiocoProposto = "";
         rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
@@ -766,6 +600,7 @@ function resetChat() {
     inAttesaSceltaResponsabile = false;
     inAttesaSceltaTipoPlesso = false;
     inAttesaSceltaTipoLaboratorio = false;
+    inAttesaSedeLaboratorioInformatica = false;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
