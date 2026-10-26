@@ -64,11 +64,6 @@ let appConfig = {
 
     faqs: [
         {
-            "id": "ORGANIGRAMMA_PDF",
-            "keywords": ["organigramma pdf", "scarica organigramma", "file organigramma", "documento organigramma", "link organigramma", "organigramma 26-27"],
-            "responses": ["📄 Puoi scaricare il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF al seguente link:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
             "id": "ORIENTATORE",
             "keywords": ["orientatore", "chi è l'orientatore", "chi e l orientatore", "orientatore scuola", "docente orientatore"],
             "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], l'**Orientatore** dell'istituto è:\n- **Frediani**[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
@@ -206,7 +201,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Macchina a stati intelligente con reset automatico se l'utente cambia argomento.
+ * Gestione immediata e diretta delle parole chiave principali e dei laboratori.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -220,92 +215,19 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // =========================================================================
-    // PILASTRO 0: VERIFICA MATCHING FAQ GLOBALI (Interrompe gli stati se si cambia argomento)
-    // =========================================================================
-    let matchedGlobalFaq = null;
-    let highestGlobalScore = 0;
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestGlobalScore) {
-                highestGlobalScore = score;
-                matchedGlobalFaq = faq;
-            }
-        });
-    });
-
-    if (highestGlobalScore >= 0.85 && matchedGlobalFaq) {
-        inAttesaSceltaResponsabile = false;
-        inAttesaSceltaTipoPlesso = false;
-        inAttesaSceltaTipoLaboratorio = false;
-        inAttesaSedeLaboratorioInformatica = false;
-        
-        ultimaCategoriaTrattata = matchedGlobalFaq.id;
-        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
-        rispondiBot(resp);
-        return;
-    }
-
-    // =========================================================================
-    // GESTIONE STATI CONVERSAZIONALI ATTIVI
-    // =========================================================================
-    if (inAttesaSceltaResponsabile) {
-        inAttesaSceltaResponsabile = false;
-        if (cleanQuery.includes("plesso") || cleanQuery.includes("plessi")) {
-            inAttesaSceltaTipoPlesso = true;
-            rispondiBot("🏫 Vuoi conoscere la **lista completa di tutti i plessi** o ti interessa un **plesso in particolare** (Sede Centrale, Liceo, Plesso Moda)?");
-            return;
-        } else if (cleanQuery.includes("laboratorio") || cleanQuery.includes("laboratori") || cleanQuery.includes("lavoratorio")) {
-            inAttesaSceltaTipoLaboratorio = true;
-            rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare**?");
-            return;
-        }
-    }
-
-    if (inAttesaSceltaTipoPlesso) {
-        inAttesaSceltaTipoPlesso = false;
-        if (cleanQuery.includes("tutti") || cleanQuery.includes("completa") || cleanQuery.includes("lista") || cleanQuery.includes("tutto")) {
-            rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("centrale") || cleanQuery.includes("gramsci")) {
-            rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("liceo") || cleanQuery.includes("checchi")) {
-            rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("moda") || cleanQuery.includes("veneto") || cleanQuery.includes("calzaturiero")) {
-            rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        }
-    }
-
-    if (inAttesaSceltaTipoLaboratorio) {
-        inAttesaSceltaTipoLaboratorio = false;
-        if (cleanQuery.includes("tutti") || cleanQuery.includes("completa") || cleanQuery.includes("lista") || cleanQuery.includes("tutto")) {
-            rispondiBot("🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza[cite: 13]\n- Modellistica 2: Desideri[cite: 13]\n- Informatica: Galleni[cite: 13]\n- LIM/Calzaturiero: Vaiani[cite: 13]\n\n**Sede Checchi:**\n- Palestra nuova: Schiera[cite: 13]\n- Palazzetto: Angelini[cite: 13]\n- Fisica/Scienze: Pennacchio[cite: 13]\n- Informatico 1 e 2: Turini[cite: 13]\n\n**Sede Gramsci:**\n- Meccanica: Picciolo[cite: 13]\n- Impiantielettrici: Cerrato[cite: 13]\n- MisureElettr.: Miatto[cite: 13]\n- Elettropneumatica: Miatto[cite: 13]\n- Autocad: Diazzi[cite: 13]\n- Linguistico/Green: D'Avico[cite: 13]\n- Palestra: Grassini[cite: 13]\n- Aula Green: Canneri[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        }
-    }
-
-    if (inAttesaSedeLaboratorioInformatica) {
-        inAttesaSedeLaboratorioInformatica = false;
-        if (cleanQuery.includes("veneto") || cleanQuery.includes("moda") || cleanQuery.includes("piazza")) {
-            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo")) {
-            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        }
-    }
-
-    // Reset completo degli stati se l'utente digita una nuova richiesta
+    // Reset preventivo degli stati attivi se l'utente cambia argomento
     inAttesaSceltaResponsabile = false;
     inAttesaSceltaTipoPlesso = false;
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
+
+    // =========================================================================
+    // INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
+    // =========================================================================
+    if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma completo")) {
+        rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
 
     // =========================================================================
     // INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
@@ -394,6 +316,30 @@ function processUserQuery(query) {
     if (paroleResponsabiliGenerico.includes(cleanQuery)) {
         inAttesaSceltaResponsabile = true;
         rispondiBot("🤖 A quali responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
+        return;
+    }
+
+    // =========================================================================
+    // VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
+    // =========================================================================
+    let matchedGlobalFaq = null;
+    let highestGlobalScore = 0;
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
+
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestGlobalScore) {
+                highestGlobalScore = score;
+                matchedGlobalFaq = faq;
+            }
+        });
+    });
+
+    if (highestGlobalScore >= 0.85 && matchedGlobalFaq) {
+        ultimaCategoriaTrattata = matchedGlobalFaq.id;
+        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
+        rispondiBot(resp);
         return;
     }
 
