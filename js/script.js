@@ -257,7 +257,7 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
-let argomentoInSospeso = null;   // Memorizza quale termine ha generato il dubbio (es. "invalsi", "team", "accoglienza")
+let argomentoInSospeso = null;   // Memorizza l'argomento attivo in attesa di scelta (es. "invalsi", "team")
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -334,18 +334,22 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 1: GESTIONE DEI CONTESTI IN SOSPESO (Se il bot ha fatto una domanda di scelta)
+    // REGOLA FISSA 1: GESTIONE DELLO STATO IN SOSPESO (Se c'è un argomento in attesa di scelta)
     // =========================================================================
     if (argomentoInSospeso) {
         let arg = argomentoInSospeso;
-        argomentoInSospeso = null; // Resetta subito per evitare loop
+        argomentoInSospeso = null; // Consuma lo stato
 
+        // Controllo esplicito per la definizione
         if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("significato") || cleanQuery.includes("definizione")) {
             if (appConfig.dictionary[arg]) {
                 rispondiBot(appConfig.dictionary[arg] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
                 return;
             }
-        } else if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi")) {
+        } 
+        
+        // Controllo flessibile per i responsabili (se l'utente scrive "responsabile", "responsabili", "referenti", "chi", ecc.)
+        if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi") || cleanQuery === "responsabile" || cleanQuery === "responsabili") {
             let idFaqCercato = arg.toUpperCase() + "_RESPONSABILI";
             if (arg === "mobilita") idFaqCercato = "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI";
             if (arg === "digitale") idFaqCercato = "TEAM_DIGITALE_RESPONSABILI";
@@ -356,11 +360,12 @@ function processUserQuery(query) {
                 return;
             }
         }
-        // Se l'utente risponde con altro, prosegue normalmente con la nuova query.
+        
+        // Se l'utente scrive qualcos'altro, lo stato in sospeso decade e la query prosegue normalmente sotto.
     }
 
     // =========================================================================
-    // REGOLA 2: DOMANDE MIRATE E ORGANIGRAMMA (Massima priorità per frasi complete)
+    // REGOLA FISSA 2: DOMANDE MIRATE E ORGANIGRAMMA (Frasi complete o composte)
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
@@ -388,7 +393,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 3: PAROLE CHIAVE SECCHE (Attivano la scelta bidirezionale)
+    // REGOLA FISSA 3: PAROLE CHIAVE SECCHE (Giano: attivano la scelta bidirezionale)
     // =========================================================================
     const paroleChiaveGiano = ["invalsi", "team", "accoglienza", "mobilita", "digitale"];
     if (paroleChiaveGiano.includes(cleanQuery)) {
@@ -401,7 +406,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 4: RICHIESTA DI DEFINIZIONE ESPLICITA (Dizionario)
+    // REGOLA FISSA 4: RICHIESTA DI DEFINIZIONE ESPLICITA (Dizionario)
     // =========================================================================
     let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
                                  cleanQuery.includes("cos'e") || 
@@ -421,7 +426,7 @@ function processUserQuery(query) {
         }
     }
 
-    // Comandi rapidi, giochi, calcoli e moduli
+    // Gestione standard moduli, giochi, calcoli e fallback
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
