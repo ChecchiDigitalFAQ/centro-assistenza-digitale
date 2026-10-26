@@ -122,6 +122,11 @@ let appConfig = {
             "id": "DIRIGENZA",
             "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico", "preside del checchi"],
             "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
+        },
+        {
+            "id": "TI_ODIO",
+            "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
+            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
         }
     ]
 };
@@ -191,7 +196,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Macchina a stati avanzata per gestire con precisione assoluta i contesti di plessi e laboratori.
+ * Macchina a stati intelligente con reset automatico se l'utente cambia argomento.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -205,19 +210,42 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Gestione typo "lavoratorio" o "laboratorio" isolato
-    if (cleanQuery === "laboratorio" || cleanQuery === "laboratori" || cleanQuery === "lavoratorio" || cleanQuery === "lavoratori") {
-        inAttesaSceltaTipoLaboratorio = true;
-        rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare**?");
+    // =========================================================================
+    // PILASTRO 0: VERIFICA MATCHING FAQ GLOBALI (Interrompe gli stati se si cambia argomento)
+    // =========================================================================
+    let matchedGlobalFaq = null;
+    let highestGlobalScore = 0;
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
+
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.keywords?.forEach ? null : null;
+        faq.keywords.forEach(kw => {
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestGlobalScore) {
+                highestGlobalScore = score;
+                matchedGlobalFaq = faq;
+            }
+        });
+    });
+
+    // Se l'utente digita un comando chiaro o un saluto (soglia alta), azzeriamo gli stati e rispondiamo subito
+    if (highestGlobalScore >= 0.85 && matchedGlobalFaq) {
+        inAttesaSceltaResponsabile = false;
+        inAttesaSceltaTipoPlesso = false;
+        inAttesaSceltaTipoLaboratorio = false;
+        inAttesaSedeLaboratorioInformatica = false;
+        
+        ultimaCategoriaTrattata = matchedGlobalFaq.id;
+        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
+        rispondiBot(resp);
         return;
     }
 
     // =========================================================================
-    // GESTIONE STATI CONVERSAZIONALI
+    // GESTIONE STATI CONVERSAZIONALI ATTIVI
     // =========================================================================
     if (inAttesaSceltaResponsabile) {
         inAttesaSceltaResponsabile = false;
-        contatoreCuriosita = 0;
         if (cleanQuery.includes("plesso") || cleanQuery.includes("plessi")) {
             inAttesaSceltaTipoPlesso = true;
             rispondiBot("🏫 Vuoi conoscere la **lista completa di tutti i plessi** o ti interessa un **plesso in particolare** (Sede Centrale, Liceo, Plesso Moda)?");
@@ -226,15 +254,11 @@ function processUserQuery(query) {
             inAttesaSceltaTipoLaboratorio = true;
             rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare**?");
             return;
-        } else {
-            rispondiBot("🤖 Per favore, specifica se ti riferisci a **responsabili di plesso** o **responsabili di laboratorio**.");
-            return;
         }
     }
 
     if (inAttesaSceltaTipoPlesso) {
         inAttesaSceltaTipoPlesso = false;
-        contatoreCuriosita = 0;
         if (cleanQuery.includes("tutti") || cleanQuery.includes("completa") || cleanQuery.includes("lista") || cleanQuery.includes("tutto")) {
             rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
@@ -247,15 +271,11 @@ function processUserQuery(query) {
         } else if (cleanQuery.includes("moda") || cleanQuery.includes("veneto") || cleanQuery.includes("calzaturiero")) {
             rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
-        } else {
-            rispondiBot("🏫 Ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
         }
     }
 
     if (inAttesaSceltaTipoLaboratorio) {
         inAttesaSceltaTipoLaboratorio = false;
-        contatoreCuriosita = 0;
         if (cleanQuery.includes("tutti") || cleanQuery.includes("completa") || cleanQuery.includes("lista") || cleanQuery.includes("tutto")) {
             rispondiBot("🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
@@ -264,18 +284,20 @@ function processUserQuery(query) {
 
     if (inAttesaSedeLaboratorioInformatica) {
         inAttesaSedeLaboratorioInformatica = false;
-        contatoreCuriosita = 0;
         if (cleanQuery.includes("veneto") || cleanQuery.includes("moda") || cleanQuery.includes("piazza")) {
             rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo")) {
             rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
-        } else {
-            rispondiBot("💻 Specificaci la sede corretta tra **V. Veneto** (Plesso Moda) e **Checchi** (Liceo) per il laboratorio di informatica.");
-            return;
         }
     }
+
+    // Reset completo degli stati se l'utente digita una nuova richiesta
+    inAttesaSceltaResponsabile = false;
+    inAttesaSceltaTipoPlesso = false;
+    inAttesaSceltaTipoLaboratorio = false;
+    inAttesaSedeLaboratorioInformatica = false;
 
     // =========================================================================
     // INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
@@ -324,7 +346,7 @@ function processUserQuery(query) {
         rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
-    if (cleanQuery.includes("linguistico") || cleanQuery.includes("green") && cleanQuery.includes("gramsci")) {
+    if (cleanQuery.includes("linguistico") || (cleanQuery.includes("green") && cleanQuery.includes("gramsci"))) {
         rispondiBot("🌐 Per il **Laboratorio Linguistico/Green** (Sede Gramsci), il responsabile è: **D'Avico**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
@@ -352,6 +374,13 @@ function processUserQuery(query) {
         }
     }
 
+    // Gestione laboratorio generico o typo
+    if (cleanQuery.includes("laboratorio") || cleanQuery.includes("laboratori") || cleanQuery.includes("lavoratorio") || cleanQuery.includes("lavoratori")) {
+        inAttesaSceltaTipoLaboratorio = true;
+        rispondiBot("🔬 Vuoi conoscere la **lista completa di tutti i laboratori** o ti interessa un **laboratorio in particolare**?");
+        return;
+    }
+
     // Intercettazione iniziale di "responsabile" o "responsabili"
     const paroleResponsabiliGenerico = ["responsabile", "responsabili"];
     if (paroleResponsabiliGenerico.includes(cleanQuery)) {
@@ -361,7 +390,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
+    // VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
     // =========================================================================
     const paroleContestoMancante = ["referente", "referenti", "commissione", "commissioni", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
@@ -370,164 +399,20 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // PILASTRO 2: GESTIONE NATIVA DELLA CONTINUAZIONE CONVERSAZIONALE
+    // CONTINUAZIONE CONVERSAZIONALE
     // =========================================================================
     const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
     if (intentiContinuazione.includes(cleanQuery)) {
         ultimaCategoriaTrattata = "";
-        ultimoGiocoProposto = "";
-        inAttesaSceltaForm = false;
         rispondiBot("🤖 Certamente! Dimmi pure, quale altra informazione ti serve o di quale servizio dell'IIS \"Arturo Checchi\" hai bisogno?");
         return;
     }
 
-    // =========================================================================
-    // PILASTRO 3: MATCHING SEMANTICO A SOGLIA RIGIDA (Faq e Organigramma)
-    // =========================================================================
-    let bestMatchFaq = null;
-    let highestScore = 0;
-
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestScore) {
-                highestScore = score;
-                bestMatchFaq = faq;
-            }
-        });
-    });
-
-    // Soglia di sicurezza fissata a 0.85 per garantire assoluta pertinenza
-    if (highestScore >= 0.85 && bestMatchFaq) {
-        ultimaCategoriaTrattata = bestMatchFaq.id;
-        ultimoGiocoProposto = "";
-        contatoreCuriosita = 0;
-        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
-        rispondiBot(resp);
-        return;
-    }
-
-    // =========================================================================
-    // PILASTRO 4: DIZIONARIO ENCICLOPEDICO
-    // =========================================================================
-    let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
-                                 cleanQuery.includes("cos'e") || 
-                                 cleanQuery.includes("cosa vuol dire") || 
-                                 cleanQuery.includes("definizione") || 
-                                 cleanQuery.includes("significato");
-
-    if (isRichiestaDefinizione) {
-        for (const [term, def] of Object.entries(appConfig.dictionary)) {
-            if (cleanQuery.includes(term)) {
-                ultimaCategoriaTrattata = "DIZIONARIO";
-                ultimoGiocoProposto = "";
-                contatoreCuriosita = 0;
-                rispondiBot(def);
-                return;
-            }
-        }
-    }
-
-    // Gestione giochi, intrattenimento e calcoli
-    if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
-        ultimoGiocoProposto = "BARZELLETTA";
-        contatoreCuriosita = 0;
-        let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
-        indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
-        rispondiBot(testoBarzelletta + "\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("indovinello") || cleanQuery.includes("rompicapo") || cleanQuery.includes("indovina")) {
-        ultimoGiocoProposto = "INDOVINELLO";
-        contatoreCuriosita = 0;
-        let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
-        indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length;
-        rispondiBot(testoIndovinello + "\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
-        contatoreCuriosita = 0;
-        let numeriEstratti = query.replace(/[^0-9.]/g, "");
-        if (numeriEstratti !== "") {
-            let num = parseFloat(numeriEstratti);
-            let risultato = Math.sqrt(num);
-            rispondiBot(`🔢 La radice quadrata di **${num}** è **${risultato % 1 === 0 ? risultato : risultato.toFixed(2)}**!\n\n*(Cos'altro vuoi chiedermi?)*`);
-            return;
-        } else {
-            rispondiBot("🔢 Per calcolare la radice quadrata, scrivimi il numero (es. *radice quadrata di 81*).");
-            return;
-        }
-    }
-
-    let mathCheckQuery = query.replace(/\s+/g, "").replace(/x/g, "*");
-    if (/^[0-9+\-*/().]+$/.test(mathCheckQuery) && /[+\-*/]/.test(mathCheckQuery)) {
-        try {
-            let evalResult = Function('"use strict";return (' + mathCheckQuery + ')')();
-            if (!isNaN(evalResult)) {
-                contatoreCuriosita = 0;
-                rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!\n\n*(Cos'altro vuoi chiedermi?)*`);
-                return;
-            }
-        } catch (e) {}
-    }
-
     if (cleanQuery.length < 2) {
-        inAttesaSceltaForm = false;
-        inAttesaSceltaResponsabile = false;
-        inAttesaSceltaTipoPlesso = false;
-        inAttesaSceltaTipoLaboratorio = false;
-        inAttesaSedeLaboratorioInformatica = false;
-        ultimaCategoriaTrattata = "";
-        ultimoGiocoProposto = "";
         rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
         return;
     }
 
-    if (cleanQuery === "perche" || cleanQuery === "perché") {
-        if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
-            return;
-        } else {
-            rispondiBot("🤔 A cosa ti riferisci di preciso con questo 'perché'? Chiedimi pure un'informazione specifica sull'istituto!");
-            return;
-        }
-    }
-    if (cleanQuery === "quando") {
-        if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
-            return;
-        } else {
-            rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
-            return;
-        }
-    }
-
-    if (inAttesaSceltaForm) {
-        inAttesaSceltaForm = false;
-        contatoreCuriosita = 0;
-        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
-            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
-            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        }
-    }
-
-    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
-        inAttesaSceltaForm = true;
-        contatoreCuriosita = 0;
-        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
-        return;
-    }
-
-    ultimaCategoriaTrattata = ""; 
-    ultimoGiocoProposto = "";
-    
     let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
     indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
     rispondiBot(fraseCasuale);
@@ -581,8 +466,6 @@ function quickAction(id) {
     let found = appConfig.faqs.find(f => f.id === id);
     if (found) {
         ultimaCategoriaTrattata = found.id;
-        ultimoGiocoProposto = "";
-        contatoreCuriosita = 0;
         rispondiBot(found.responses[0]);
     }
 }
@@ -616,15 +499,11 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
-    inAttesaSceltaForm = false;
     inAttesaSceltaResponsabile = false;
     inAttesaSceltaTipoPlesso = false;
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
-    faqCandidata = null;
     ultimaCategoriaTrattata = "";
-    ultimoGiocoProposto = "";
-    contatoreCuriosita = 0;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
