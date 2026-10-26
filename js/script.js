@@ -47,7 +47,7 @@ let appConfig = {
         "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
         "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
         "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
-        "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
+        "cpu": "Perfetto! Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
         "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
@@ -202,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Macchina a stati flessibile per interpretare qualsiasi risposta negativa o colloquiale.
+ * Macchina a stati flessibile con gestione ottimizzata delle chiusure e risposte colloquiali.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -227,9 +227,8 @@ function processUserQuery(query) {
             rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
-            // Qualsiasi altra risposta (es. "no", "no grazie", "no va bene così", "nulla ciao", ecc.) 
-            // blocca il PDF e invita l'utente a digitare la specifica richiesta.
-            rispondiBot("🤖 Va bene! Dimmi pure quale informazione specifica ti interessa conoscere dall'organigramma (es. *responsabili di plesso*, *tutor*, *figure di sicurezza* o *laboratori*).");
+            // Qualsiasi risposta di chiusura o rifiuto ("no", "niente", "nulla", "grazie", ecc.)
+            rispondiBot("🤖 Va bene così! Se hai bisogno di altre informazioni sui servizi o sull'organigramma dell'IIS \"Arturo Checchi\", chiedi pure!");
             return;
         }
     }
