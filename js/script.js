@@ -64,6 +64,11 @@ let appConfig = {
 
     faqs: [
         {
+            "id": "ORIENTATORE_TUTOR",
+            "keywords": ["orientatore", "tutor", "orientatore e tutor", "professori tutor", "elenco tutor"],
+            "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i dati relativi a **Orientatore e Tutor**[cite: 14, 15]:\n- **Orientatore:** Frediani[cite: 14]\n- **Tutor:** \n1. Nazzi[cite: 14]\n2. Guarino[cite: 14]\n3. Vaccaro[cite: 14]\n4. Tortorella[cite: 14]\n5. Desideri[cite: 14]\n6. Senese[cite: 14]\n7. Scardaccione[cite: 14]\n8. Tamberi[cite: 14]\n9. Cerbioni[cite: 14]\n10. Menale[cite: 14]\n11. Rasori[cite: 15]\n12. Faraoni[cite: 15]\n13. Frisone[cite: 15]\n14. Galfano[cite: 15]\n15. Sibione[cite: 15]\n16. Canneri[cite: 15]\n17. Tognarelli[cite: 15]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "COMMISSIONI_GENERALI",
             "keywords": ["elenco commissioni", "tutte le commissioni"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche:\n- **Elettorale:** Galleni, Senese, Carli, Freschi\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n- **Competizioni Scientifiche:** Tafi, Tamberi\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n- **Orario:** Donato, Frisone / Menale (ADSS)\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli\n\n*(Cos'altro vuoi chiedermi?)*"]
@@ -372,11 +377,11 @@ function processUserQuery(query) {
 
     // =========================================================================
     // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
-    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", etc.) attivino logiche errate.
+    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", "orientatore", "tutor", ecc.) attivino logiche errate.
     // =========================================================================
-    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "chi"];
+    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "orientatore", "tutor", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
-        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o commissione ti riferisci (es. *comitato di valutazione*, *commissione elettorale*, *commissione orario*), così posso darti l'informazione corretta dall'organigramma!");
+        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o ruolo ti riferisci (es. *chi è l'orientatore*, *elenco tutor*), così posso darti l'informazione corretta dall'organigramma!");
         return;
     }
 
