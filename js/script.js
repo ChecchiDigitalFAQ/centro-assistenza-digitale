@@ -258,6 +258,7 @@ let appConfig = {
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
 let contestoAttivo = null;       // Memorizza la parola chiave attiva (es. "invalsi", "accoglienza", "mobilita", "digitale")
+let inAttesaSceltaTeam = false;  // Gestione dedicata per il termine generico "team"
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -329,16 +330,50 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !contestoAttivo) {
+    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !contestoAttivo && !inAttesaSceltaTeam) {
         faqCandidata = null;
     }
 
     // =========================================================================
-    // 1. GESTIONE DEL CONTESTO ATTIVO (Parole singole come Invalsi, Accoglienza, Mobilità, Digitale)
+    // 1. GESTIONE DELLA SCELTA DEL TEAM (Se l'utente ha digitato solo "team")
+    // =========================================================================
+    if (inAttesaSceltaTeam) {
+        inAttesaSceltaTeam = false;
+        
+        if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
+            rispondiBot(appConfig.dictionary["team"] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
+            return;
+        } else if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
+            let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
+            rispondiBot(faqResp.responses[0]);
+            return;
+        } else if (cleanQuery.includes("digitale") || cleanQuery.includes("animatore") || cleanQuery.includes("tecnici")) {
+            let faqResp = appConfig.faqs.find(f => f.id === "TEAM_DIGITALE_RESPONSABILI");
+            rispondiBot(faqResp.responses[0]);
+            return;
+        } else if (cleanQuery.includes("accoglienza")) {
+            let faqResp = appConfig.faqs.find(f => f.id === "ACCOGLIENZA_RESPONSABILI");
+            rispondiBot(faqResp.responses[0]);
+            return;
+        } else {
+            rispondiBot("🤖 Nel nostro istituto sono presenti diversi team (Mobilità Internazionale, Team Digitale, Accoglienza). Per favore, specifichi a quale team si riferisce o se desidera la definizione generale?");
+            return;
+        }
+    }
+
+    // Se l'utente digita semplicemente "team"
+    if (cleanQuery === "team") {
+        inAttesaSceltaTeam = true;
+        rispondiBot("👥 All'interno dell'istituto abbiamo diverse tipologie di team (es. **Team Digitale**, **Team Mobilità Internazionale**, **Accoglienza**).\n\nVuoi la **definizione** generale di team o preferisci sapere i responsabili di uno specifico gruppo tra questi?");
+        return;
+    }
+
+    // =========================================================================
+    // 2. GESTIONE DEL CONTESTO ATTIVO PER ALTRI TERMINI SINGOLI (Invalsi, Accoglienza, Mobilità, Digitale)
     // =========================================================================
     if (contestoAttivo) {
         let argomento = contestoAttivo;
-        contestoAttivo = null; // Resetta il contesto subito dopo la lettura
+        contestoAttivo = null; 
         
         if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
             if (appConfig.dictionary[argomento]) {
@@ -365,7 +400,7 @@ function processUserQuery(query) {
     }
 
     // Intercettazione parole singole che attivano il menu di scelta (Definizione vs Responsabili)
-    if (cleanQuery === "invalsi" || cleanQuery === "accoglienza" || cleanQuery === "mobilita" || cleanQuery === "digitale" || cleanQuery === "team") {
+    if (cleanQuery === "invalsi" || cleanQuery === "accoglienza" || cleanQuery === "mobilita" || cleanQuery === "digitale") {
         contestoAttivo = cleanQuery;
         let etichettaTermine = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
         rispondiBot(`🔍 Per quanto riguarda **"${etichettaTermine}"**, vuoi sapere la **definizione** generale o conoscere i **responsabili** all'interno dell'istituto?`);
@@ -509,7 +544,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // CONTROLLO NEL DIZIONARIO ENCICLOPEDICO (Se viene chiesta esplicitamente la definizione di un termine)
+    // CONTROLLO NEL DIZIONARIO ENCICLOPEDICO
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -659,6 +694,7 @@ function resetChat() {
     inAttesaSceltaForm = false;
     inAttesaConfermaFaq = false;
     contestoAttivo = null;
+    inAttesaSceltaTeam = false;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
