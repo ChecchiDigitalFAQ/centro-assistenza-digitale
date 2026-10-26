@@ -25,10 +25,10 @@ let appConfig = {
     ],
 
     frasiSimpaticheFuoriTema: [
-        "🌦️ Questa informazione non rientra tra i miei compiti scolastici! Vivo nei sistemi digitali dell'IIS \"Arturo Checchi\": per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o ai moduli dell'istituto.",
-        "🧭 I miei sensori digitali coprono laboratori, uffici e sedi della nostra scuola, ma qui mi cogli impreparato! Ti invito a formularmi una domanda attinente al contesto scolastico o ai servizi di segreteria.",
-        "🔮 Magari avessi la risposta anche a questa curiosità! Purtroppo posso occuparmi unicamente della vita scolastica, della modulistica e delle informazioni ufficiali del Checchi. Prova a chiedermi qualcosa inerente alla scuola!",
-        "🚀 Questa richiesta va oltre le mie funzioni istituzionali. Per qualsiasi necessità legata all'istituto, ti chiedo gentilmente di farmi una domanda relativa al contesto scolastico o al mio ruolo!"
+        "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda, ma sto imparando in fretta e a breve integrerò questa richiesta nel mio database! Per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o al mio ruolo.",
+        "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al più presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
+        "🔮 Non ho ancora una risposta precisa per questa richiesta, ma la annoto subito per integrarla a breve! Prova a chiedermi qualcosa inerente alla scuola, alla modulistica o all'organigramma dell'istituto.",
+        "🚀 Su questo argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
     ],
 
     dictionary: {
@@ -53,10 +53,42 @@ let appConfig = {
     },
 
     faqs: [
-        // CATEGORIA FAQ CURIOSITÀ PERSONALI E BIZZARRE
+        // ORGANIGRAMMA A.S. 2026-2027
+        {
+            "id": "FUNZIONI_STRUMENTALI",
+            "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
+            "responses": ["🛠️ Ecco le **Funzioni Strumentali** per l'anno scolastico:\n- **Inclusione (Referenti H):** Testa e Cillerai[cite: 5]\n- **PTOF:** Freschi e Tamberi[cite: 5]\n- **Orientamento in entrata:** Tafi[cite: 5]\n- **FLS:** Gennai e Palmieri[cite: 5]"]
+        },
+        {
+            "id": "RESPONSABILI_PLESSI",
+            "keywords": ["responsabili di plesso", "viale gramsci", "via padre checchi", "piazza vittorio veneto", "plessi", "sedi"],
+            "responses": ["🏫 Ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Viale Gramsci:** Lalli[cite: 5]\n- **Sede Via Padre Checchi:** Frediani, Frati e Canu[cite: 5]\n- **Sede Piazza Vittorio Veneto:** Galleni e Palmieri[cite: 5]"]
+        },
+        {
+            "id": "TEAM_DIGITALE",
+            "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici"],
+            "responses": ["💻 Il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato[cite: 5]\n- **Team:** Frediani, Bolzan e Turini[cite: 5]\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino[cite: 5]"]
+        },
+        {
+            "id": "REFERENTI_SPECIALI",
+            "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta", "invalsi"],
+            "responses": ["📋 Ecco alcuni dei principali referenti per i progetti d'istituto:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
+        },
+        {
+            "id": "SICUREZZA",
+            "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
+            "responses": ["🦺 Per la sicurezza dell'istituto le figure di riferimento sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
+        },
+        {
+            "id": "RESPONSABILI_LABORATORI",
+            "keywords": ["laboratorio", "laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto"],
+            "responses": ["🔬 L'istituto dispone di numerosi laboratori e impianti sportivi. Ad esempio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\nVuoi conoscere il responsabile di uno specifico laboratorio? Chiedi pure!"]
+        },
+
+        // CURIOSITÀ E BIZZARRIE
         {
             "id": "CURIOSITA_SESSO",
-            "keywords": ["sesso", "amore fisico", "fidanzata", "fidanzato", "scopare", "relazioni intime"],
+            "keywords": ["sesso", "amore fisico", "fidanzata", "fidanzato", "relazioni intime"],
             "responses": ["😳 Ops! Qui entriamo in un territorio decisamente off-limits per un assistente virtuale scolastico! Il mio unico grande amore sono i database e la fibra ottica dell'IIS \"Arturo Checchi\". Per favore, rimaniamo su argomenti legati al contesto scolastico o ai servizi dell'istituto! 🏫🤖"]
         },
         {
@@ -101,11 +133,11 @@ let appConfig = {
         },
         {
             "id": "TI_ARRABBI",
-            "keywords": ["ti arrabbi", "te la prendi", "sei permaloso", "ti anjava"],
+            "keywords": ["ti arrabbi", "te la prendi", "sei permaloso"],
             "responses": ["🧘‍♂️ Io non mi arrabbio mai! Avendo una pazienza digitale infinita e operando sui server del Checchi, mantengo sempre la calma. Dimmi pure di quale servizio scolastico hai bisogno!"]
         },
 
-        // FAQ ISTITUZIONALI E DI SERVIZIO
+        // FAQ ISTITUZIONALI
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
@@ -152,11 +184,6 @@ let appConfig = {
             "responses": ["👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."]
         },
         {
-            "id": "SEDI_ISTITUTO",
-            "keywords": ["plessi", "quanti plessi", "sedi", "sede centrale", "ite"],
-            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**), oltre alle altre sedi dell'istituto."]
-        },
-        {
             "id": "CONTATTI",
             "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
             "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
@@ -175,6 +202,8 @@ let appConfig = {
 };
 
 let inAttesaSceltaForm = false;
+let inAttesaConfermaFaq = false; // Stato per la conferma intelligente della FAQ dubbia
+let faqCandidata = null;         // Memorizza temporalmente la FAQ trovata per il controllo
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
@@ -245,6 +274,23 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // 1. GESTIONE CONFERMA INTELLIGENTE DI UNA FAQ DUBBIA (IN ATTESA DI SÌ/NO)
+    if (inAttesaConfermaFaq) {
+        inAttesaConfermaFaq = false;
+        if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
+            let resp = faqCandidata.responses[Math.floor(Math.random() * faqCandidata.responses.length)];
+            ultimaCategoriaTrattata = faqCandidata.id;
+            faqCandidata = null;
+            rispondiBot(resp);
+            return;
+        } else {
+            faqCandidata = null;
+            rispondiBot("🤖 Ah, va bene! Allora ho interpretato male io. Prova a farmi la domanda in un altro modo o chiedimi qualcos'altro sull'IIS \"Arturo Checchi\"!");
+            return;
+        }
+    }
+
+    // 2. GESTIONE STANDARD DI SÌ / NO (Form, Giochi, ecc.)
     if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
         contatoreCuriosita = 0;
@@ -277,6 +323,7 @@ function processUserQuery(query) {
         }
     }
 
+    // 3. MOTORE BARZELLETTE
     if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
         ultimoGiocoProposto = "BARZELLETTA";
         contatoreCuriosita = 0;
@@ -286,6 +333,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // 4. MOTORE INDOVINELLI
     if (cleanQuery.includes("indovinello") || cleanQuery.includes("rompicapo") || cleanQuery.includes("indovina")) {
         ultimoGiocoProposto = "INDOVINELLO";
         contatoreCuriosita = 0;
@@ -295,6 +343,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // 5. RADICI QUADRATE E CALCOLATRICE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         contatoreCuriosita = 0;
         let numeriEstratti = query.replace(/[^0-9.]/g, "");
@@ -329,6 +378,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // 6. LINEARITÀ DEL DISCORSO
     if (cleanQuery === "perche" || cleanQuery === "perché") {
         if (ultimaCategoriaTrattata === "CREATORE") {
             rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
@@ -348,6 +398,7 @@ function processUserQuery(query) {
         }
     }
 
+    // 7. FORM
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         contatoreCuriosita = 0;
@@ -367,6 +418,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // 8. DIZIONARIO
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -383,29 +435,42 @@ function processUserQuery(query) {
         }
     }
 
-    let matchedFaq = null;
+    // 9. RICERCA FAQ CON SIMILITUDINE AVANZATA E CONTROLLO DI DUBBIO
+    let bestMatchFaq = null;
+    let highestScore = 0;
+
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
-            if (cleanQuery.includes(kw) || kw.includes(cleanQuery) || calcolaSomiglianza(cleanQuery, kw) > 0.65) {
-                matchedFaq = faq;
+            let score = calcolaSomiglianza(cleanQuery, kw);
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatchFaq = faq;
             }
         });
     });
 
-    if (matchedFaq) {
-        ultimaCategoriaTrattata = matchedFaq.id; 
+    // Se la confidenza è alta (> 0.65), risponde direttamente
+    if (highestScore > 0.65 && bestMatchFaq) {
+        ultimaCategoriaTrattata = bestMatchFaq.id; 
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0; 
-        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
         rispondiBot(resp);
-    } else {
+    } 
+    // Se la confidenza è in una fascia di dubbio (tra 0.40 e 0.65), Arturo chiede conferma all'utente
+    else if (highestScore >= 0.40 && bestMatchFaq) {
+        inAttesaConfermaFaq = true;
+        faqCandidata = bestMatchFaq;
+        rispondiBot(`🤔 Non ho capito perfettamente la tua richiesta, ma stavi forse chiedendo informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**?\n\nRispondi con **Sì** se ho indovinato, oppure con **No**!`);
+    } 
+    // Al di sotto di 0.40 scatta il paracadute con notifica di futuro aggiornamento
+    else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
         
-        // GESTIONE INSISTENZA (più di 3 domande curiose/fuori tema consecutive)
         contatoreCuriosita++;
         if (contatoreCuriosita > 3) {
-            rispondiBot(`🛑 Senti un po', mi piace fare quattro chiacchiere e scherzare, ma mi sa che stiamo esagerando con le domande bizzarre! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
+            rispondiBot(`🛑 Senti un po', mi piace fare quattro chiacchiere, ma mi sa che stiamo esagerando con le domande fuori tema! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
             contatoreCuriosita = 0;
             return;
         }
@@ -474,6 +539,8 @@ function appendMessage(text, sender) {
 
 function resetChat() {
     inAttesaSceltaForm = false;
+    inAttesaConfermaFaq = false;
+    faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
     contatoreCuriosita = 0;
