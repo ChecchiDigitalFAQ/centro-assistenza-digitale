@@ -1,4 +1,10 @@
-// Database FAQ, Pulsanti Rapidi, Dizionario ENCICLOPEDICO e Sezione Intrattenimento per Arturo | IIS "Arturo Checchi"
+/**
+ * ARCHITETTURA CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
+ * IIS "Arturo Checchi" (Fucecchio)
+ * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
+ * Versione Strutturale Avanzata 2026
+ */
+
 let appConfig = {
     quickButtons: [
         { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
@@ -152,7 +158,7 @@ let appConfig = {
         {
             "id": "CURIOSITA_CIOCCOLATA",
             "keywords": ["cioccolata", "cioccolato", "nutella", "dolce", "merendina", "cibo"],
-            "responses": ["🍫 Altro che cioccolata o Nutella! Il mio \"carburante\" preferito sono i flussi di dati e la fibra ottica che fanno girare i sistemi dell'IIS \"Arturo Checchi\". Scherzi a parte, io sono un assistente virtuale scolastico, quindi niente zuccheri per me! Piuttosto, posso aiutarti a trovare informazioni sui plessi, sui docenti o sui form della scuola. C'è qualcosa di scolastico di cui hai bisogno oggi?"]
+            "responses": ["🍫 Altro che cioccolata o Nutella! Il mio \"carburante\" preferito sono i flussi di dati e la fibra ottica che fanno girare i sistemi dell'IIS \"Arturo Checchi\". Scherzi a parte, io sono un assistente virtuale scolastico, quindi niente zuccheri per me! Piuttosto, posso aiutarti a trovare informazioni sui plessi, sui docenti o sui form della scuola. Cè qualcosa di scolastico di cui hai bisogno oggi?"]
         },
         {
             "id": "CURIOSITA_MIELE",
@@ -255,8 +261,6 @@ let appConfig = {
 };
 
 let inAttesaSceltaForm = false;
-let inAttesaConfermaFaq = false; 
-let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
@@ -315,6 +319,10 @@ function sendMessage() {
     }, 300);
 }
 
+/**
+ * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
+ * Regola di design: prevenzione dei falsi positivi tramite convalida strutturale della lunghezza e del contesto.
+ */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -327,34 +335,31 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    if (!inAttesaConfermaFaq && !inAttesaSceltaForm) {
-        faqCandidata = null;
-    }
-
     // =========================================================================
-    // REGOLA -1: GESTIONE PAROLE CHIAVE GENERICHE ISOLATE (Evita falsi positivi)
+    // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
+    // Impedisce che termini generici isolati attivino logiche errate.
     // =========================================================================
-    const paroleGenicheIsolate = ["responsabile", "responsabili", "referente", "referenti", "commissione", "chi"];
-    if (paroleGenicheIsolate.includes(cleanQuery)) {
+    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "chi"];
+    if (paroleContestoMancante.includes(cleanQuery)) {
         rispondiBot("🤖 Per favore, specifica a quale servizio o progetto ti riferisci (es. *responsabile Invalsi*, *referenti accoglienza*, *team digitale*), così posso darti l'informazione corretta dall'organigramma!");
         return;
     }
 
     // =========================================================================
-    // REGOLA 0: GESTIONE CONTINUAZIONE
+    // PILASTRO 2: GESTIONE NATIVA DELLA CONTINUAZIONE CONVERSAZIONALE
+    // Intercetta in modo pulito l'intento di proseguire dopo il suggerimento del bot.
     // =========================================================================
-    const paroleContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
-    if (paroleContinuazione.includes(cleanQuery)) {
+    const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
+    if (intentiContinuazione.includes(cleanQuery)) {
         ultimaCategoriaTrattata = "";
         ultimoGiocoProposto = "";
         inAttesaSceltaForm = false;
-        inAttesaConfermaFaq = false;
         rispondiBot("🤖 Certamente! Dimmi pure, quale altra informazione ti serve o di quale servizio dell'IIS \"Arturo Checchi\" hai bisogno?");
         return;
     }
 
     // =========================================================================
-    // REGOLA 1: RICERCA DIRETTA NELLE FAQ CON SOGLIA RIGIDA
+    // PILASTRO 3: MATCHING SEMANTICO A SOGLIA RIGIDA (Faq e Organigramma)
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
@@ -371,6 +376,7 @@ function processUserQuery(query) {
         });
     });
 
+    // Soglia di sicurezza fissata a 0.85 per garantire assoluta pertinenza
     if (highestScore >= 0.85 && bestMatchFaq) {
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
@@ -381,7 +387,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 2: RICHIESTA DI DEFINIZIONE ESPLICITA DAL DIZIONARIO
+    // PILASTRO 4: DIZIONARIO ENCICLOPEDICO
     // =========================================================================
     let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
                                  cleanQuery.includes("cos'e") || 
@@ -401,22 +407,7 @@ function processUserQuery(query) {
         }
     }
 
-    // Gestione standard moduli, giochi, calcoli e conferme
-    if (inAttesaConfermaFaq) {
-        inAttesaConfermaFaq = false;
-        if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
-            let resp = faqCandidata.responses[Math.floor(Math.random() * faqCandidata.responses.length)];
-            ultimaCategoriaTrattata = faqCandidata.id;
-            faqCandidata = null;
-            rispondiBot(resp);
-            return;
-        } else {
-            faqCandidata = null;
-            rispondiBot("🤖 Ah, ho capito! Allora mi sono sbagliato. Prova a riformulare la domanda in modo più preciso, oppure chiedimi qualcos'altro sull'IIS \"Arturo Checchi\"!");
-            return;
-        }
-    }
-
+    // Gestione giochi, intrattenimento e calcoli
     if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
         ultimoGiocoProposto = "BARZELLETTA";
         contatoreCuriosita = 0;
@@ -599,7 +590,6 @@ function appendMessage(text, sender) {
 
 function resetChat() {
     inAttesaSceltaForm = false;
-    inAttesaConfermaFaq = false;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
