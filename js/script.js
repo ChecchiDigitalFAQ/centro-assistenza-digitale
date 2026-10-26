@@ -69,6 +69,11 @@ let appConfig = {
             "responses": ["🛡️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Bullismo e Cyberbullismo** è così composto:\n- **Referente:** Stinco\n- **Team:** Menale, Frisone, Cimmelli, Palmieri e Federigi\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
+            "id": "REFERENTI_AREA_DIDATTICA",
+            "keywords": ["referenti didattica", "referenti progetti", "alunni stranieri", "dsa", "bes", "studente atleta", "ed civica", "scienze motorie", "formazione", "referenti area didattica"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Referenti di Area Didattica e Progetti**[cite: 13]:\n- **Referente Alunni Stranieri:** Nazzi[cite: 13]\n- **Referente DSA / BES:** Canu[cite: 13]\n- **Referente Studente-Atleta:** Angelini[cite: 13]\n- **Ed. Civica:** Donati - Orsini[cite: 13]\n- **Referente Scienze Motorie:** Lotti[cite: 13]\n- **Referente Formazione ADSS:** Ferrai - Testa[cite: 13]\n- **Referente Formazione:** Frati[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "INVALSI_RESPONSABILI",
             "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi", "invalsi"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Cos'altro vuoi chiedermi?)*"]
@@ -132,11 +137,6 @@ let appConfig = {
             "id": "FUNZIONI_STRUMENTALI",
             "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "REFERENTI_SPECIALI",
-            "keywords": ["stranieri", "dsa", "bes", "studente atleta", "progetti speciali"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "SICUREZZA",
@@ -342,11 +342,11 @@ function processUserQuery(query) {
 
     // =========================================================================
     // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
-    // Impedisce che termini generici isolati attivino logiche errate.
+    // Impedisce che termini generici isolati ("responsabile", "referente", ecc.) attivino logiche errate.
     // =========================================================================
     const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
-        rispondiBot("🤖 Per favore, specifica a quale servizio o progetto ti riferisci (es. *responsabile Invalsi*, *referenti accoglienza*, *team digitale*), così posso darti l'informazione corretta dall'organigramma!");
+        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o area ti riferisci (es. *referente Invalsi*, *referente DSA*, *referenti accoglienza*), così posso darti l'informazione corretta dall'organigramma!");
         return;
     }
 
