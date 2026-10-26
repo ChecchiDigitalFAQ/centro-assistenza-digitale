@@ -202,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Ordine di priorità corretto: 1. FAQ Globali, 2. Stati attivi, 3. Laboratori, 4. Dizionario, 5. Fallback.
+ * Ordine di priorità corretto e blindato per evitare regressioni.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -231,7 +231,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 1. VERIFICA PRIORITARIA FAQ GLOBALI (Per intercettare subito "chi sono i responsabili", ecc.)
+    // 1. VERIFICA PRIORITARIA FAQ GLOBALI
     // =========================================================================
     let matchedGlobalFaq = null;
     let highestGlobalScore = 0;
@@ -280,19 +280,21 @@ function processUserQuery(query) {
     // =========================================================================
     if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
         inAttesaSceltaOrganigramma = true;
-        rispondiBot("📋 Ti interessa sapere qualcosa **nello specifico** dall'organigramma (come responsabili, tutor o laboratori), oppure preferisci che ti rilasci il **PDF completo** da scaricare?");
+        rispondiBadgeOrganigramma = "📋 Ti interessa sapere qualcosa **nello specifico** dall'organigramma (come responsabili, tutor o laboratori), oppure preferisci che ti rilasci il **PDF completo** da scaricare?";
+        rispondiBot(rispondiBadgeOrganigramma);
         return;
     }
 
     // =========================================================================
-    // 4. DIZIONARIO ENCICLOPEDICO (Incluso "team")
+    // 4. DIZIONARIO ENCICLOPEDICO E TERMINI SPECIFICI (es. "team" / "team digitale")
     // =========================================================================
     let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
                                  cleanQuery.includes("cos'e") || 
                                  cleanQuery.includes("cosa vuol dire") || 
                                  cleanQuery.includes("definizione") || 
                                  cleanQuery.includes("significato") ||
-                                 cleanQuery === "team";
+                                 cleanQuery === "team" ||
+                                 cleanQuery.includes("team digitale");
 
     if (isRichiestaDefinizione) {
         for (const [term, def] of Object.entries(appConfig.dictionary)) {
