@@ -80,12 +80,12 @@ let appConfig = {
         },
         {
             "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
-            "keywords": ["referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero"],
+            "keywords": ["referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero", "mobilità internazionale", "mobilita internazionale"],
             "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "TEAM_DIGITALE_RESPONSABILI",
-            "keywords": ["referenti digitale", "animatore digitale referenti", "responsabili digitale"],
+            "keywords": ["referenti digitale", "animatore digitale referenti", "responsabili digitale", "team digitale", "animatore digitale"],
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
@@ -178,7 +178,7 @@ let appConfig = {
         {
             "id": "TI_ODIO",
             "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
-            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci nodalmente sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
+            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
         },
         {
             "id": "TI_AMO",
@@ -335,20 +335,43 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 1. GESTIONE DELLA SCELTA DEL TEAM (Se l'utente ha digitato solo "team")
+    // FASE 1: PRIORITÀ ASSOLUTA ALLE FAQ E AI MATCHING MIRATI DELL'ORGANIGRAMMA
+    // =========================================================================
+    let bestMatchFaq = null;
+    let highestScore = 0;
+
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
+
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatchFaq = faq;
+            }
+        });
+    });
+
+    if (highestScore >= 0.80 && bestMatchFaq) {
+        ultimaCategoriaTrattata = bestMatchFaq.id;
+        ultimoGiocoProposto = "";
+        contatoreCuriosita = 0;
+        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
+        rispondiBot(resp);
+        return;
+    }
+
+    // =========================================================================
+    // FASE 2: GESTIONE DEI CONTESTI DI SCELTA IN SOSPESO (es. "team" o termini singoli)
     // =========================================================================
     if (inAttesaSceltaTeam) {
-        
-        // Se l'utente specifica la definizione
         if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
             inAttesaSceltaTeam = false;
             rispondiBot(appConfig.dictionary["team"] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
             return;
         } 
         
-        // Se l'utente specifica la richiesta dei responsabili
         if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi")) {
-            // Controlla se specifica quale team nei dettagli
             if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
                 inAttesaSceltaTeam = false;
                 let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
@@ -370,7 +393,6 @@ function processUserQuery(query) {
             }
         }
 
-        // Se l'utente scrive direttamente il nome del team (es. "team digitale")
         if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
             inAttesaSceltaTeam = false;
             let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
@@ -389,16 +411,12 @@ function processUserQuery(query) {
         }
     }
 
-    // Se l'utente digita semplicemente "team"
     if (cleanQuery === "team") {
         inAttesaSceltaTeam = true;
         rispondiBot("👥 All'interno dell'istituto abbiamo diverse tipologie di team (es. **Team Digitale**, **Team Mobilità Internazionale**, **Accoglienza**).\n\nVuoi la **definizione** generale di team o preferisci sapere i responsabili di uno specifico gruppo tra questi?");
         return;
     }
 
-    // =========================================================================
-    // 2. GESTIONE DEL CONTESTO ATTIVO PER ALTRI TERMINI SINGOLI (Invalsi, Accoglienza, Mobilità, Digitale)
-    // =========================================================================
     if (contestoAttivo) {
         let argomento = contestoAttivo;
         contestoAttivo = null; 
@@ -427,7 +445,6 @@ function processUserQuery(query) {
         }
     }
 
-    // Intercettazione parole singole che attivano il menu di scelta (Definizione vs Responsabili)
     if (cleanQuery === "invalsi" || cleanQuery === "accoglienza" || cleanQuery === "mobilita" || cleanQuery === "digitale") {
         contestoAttivo = cleanQuery;
         let etichettaTermine = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
@@ -435,6 +452,9 @@ function processUserQuery(query) {
         return;
     }
 
+    // =========================================================================
+    // FASE 3: COMANDI RAPIDI, GIOCHI, MODULI E CALCOLI
+    // =========================================================================
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
@@ -572,7 +592,16 @@ function processUserQuery(query) {
         return;
     }
 
-    // CONTROLLO NEL DIZIONARIO ENCICLOPEDICO
+    if (highestScore >= 0.35 && bestMatchFaq) {
+        inAttesaConfermaFaq = true;
+        faqCandidata = bestMatchFaq;
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ هذا quello che intendevi? Rispondi con **Sì** o **No**!`);
+        return;
+    }
+
+    // =========================================================================
+    // FASE 4: DIZIONARIO ENCICLOPEDICO (Ultima spiaggia)
+    // =========================================================================
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -587,38 +616,6 @@ function processUserQuery(query) {
                 return;
             }
         }
-    }
-
-    // MOTORE GLOBALE CON LEVENSHTEIN PER LE FAQ E DOMANDE CHIARE
-    let bestMatchFaq = null;
-    let highestScore = 0;
-
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestScore) {
-                highestScore = score;
-                bestMatchFaq = faq;
-            }
-        });
-    });
-
-    if (highestScore >= 0.80 && bestMatchFaq) {
-        ultimaCategoriaTrattata = bestMatchFaq.id;
-        ultimoGiocoProposto = "";
-        contatoreCuriosita = 0;
-        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
-        rispondiBot(resp);
-        return;
-    }
-
-    if (highestScore >= 0.35 && bestMatchFaq) {
-        inAttesaConfermaFaq = true;
-        faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
-        return;
     }
 
     ultimaCategoriaTrattata = ""; 
