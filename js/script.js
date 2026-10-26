@@ -53,11 +53,10 @@ let appConfig = {
     },
 
     faqs: [
-        // ORGANIGRAMMA A.S. 2026-2027
         {
             "id": "INVALSI",
             "keywords": ["invalsi"],
-            "responses": ["📊 Per quanto riguarda l'**Invalsi**, mi stai chiedendo la definizione generale dell'ente o vuoi sapere chi sono i referenti e la commissione interna all'IIS \"Arturo Checchi\"?\n\n*(Specifica se ti interessano i **responsabili** o la spiegazione!)*"]
+            "responses": ["📊 Per quanto riguarda l'**Invalsi**, mi stai chiedendo la definizione generale dell'ente o vuoi sapere chi sono i referenti e la commissione interna all'IIS \"Arturo Checchi\"?\n\n*(Specificamelo pure digitando **responsabili** o **definizione**!)*"]
         },
         {
             "id": "INVALSI_RESPONSABILI",
@@ -253,6 +252,8 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
+let inAttesaDisambiguazione = false; // Memoria contestuale per la disambiguazione
+let contestoAttivo = null;           // Memorizza l'oggetto FAQ su cui si sta chiedendo il chiarimento
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -324,8 +325,31 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    if (!inAttesaConfermaFaq && !inAttesaSceltaForm) {
+    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !inAttesaDisambiguazione) {
         faqCandidata = null;
+    }
+
+    // GESTIONE DELLA MEMORIA CONTESTUALE PER LA DISAMBIGUAZIONE (Es. utente risponde "responsabili" dopo la domanda ambigua)
+    if (inAttesaDisambiguazione && contestoAttivo) {
+        inAttesaDisambiguazione = false;
+        let argomento = contestoAttivo.id.toLowerCase();
+        contestoAttivo = null;
+
+        if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
+            // Cerca la FAQ specifica dei responsabili per quell'argomento (es. INVALSI_RESPONSABILI)
+            let faqResp = appConfig.faqs.find(f => f.id === argomento.toUpperCase() + "_RESPONSABILI" || f.id.includes(argomento.toUpperCase()) && f.id.includes("RESPONSABILI"));
+            if (faqResp) {
+                rispondiBot(faqResp.responses[0]);
+                return;
+            }
+        }
+        
+        // Se chiede la definizione o altro
+        let faqBase = appConfig.faqs.find(f => f.id === argomento.toUpperCase());
+        if (faqBase) {
+            rispondiBot(faqBase.responses[0]);
+            return;
+        }
     }
 
     if (inAttesaConfermaFaq) {
@@ -481,15 +505,14 @@ function processUserQuery(query) {
         }
     }
 
-    // REGOLA UNIVERSALE PER TERMINI MONOPAROLA O AMBIGUI
-    // Se l'utente scrive una sola parola (es. "invalsi", "accoglienza", "sicurezza", ecc.), Arturo chiede il contesto anziché sparare risposte fisse.
+    // REGOLA UNIVERSALE PER TERMINI MONOPAROLA O AMBIGUI (Attiva la disambiguazione e memorizza il contesto)
     if (!cleanQuery.includes(" ")) {
         let matchingFaq = appConfig.faqs.find(faq => faq.keywords.some(kw => kw.includes(cleanQuery) || calcolaSomiglianzaStringa(cleanQuery, kw) >= 0.70));
         if (matchingFaq) {
-            ultimaCategoriaTrattata = matchingFaq.id;
-            ultimoGiocoProposto = "";
+            inAttesaDisambiguazione = true;
+            contestoAttivo = matchingFaq;
             contatoreCuriosita = 0;
-            rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Specificamelo pure per avere l'informazione esatta!)*`);
+            rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Digitami pure **responsabili** o **definizione** per avere l'informazione esatta!)*`);
             return;
         }
     }
@@ -626,6 +649,8 @@ function appendMessage(text, sender) {
 function resetChat() {
     inAttesaSceltaForm = false;
     inAttesaConfermaFaq = false;
+    inAttesaDisambiguazione = false;
+    contestoAttivo = null;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
