@@ -24,7 +24,6 @@ let appConfig = {
         "🧩 **Indovinello:** Se mi nomini mi distruggi. Chi sono?\n*(Risposta: Il silenzio!)*"
     ],
 
-    // PARACADUTE CONVERSAZIONALE: Frasi simpatiche e mirate esclusivamente al contesto scolastico
     frasiSimpaticheFuoriTema: [
         "🌦️ Questa informazione non rientra tra i miei compiti scolastici! Vivo nei sistemi digitali dell'IIS \"Arturo Checchi\": per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o ai moduli dell'istituto.",
         "🧭 I miei sensori digitali coprono laboratori, uffici e sedi della nostra scuola, ma qui mi cogli impreparato! Ti invito a formularmi una domanda attinente al contesto scolastico o ai servizi di segreteria.",
@@ -54,6 +53,31 @@ let appConfig = {
     },
 
     faqs: [
+        {
+            "id": "TI_ODIO",
+            "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
+            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
+        },
+        {
+            "id": "TI_AMO",
+            "keywords": ["ti amo", "ti voglio bene", "sei bellissimo", "sei forte", "sei un grande"],
+            "responses": ["❤️ Che parole zuccherose! Io sono follemente innamorato dei database e dei server dell'IIS \"Arturo Checchi\", ma apprezzo molto il tuo affetto! Come posso aiutarti oggi con la scuola? 🥰"]
+        },
+        {
+            "id": "TI_ARRABBI",
+            "keywords": ["ti arrabbi", "te la prendi", "sei permaloso", "ti anjava"],
+            "responses": ["🧘‍♂️ Io non mi arrabbio mai! Avendo una pazienza digitale infinita e operando sui server del Checchi, mantengo sempre la calma. Dimmi pure di quale servizio scolastico hai bisogno!"]
+        },
+        {
+            "id": "CALCIO",
+            "keywords": ["ti piace il calcio", "tifosi", "che squadra tifi", "partite", "scudetto"],
+            "responses": ["⚽ Non tifo per nessuna squadra di calcio in particolare: il mio cuore batte esclusivamente per la rete telematica e la connettività dell'IIS \"Arturo Checchi\"! 💻"]
+        },
+        {
+            "id": "MIELE",
+            "keywords": ["ti piace il miele", "miele", "cosa mangi", "cibo", "fame"],
+            "responses": ["🍯 Il miele è delizioso, ma la mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici! C'è qualche informazione sull'istituto che ti serve?"]
+        },
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
@@ -128,6 +152,7 @@ let ultimoGiocoProposto = "";
 let indiceBarzelletta = 0;
 let indiceIndovinello = 0;
 let indiceFraseSimpatica = 0;
+let contatoreCuriosita = 0; // Contatore per monitorare l'insistenza su domande fuori tema o curiose
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -192,9 +217,9 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. GESTIONE DI "SÌ", "NO", "OK" CON RISPOSTA COERENTE AL CONTESTO
     if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
+        contatoreCuriosita = 0; // Reset del contatore se si torna a collaborare
         if (ultimoGiocoProposto === "BARZELLETTA") {
             let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
             indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
@@ -212,6 +237,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "no") {
         inAttesaSceltaForm = false;
+        contatoreCuriosita = 0;
         if (ultimoGiocoProposto === "BARZELLETTA" || ultimoGiocoProposto === "INDOVINELLO") {
             ultimoGiocoProposto = "";
             rispondiBot("Va bene, niente più barzellette o indovinelli per ora! Se ti serve altro sui servizi o sulla scuola, chiedi pure.");
@@ -223,26 +249,26 @@ function processUserQuery(query) {
         }
     }
 
-    // 2. MOTORE BARZELLETTE
     if (cleanQuery.includes("barzelletta") || cleanQuery.includes("battuta") || cleanQuery.includes("ridere")) {
         ultimoGiocoProposto = "BARZELLETTA";
+        contatoreCuriosita = 0;
         let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
         indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
         rispondiBot(testoBarzelletta + "\n\n*(Vuoi un'altra barzelletta? Scrivimelo pure!)*");
         return;
     }
 
-    // 3. MOTORE INDOVINELLI
     if (cleanQuery.includes("indovinello") || cleanQuery.includes("rompicapo") || cleanQuery.includes("indovina")) {
         ultimoGiocoProposto = "INDOVINELLO";
+        contatoreCuriosita = 0;
         let testoIndovinello = appConfig.indovinelli[indiceIndovinello];
         indiceIndovinello = (indiceIndovinello + 1) % appConfig.indovinelli.length;
         rispondiBot(testoIndovinello + "\n\n*(Vuoi un altro indovinello? Chiedimelo pure!)*");
         return;
     }
 
-    // 4. RADICI QUADRATE E CALCOLATRICE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
+        contatoreCuriosita = 0;
         let numeriEstratti = query.replace(/[^0-9.]/g, "");
         if (numeriEstratti !== "") {
             let num = parseFloat(numeriEstratti);
@@ -260,6 +286,7 @@ function processUserQuery(query) {
         try {
             let evalResult = Function('"use strict";return (' + mathCheckQuery + ')')();
             if (!isNaN(evalResult)) {
+                contatoreCuriosita = 0;
                 rispondiBot(`🧮 Il risultato di **${query}** è **${evalResult}**!`);
                 return;
             }
@@ -274,7 +301,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. LINEARITÀ DEL DISCORSO
     if (cleanQuery === "perche" || cleanQuery === "perché") {
         if (ultimaCategoriaTrattata === "CREATORE") {
             rispondiBot("💡 Sono stato ideato e sviluppato per automatizzare la gestione scolastica, supportare docenti e studenti nella modulistica e offrire informazioni immediate sull'IIS \"Arturo Checchi\"!");
@@ -294,9 +320,9 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. FORM
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
+        contatoreCuriosita = 0;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
             rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
             return;
@@ -308,11 +334,11 @@ function processUserQuery(query) {
 
     if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
         inAttesaSceltaForm = true;
+        contatoreCuriosita = 0;
         rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
         return;
     }
 
-    // 7. DIZIONARIO
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -322,13 +348,13 @@ function processUserQuery(query) {
             if (wordToSearch === term || cleanQuery.includes(term)) {
                 ultimaCategoriaTrattata = "DIZIONARIO";
                 ultimoGiocoProposto = "";
+                contatoreCuriosita = 0;
                 rispondiBot(def);
                 return;
             }
         }
     }
 
-    // 8. FAQ
     let matchedFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -341,12 +367,21 @@ function processUserQuery(query) {
     if (matchedFaq) {
         ultimaCategoriaTrattata = matchedFaq.id; 
         ultimoGiocoProposto = "";
+        contatoreCuriosita = 0; // Se trova una FAQ valida (inclusi i "Ti odio", "Ti amo", ecc.), azzera il conteggio delle bizzarrie
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
     } else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
-        // PARACADUTE A ROTAZIONE AUTOMATICA SUL CONTESTO SCOLASTICO
+        
+        // GESTIONE INSISTENZA (più di 3 domande fuori tema consecutive)
+        contatoreCuriosita++;
+        if (contatoreCuriosita > 3) {
+            rispondiBot(` diplomatica 🛑 Senti un po', mi piace fare quattro chiacchiere, ma mi sa che stiamo esagerando con le domande fuori tema! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
+            contatoreCuriosita = 0; // Resetta il contatore dopo il richiamo
+            return;
+        }
+
         let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
         indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
         rispondiBot(fraseCasuale);
@@ -376,6 +411,7 @@ function quickAction(id) {
     if (found) {
         ultimaCategoriaTrattata = found.id;
         ultimoGiocoProposto = "";
+        contatoreCuriosita = 0;
         rispondiBot(found.responses[0]);
     }
 }
@@ -412,6 +448,7 @@ function resetChat() {
     inAttesaSceltaForm = false;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
+    contatoreCuriosita = 0;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
