@@ -140,6 +140,7 @@ let inAttesaSceltaResponsabile = false;
 let inAttesaSceltaTipoPlesso = false;
 let inAttesaSceltaTipoLaboratorio = false;
 let inAttesaSedeLaboratorioInformatica = false;
+let inAttesaSceltaOrganigramma = false;
 
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -201,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestione immediata e diretta delle parole chiave principali e dei laboratori.
+ * Macchina a stati intelligente con gestione della scelta sull'organigramma.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -215,17 +216,33 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // =========================================================================
+    // GESTIONE STATO IN ATTESA SCELTA ORGANIGRAMMA
+    // =========================================================================
+    if (inAttesaSceltaOrganigramma) {
+        inAttesaSceltaOrganigramma = false;
+        if (cleanQuery.includes("pdf") || cleanQuery.includes("scarica") || cleanQuery.includes("documento") || cleanQuery.includes("link") || cleanQuery.includes("intero")) {
+            rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
+            return;
+        } else if (cleanQuery.includes("specifico") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile") || cleanQuery.includes("tutor") || cleanQuery.includes("plesso") || cleanQuery.includes("laboratorio") || cleanQuery.includes("si") || cleanQuery.includes("sì")) {
+            rispondiBot("🤖 Certamente! Dimmi pure chi o cosa ti interessa nello specifico (es. *responsabili di plesso*, *tutor*, *figura sicurezza* o *laboratori*).");
+            return;
+        }
+    }
+
     // Reset preventivo degli stati attivi se l'utente cambia argomento
     inAttesaSceltaResponsabile = false;
     inAttesaSceltaTipoPlesso = false;
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
+    inAttesaSceltaOrganigramma = false;
 
     // =========================================================================
     // INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
     // =========================================================================
-    if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma completo")) {
-        rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
+    if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
+        inAttesaSceltaOrganigramma = true;
+        rispondiBot("📋 Ti interessa sapere qualcosa **nello specifico** dall'organigramma (come responsabili, tutor o laboratori), oppure preferisci che ti rilasci il **PDF completo** da scaricare?");
         return;
     }
 
@@ -457,6 +474,7 @@ function resetChat() {
     inAttesaSceltaTipoPlesso = false;
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
+    inAttesaSceltaOrganigramma = false;
     ultimaCategoriaTrattata = "";
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
