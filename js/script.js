@@ -80,12 +80,12 @@ let appConfig = {
         },
         {
             "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
-            "keywords": ["referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero", "mobilità internazionale", "mobilita internazionale"],
+            "keywords": ["team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero"],
             "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "TEAM_DIGITALE_RESPONSABILI",
-            "keywords": ["referenti digitale", "animatore digitale referenti", "responsabili digitale", "team digitale", "animatore digitale"],
+            "keywords": ["team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale"],
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
@@ -335,7 +335,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // FASE 1: PRIORITÀ ASSOLUTA ALLE FAQ E AI MATCHING MIRATI DELL'ORGANIGRAMMA
+    // FASE 1: PRIORITÀ ASSOLUTA ALLE FAQ MIRATE (Es. "team digitale", "team mobilità")
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
@@ -353,6 +353,10 @@ function processUserQuery(query) {
     });
 
     if (highestScore >= 0.80 && bestMatchFaq) {
+        // Resettiamo eventuali stati in sospeso se l'utente fa una domanda chiara e mirata
+        inAttesaSceltaTeam = false;
+        contestoAttivo = null;
+        
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0;
@@ -362,7 +366,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // FASE 2: GESTIONE DEI CONTESTI DI SCELTA IN SOSPESO (es. "team" o termini singoli)
+    // FASE 2: GESTIONE DEI TERMINI GENERICI O IN SOSPESO (es. utente ha scritto solo "team")
     // =========================================================================
     if (inAttesaSceltaTeam) {
         if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
@@ -411,6 +415,7 @@ function processUserQuery(query) {
         }
     }
 
+    // Se l'utente scrive ESATTAMENTE la parola singola "team" (senza specificare altro)
     if (cleanQuery === "team") {
         inAttesaSceltaTeam = true;
         rispondiBot("👥 All'interno dell'istituto abbiamo diverse tipologie di team (es. **Team Digitale**, **Team Mobilità Internazionale**, **Accoglienza**).\n\nVuoi la **definizione** generale di team o preferisci sapere i responsabili di uno specifico gruppo tra questi?");
@@ -595,12 +600,12 @@ function processUserQuery(query) {
     if (highestScore >= 0.35 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ هذا quello che intendevi? Rispondi con **Sì** o **No**!`);
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
         return;
     }
 
     // =========================================================================
-    // FASE 4: DIZIONARIO ENCICLOPEDICO (Ultima spiaggia)
+    // FASE 4: DIZIONARIO ENCICLOPEDICO (Ultima spiaggia se non è una FAQ istituzionale)
     // =========================================================================
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
