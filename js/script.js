@@ -84,6 +84,16 @@ let appConfig = {
             "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti"]
         },
         {
+            "id": "TEAM_DIGITALE",
+            "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici", "digitale"],
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino"]
+        },
+        {
+            "id": "MICROSOFT365",
+            "keywords": ["microsoft", "teams", "m365", "argo", "servizi digitali", "piattaforma"],
+            "responses": ["💻 L'IIS \"Arturo Checchi\" utilizza l'ecosistema **Microsoft 365** e il registro elettronico **Argo** per la didattica digitale, la gestione dei canali Teams e i servizi cloud istituzionali."]
+        },
+        {
             "id": "RESPONSABILE_SEDE_CENTRALE",
             "keywords": ["sede centrale", "viale gramsci", "responsabile sede centrale", "responsabile centrale", "centrale"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**."]
@@ -112,11 +122,6 @@ let appConfig = {
             "id": "FUNZIONI_STRUMENTALI",
             "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri"]
-        },
-        {
-            "id": "TEAM_DIGITALE",
-            "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici", "digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino"]
         },
         {
             "id": "REFERENTI_SPECIALI",
@@ -252,8 +257,8 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
-let inAttesaDisambiguazione = false; // Memoria contestuale per la disambiguazione
-let contestoAttivo = null;           // Memorizza l'oggetto FAQ su cui si sta chiedendo il chiarimento
+let inAttesaDisambiguazione = false; 
+let opzioniDisambiguazione = [];     // Elenco delle opzioni trovate per parole chiave multiple (es. vari tipi di team)
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -329,26 +334,22 @@ function processUserQuery(query) {
         faqCandidata = null;
     }
 
-    // GESTIONE DELLA MEMORIA CONTESTUALE PER LA DISAMBIGUAZIONE (Es. utente risponde "responsabili" dopo la domanda ambigua)
-    if (inAttesaDisambiguazione && contestoAttivo) {
+    // GESTIONE DELLA DISAMBIGUAZIONE MULTIPLA (es. l'utente ha scritto "team" e sceglie quale visualizzare)
+    if (inAttesaDisambiguazione && opzioniDisambiguazione.length > 0) {
         inAttesaDisambiguazione = false;
-        let argomento = contestoAttivo.id.toLowerCase();
-        contestoAttivo = null;
+        let scelte = opzioniDisambiguazione;
+        opzioniDisambiguazione = [];
 
-        if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
-            // Cerca la FAQ specifica dei responsabili per quell'argomento (es. INVALSI_RESPONSABILI)
-            let faqResp = appConfig.faqs.find(f => f.id === argomento.toUpperCase() + "_RESPONSABILI" || f.id.includes(argomento.toUpperCase()) && f.id.includes("RESPONSABILI"));
-            if (faqResp) {
-                rispondiBot(faqResp.responses[0]);
-                return;
-            }
-        }
+        // Cerca se l'utente ha digitato parte di una delle opzioni o un numero
+        let sceltaTrovata = scelte.find(opt => cleanQuery.includes(opt.id.toLowerCase()) || cleanQuery.includes(opt.label.toLowerCase()) || cleanQuery === String(scelte.indexOf(opt) + 1));
         
-        // Se chiede la definizione o altro
-        let faqBase = appConfig.faqs.find(f => f.id === argomento.toUpperCase());
-        if (faqBase) {
-            rispondiBot(faqBase.responses[0]);
+        if (sceltaTrovata) {
+            ultimaCategoriaTrattata = sceltaTrovata.id;
+            rispondiBot(sceltaTrovata.responses[0]);
             return;
+        } else {
+            // Se non ha scelto un'opzione valida, prova a interpretare la risposta come un testo normale
+            // (proseguendo con la normale analisi)
         }
     }
 
@@ -505,16 +506,24 @@ function processUserQuery(query) {
         }
     }
 
-    // REGOLA UNIVERSALE PER TERMINI MONOPAROLA O AMBIGUI (Attiva la disambiguazione e memorizza il contesto)
-    if (!cleanQuery.includes(" ")) {
-        let matchingFaq = appConfig.faqs.find(faq => faq.keywords.some(kw => kw.includes(cleanQuery) || calcolaSomiglianzaStringa(cleanQuery, kw) >= 0.70));
-        if (matchingFaq) {
-            inAttesaDisambiguazione = true;
-            contestoAttivo = matchingFaq;
-            contatoreCuriosita = 0;
-            rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Digitami pure **responsabili** o **definizione** per avere l'informazione esatta!)*`);
-            return;
-        }
+    // CONTROLLO INTELLIGENTE MULTI-RISCONTRO (es. se l'utente scrive "team", trova TUTTE le FAQ che parlano di team)
+    let matchingFaqs = appConfig.faqs.filter(faq => faq.keywords.some(kw => kw.includes(cleanQuery) || calcolaSomiglianzaStringa(cleanQuery, kw) >= 0.75));
+    
+    if (matchingFaqs.length > 1) {
+        inAttesaDisambiguazione = true;
+        opzioniDisambiguazione = matchingFaqs;
+        contatoreCuriosita = 0;
+        
+        let elencoOpzioni = matchingFaqs.map((f, index) => `${index + 1}️⃣ **${f.id.replace(/_/g, ' ')}**`).join("\n");
+        rispondiBot(`🔍 Ho trovato diverse sezioni relative a **"${query}"** nel database dell'istituto. A quale ti riferisci?\n\n${elencoOpzioni}\n\n*(Digita il numero o il nome della sezione che ti interessa!)*`);
+        return;
+    } else if (matchingFaqs.length === 1 && !cleanQuery.includes(" ")) {
+        // Se c'è una sola corrispondenza ma è una parola singola, chiedi disambiguazione definizione/responsabili come prima
+        let matchingFaq = matchingFaqs[0];
+        ultimaCategoriaTrattata = matchingFaq.id;
+        contatoreCuriosita = 0;
+        rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Digitami pure **responsabili** o **definizione** per avere l'informazione esatta!)*`);
+        return;
     }
 
     // MOTORE GLOBALE CON LEVENSHTEIN PER GESTIRE TYPO E DOMANDE SIMILI
@@ -650,7 +659,7 @@ function resetChat() {
     inAttesaSceltaForm = false;
     inAttesaConfermaFaq = false;
     inAttesaDisambiguazione = false;
-    contestoAttivo = null;
+    opzioniDisambiguazione = [];
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
