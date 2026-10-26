@@ -332,7 +332,16 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 0: GESTIONE CONTINUAZIONE (Se l'utente risponde "aiutami con altro", "sì", ecc.)
+    // REGOLA -1: GESTIONE PAROLE CHIAVE GENERICHE ISOLATE (Evita falsi positivi)
+    // =========================================================================
+    const paroleGenicheIsolate = ["responsabile", "responsabili", "referente", "referenti", "commissione", "chi"];
+    if (paroleGenicheIsolate.includes(cleanQuery)) {
+        rispondiBot("🤖 Per favore, specifica a quale servizio o progetto ti riferisci (es. *responsabile Invalsi*, *referenti accoglienza*, *team digitale*), così posso darti l'informazione corretta dall'organigramma!");
+        return;
+    }
+
+    // =========================================================================
+    // REGOLA 0: GESTIONE CONTINUAZIONE
     // =========================================================================
     const paroleContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
     if (paroleContinuazione.includes(cleanQuery)) {
@@ -345,7 +354,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 1: RICERCA DIRETTA NELLE FAQ CON SOGLIA RIGIDA (Evita falsi positivi)
+    // REGOLA 1: RICERCA DIRETTA NELLE FAQ CON SOGLIA RIGIDA
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
