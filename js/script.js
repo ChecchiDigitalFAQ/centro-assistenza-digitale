@@ -115,18 +115,8 @@ let appConfig = {
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "ciao", "salve", "buongiorno", "buonasera"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "salve", "buongiorno", "buonasera"],
             "responses": ["👋 Ciao! Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio! Come posso aiutarti oggi?"]
-        },
-        {
-            "id": "CONTATTI",
-            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
-            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
-        },
-        {
-            "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico", "preside del checchi"],
-            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
             "id": "TI_ODIO",
@@ -206,7 +196,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestione avanzata e robusta delle parole chiave, degli stati e delle ambiguità.
+ * Gestisce la distinzione tra "ciao" iniziale (benvenuto/disponibilità) e "ciao" finale (congedo).
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -221,9 +211,28 @@ function processUserQuery(query) {
         .trim();
 
     // =========================================================================
-    // 0. INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO
+    // 0. GESTIONE INTELLIGENTE DEL SALUTO "CIAO" (Iniziale vs Finale)
     // =========================================================================
-    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "ciao"];
+    if (cleanQuery === "ciao" || cleanQuery === "salve") {
+        const chatBox = document.getElementById("chat-messages");
+        // Conta quanti messaggi ci sono nella chat (escludendo il benvenuto iniziale se del caso)
+        const numeroMessaggiUtente = chatBox ? chatBox.querySelectorAll(".user-message").length : 1;
+
+        if (numeroMessaggiUtente <= 1) {
+            // Ciao come saluto iniziale / apertura conversazione
+            rispondiBot("👋 Ciao! Sono **Arturo**, l'assistente virtuale dell'IIS \"Arturo Checchi\". Sono a tua completa disposizione: dimmi pure come posso aiutarti o di quale informazione hai bisogno per iniziare!");
+            return;
+        } else {
+            // Ciao come saluto finale / congedo
+            rispondiBot("👋 Ciao! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
+            return;
+        }
+    }
+
+    // =========================================================================
+    // 0.1 INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO
+    // =========================================================================
+    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
     if (paroleChiusura.includes(cleanQuery)) {
         inAttesaSceltaOrganigramma = false;
         inAttesaSceltaResponsabile = false;
@@ -231,17 +240,16 @@ function processUserQuery(query) {
         inAttesaSceltaTipoLaboratorio = false;
         inAttesaSedeLaboratorioInformatica = false;
         inAttesaSceltaParolaAmbiguita = false;
-        rispondiBot("🤖 Perfetto! Se hai bisogno di altro o di altre informazioni sui servizi dell'IIS \"Arturo Checchi\", sono qui!");
+        rispondiBot("🤖 Perfetto! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
         return;
     }
 
     // =========================================================================
-    // 0.1 GESTIONE STATO ATTIVO: SCELTA SU PAROLA AMBIGUA (es. "team")
+    // 0.2 GESTIONE STATO ATTIVO: SCELTA SU PAROLA AMBIGUA (es. "team")
     // =========================================================================
     if (inAttesaSceltaParolaAmbiguita) {
         let parola = ultimaParolaDigitata;
         
-        // Se l'utente risponde con "team digitale" o simili durante lo stato attivo, gestiamolo direttamente
         if (cleanQuery.includes("digitale") || cleanQuery.includes("specifico") || cleanQuery.includes("organigramma") || cleanQuery.includes("servizio") || cleanQuery.includes("ruolo") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile")) {
             inAttesaSceltaParolaAmbiguita = false;
             ultimaParolaDigitata = "";
@@ -258,14 +266,13 @@ function processUserQuery(query) {
                 return;
             }
         } else {
-            // Se l'utente digita altro, processiamo la query normalmente
             processUserQuery(query);
             return;
         }
     }
 
     // =========================================================================
-    // 1. VERIFICA PRIORITARIA FAQ GLOBALI (Intercetta anche "team digitale" se presente nelle FAQ o simili)
+    // 1. VERIFICA PRIORITARIA FAQ GLOBALI
     // =========================================================================
     let matchedGlobalFaq = null;
     let highestGlobalScore = 0;
@@ -295,7 +302,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // Gestione diretta per "team digitale" o query composte con team
     if (cleanQuery.includes("team digitale") || cleanQuery.includes("animatore")) {
         rispondiBot(`💻 Per quanto riguarda i **servizi digitali, le piattaforme e la didattica online (Microsoft Teams)** dell'IIS "Arturo Checchi", puoi fare riferimento ai servizi M365 gestiti dall'amministrazione e dai tecnici informatici.\n\n*(Cos'altro vuoi chiedermi?)*`);
         return;
@@ -311,7 +317,7 @@ function processUserQuery(query) {
             rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
-            rispondiBot("🤖 Va bene così! Se hai bisogno di altre informazioni sui servizi o sull'organigramma dell'IIS \"Arturo Checchi\", chiedi pure!");
+            rispondiBot("🤖 Va bene così! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
             return;
         }
     }
