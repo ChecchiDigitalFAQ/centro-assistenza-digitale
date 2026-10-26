@@ -259,7 +259,7 @@ let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
 let inAttesaDisambiguazione = false; 
 let opzioniDisambiguazione = [];     
-let argomentoInAttesa = null;        // Memorizza l'argomento principale (es. "INVALSI") quando si attende "responsabili" o "definizione"
+let argomentoInAttesa = null;        
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -335,40 +335,56 @@ function processUserQuery(query) {
         faqCandidata = null;
     }
 
-    // GESTIONE INTELLIGENTE DEL CONTESTO IN ATTESA DI DISAMBIGUAZIONE O SCELTA
-    if (inAttesaDisambiguazione) {
-        // Caso A: L'utente stava scegliendo tra più sezioni (es. elenco numerato)
-        if (opzioniDisambiguazione.length > 0) {
-            let scelte = opzioniDisambiguazione;
-            opzioniDisambiguazione = [];
-            inAttesaDisambiguazione = false;
+    // GESTIONE ROBUSTA DELLA DISAMBIGUAZIONE (Se l'utente sceglie un'opzione dall'elenco multiplo)
+    if (inAttesaDisambiguazione && opzioniDisambiguazione.length > 0) {
+        let scelte = opzioniDisambiguazione;
+        
+        // Verifica se l'utente ha digitato un numero valido (es. "3") o parte del nome dell'opzione (es. "team digitale")
+        let sceltaTrovata = null;
+        
+        // Controllo per numero
+        let numeroScelto = parseInt(cleanQuery);
+        if (!isNaN(numeroScelto) && numeroScelto >= 1 && numeroScelto <= scelte.length) {
+            sceltaTrovata = scelte[numeroScelto - 1];
+        } else {
+            // Controllo per corrispondenza di testo (es. contiene parole chiave dell'id o dell'etichetta)
+            sceltaTrovata = scelte.find(opt => {
+                let idNorm = opt.id.toLowerCase().replace(/_/g, " ");
+                return cleanQuery.includes(idNorm) || idNorm.includes(cleanQuery);
+            });
+        }
 
-            let sceltaTrovata = scelte.find(opt => cleanQuery.includes(opt.id.toLowerCase()) || cleanQuery.includes(opt.label.toLowerCase()) || cleanQuery === String(scelte.indexOf(opt) + 1));
-            
-            if (sceltaTrovata) {
-                ultimaCategoriaTrattata = sceltaTrovata.id;
-                rispondiBot(sceltaTrovata.responses[0]);
+        if (sceltaTrovata) {
+            inAttesaDisambiguazione = false;
+            opzioniDisambiguazione = [];
+            argomentoInAttesa = null;
+            ultimaCategoriaTrattata = sceltaTrovata.id;
+            rispondiBot(sceltaTrovata.responses[0]);
+            return;
+        } else {
+            // Se l'utente scrive qualcos'altro, resetta la disambiguazione e procedi con la normale ricerca
+            inAttesaDisambiguazione = false;
+            opzioniDisambiguazione = [];
+        }
+    }
+
+    // GESTIONE DEL SECONDO LIVELLO (es. utente ha scritto "invalsi" e ora risponde "responsabili")
+    if (inAttesaDisambiguazione && argomentoInAttesa) {
+        let argomento = argomentoInAttesa;
+        argomentoInAttesa = null;
+        inAttesaDisambiguazione = false;
+
+        if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
+            let faqResp = appConfig.faqs.find(f => f.id === argomento + "_RESPONSABILI" || (f.id.includes(argomento) && f.id.includes("RESPONSABILI")));
+            if (faqResp) {
+                rispondiBot(faqResp.responses[0]);
                 return;
             }
-        } 
-        // Caso B: L'utente aveva inserito una parola singola (es. "invalsi") e ora risponde "responsabili" o "definizione"
-        else if (argomentoInAttesa) {
-            let argomento = argomentoInAttesa;
-            argomentoInAttesa = null;
-            inAttesaDisambiguazione = false;
-
-            if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
-                let faqResp = appConfig.faqs.find(f => f.id === argomento + "_RESPONSABILI" || (f.id.includes(argomento) && f.id.includes("RESPONSABILI")));
-                if (faqResp) {
-                    rispondiBot(faqResp.responses[0]);
-                    return;
-                }
-            } else if (cleanQuery.includes("definizion") || cleanQuery.includes("cos") || cleanQuery.includes("significat")) {
-                let faqBase = appConfig.faqs.find(f => f.id === argomento);
-                if (faqBase) {
-                    rispondiBot(faqBase.responses[0]);
-                    return;
-                }
+        } else if (cleanQuery.includes("definizion") || cleanQuery.includes("cos") || cleanQuery.includes("significat")) {
+            let faqBase = appConfig.faqs.find(f => f.id === argomento);
+            if (faqBase) {
+                rispondiBot(faqBase.responses[0]);
+                return;
             }
         }
     }
@@ -483,7 +499,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il meu sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
@@ -539,7 +555,6 @@ function processUserQuery(query) {
         rispondiBot(`🔍 Ho trovato diverse sezioni relative a **"${query}"** nel database dell'istituto. A quale ti riferisci?\n\n${elencoOpzioni}\n\n*(Digita il numero o il nome della sezione che ti interessa!)*`);
         return;
     } else if (matchingFaqs.length === 1 && !cleanQuery.includes(" ")) {
-        // Se c'è una sola corrispondenza ma è una parola singola, attiva la richiesta di disambiguazione e memorizza l'argomento
         let matchingFaq = matchingFaqs[0];
         inAttesaDisambiguazione = true;
         argomentoInAttesa = matchingFaq.id;
