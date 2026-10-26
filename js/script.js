@@ -74,9 +74,14 @@ let appConfig = {
             "responses": ["👥 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco dei **Docenti Tutor**[cite: 14]:\n1. Nazzi[cite: 14]\n2. Guarino[cite: 14]\n3. Vaccaro[cite: 14]\n4. Tortorella[cite: 14]\n5. Desideri[cite: 14]\n6. Senese[cite: 14]\n7. Scardaccione[cite: 14]\n8. Tamberi[cite: 14]\n9. Cerbioni[cite: 14]\n10. Menale[cite: 14]\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
+            "id": "SICUREZZA",
+            "keywords": ["sicurezza", "figure sicurezza", "aspp", "rls", "prevenzione e protezione", "responsabile sicurezza"],
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], le **Figure di Sicurezza** dell'istituto sono:\n- **ASPP:** Palmieri[cite: 16]\n- **RLS:** Diazzi[cite: 16]\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "RESPONSABILI_LABORATORI_COMPLETO",
             "keywords": ["responsabili laboratori", "elenco laboratori", "lista laboratori", "tutti i laboratori", "responsabile laboratori", "laboratori e aree speciali"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza[cite: 13]\n- Modellistica 2: Desideri[cite: 13]\n- Informatica: Galleni[cite: 13]\n- LIM/Calzaturiero: Vaiani[cite: 13]\n\n**Sede Checchi:**\n- Palestra nuova: Schiera[cite: 13]\n- Palazzetto: Angelini[cite: 13]\n- Fisica/Scienze: Pennacchio[cite: 13]\n- Informatico 1 e 2: Turini[cite: 13]\n\n**Sede Gramsci:**\n- Meccanica: Picciolo[cite: 13]\n- Impiantielettrici: Cerrato[cite: 13]\n- MisureElettr.: Miatto[cite: 13]\n- Elettropneumatica: Miatto[cite: 13]\n- Autocad: Diazzi[cite: 13]\n- Linguistico/Green: D'Avico[cite: 13]\n- Palestra: Grassini[cite: 13]\n- Aula Green: Canneri[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_PLESSI_GENERALI",
@@ -218,7 +223,6 @@ function processUserQuery(query) {
     appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
 
     appConfig.faqs.forEach(faq => {
-        faq.keywords.keywords?.forEach ? null : null;
         faq.keywords.forEach(kw => {
             let score = calcolaSomiglianzaStringa(cleanQuery, kw);
             if (score > highestGlobalScore) {
@@ -228,7 +232,6 @@ function processUserQuery(query) {
         });
     });
 
-    // Se l'utente digita un comando chiaro o un saluto (soglia alta), azzeriamo gli stati e rispondiamo subito
     if (highestGlobalScore >= 0.85 && matchedGlobalFaq) {
         inAttesaSceltaResponsabile = false;
         inAttesaSceltaTipoPlesso = false;
@@ -277,7 +280,7 @@ function processUserQuery(query) {
     if (inAttesaSceltaTipoLaboratorio) {
         inAttesaSceltaTipoLaboratorio = false;
         if (cleanQuery.includes("tutti") || cleanQuery.includes("completa") || cleanQuery.includes("lista") || cleanQuery.includes("tutto")) {
-            rispondiBot("🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza[cite: 13]\n- Modellistica 2: Desideri[cite: 13]\n- Informatica: Galleni[cite: 13]\n- LIM/Calzaturiero: Vaiani[cite: 13]\n\n**Sede Checchi:**\n- Palestra nuova: Schiera[cite: 13]\n- Palazzetto: Angelini[cite: 13]\n- Fisica/Scienze: Pennacchio[cite: 13]\n- Informatico 1 e 2: Turini[cite: 13]\n\n**Sede Gramsci:**\n- Meccanica: Picciolo[cite: 13]\n- Impiantielettrici: Cerrato[cite: 13]\n- MisureElettr.: Miatto[cite: 13]\n- Elettropneumatica: Miatto[cite: 13]\n- Autocad: Diazzi[cite: 13]\n- Linguistico/Green: D'Avico[cite: 13]\n- Palestra: Grassini[cite: 13]\n- Aula Green: Canneri[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         }
     }
@@ -285,10 +288,10 @@ function processUserQuery(query) {
     if (inAttesaSedeLaboratorioInformatica) {
         inAttesaSedeLaboratorioInformatica = false;
         if (cleanQuery.includes("veneto") || cleanQuery.includes("moda") || cleanQuery.includes("piazza")) {
-            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo")) {
-            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         }
     }
@@ -303,69 +306,69 @@ function processUserQuery(query) {
     // INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
     // =========================================================================
     if (cleanQuery.includes("modellistica 1")) {
-        rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("modellistica 2")) {
-        rispondiBot("🧵 Per il **Laboratorio di Modellistica 2** (Sede V. Veneto), il responsabile è: **Desideri**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🧵 Per il **Laboratorio di Modellistica 2** (Sede V. Veneto), il responsabile è: **Desideri**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("lim") || cleanQuery.includes("calzaturiero")) {
-        rispondiBot("👞 Per il laboratorio **LIM/Calzaturiero** (Sede V. Veneto), il responsabile è: **Vaiani**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("👞 Per il laboratorio **LIM/Calzaturiero** (Sede V. Veneto), il responsabile è: **Vaiani**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("palestra nuova")) {
-        rispondiBot("🏀 Per la **Palestra Nuova** (Sede Checchi), il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🏀 Per la **Palestra Nuova** (Sede Checchi), il responsabile è: **Schiera**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("palazzetto")) {
-        rispondiBot("🏟️ Per il **Palazzetto** (Sede Checchi), il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🏟️ Per il **Palazzetto** (Sede Checchi), il responsabile è: **Angelini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("fisica") || cleanQuery.includes("scienze")) {
-        rispondiBot("🔬 Per il **Laboratorio di Fisica/Scienze** (Sede Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🔬 Per il **Laboratorio di Fisica/Scienze** (Sede Checchi), il responsabile è: **Pennacchio**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("meccanica")) {
-        rispondiBot("⚙️ Per il **Laboratorio di Meccanica** (Sede Gramsci), il responsabile è: **Picciolo**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("⚙️ Per il **Laboratorio di Meccanica** (Sede Gramsci), il responsabile è: **Picciolo**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("impiantielettrici") || cleanQuery.includes("impianti elettrici")) {
-        rispondiBot("⚡ Per il **Laboratorio di Impiantielettrici** (Sede Gramsci), il responsabile è: **Cerrato**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("⚡ Per il **Laboratorio di Impiantielettrici** (Sede Gramsci), il responsabile è: **Cerrato**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("misureelettr") || cleanQuery.includes("misure elettriche")) {
-        rispondiBot("📊 Per il laboratorio **MisureElettr.** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("📊 Per il laboratorio **MisureElettr.** (Sede Gramsci), il responsabile è: **Miatto**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("elettropneumatica")) {
-        rispondiBot("🔌 Per il **Laboratorio di Elettropneumatica** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🔌 Per il **Laboratorio di Elettropneumatica** (Sede Gramsci), il responsabile è: **Miatto**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("autocad")) {
-        rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("linguistico") || (cleanQuery.includes("green") && cleanQuery.includes("gramsci"))) {
-        rispondiBot("🌐 Per il **Laboratorio Linguistico/Green** (Sede Gramsci), il responsabile è: **D'Avico**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🌐 Per il **Laboratorio Linguistico/Green** (Sede Gramsci), il responsabile è: **D'Avico**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("palestra") && cleanQuery.includes("gramsci")) {
-        rispondiBot("🏀 Per la **Palestra** (Sede Gramsci), il responsabile è: **Grassini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🏀 Per la **Palestra** (Sede Gramsci), il responsabile è: **Grassini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("aula green")) {
-        rispondiBot("🌱 Per l'**Aula Green** (Sede Gramsci), il responsabile è: **Canneri**.\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🌱 Per l'**Aula Green** (Sede Gramsci), il responsabile è: **Canneri**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
     // Gestione specifica per "Informatica" (presente in più sedi)
     if (cleanQuery.includes("informatica") || cleanQuery.includes("informatico")) {
         if (cleanQuery.includes("v. veneto") || cleanQuery.includes("veneto") || cleanQuery.includes("moda")) {
-            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo") || cleanQuery.includes("informatico 1") || cleanQuery.includes("informatico 2")) {
-            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
             inAttesaSedeLaboratorioInformatica = true;
