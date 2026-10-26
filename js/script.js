@@ -53,56 +53,61 @@ let appConfig = {
     },
 
     faqs: [
-        // ORGANIGRAMMA A.S. 2026-2027 (FAQ Specifiche per primo per priorità assoluta)
+        // ORGANIGRAMMA A.S. 2026-2027 (FAQ Specifiche in cima per priorità assoluta)
+        {
+            "id": "TEAM_MOBILITA_INTERNAZIONALE",
+            "keywords": ["mobilità internazionale", "mobilita internazionale", "mobilità", "mobilita", "estero", "progetti internazionali", "team mobilità", "team mobilita"],
+            "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci[cite: 2]\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti[cite: 2]"]
+        },
         {
             "id": "RESPONSABILE_SEDE_CENTRALE",
             "keywords": ["sede centrale", "viale gramsci", "responsabile sede centrale", "responsabile centrale"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**."]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**[cite: 3, 5]."]
         },
         {
             "id": "RESPONSABILE_LICEO",
             "keywords": ["liceo", "via padre checchi", "responsabile liceo", "responsabili liceo"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**."]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**[cite: 3, 5]."]
         },
         {
             "id": "RESPONSABILE_MODA",
             "keywords": ["moda", "calzaturiero", "piazza vittorio veneto", "plesso moda", "responsabile moda"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**."]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**[cite: 3, 5]."]
         },
         {
             "id": "ORGANIGRAMMA_PASSATO",
             "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
-            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!"]
+            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26)[cite: 3]. Non ho archivi storici relativi agli anni precedenti!"]
         },
         {
             "id": "RESPONSABILI_PLESSI_GENERALI",
             "keywords": ["responsabili di plesso", "responsabile di plesso", "plessi", "sedi", "sede"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri"]
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli[cite: 3, 5]\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu[cite: 3, 5]\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri[cite: 3, 5]"]
         },
         {
             "id": "FUNZIONI_STRUMENTALI",
             "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai[cite: 5]\n- **PTOF:** Freschi e Tamberi[cite: 5]\n- **Orientamento in entrata:** Tafi[cite: 5]\n- **FLS:** Gennai e Palmieri[cite: 5]"]
         },
         {
             "id": "TEAM_DIGITALE",
             "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici", "digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino"]
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato[cite: 5]\n- **Team:** Frediani, Bolzan e Turini[cite: 5]\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino[cite: 5]"]
         },
         {
             "id": "REFERENTI_SPECIALI",
             "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta", "invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi[cite: 7]\n- **DSA / BES:** Canu[cite: 7]\n- **Studente-Atleta:** Angelini[cite: 7]\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
         },
         {
             "id": "SICUREZZA",
             "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri[cite: 8]\n- **RLS:** Diazzi[cite: 8]"]
         },
         {
             "id": "RESPONSABILI_LABORATORI",
             "keywords": ["laboratorio", "laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini"]
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni[cite: 8]\n- **Informatico 1 e 2 (Checchi):** Turini[cite: 8]\n- **Fisica/Scienze (Checchi):** Pennacchio[cite: 8]\n- **Palestra nuova:** Schiera[cite: 8]\n- **Palazzetto:** Angelini[cite: 8]"]
         },
 
         // CURIOSITÀ E BIZZARRIE
@@ -450,7 +455,7 @@ function processUserQuery(query) {
     // SCORRIMENTO ORDINATO: Controlla prima le FAQ specifiche in cima all'array
     let directMatchFaq = null;
     appConfig.faqs.forEach(faq => {
-        if (directMatchFaq) return; // Se ha già trovato un match mirato, blocca la ricerca
+        if (directMatchFaq) return;
         faq.keywords.forEach(kw => {
             if (cleanQuery.includes(kw) && kw.length > 2) {
                 directMatchFaq = faq;
@@ -483,7 +488,7 @@ function processUserQuery(query) {
     if (highestScore >= 0.30 && probableFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = probableFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${probableFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${probableFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ هذا quello che intendevi? Rispondi con **Sì** o **No**!`);
         return;
     }
 
