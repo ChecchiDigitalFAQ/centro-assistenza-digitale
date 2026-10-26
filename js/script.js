@@ -178,7 +178,7 @@ let appConfig = {
         {
             "id": "TI_ODIO",
             "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
-            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
+            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci nodalmente sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
         },
         {
             "id": "TI_AMO",
@@ -338,25 +338,53 @@ function processUserQuery(query) {
     // 1. GESTIONE DELLA SCELTA DEL TEAM (Se l'utente ha digitato solo "team")
     // =========================================================================
     if (inAttesaSceltaTeam) {
-        inAttesaSceltaTeam = false;
         
+        // Se l'utente specifica la definizione
         if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
+            inAttesaSceltaTeam = false;
             rispondiBot(appConfig.dictionary["team"] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
             return;
-        } else if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
+        } 
+        
+        // Se l'utente specifica la richiesta dei responsabili
+        if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi")) {
+            // Controlla se specifica quale team nei dettagli
+            if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
+                inAttesaSceltaTeam = false;
+                let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
+                rispondiBot(faqResp.responses[0]);
+                return;
+            } else if (cleanQuery.includes("digitale") || cleanQuery.includes("animatore") || cleanQuery.includes("tecnici")) {
+                inAttesaSceltaTeam = false;
+                let faqResp = appConfig.faqs.find(f => f.id === "TEAM_DIGITALE_RESPONSABILI");
+                rispondiBot(faqResp.responses[0]);
+                return;
+            } else if (cleanQuery.includes("accoglienza")) {
+                inAttesaSceltaTeam = false;
+                let faqResp = appConfig.faqs.find(f => f.id === "ACCOGLIENZA_RESPONSABILI");
+                rispondiBot(faqResp.responses[0]);
+                return;
+            } else {
+                rispondiBot("👥 All'interno dell'istituto abbiamo il **Team Digitale**, il **Team Mobilità Internazionale** e il servizio **Accoglienza**. A quale di questi si riferisce?");
+                return;
+            }
+        }
+
+        // Se l'utente scrive direttamente il nome del team (es. "team digitale")
+        if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
+            inAttesaSceltaTeam = false;
             let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
             rispondiBot(faqResp.responses[0]);
             return;
         } else if (cleanQuery.includes("digitale") || cleanQuery.includes("animatore") || cleanQuery.includes("tecnici")) {
+            inAttesaSceltaTeam = false;
             let faqResp = appConfig.faqs.find(f => f.id === "TEAM_DIGITALE_RESPONSABILI");
             rispondiBot(faqResp.responses[0]);
             return;
         } else if (cleanQuery.includes("accoglienza")) {
+            inAttesaSceltaTeam = false;
             let faqResp = appConfig.faqs.find(f => f.id === "ACCOGLIENZA_RESPONSABILI");
             rispondiBot(faqResp.responses[0]);
-            return;
-        } else {
-            rispondiBot("🤖 Nel nostro istituto sono presenti diversi team (Mobilità Internazionale, Team Digitale, Accoglienza). Per favore, specifichi a quale team si riferisce o se desidera la definizione generale?");
             return;
         }
     }
@@ -380,7 +408,7 @@ function processUserQuery(query) {
                 rispondiBot(appConfig.dictionary[argomento] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
                 return;
             }
-        } else if (cleanQuery.includes("responsabili") || cleanQuery.includes("referenti") || cleanQuery.includes("chi")) {
+        } else if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi")) {
             let idFaqCercato = argomento.toUpperCase() + "_RESPONSABILI";
             if (argomento === "mobilita") idFaqCercato = "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI";
             if (argomento === "digitale") idFaqCercato = "TEAM_DIGITALE_RESPONSABILI";
