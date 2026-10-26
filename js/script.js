@@ -206,7 +206,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestione delle parole ambigue con richiesta di chiarimento prima di procedere.
+ * Gestione avanzata e robusta delle parole chiave, degli stati e delle ambiguità.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -239,8 +239,17 @@ function processUserQuery(query) {
     // 0.1 GESTIONE STATO ATTIVO: SCELTA SU PAROLA AMBIGUA (es. "team")
     // =========================================================================
     if (inAttesaSceltaParolaAmbiguita) {
-        inAttesaSceltaParolaAmbiguita = false;
         let parola = ultimaParolaDigitata;
+        
+        // Se l'utente risponde con "team digitale" o simili durante lo stato attivo, gestiamolo direttamente
+        if (cleanQuery.includes("digitale") || cleanQuery.includes("specifico") || cleanQuery.includes("organigramma") || cleanQuery.includes("servizio") || cleanQuery.includes("ruolo") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile")) {
+            inAttesaSceltaParolaAmbiguita = false;
+            ultimaParolaDigitata = "";
+            rispondiBot(`💻 Per quanto riguarda il **servizio digitale e le piattaforme di collaborazione (Microsoft Teams)** all'IIS "Arturo Checchi", la piattaforma è integrata nel tenant M365 d'istituto per la didattica digitale integrata.\n\n*(Cos'altro vuoi chiedermi?)*`);
+            return;
+        }
+
+        inAttesaSceltaParolaAmbiguita = false;
         ultimaParolaDigitata = "";
 
         if (cleanQuery.includes("definizione") || cleanQuery.includes("significato") || cleanQuery.includes("cos'e") || cleanQuery.includes("definire") || cleanQuery.includes("spiegare")) {
@@ -248,18 +257,15 @@ function processUserQuery(query) {
                 rispondiBot(appConfig.dictionary[parola] + "\n\n*(Cos'altro vuoi chiedermi?)*");
                 return;
             }
-        } else if (cleanQuery.includes("specifico") || cleanQuery.includes("organigramma") || cleanQuery.includes("scuola") || cleanQuery.includes("servizio") || cleanQuery.includes("ruolo") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile")) {
-            rispondiBot(`🤖 Va bene! Per quanto riguarda "${parola}", puoi chiedermi ad esempio i dettagli sui ruoli, sui servizi digitali o sui referenti scolastici associati.`);
-            return;
         } else {
-            // Se l'utente risponde con qualcos'altro, proviamo a elaborarla normalmente
+            // Se l'utente digita altro, processiamo la query normalmente
             processUserQuery(query);
             return;
         }
     }
 
     // =========================================================================
-    // 1. VERIFICA PRIORITARIA FAQ GLOBALI
+    // 1. VERIFICA PRIORITARIA FAQ GLOBALI (Intercetta anche "team digitale" se presente nelle FAQ o simili)
     // =========================================================================
     let matchedGlobalFaq = null;
     let highestGlobalScore = 0;
@@ -286,6 +292,12 @@ function processUserQuery(query) {
         ultimaCategoriaTrattata = matchedGlobalFaq.id;
         let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
         rispondiBot(resp);
+        return;
+    }
+
+    // Gestione diretta per "team digitale" o query composte con team
+    if (cleanQuery.includes("team digitale") || cleanQuery.includes("animatore")) {
+        rispondiBot(`💻 Per quanto riguarda i **servizi digitali, le piattaforme e la didattica online (Microsoft Teams)** dell'IIS "Arturo Checchi", puoi fare riferimento ai servizi M365 gestiti dall'amministrazione e dai tecnici informatici.\n\n*(Cos'altro vuoi chiedermi?)*`);
         return;
     }
 
@@ -316,7 +328,6 @@ function processUserQuery(query) {
     // =========================================================================
     // 4. INTERCETTAZIONE PAROLE ISOLATE / AMBIGUE (es. "team")
     // =========================================================================
-    // Se l'utente digita esattamente una parola presente nel dizionario (es. "team")
     if (appConfig.dictionary[cleanQuery]) {
         inAttesaSceltaParolaAmbiguita = true;
         ultimaParolaDigitata = cleanQuery;
@@ -410,7 +421,7 @@ function processUserQuery(query) {
     const paroleResponsabiliGenerico = ["responsabile", "responsabili"];
     if (paroleResponsabiliGenerico.includes(cleanQuery)) {
         inAttesaSceltaResponsabile = true;
-        rispondiBot("🤖 A quaispecifichi responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
+        rispondiBot("🤖 A quali responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
         return;
     }
 
