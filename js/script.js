@@ -89,6 +89,43 @@ let appConfig = {
             "responses": ["👥 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco dei **Docenti Tutor**:\n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
+            "id": "RESPONSABILI_LABORATORI",
+            "keywords": [
+                "responsabili laboratori", 
+                "elenco laboratori", 
+                "lista laboratori", 
+                "tutti i laboratori", 
+                "responsabile laboratori",
+                "laboratori e aree speciali"
+            ],
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica / Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "LAB_INFORMATICA_VENETO",
+            "keywords": ["laboratorio informatica v. veneto", "informatica piazza vittorio veneto", "responsabile informatica v. veneto", "responsabile informatica piazza vittorio veneto"],
+            "responses": ["💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - Piazza Vittorio Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "LAB_INFORMATICO_CHECCHI",
+            "keywords": ["laboratorio informatico 1 e 2", "informatico checchi", "responsabile informatico checchi", "laboratorio informatica checchi"],
+            "responses": ["💻 Per i **Laboratori Informatici 1 e 2** (Sede Centrale - Via Padre Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "LAB_FISICA_SCIENZE",
+            "keywords": ["laboratorio fisica", "laboratorio scienze", "fisica e scienze checchi", "responsabile fisica", "responsabile scienze"],
+            "responses": ["🔬 Per il **Laboratorio di Fisica / Scienze** (Sede Centrale - Via Padre Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "PALESTRA_NUOVA",
+            "keywords": ["palestra nuova", "responsabile palestra nuova"],
+            "responses": ["🏀 Per la **Palestra Nuova**, il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "PALAZZETTO",
+            "keywords": ["palazzetto", "responsabile palazzetto"],
+            "responses": ["🏟️ Per il **Palazzetto**, il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "COMMISSIONI_GENERALI",
             "keywords": ["elenco commissioni", "tutte le commissioni"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche:\n- **Elettorale:** Galleni, Senese, Carli, Freschi\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n- **Competizioni Scientifiche:** Tafi, Tamberi\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n- **Orario:** Donato, Frisone / Menale (ADSS)\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli\n\n*(Cos'altro vuoi chiedermi?)*"]
@@ -197,11 +234,6 @@ let appConfig = {
             "id": "SICUREZZA",
             "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
             "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "RESPONSABILI_LABORATORI",
-            "keywords": ["laboratorio", "laboratori", "responsabili laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto", "fisica", "scienze"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica / Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
 
         // CURIOSITÀ E BIZZARRIE
@@ -397,17 +429,23 @@ function processUserQuery(query) {
 
     // =========================================================================
     // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
-    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", ecc.) attivino logiche errate.
+    // Gestione della parola generica "responsabile" / "responsabili"
     // =========================================================================
-    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "laboratorio", "laboratori", "chi"];
+    const paroleContestoMancante = ["referente", "referenti", "commissione", "commissioni", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
-        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto, laboratorio o ruolo ti riferisci (es. *comitato di valutazione*, *laboratorio di informatica*), così posso darti l'informazione corretta dall'organigramma!");
+        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto o ruolo ti riferisci (es. *comitato di valutazione*, *laboratorio di informatica*), così posso darti l'informazione corretta dall'organigramma!");
+        return;
+    }
+
+    // Se l'utente digita solo "responsabile" o "responsabili", Arturo chiede a quale tipo si riferisce
+    const paroleResponsabiliGenerico = ["responsabile", "responsabili"];
+    if (paroleResponsabiliGenerico.includes(cleanQuery)) {
+        rispondiBot("🤖 A quali responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
         return;
     }
 
     // =========================================================================
     // PILASTRO 2: GESTIONE NATIVA DELLA CONTINUAZIONE CONVERSAZIONALE
-    // Intercetta in modo pulito l'intento di proseguire dopo il suggerimento del bot.
     // =========================================================================
     const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
     if (intentiContinuazione.includes(cleanQuery)) {
