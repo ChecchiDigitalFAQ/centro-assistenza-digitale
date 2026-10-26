@@ -28,7 +28,7 @@ let appConfig = {
         "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda, ma sto imparando in fretta e a breve integrerò questa richiesta nel mio database! Per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o al mio ruolo.",
         "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al più presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
         "🔮 Non ho ancora una risposta precisa per questa richiesta, ma la annoto subito per integrarla a breve! Prova a chiedermi qualcosa inerente alla scuola, alla modulistica o all'organigramma dell'istituto.",
-        "🚀 Su這個 argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
+        "🚀 Su questo argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
     ],
 
     dictionary: {
@@ -56,7 +56,7 @@ let appConfig = {
         // ORGANIGRAMMA A.S. 2026-2027
         {
             "id": "ACCOGLIENZA",
-            "keywords": ["accoglienza", "accogliena", "acoglienza", "accogliza", "team accoglienza", "referente accoglienza", "commissione accoglienza"],
+            "keywords": ["accoglienza", "team accoglienza", "referente accoglienza", "commissione accoglienza"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**."]
         },
         {
@@ -304,7 +304,6 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Reset degli stati di attesa precedenti se l'utente digita direttamente una nuova richiesta (es. cliccando ripetutamente un pulsante o scrivendo un termine)
     if (!inAttesaConfermaFaq && !inAttesaSceltaForm) {
         faqCandidata = null;
     }
@@ -462,45 +461,37 @@ function processUserQuery(query) {
         }
     }
 
-    // MOTORE GLOBALE DI INTERCETTAZIONE INTELLIGENTE A DOPPIO LIVELLO
-    
-    // Livello 1: Cerca corrispondenza parziale o alta similitudine (>= 0.45) su qualsiasi FAQ del database
-    let directMatchFaq = null;
+    // MOTORE GLOBALE POTENZIATO DI INTERCETTAZIONE CON TOLERANCE TIPO LEVENSHTEIN (ERRORI DI BATTITURA)
+    let bestMatchFaq = null;
+    let highestScore = 0;
+
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa; // helper
+
     appConfig.faqs.forEach(faq => {
-        if (directMatchFaq) return;
         faq.keywords.forEach(kw => {
-            if (cleanQuery.includes(kw) || calcolaSomiglianza(cleanQuery, kw) >= 0.45) {
-                directMatchFaq = faq;
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestScore) {
+                highestScore = score;
+                bestMatchFaq = faq;
             }
         });
     });
 
-    if (directMatchFaq) {
-        ultimaCategoriaTrattata = directMatchFaq.id;
+    // Se c'è una corrispondenza esatta o fortissima (>= 0.80), rispondi direttamente
+    if (highestScore >= 0.80 && bestMatchFaq) {
+        ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0;
-        let resp = directMatchFaq.responses[Math.floor(Math.random() * directMatchFaq.responses.length)];
+        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
         rispondiBot(resp);
         return;
     }
 
-    // Livello 2: Fallback probabilistico globale esteso a tutto il database (soglia a 0.22 per catturare typo o formulazioni errate)
-    let highestScore = 0;
-    let probableFaq = null;
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianza(cleanQuery, kw);
-            if (score > highestScore) {
-                highestScore = score;
-                probableFaq = faq;
-            }
-        });
-    });
-
-    if (highestScore >= 0.22 && probableFaq) {
+    // Se c'è un errore di battitura o somiglianza media (tra 0.35 e 0.79), attiva la domanda di guida e conferma all'utente!
+    if (highestScore >= 0.35 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
-        faqCandidata = probableFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${probableFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
+        faqCandidata = bestMatchFaq;
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
         return;
     }
 
@@ -519,18 +510,46 @@ function processUserQuery(query) {
     rispondiBot(fraseCasuale);
 }
 
-function calcolaSomiglianza(s1, s2) {
-    let parole1 = s1.split(" ");
-    let parole2 = s2.split(" ");
-    let matchCount = 0;
-    parole1.forEach(p1 => {
-        parole2.forEach(p2 => {
-            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
-                matchCount++;
+// Algoritmo di similitudine globale avanzato basato su caratteri e sottostringhe per gestire qualsiasi typo
+function calcolaSomiglianzaStringa(s1, s2) {
+    if (s1 === s2) return 1.0;
+    if (s1.includes(s2) || s2.includes(s1)) return 0.85;
+    
+    let longer = s1;
+    let shorter = s2;
+    if (s1.length < s2.length) {
+        longer = s2;
+        shorter = s1;
+    }
+    let longerLength = longer.length;
+    if (longerLength === 0) {
+        return 1.0;
+    }
+    
+    // Controllo edit distance semplificato (Levenshtein)
+    let costs = new Array();
+    for (let i = 0; i <= s1.length; i++) {
+        let lastValue = i;
+        for (let j = 0; j <= s2.length; j++) {
+            if (i === 0) {
+                costs[j] = j;
+            } else {
+                if (j > 0) {
+                    let newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
+                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                    }
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
             }
-        });
-    });
-    return matchCount / Math.max(parole1.length, parole2.length);
+        }
+        if (i > 0) {
+            costs[s2.length] = lastValue;
+        }
+    }
+    let editDistance = costs[s2.length];
+    return (longerLength - editDistance) / longerLength;
 }
 
 function rispondiBot(testo) {
@@ -585,6 +604,7 @@ function resetChat() {
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
+        <puntamento></puntamento>
         <div class="message bot-message">
             <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
             <div class="message-content">
