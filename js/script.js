@@ -66,22 +66,22 @@ let appConfig = {
         {
             "id": "COMMISSIONI_GENERALI",
             "keywords": ["elenco commissioni", "tutte le commissioni"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche[cite: 13]:\n- **Elettorale:** Galleni, Senese, Carli, Freschi[cite: 13]\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)[cite: 13]\n- **Competizioni Scientifiche:** Tafi, Tamberi[cite: 13]\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini[cite: 13]\n- **Orario:** Donato, Frisone / Menale (ADSS)[cite: 13]\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche:\n- **Elettorale:** Galleni, Senese, Carli, Freschi\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n- **Competizioni Scientifiche:** Tafi, Tamberi\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n- **Orario:** Donato, Frisone / Menale (ADSS)\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONE_ORARIO",
             "keywords": ["commissione orario", "orario lezioni", "orario scolastico"],
-            "responses": ["⏱️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Orario** è composta da[cite: 13]:\n- Donato, Frisone / Menale (ADSS)[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["⏱️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Orario** è composta da:\n- Donato, Frisone / Menale (ADSS)\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONE_ELETTORALE",
             "keywords": ["commissione elettorale", "elettorale"],
-            "responses": ["🗳️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Elettorale** è composta da[cite: 13]:\n- Galleni, Senese, Carli, Freschi[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["🗳️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), la **Commissione Elettorale** è composta da:\n- Galleni, Senese, Carli, Freschi\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMITATO_VALUTAZIONE",
             "keywords": ["comitato di valutazione", "valutazione docenti"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Comitato di Valutazione** è composto da[cite: 13]:\n- Vaccaro, Cillerai, Vincenti, Lalli (supplente)[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Comitato di Valutazione** è composto da:\n- Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_BULLISMO_RESPONSABILI",
@@ -91,7 +91,7 @@ let appConfig = {
         {
             "id": "REFERENTI_AREA_DIDATTICA",
             "keywords": ["referenti didattica", "referenti progetti", "alunni stranieri", "dsa", "bes", "studente atleta", "ed civica", "scienze motorie", "formazione", "referenti area didattica"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Referenti di Area Didattica e Progetti**[cite: 13]:\n- **Referente Alunni Stranieri:** Nazzi[cite: 13]\n- **Referente DSA / BES:** Canu[cite: 13]\n- **Referente Studente-Atleta:** Angelini[cite: 13]\n- **Ed. Civica:** Donati - Orsini[cite: 13]\n- **Referente Scienze Motorie:** Lotti[cite: 13]\n- **Referente Formazione ADSS:** Ferrai - Testa[cite: 13]\n- **Referente Formazione:** Frati[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Referenti di Area Didattica e Progetti**:\n- **Referente Alunni Stranieri:** Nazzi\n- **Referente DSA / BES:** Canu\n- **Referente Studente-Atleta:** Angelini\n- **Ed. Civica:** Donati - Orsini\n- **Referente Scienze Motorie:** Lotti\n- **Referente Formazione ADSS:** Ferrai - Testa\n- **Referente Formazione:** Frati\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "INVALSI_RESPONSABILI",
