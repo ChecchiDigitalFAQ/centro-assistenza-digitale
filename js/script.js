@@ -75,8 +75,8 @@ let appConfig = {
         },
         {
             "id": "SICUREZZA",
-            "keywords": ["sicurezza", "figure sicurezza", "aspp", "rls", "prevenzione e protezione", "responsabile sicurezza"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], le **Figure di Sicurezza** dell'istituto sono:\n- **ASPP:** Palmieri[cite: 16]\n- **RLS:** Diazzi[cite: 16]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "keywords": ["sicurezza", "figure sicurezza", "aspp", "rls", "prevenzione e protezione", "responsabile sicurezza", "chi sono i responsabili", "responsabili"],
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], le **Figure di Sicurezza** e i principali ruoli dell'istituto sono:\n- **ASPP:** Palmieri[cite: 16]\n- **RLS:** Diazzi[cite: 16]\n\nPuoi anche chiedermi specificamente i **responsabili di plesso** o i **responsabili di laboratorio**!\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_LABORATORI_COMPLETO",
@@ -202,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestione unificata di dizionario, stati e parole chiave.
+ * Ordine di priorità corretto: 1. FAQ Globali, 2. Stati attivi, 3. Laboratori, 4. Dizionario, 5. Fallback.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -231,7 +231,37 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 1. GESTIONE PRIORITARIA DELLO STATO ATTIVO: ORGANIGRAMMA
+    // 1. VERIFICA PRIORITARIA FAQ GLOBALI (Per intercettare subito "chi sono i responsabili", ecc.)
+    // =========================================================================
+    let matchedGlobalFaq = null;
+    let highestGlobalScore = 0;
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
+
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestGlobalScore) {
+                highestGlobalScore = score;
+                matchedGlobalFaq = faq;
+            }
+        });
+    });
+
+    if (highestGlobalScore >= 0.82 && matchedGlobalFaq) {
+        inAttesaSceltaOrganigramma = false;
+        inAttesaSceltaResponsabile = false;
+        inAttesaSceltaTipoPlesso = false;
+        inAttesaSceltaTipoLaboratorio = false;
+        inAttesaSedeLaboratorioInformatica = false;
+
+        ultimaCategoriaTrattata = matchedGlobalFaq.id;
+        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
+        rispondiBot(resp);
+        return;
+    }
+
+    // =========================================================================
+    // 2. GESTIONE STATO ATTIVO: ORGANIGRAMMA
     // =========================================================================
     if (inAttesaSceltaOrganigramma) {
         inAttesaSceltaOrganigramma = false;
@@ -245,14 +275,8 @@ function processUserQuery(query) {
         }
     }
 
-    // Reset preventivo degli altri stati attivi se l'utente cambia argomento
-    inAttesaSceltaResponsabile = false;
-    inAttesaSceltaTipoPlesso = false;
-    inAttesaSceltaTipoLaboratorio = false;
-    inAttesaSedeLaboratorioInformatica = false;
-
     // =========================================================================
-    // 2. INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
+    // 3. INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
     // =========================================================================
     if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
         inAttesaSceltaOrganigramma = true;
@@ -261,7 +285,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 3. DIZIONARIO ENCICLOPEDICO (Incluso "team")
+    // 4. DIZIONARIO ENCICLOPEDICO (Incluso "team")
     // =========================================================================
     let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
                                  cleanQuery.includes("cos'e") || 
@@ -281,7 +305,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 4. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
+    // 5. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
     // =========================================================================
     if (cleanQuery.includes("modellistica 1")) {
         rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
@@ -367,30 +391,6 @@ function processUserQuery(query) {
     if (paroleResponsabiliGenerico.includes(cleanQuery)) {
         inAttesaSceltaResponsabile = true;
         rispondiBot("🤖 A quali responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
-        return;
-    }
-
-    // =========================================================================
-    // 5. VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
-    // =========================================================================
-    let matchedGlobalFaq = null;
-    let highestGlobalScore = 0;
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestGlobalScore) {
-                highestGlobalScore = score;
-                matchedGlobalFaq = faq;
-            }
-        });
-    });
-
-    if (highestGlobalScore >= 0.85 && matchedGlobalFaq) {
-        ultimaCategoriaTrattata = matchedGlobalFaq.id;
-        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
-        rispondiBot(resp);
         return;
     }
 
