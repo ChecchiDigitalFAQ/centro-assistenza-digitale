@@ -56,7 +56,7 @@ let appConfig = {
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
         "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
         "invalsi": "📖 **INVALSI:** Istituto Nazionale per la Valutazione del Sistema Educativo di Istruzione e di Formazione, ente che valuta gli apprendimenti degli studenti.",
-        "team": "📖 **Team:** Gruppo di persone che lavorano insieme in modo coordinato per il raggiungimento di un obiettivo comune.",
+        "team": "📖 **Team (Microsoft Teams):** Piattaforma di messaggistica e collaborazione utilizzata all'IIS \"Arturo Checchi\" per la didattica digitale integrata e le riunioni online.",
         "accoglienza": "📖 **Accoglienza:** Servizio e insieme di attività volte a favorire l'inserimento e l'integrazione dei nuovi studenti.",
         "mobilita": "📖 **Mobilità Internazionale:** Insieme di progetti e programmi (es. Erasmus+) per esperienze formative all'estero.",
         "digitale": "📖 **Digitale:** Riferito all'uso di tecnologie informatiche e piattaforme cloud a supporto della didattica."
@@ -202,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Intercettazione immediata di parole di chiusura/annullamento (niente, nulla, grazie, ecc.)
+ * Gestione unificata di dizionario, stati e parole chiave.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -217,7 +217,7 @@ function processUserQuery(query) {
         .trim();
 
     // =========================================================================
-    // 0. INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO (Niente, Nulla, Grazie)
+    // 0. INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO
     // =========================================================================
     const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "ciao"];
     if (paroleChiusura.includes(cleanQuery)) {
@@ -261,7 +261,27 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 3. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
+    // 3. DIZIONARIO ENCICLOPEDICO (Incluso "team")
+    // =========================================================================
+    let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
+                                 cleanQuery.includes("cos'e") || 
+                                 cleanQuery.includes("cosa vuol dire") || 
+                                 cleanQuery.includes("definizione") || 
+                                 cleanQuery.includes("significato") ||
+                                 cleanQuery === "team";
+
+    if (isRichiestaDefinizione) {
+        for (const [term, def] of Object.entries(appConfig.dictionary)) {
+            if (cleanQuery.includes(term)) {
+                ultimaCategoriaTrattata = "DIZIONARIO";
+                rispondiBot(def + "\n\n*(Cos'altro vuoi chiedermi?)*");
+                return;
+            }
+        }
+    }
+
+    // =========================================================================
+    // 4. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
     // =========================================================================
     if (cleanQuery.includes("modellistica 1")) {
         rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
@@ -351,7 +371,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 4. VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
+    // 5. VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
     // =========================================================================
     let matchedGlobalFaq = null;
     let highestGlobalScore = 0;
@@ -375,7 +395,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 5. VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
+    // 6. VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
     // =========================================================================
     const paroleContestoMancante = ["referente", "referenti", "commissione", "commissioni", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
@@ -384,7 +404,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 6. CONTINUAZIONE CONVERSAZIONALE
+    // 7. CONTINUAZIONE CONVERSAZIONALE
     // =========================================================================
     const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
     if (intentiContinuazione.includes(cleanQuery)) {
