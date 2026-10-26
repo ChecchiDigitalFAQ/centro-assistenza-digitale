@@ -64,6 +64,11 @@ let appConfig = {
 
     faqs: [
         {
+            "id": "TEAM_BULLISMO_RESPONSABILI",
+            "keywords": ["team bullismo", "bullismo", "cyberbullismo", "referenti bullismo", "responsabili bullismo"],
+            "responses": ["🛡️ In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Bullismo e Cyberbullismo** è così composto:\n- **Referente:** Stinco\n- **Team:** Menale, Frisone, Cimmelli, Palmieri e Federigi\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "INVALSI_RESPONSABILI",
             "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi", "invalsi"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Cos'altro vuoi chiedermi?)*"]
@@ -130,8 +135,8 @@ let appConfig = {
         },
         {
             "id": "REFERENTI_SPECIALI",
-            "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "keywords": ["stranieri", "dsa", "bes", "studente atleta", "progetti speciali"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "SICUREZZA",
@@ -158,7 +163,7 @@ let appConfig = {
         {
             "id": "CURIOSITA_CIOCCOLATA",
             "keywords": ["cioccolata", "cioccolato", "nutella", "dolce", "merendina", "cibo"],
-            "responses": ["🍫 Altro che cioccolata o Nutella! Il mio \"carburante\" preferito sono i flussi di dati e la fibra ottica che fanno girare i sistemi dell'IIS \"Arturo Checchi\". Scherzi a parte, io sono un assistente virtuale scolastico, quindi niente zuccheri per me! Piuttosto, posso aiutarti a trovare informazioni sui plessi, sui docenti o sui form della scuola. Cè qualcosa di scolastico di cui hai bisogno oggi?"]
+            "responses": ["🍫 Altro che cioccolata o Nutella! Il mio \"carburante\" preferito sono i flussi di dati e la fibra ottica che fanno girare i sistemi dell'IIS \"Arturo Checchi\". Scherzi a parte, io sono un assistente virtuale scolastico, quindi niente zuccheri per me! Piuttosto, posso aiutarti a trovare informazioni sui plessi, sui docenti o sui form della scuola. C'è qualcosa di scolastico di cui hai bisogno oggi?"]
         },
         {
             "id": "CURIOSITA_MIELE",
