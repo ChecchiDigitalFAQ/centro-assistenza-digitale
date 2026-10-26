@@ -56,8 +56,8 @@ let appConfig = {
         // ORGANIGRAMMA A.S. 2026-2027
         {
             "id": "ORGANIGRAMMA_PASSATO",
-            "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi"],
-            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26)[cite: 3]. Non ho archivi storici relativi agli anni precedenti!"]
+            "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
+            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!"]
         },
         {
             "id": "FUNZIONI_STRUMENTALI",
@@ -66,12 +66,12 @@ let appConfig = {
         },
         {
             "id": "RESPONSABILI_PLESSI",
-            "keywords": ["responsabili di plesso", "responsabile di plesso", "liceo", "sede centrale", "moda", "calzaturiero", "viale gramsci", "via padre checchi", "piazza vittorio veneto", "plessi", "sedi", "sede"],
+            "keywords": ["responsabile", "responsabili", "plesso", "plessi", "sedi", "sede", "liceo", "centrale", "moda", "calzaturiero", "gramsci", "checchi", "vittorio veneto"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli[cite: 3, 5]\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu[cite: 3, 5]\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri[cite: 3, 5]"]
         },
         {
             "id": "TEAM_DIGITALE",
-            "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici"],
+            "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici", "digitale"],
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato[cite: 5]\n- **Team:** Frediani, Bolzan e Turini[cite: 5]\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino[cite: 5]"]
         },
         {
@@ -166,7 +166,7 @@ let appConfig = {
         {
             "id": "SALUTO_INIZIALE",
             "keywords": ["salve", "buongiorno", "buonasera", "buon pomeriggio", "hey"],
-            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
+            "responses": ["👋 Ciao! Sono **Arturo**, il tuo assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
         },
         {
             "id": "SALUTO_FINALE",
@@ -279,6 +279,7 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
+    // Gestione della risposta affermativa o negativa quando Arturo chiede conferma
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
@@ -289,7 +290,7 @@ function processUserQuery(query) {
             return;
         } else {
             faqCandidata = null;
-            rispondiBot("🤖 Ah, va bene! Allora ho interpretato male io. Prova a farmi la domanda in un altro modo o chiedimi qualcos'altro sull'IIS \"Arturo Checchi\"!");
+            rispondiBot("🤖 Ah, ho capito! Allora mi sono sbagliato. Prova a riformulare la domanda in modo più preciso, oppure chiedimi qualcos'altro sull'IIS \"Arturo Checchi\"!");
             return;
         }
     }
@@ -432,27 +433,160 @@ function processUserQuery(query) {
         }
     }
 
+    // NUOVA LOGICA DI INTERCETTAZIONE PROBABILISTICA E GUIDATA
     let bestMatchFaq = null;
-    let highestScore = 0;
+    let maxMatches = 0;
 
+    appConfig.faqs.forEach(faq => {
+        let matchCount = 0;
+        faq.keywords.forEach(kw => {
+            // Controlliamo se parti della query dell'utente contengono le keywords della FAQ o viceversa
+            if (cleanQuery.includes(kw) || kw.includes(cleanQuery)) {
+                matchCount++;
+            }
+        });
+        if (matchCount > maxMatches) {
+            maxMatches = matchCount;
+            bestMatchFaq = faq;
+        }
+    });
+
+    // Se troviamo un riscontro diretto forte
+    if (maxMatches >= 1) {
+        ultimaCategoriaTrattata = bestMatchFaq.id;
+        ultimoGiocoProposto = "";
+        contatoreCuriosita = 0;
+        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
+        rispondiBot(resp);
+        return;
+    }
+
+    // Se c'è una probabilità media (es. somiglianza intermedia calcolata), Arturo fa la domanda intelligente di conferma
+    let highestScore = 0;
+    let probableFaq = null;
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
             let score = calcolaSomiglianza(cleanQuery, kw);
             if (score > highestScore) {
                 highestScore = score;
-                bestMatchFaq = faq;
+                probableFaq = faq;
             }
         });
     });
 
-    if (highestScore > 0.65 && bestMatchFaq) {
-        ultimaCategoriaTrattata = bestMatchFaq.id; 
-        ultimoGiocoProposto = "";
-        contatoreCuriosita = 0; 
-        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
-        rispondiBot(resp);
-    } 
-    else if (highestScore >= 0.40 && bestMatchFaq) {
+    if (highestScore >= 0.30 && probableFaq) {
         inAttesaConfermaFaq = true;
-        faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Non ho capito perfettamente la tua richiesta, ma stavi forse chiedendo informazioni relative a **
+        faqCandidata = probableFaq;
+        // Arturo guida l'utente chiedendo conferma in modo intelligente
+        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${probableFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
+        return;
+    }
+
+    // Se proprio non si riesce a intercettare nulla, scatta il paracadute con promessa di integrazione futura
+    ultimaCategoriaTrattata = ""; 
+    ultimoGiocoProposto = "";
+    
+    contatoreCuriosita++;
+    if (contatoreCuriosita > 3) {
+        rispondiBot(`🛑 Senti un po', mi piace fare quattro chiacchiere, ma mi sa che stiamo esagerando con le domande fuori tema! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
+        contatoreCuriosita = 0;
+        return;
+    }
+
+    let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
+    indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
+    rispondiBot(fraseCasuale);
+}
+
+function calcolaSomiglianza(s1, s2) {
+    let parole1 = s1.split(" ");
+    let parole2 = s2.split(" ");
+    let matchCount = 0;
+    parole1.forEach(p1 => {
+        parole2.forEach(p2 => {
+            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
+                matchCount++;
+            }
+        });
+    });
+    return matchCount / Math.max(parole1.length, parole2.length);
+}
+
+function rispondiBot(testo) {
+    appendMessage(testo, "bot");
+}
+
+function quickAction(id) {
+    let found = appConfig.faqs.find(f => f.id === id);
+    if (found) {
+        ultimaCategoriaTrattata = found.id;
+        ultimoGiocoProposto = "";
+        contatoreCuriosita = 0;
+        rispondiBot(found.responses[0]);
+    }
+}
+
+function appendMessage(text, sender) {
+    const chatBox = document.getElementById("chat-messages");
+    if (!chatBox) return;
+    
+    const messageDiv = document.createElement("div");
+    const isBot = (sender === "bot");
+    messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
+
+    const avatarDiv = document.createElement("div");
+    avatarDiv.classList.add("message-avatar");
+    avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-content");
+    bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
+
+    if (isBot) {
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(bubble);
+    } else {
+        messageDiv.appendChild(bubble);
+        messageDiv.appendChild(avatarDiv);
+    }
+
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function resetChat() {
+    inAttesaSceltaForm = false;
+    inAttesaConfermaFaq = false;
+    faqCandidata = null;
+    ultimaCategoriaTrattata = "";
+    ultimoGiocoProposto = "";
+    contatoreCuriosita = 0;
+    const chatBox = document.getElementById("chat-messages");
+    if (!chatBox) return;
+    chatBox.innerHTML = `
+        <div class="message bot-message">
+            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="message-content">
+                👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
+                Conversazione riavviata! Come posso aiutarti oggi?
+            </div>
+        </div>
+    `;
+}
+
+function startClock() {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    
+    function updateDateTime() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const dataFormattata = now.toLocaleDateString('it-IT', options);
+        const oraFormattata = now.toLocaleTimeString('it-IT');
+        
+        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
+    }
+    
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
