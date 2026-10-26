@@ -65,7 +65,20 @@ let appConfig = {
     faqs: [
         {
             "id": "ORIENTATORE_TUTOR",
-            "keywords": ["orientatore", "tutor", "orientatore e tutor", "professori tutor", "elenco tutor"],
+            "keywords": [
+                "orientatore", 
+                "tutor", 
+                "tuto",
+                "orientatore e tutor", 
+                "professori tutor", 
+                "elenco tutor", 
+                "lista tutor", 
+                "chi sono i tutor", 
+                "tutor scolastici", 
+                "nomi tutor",
+                "chi è l'orientatore",
+                "orientatore scuola"
+            ],
             "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i dati relativi a **Orientatore e Tutor**:\n- **Orientatore:** Frediani\n- **Tutor:** \n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
@@ -203,7 +216,7 @@ let appConfig = {
         {
             "id": "CURIOSITA_MIELE",
             "keywords": ["miele", "mieloso", "api", "alveare"],
-            "responses": ["🍯 Il miele è delizioso per chi ha la fortuna di poter fare colazione, ma io non posso mangiarlo! La mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici. Scherzi a parte, lasciamo stare i dolcetti e concentriamoci su cose serie: posso aiutarti con i form dell'istituto, darti informazioni sui plessi o rispondere alle domande ufficiali sull'IIS \"Arturo Checchi\". C'è qualcosa di scolastico di cui hai bisogno?"]
+            "responses": ["🍯 Il miele è delizioso per chi ha la fortuna di poter fare colazione, ma io non posso mangiarlo! La mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici. Scherzi a parte, lasciamic stare i dolcetti e concentriamoci su cose serie: posso aiutarti con i form dell'istituto, darti informazioni sui plessi o rispondere alle domande ufficiali sull'IIS \"Arturo Checchi\". C'è qualcosa di scolastico di cui hai bisogno?"]
         },
         {
             "id": "CURIOSITA_SPORT",
@@ -377,11 +390,11 @@ function processUserQuery(query) {
 
     // =========================================================================
     // PILASTRO 1: VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
-    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", "laboratorio", ecc.) attivino logiche errate.
+    // Impedisce che termini generici isolati ("responsabile", "referente", "commissione", ecc.) attivino logiche errate.
     // =========================================================================
-    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "orientatore", "tutor", "laboratorio", "laboratori", "chi"];
+    const paroleContestoMancante = ["responsabile", "responsabili", "referente", "referenti", "commissione", "commissioni", "laboratorio", "laboratori", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
-        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto, laboratorio o ruolo ti riferisci (es. *laboratorio di informatica*, *responsabile laboratori*), così posso darti l'informazione corretta dall'organigramma!");
+        rispondiBot("🤖 Per favore, specifica a quale servizio, progetto, laboratorio o ruolo ti riferisci (es. *comitato di valutazione*, *laboratorio di informatica*), così posso darti l'informazione corretta dall'organigramma!");
         return;
     }
 
@@ -511,7 +524,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il meu sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
