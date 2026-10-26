@@ -64,6 +64,11 @@ let appConfig = {
 
     faqs: [
         {
+            "id": "ORGANIGRAMMA_PDF",
+            "keywords": ["organigramma pdf", "scarica organigramma", "file organigramma", "documento organigramma", "link organigramma", "organigramma 26-27"],
+            "responses": ["📄 Puoi scaricare il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF al seguente link:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "ORIENTATORE",
             "keywords": ["orientatore", "chi è l'orientatore", "chi e l orientatore", "orientatore scuola", "docente orientatore"],
             "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], l'**Orientatore** dell'istituto è:\n- **Frediani**[cite: 14]\n\n*(Cos'altro vuoi chiedermi?)*"]
