@@ -257,8 +257,7 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
-let contestoAttivo = null;       
-let inAttesaSceltaTeam = false;  
+let argomentoInSospeso = null;   // Memorizza quale termine ha generato il dubbio (es. "invalsi", "team", "accoglienza")
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -330,131 +329,38 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !contestoAttivo && !inAttesaSceltaTeam) {
+    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !argomentoInSospeso) {
         faqCandidata = null;
     }
 
     // =========================================================================
-    // REGOLA 1: SE L'UTENTE CHIEDE ESPLICAMENTE UNA DEFINIZIONE O UN TERMINE DEL DIZIONARIO
+    // REGOLA 1: GESTIONE DEI CONTESTI IN SOSPESO (Se il bot ha fatto una domanda di scelta)
     // =========================================================================
-    let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
-                                 cleanQuery.includes("cos'e") || 
-                                 cleanQuery.includes("cosa vuol dire") || 
-                                 cleanQuery.includes("definizione") || 
-                                 cleanQuery.includes("significato");
+    if (argomentoInSospeso) {
+        let arg = argomentoInSospeso;
+        argomentoInSospeso = null; // Resetta subito per evitare loop
 
-    let wordToSearch = cleanQuery
-        .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
-        .trim();
-
-    if (isRichiestaDefinizione || (wordToSearch.length >= 2 && appConfig.dictionary[wordToSearch])) {
-        // Cerca la parola chiave principale rimossa dai prefissi nel dizionario
-        for (const [term, def] of Object.entries(appConfig.dictionary)) {
-            if (cleanQuery.includes(term)) {
-                inAttesaSceltaTeam = false;
-                contestoAttivo = null;
-                ultimaCategoriaTrattata = "DIZIONARIO";
-                ultimoGiocoProposto = "";
-                contatoreCuriosita = 0;
-                rispondiBot(def);
-                return;
-            }
-        }
-    }
-
-    // =========================================================================
-    // REGOLA 2: PAROLE CHIAVE SECCHE CHE ATTIVANO LA SCELTA (es. "team", "invalsi")
-    // =========================================================================
-    if (cleanQuery === "team") {
-        inAttesaSceltaTeam = true;
-        rispondiBot("👥 All'interno dell'istituto abbiamo diverse tipologie di team (es. **Team Digitale**, **Team Mobilità Internazionale**, **Accoglienza**).\n\nVuoi la **definizione** generale di team o preferisci sapere i responsabili di uno specifico gruppo tra questi?");
-        return;
-    }
-
-    if (inAttesaSceltaTeam) {
-        if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
-            inAttesaSceltaTeam = false;
-            rispondiBot(appConfig.dictionary["team"] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
-            return;
-        } 
-        
-        if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi")) {
-            if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
-                inAttesaSceltaTeam = false;
-                let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
-                rispondiBot(faqResp.responses[0]);
-                return;
-            } else if (cleanQuery.includes("digitale") || cleanQuery.includes("animatore") || cleanQuery.includes("tecnici")) {
-                inAttesaSceltaTeam = false;
-                let faqResp = appConfig.faqs.find(f => f.id === "TEAM_DIGITALE_RESPONSABILI");
-                rispondiBot(faqResp.responses[0]);
-                return;
-            } else if (cleanQuery.includes("accoglienza")) {
-                inAttesaSceltaTeam = false;
-                let faqResp = appConfig.faqs.find(f => f.id === "ACCOGLIENZA_RESPONSABILI");
-                rispondiBot(faqResp.responses[0]);
-                return;
-            } else {
-                rispondiBot("👥 All'interno dell'istituto abbiamo il **Team Digitale**, il **Team Mobilità Internazionale** e il servizio **Accoglienza**. A quale di questi si riferisce?");
-                return;
-            }
-        }
-
-        if (cleanQuery.includes("mobilita") || cleanQuery.includes("internazionale")) {
-            inAttesaSceltaTeam = false;
-            let faqResp = appConfig.faqs.find(f => f.id === "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI");
-            rispondiBot(faqResp.responses[0]);
-            return;
-        } else if (cleanQuery.includes("digitale") || cleanQuery.includes("animatore") || cleanQuery.includes("tecnici")) {
-            inAttesaSceltaTeam = false;
-            let faqResp = appConfig.faqs.find(f => f.id === "TEAM_DIGITALE_RESPONSABILI");
-            rispondiBot(faqResp.responses[0]);
-            return;
-        } else if (cleanQuery.includes("accoglienza")) {
-            inAttesaSceltaTeam = false;
-            let faqResp = appConfig.faqs.find(f => f.id === "ACCOGLIENZA_RESPONSABILI");
-            rispondiBot(faqResp.responses[0]);
-            return;
-        }
-    }
-
-    if (cleanQuery === "invalsi" || cleanQuery === "accoglienza" || cleanQuery === "mobilita" || cleanQuery === "digitale") {
-        contestoAttivo = cleanQuery;
-        let etichettaTermine = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
-        rispondiBot(`🔍 Per quanto riguarda **"${etichettaTermine}"**, vuoi sapere la **definizione** generale o conoscere i **responsabili** all'interno dell'istituto?`);
-        return;
-    }
-
-    if (contestoAttivo) {
-        let argomento = contestoAttivo;
-        contestoAttivo = null; 
-        
-        if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
-            if (appConfig.dictionary[argomento]) {
-                rispondiBot(appConfig.dictionary[argomento] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
+        if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("significato") || cleanQuery.includes("definizione")) {
+            if (appConfig.dictionary[arg]) {
+                rispondiBot(appConfig.dictionary[arg] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
                 return;
             }
         } else if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi")) {
-            let idFaqCercato = argomento.toUpperCase() + "_RESPONSABILI";
-            if (argomento === "mobilita") idFaqCercato = "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI";
-            if (argomento === "digitale") idFaqCercato = "TEAM_DIGITALE_RESPONSABILI";
+            let idFaqCercato = arg.toUpperCase() + "_RESPONSABILI";
+            if (arg === "mobilita") idFaqCercato = "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI";
+            if (arg === "digitale") idFaqCercato = "TEAM_DIGITALE_RESPONSABILI";
             
             let faqResp = appConfig.faqs.find(f => f.id === idFaqCercato);
             if (faqResp) {
                 rispondiBot(faqResp.responses[0]);
                 return;
-            } else {
-                rispondiBot(`📋 Al momento purtroppo devo ancora venire a conoscenza dei nuovi responsabili assegnati per **${argomento}**. \n\nC'è qualcos'altro di cui hai bisogno o posso aiutarti con un'altra informazione?`);
-                return;
             }
-        } else {
-            rispondiBot("🤖 Al momento non dispongo di ulteriori dettagli specifici su questo punto. C'è qualcos'altro di cui hai bisogno o posso aiutarti con un'altra informazione?");
-            return;
         }
+        // Se l'utente risponde con altro, prosegue normalmente con la nuova query.
     }
 
     // =========================================================================
-    // REGOLA 3: DOMANDE MIRATE E ORGANIGRAMMA (es. "team digitale", "referenti invalsi")
+    // REGOLA 2: DOMANDE MIRATE E ORGANIGRAMMA (Massima priorità per frasi complete)
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
@@ -472,14 +378,47 @@ function processUserQuery(query) {
     });
 
     if (highestScore >= 0.80 && bestMatchFaq) {
-        inAttesaSceltaTeam = false;
-        contestoAttivo = null;
+        argomentoInSospeso = null;
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0;
         let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
         rispondiBot(resp);
         return;
+    }
+
+    // =========================================================================
+    // REGOLA 3: PAROLE CHIAVE SECCHE (Attivano la scelta bidirezionale)
+    // =========================================================================
+    const paroleChiaveGiano = ["invalsi", "team", "accoglienza", "mobilita", "digitale"];
+    if (paroleChiaveGiano.includes(cleanQuery)) {
+        argomentoInSospeso = cleanQuery;
+        let etichettaTermine = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
+        if (cleanQuery === "mobilita") etichettaTermine = "Mobilità Internazionale";
+        
+        rispondiBot(`🔍 Per quanto riguarda **"${etichettaTermine}"**, vuoi conoscere la **definizione** generale o sapere i **responsabili** all'interno dell'istituto?`);
+        return;
+    }
+
+    // =========================================================================
+    // REGOLA 4: RICHIESTA DI DEFINIZIONE ESPLICITA (Dizionario)
+    // =========================================================================
+    let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
+                                 cleanQuery.includes("cos'e") || 
+                                 cleanQuery.includes("cosa vuol dire") || 
+                                 cleanQuery.includes("definizione") || 
+                                 cleanQuery.includes("significato");
+
+    if (isRichiestaDefinizione) {
+        for (const [term, def] of Object.entries(appConfig.dictionary)) {
+            if (cleanQuery.includes(term)) {
+                ultimaCategoriaTrattata = "DIZIONARIO";
+                ultimoGiocoProposto = "";
+                contatoreCuriosita = 0;
+                rispondiBot(def);
+                return;
+            }
+        }
     }
 
     // Comandi rapidi, giochi, calcoli e moduli
@@ -593,7 +532,7 @@ function processUserQuery(query) {
     }
     if (cleanQuery === "quando") {
         if (ultimaCategoriaTrattata === "CREATORE") {
-            rispondiBot("📅 Il meu sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
+            rispondiBot("📅 Il mio sviluppo è avvenuto all'interno dei laboratori dell'IIS \"Arturo Checchi\" grazie al lavoro del Tecnico Informatico Luca Vorraro.");
             return;
         } else {
             rispondiBot("🕒 A quale evento o orario ti riferisci? Specificane pure i dettagli!");
@@ -727,8 +666,7 @@ function appendMessage(text, sender) {
 function resetChat() {
     inAttesaSceltaForm = false;
     inAttesaConfermaFaq = false;
-    contestoAttivo = null;
-    inAttesaSceltaTeam = false;
+    argomentoInSospeso = null;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
