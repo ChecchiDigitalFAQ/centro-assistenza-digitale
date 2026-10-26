@@ -53,11 +53,11 @@ let appConfig = {
     },
 
     faqs: [
-        // ORGANIGRAMMA A.S. 2026-2027 (Plessi specifici e generali)
+        // ORGANIGRAMMA A.S. 2026-2027 (FAQ Specifiche per primo per priorità assoluta)
         {
-            "id": "ORGANIGRAMMA_PASSATO",
-            "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
-            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!"]
+            "id": "RESPONSABILE_SEDE_CENTRALE",
+            "keywords": ["sede centrale", "viale gramsci", "responsabile sede centrale", "responsabile centrale"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**."]
         },
         {
             "id": "RESPONSABILE_LICEO",
@@ -65,14 +65,14 @@ let appConfig = {
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**."]
         },
         {
-            "id": "RESPONSABILE_SEDE_CENTRALE",
-            "keywords": ["sede centrale", "viale gramsci", "responsabile sede centrale", "responsabile centrale"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**."]
-        },
-        {
             "id": "RESPONSABILE_MODA",
             "keywords": ["moda", "calzaturiero", "piazza vittorio veneto", "plesso moda", "responsabile moda"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**."]
+        },
+        {
+            "id": "ORGANIGRAMMA_PASSATO",
+            "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
+            "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!"]
         },
         {
             "id": "RESPONSABILI_PLESSI_GENERALI",
@@ -447,9 +447,10 @@ function processUserQuery(query) {
         }
     }
 
-    // INTERCETTAZIONE DIRETTA E MIRATA
+    // SCORRIMENTO ORDINATO: Controlla prima le FAQ specifiche in cima all'array
     let directMatchFaq = null;
     appConfig.faqs.forEach(faq => {
+        if (directMatchFaq) return; // Se ha già trovato un match mirato, blocca la ricerca
         faq.keywords.forEach(kw => {
             if (cleanQuery.includes(kw) && kw.length > 2) {
                 directMatchFaq = faq;
@@ -466,7 +467,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // Fallback sulla similitudine probabilistica con domanda guida
+    // Fallback sulla similitudine probabilistica
     let highestScore = 0;
     let probableFaq = null;
     appConfig.faqs.forEach(faq => {
