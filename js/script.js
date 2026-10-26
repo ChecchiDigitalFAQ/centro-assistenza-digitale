@@ -50,24 +50,18 @@ let appConfig = {
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
         "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
-        // Nuovi termini aggiunti per il contesto scolastico e organizzativo:
-        "invalsi": "📖 **INVALSI:** Istituto Nazionale per la Valutazione del Sistema Educativo di Istruzione e di Formazione, ente che valora gli apprendimenti degli studenti.",
-        "team": "📖 **Team:** Gruppo di persone che lavorano insieme in modo coordinato per il raggiungimento di un obiettivo comune, sia in ambito scolastico che digitale.",
-        "accoglienza": "📖 **Accoglienza:** Servizio e insieme di attività volte a favorire l'inserimento e l'integrazione dei nuovi studenti all'interno dell'istituto.",
-        "mobilita": "📖 **Mobilità Internazionale:** Insieme di progetti e programmi (es. Erasmus+) che consentono a studenti e docenti di effettuare esperienze formative all'estero.",
-        "digitale": "📖 **Digitale:** Riferito all'uso di tecnologie informatiche, piattaforme cloud (come Microsoft 365) e strumenti multimediali a supporto della didattica."
+        "invalsi": "📖 **INVALSI:** Istituto Nazionale per la Valutazione del Sistema Educativo di Istruzione e di Formazione, ente che valuta gli apprendimenti degli studenti.",
+        "team": "📖 **Team:** Gruppo di persone che lavorano insieme in modo coordinato per il raggiungimento di un obiettivo comune.",
+        "accoglienza": "📖 **Accoglienza:** Servizio e insieme di attività volte a favorire l'inserimento e l'integrazione dei nuovi studenti.",
+        "mobilita": "📖 **Mobilità Internazionale:** Insieme di progetti e programmi (es. Erasmus+) per esperienze formative all'estero.",
+        "digitale": "📖 **Digitale:** Riferito all'uso di tecnologie informatiche e piattaforme cloud a supporto della didattica."
     },
 
     faqs: [
         {
-            "id": "INVALSI",
-            "keywords": ["invalsi"],
-            "responses": ["📊 Per quanto riguarda l'**Invalsi**, mi stai chiedendo la definizione generale dell'ente o vuoi sapere chi sono i referenti e la commissione interna all'IIS \"Arturo Checchi\"?\n\n*(Digitami pure **responsabili** o **definizione**!)*"]
-        },
-        {
             "id": "INVALSI_RESPONSABILI",
             "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "ED_SALUTE",
@@ -80,19 +74,19 @@ let appConfig = {
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **NIV (Nucleo Interno Valutazione)** è composto da:\n- DS, Frediani, Bolzan, Donato"]
         },
         {
-            "id": "ACCOGLIENZA",
-            "keywords": ["accoglienza", "team accoglienza", "referente accoglienza", "commissione accoglienza"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**."]
+            "id": "ACCOGLIENZA_RESPONSABILI",
+            "keywords": ["referenti accoglienza", "commissione accoglienza", "responsabili accoglienza"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**.\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
-            "id": "TEAM_MOBILITA_INTERNAZIONALE",
-            "keywords": ["mobilità internazionale", "mobilita internazionale", "mobilità", "mobilita", "estero", "progetti internazionali", "team mobilità", "team mobilita"],
-            "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti"]
+            "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
+            "keywords": ["referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero"],
+            "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
-            "id": "TEAM_DIGITALE",
-            "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici", "digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino"]
+            "id": "TEAM_DIGITALE_RESPONSABILI",
+            "keywords": ["referenti digitale", "animatore digitale referenti", "responsabili digitale"],
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "MICROSOFT365",
@@ -263,9 +257,7 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
-let inAttesaDisambiguazione = false; 
-let opzioniDisambiguazione = [];     
-let argomentoInAttesa = null;        
+let contestoAttivo = null;       // Memorizza la parola chiave attiva (es. "invalsi", "accoglienza", "mobilita", "digitale")
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -337,61 +329,47 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !inAttesaDisambiguazione) {
+    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !contestoAttivo) {
         faqCandidata = null;
     }
 
-    // ==========================================
-    // PRIORITÀ ASSOLUTA: GESTIONE DELLA DISAMBIGUAZIONE IN CORSO
-    // ==========================================
-    if (inAttesaDisambiguazione) {
+    // =========================================================================
+    // 1. GESTIONE DEL CONTESTO ATTIVO (Parole singole come Invalsi, Accoglienza, Mobilità, Digitale)
+    // =========================================================================
+    if (contestoAttivo) {
+        let argomento = contestoAttivo;
+        contestoAttivo = null; // Resetta il contesto subito dopo la lettura
         
-        // 1. Se l'utente sta scegliendo da un elenco numerato (es. pluririscontro come "team")
-        if (opzioniDisambiguazione.length > 0) {
-            let scelte = opzioniDisambiguazione;
-            let sceltaTrovata = null;
-            
-            let numeroScelto = parseInt(cleanQuery);
-            if (!isNaN(numeroScelto) && numeroScelto >= 1 && numeroScelto <= scelte.length) {
-                sceltaTrovata = scelte[numeroScelto - 1];
-            } else {
-                sceltaTrovata = scelte.find(opt => {
-                    let idNorm = opt.id.toLowerCase().replace(/_/g, " ");
-                    return cleanQuery.includes(idNorm) || idNorm.includes(cleanQuery);
-                });
-            }
-
-            inAttesaDisambiguazione = false;
-            opzioniDisambiguazione = [];
-            argomentoInAttesa = null;
-
-            if (sceltaTrovata) {
-                ultimaCategoriaTrattata = sceltaTrovata.id;
-                rispondiBot(sceltaTrovata.responses[0]);
+        if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("cose") || cleanQuery.includes("significato")) {
+            if (appConfig.dictionary[argomento]) {
+                rispondiBot(appConfig.dictionary[argomento] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
                 return;
             }
-        } 
-        
-        // 2. Se l'utente sta rispondendo alla domanda "definizione o responsabili" (es. dopo aver digitato "invalsi")
-        else if (argomentoInAttesa) {
-            let argomento = argomentoInAttesa;
-            inAttesaDisambiguazione = false;
-            argomentoInAttesa = null;
-
-            if (cleanQuery.includes("responsabil") || cleanQuery.includes("chi") || cleanQuery.includes("referent") || cleanQuery.includes("commissione")) {
-                let faqResp = appConfig.faqs.find(f => f.id === argomento + "_RESPONSABILI" || (f.id.includes(argomento) && f.id.includes("RESPONSABILI")));
-                if (faqResp) {
-                    rispondiBot(faqResp.responses[0]);
-                    return;
-                }
-            } else if (cleanQuery.includes("definizion") || cleanQuery.includes("cos") || cleanQuery.includes("significat")) {
-                let faqBase = appConfig.faqs.find(f => f.id === argomento);
-                if (faqBase) {
-                    rispondiBot(faqBase.responses[0]);
-                    return;
-                }
+        } else if (cleanQuery.includes("responsabili") || cleanQuery.includes("referenti") || cleanQuery.includes("chi")) {
+            let idFaqCercato = argomento.toUpperCase() + "_RESPONSABILI";
+            if (argomento === "mobilita") idFaqCercato = "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI";
+            if (argomento === "digitale") idFaqCercato = "TEAM_DIGITALE_RESPONSABILI";
+            
+            let faqResp = appConfig.faqs.find(f => f.id === idFaqCercato);
+            if (faqResp) {
+                rispondiBot(faqResp.responses[0]);
+                return;
+            } else {
+                rispondiBot(`📋 Al momento purtroppo devo ancora venire a conoscenza dei nuovi responsabili assegnati per **${argomento}**. \n\nC'è qualcos'altro di cui hai bisogno o posso aiutarti con un'altra informazione?`);
+                return;
             }
+        } else {
+            rispondiBot("🤖 Al momento non dispongo di ulteriori dettagli specifici su questo punto. C'è qualcos'altro di cui hai bisogno o posso aiutarti con un'altra informazione?");
+            return;
         }
+    }
+
+    // Intercettazione parole singole che attivano il menu di scelta (Definizione vs Responsabili)
+    if (cleanQuery === "invalsi" || cleanQuery === "accoglienza" || cleanQuery === "mobilita" || cleanQuery === "digitale" || cleanQuery === "team") {
+        contestoAttivo = cleanQuery;
+        let etichettaTermine = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
+        rispondiBot(`🔍 Per quanto riguarda **"${etichettaTermine}"**, vuoi sapere la **definizione** generale o conoscere i **responsabili** all'interno dell'istituto?`);
+        return;
     }
 
     if (inAttesaConfermaFaq) {
@@ -531,7 +509,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // CONTROLLO NEL DIZIONARIO ENCICLOPEDICO (Include ora anche Invalsi, Team, Accoglienza, Mobilità, Digitale)
+    // CONTROLLO NEL DIZIONARIO ENCICLOPEDICO (Se viene chiesta esplicitamente la definizione di un termine)
     let wordToSearch = cleanQuery
         .replace(/\b(che cos'e|cos'e|cosa significa|cosa vuol dire|definizione di|significato di|un|una|uno|il|lo|la|i|gli|le|del|della|che)\b/gi, "")
         .trim();
@@ -548,29 +526,7 @@ function processUserQuery(query) {
         }
     }
 
-    // CONTROLLO INTELLIGENTE MULTI-RISCONTRO (es. se l'utente scrive "team")
-    let matchingFaqs = appConfig.faqs.filter(faq => faq.keywords.some(kw => kw.includes(cleanQuery) || calcolaSomiglianzaStringa(cleanQuery, kw) >= 0.75));
-    
-    if (matchingFaqs.length > 1) {
-        inAttesaDisambiguazione = true;
-        opzioniDisambiguazione = matchingFaqs;
-        argomentoInAttesa = null;
-        contatoreCuriosita = 0;
-        
-        let elencoOpzioni = matchingFaqs.map((f, index) => `${index + 1}️⃣ **${f.id.replace(/_/g, ' ')}**`).join("\n");
-        rispondiBot(`🔍 Ho trovato diverse sezioni relative a **"${query}"** nel database dell'istituto. A quale ti riferisci?\n\n${elencoOpzioni}\n\n*(Digita il numero o il nome della sezione che ti interessa!)*`);
-        return;
-    } else if (matchingFaqs.length === 1 && !cleanQuery.includes(" ")) {
-        let matchingFaq = matchingFaqs[0];
-        inAttesaDisambiguazione = true;
-        argomentoInAttesa = matchingFaq.id;
-        opzioniDisambiguazione = [];
-        contatoreCuriosita = 0;
-        rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Digitami pure **responsabili** o **definizione** per avere l'informazione esatta!)*`);
-        return;
-    }
-
-    // MOTORE GLOBALE CON LEVENSHTEIN PER GESTIRE TYPO E DOMANDE SIMILI
+    // MOTORE GLOBALE CON LEVENSHTEIN PER LE FAQ E DOMANDE CHIARE
     let bestMatchFaq = null;
     let highestScore = 0;
 
@@ -702,9 +658,7 @@ function appendMessage(text, sender) {
 function resetChat() {
     inAttesaSceltaForm = false;
     inAttesaConfermaFaq = false;
-    inAttesaDisambiguazione = false;
-    opzioniDisambiguazione = [];
-    argomentoInAttesa = null;
+    contestoAttivo = null;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
@@ -732,7 +686,9 @@ function startClock() {
         const dataFormattata = now.toLocaleDateString('it-IT', options);
         const oraFormattata = now.toLocaleTimeString('it-IT');
         
-        clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
+        if (clockEl) {
+            clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
+        }
     }
     
     updateDateTime();
