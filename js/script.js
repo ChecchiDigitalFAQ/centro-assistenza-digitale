@@ -53,41 +53,56 @@ let appConfig = {
     },
 
     faqs: [
-        // ORGANIGRAMMA A.S. 2026-2027
+        // ORGANIGRAMMA A.S. 2026-2027 (Plessi specifici e generali)
         {
             "id": "ORGANIGRAMMA_PASSATO",
             "keywords": ["organigramma vecchio", "organigramma anno precedente", "organigrammi passati", "vecchio organigramma", "scorso anno", "anni scorsi", "organigramma 2024", "organigramma 2025"],
             "responses": ["📂 In merito alla tua richiesta, ti informo che al momento dispongo unicamente dell'ultimo organigramma aggiornato e in vigore per il nuovo anno scolastico 2026-2027 (approvato con delibere del Collegio del 11.09.26 - 29.09.26). Non ho archivi storici relativi agli anni precedenti!"]
         },
         {
-            "id": "FUNZIONI_STRUMENTALI",
-            "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai[cite: 5]\n- **PTOF:** Freschi e Tamberi[cite: 5]\n- **Orientamento in entrata:** Tafi[cite: 5]\n- **FLS:** Gennai e Palmieri[cite: 5]"]
+            "id": "RESPONSABILE_LICEO",
+            "keywords": ["liceo", "via padre checchi", "responsabile liceo", "responsabili liceo"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**."]
         },
         {
-            "id": "RESPONSABILI_PLESSI",
-            "keywords": ["responsabile", "responsabili", "plesso", "plessi", "sedi", "sede", "liceo", "centrale", "moda", "calzaturiero", "gramsci", "checchi", "vittorio veneto"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli[cite: 3, 5]\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu[cite: 3, 5]\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri[cite: 3, 5]"]
+            "id": "RESPONSABILE_SEDE_CENTRALE",
+            "keywords": ["sede centrale", "viale gramsci", "responsabile sede centrale", "responsabile centrale"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**."]
+        },
+        {
+            "id": "RESPONSABILE_MODA",
+            "keywords": ["moda", "calzaturiero", "piazza vittorio veneto", "plesso moda", "responsabile moda"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**."]
+        },
+        {
+            "id": "RESPONSABILI_PLESSI_GENERALI",
+            "keywords": ["responsabili di plesso", "responsabile di plesso", "plessi", "sedi", "sede"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri"]
+        },
+        {
+            "id": "FUNZIONI_STRUMENTALI",
+            "keywords": ["funzioni strumentali", "inclusione", "ptof", "orientamento in entrata", "fls", "referenti h"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco le **Funzioni Strumentali**:\n- **Inclusione (Referenti H):** Testa e Cillerai\n- **PTOF:** Freschi e Tamberi\n- **Orientamento in entrata:** Tafi\n- **FLS:** Gennai e Palmieri"]
         },
         {
             "id": "TEAM_DIGITALE",
             "keywords": ["team digitale", "animatore digitale", "supporto informatico", "luca vorraro", "ziino", "tecnici", "digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato[cite: 5]\n- **Team:** Frediani, Bolzan e Turini[cite: 5]\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino[cite: 5]"]
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino"]
         },
         {
             "id": "REFERENTI_SPECIALI",
             "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta", "invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi[cite: 6]\n- **Alunni Stranieri:** Nazzi[cite: 7]\n- **DSA / BES:** Canu[cite: 7]\n- **Studente-Atleta:** Angelini[cite: 7]\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)[cite: 6]"]
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)"]
         },
         {
             "id": "SICUREZZA",
             "keywords": ["sicurezza", "aspp", "rls", "prevenzione e protezione"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le figure di sicurezza dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi"]
         },
         {
             "id": "RESPONSABILI_LABORATORI",
             "keywords": ["laboratorio", "laboratori", "modellistica", "informatica", "palestra", "cad", "palazzetto"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 3], ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini"]
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco alcuni dei principali responsabili di laboratorio:\n- **Informatica (V. Veneto):** Galleni\n- **Informatico 1 e 2 (Checchi):** Turini\n- **Fisica/Scienze (Checchi):** Pennacchio\n- **Palestra nuova:** Schiera\n- **Palazzetto:** Angelini"]
         },
 
         // CURIOSITÀ E BIZZARRIE
@@ -279,7 +294,6 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Gestione della risposta affermativa o negativa quando Arturo chiede conferma
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
@@ -433,35 +447,26 @@ function processUserQuery(query) {
         }
     }
 
-    // NUOVA LOGICA DI INTERCETTAZIONE PROBABILISTICA E GUIDATA
-    let bestMatchFaq = null;
-    let maxMatches = 0;
-
+    // INTERCETTAZIONE DIRETTA E MIRATA
+    let directMatchFaq = null;
     appConfig.faqs.forEach(faq => {
-        let matchCount = 0;
         faq.keywords.forEach(kw => {
-            // Controlliamo se parti della query dell'utente contengono le keywords della FAQ o viceversa
-            if (cleanQuery.includes(kw) || kw.includes(cleanQuery)) {
-                matchCount++;
+            if (cleanQuery.includes(kw) && kw.length > 2) {
+                directMatchFaq = faq;
             }
         });
-        if (matchCount > maxMatches) {
-            maxMatches = matchCount;
-            bestMatchFaq = faq;
-        }
     });
 
-    // Se troviamo un riscontro diretto forte
-    if (maxMatches >= 1) {
-        ultimaCategoriaTrattata = bestMatchFaq.id;
+    if (directMatchFaq) {
+        ultimaCategoriaTrattata = directMatchFaq.id;
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0;
-        let resp = bestMatchFaq.responses[Math.floor(Math.random() * bestMatchFaq.responses.length)];
+        let resp = directMatchFaq.responses[Math.floor(Math.random() * directMatchFaq.responses.length)];
         rispondiBot(resp);
         return;
     }
 
-    // Se c'è una probabilità media (es. somiglianza intermedia calcolata), Arturo fa la domanda intelligente di conferma
+    // Fallback sulla similitudine probabilistica con domanda guida
     let highestScore = 0;
     let probableFaq = null;
     appConfig.faqs.forEach(faq => {
@@ -477,12 +482,10 @@ function processUserQuery(query) {
     if (highestScore >= 0.30 && probableFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = probableFaq;
-        // Arturo guida l'utente chiedendo conferma in modo intelligente
         rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${probableFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
         return;
     }
 
-    // Se proprio non si riesce a intercettare nulla, scatta il paracadute con promessa di integrazione futura
     ultimaCategoriaTrattata = ""; 
     ultimoGiocoProposto = "";
     
