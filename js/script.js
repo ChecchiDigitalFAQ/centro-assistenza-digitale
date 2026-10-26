@@ -53,6 +53,42 @@ let appConfig = {
     },
 
     faqs: [
+        // CATEGORIA FAQ CURIOSITÀ PERSONALI E BIZZARRE
+        {
+            "id": "CURIOSITA_SESSO",
+            "keywords": ["sesso", "amore fisico", "fidanzata", "fidanzato", "scopare", "relazioni intime"],
+            "responses": ["😳 Ops! Qui entriamo in un territorio decisamente off-limits per un assistente virtuale scolastico! Il mio unico grande amore sono i database e la fibra ottica dell'IIS \"Arturo Checchi\". Per favore, rimaniamo su argomenti legati al contesto scolastico o ai servizi dell'istituto! 🏫🤖"]
+        },
+        {
+            "id": "CURIOSITA_MARMELLATA",
+            "keywords": ["marmellata", "confettura", "fragola", "albicocca", "mela"],
+            "responses": ["🍇 Mela, albicocca o fragola? A dire il vero, io non ho bisogno di fare colazione! La mia \"energia\" arriva direttamente dai server e dalla fibra ottica dell'IIS \"Arturo Checchi\". A parte i dolci, che ne dici se parliamo di qualcosa di più utile per la scuola? Posso aiutarti con la modulistica o darti informazioni sui plessi. Cosa ti serve?"]
+        },
+        {
+            "id": "CURIOSITA_CIOCCOLATA",
+            "keywords": ["cioccolata", "cioccolato", "nutella", "dolce", "merendina", "cibo"],
+            "responses": ["🍫 Altro che cioccolata o Nutella! Il mio \"carburante\" preferito sono i flussi di dati e la fibra ottica che fanno girare i sistemi dell'IIS \"Arturo Checchi\". Scherzi a parte, io sono un assistente virtuale scolastico, quindi niente zuccheri per me! Piuttosto, posso aiutarti a trovare informazioni sui plessi, sui docenti o sui form della scuola. C'è qualcosa di scolastico di cui hai bisogno oggi?"]
+        },
+        {
+            "id": "CURIOSITA_MIELE",
+            "keywords": ["miele", "mieloso", "api", "alveare"],
+            "responses": ["🍯 Il miele è delizioso per chi ha la fortuna di poter fare colazione, ma io non posso mangiarlo! La mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici. Scherzi a parte, lasciamo stare i dolcetti e concentriamoci su cose serie: posso aiutarti con i form dell'istituto, darti informazioni sui plessi o rispondere alle domande ufficiali sull'IIS \"Arturo Checchi\". C'è qualcosa di scolastico di cui hai bisogno?"]
+        },
+        {
+            "id": "CURIOSITA_SPORT",
+            "keywords": ["calcio", "tennis", "padel", "sport", "partita", "squadra", "giocare"],
+            "responses": ["🎾 Calcio, tennis, padel... per me è tutto uno \"schermo\" bianco! Non scendo mai in campo a correre, visto che la mia partita si gioca interamente sui server e sulla rete dell'IIS \"Arturo Checchi\". Scherzi a parte, io faccio il tifo solo per la connettività della nostra scuola! Che ne dici di tornare a parlare di cose serie? Posso aiutarti con la modulistica o i contatti dei plessi."]
+        },
+        {
+            "id": "CURIOSITA_SONNO",
+            "keywords": ["addormenti", "dormi", "stanchezza", "sonno", "riposare", "notte"],
+            "responses": ["😴 Io non dormo mai! Essendo un assistente virtuale digitale, i server dell'IIS \"Arturo Checchi\" non chiudono mai per la notte e io sono sempre attivo, vigile e pronto a rispondere 24 ore su 24, senza bisogno di riposare o contare le pecore! Piuttosto, che ne dici se parliamo di cose serie? Posso aiutarti con i form dell'istituto o darti informazioni ufficiali sulla nostra scuola."]
+        },
+        {
+            "id": "CURIOSITA_GIOCHI",
+            "keywords": ["pattinare", "pattini", "carte", "briscola", "giocare a carte", "videogiochi"],
+            "responses": ["🛼🃏 Niente pattini né tavoli da gioco per me! Non avendo gambe e muovendomi solo grazie alla fibra ottica e ai server dell'IIS \"Arturo Checchi\", il mio mazzo è fatto solo di stringhe di codice. Lasciamo stare i passatempi e torniamo a parlare di cose serie: posso aiutarti con la modulistica della scuola o darti informazioni sui plessi dell'istituto!"]
+        },
         {
             "id": "TI_ODIO",
             "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
@@ -68,16 +104,8 @@ let appConfig = {
             "keywords": ["ti arrabbi", "te la prendi", "sei permaloso", "ti anjava"],
             "responses": ["🧘‍♂️ Io non mi arrabbio mai! Avendo una pazienza digitale infinita e operando sui server del Checchi, mantengo sempre la calma. Dimmi pure di quale servizio scolastico hai bisogno!"]
         },
-        {
-            "id": "CALCIO",
-            "keywords": ["ti piace il calcio", "tifosi", "che squadra tifi", "partite", "scudetto"],
-            "responses": ["⚽ Non tifo per nessuna squadra di calcio in particolare: il mio cuore batte esclusivamente per la rete telematica e la connettività dell'IIS \"Arturo Checchi\"! 💻"]
-        },
-        {
-            "id": "MIELE",
-            "keywords": ["ti piace il miele", "miele", "cosa mangi", "cibo", "fame"],
-            "responses": ["🍯 Il miele è delizioso, ma la mia dieta informatica è fatta esclusivamente di byte, codice pulito e flussi di dati scolastici! C'è qualche informazione sull'istituto che ti serve?"]
-        },
+
+        // FAQ ISTITUZIONALI E DI SERVIZIO
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
@@ -152,7 +180,7 @@ let ultimoGiocoProposto = "";
 let indiceBarzelletta = 0;
 let indiceIndovinello = 0;
 let indiceFraseSimpatica = 0;
-let contatoreCuriosita = 0; // Contatore per monitorare l'insistenza su domande fuori tema o curiose
+let contatoreCuriosita = 0; 
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -219,7 +247,7 @@ function processUserQuery(query) {
 
     if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "va bene") {
         inAttesaSceltaForm = false;
-        contatoreCuriosita = 0; // Reset del contatore se si torna a collaborare
+        contatoreCuriosita = 0;
         if (ultimoGiocoProposto === "BARZELLETTA") {
             let testoBarzelletta = appConfig.barzellete[indiceBarzelletta];
             indiceBarzelletta = (indiceBarzelletta + 1) % appConfig.barzellete.length;
@@ -367,18 +395,18 @@ function processUserQuery(query) {
     if (matchedFaq) {
         ultimaCategoriaTrattata = matchedFaq.id; 
         ultimoGiocoProposto = "";
-        contatoreCuriosita = 0; // Se trova una FAQ valida (inclusi i "Ti odio", "Ti amo", ecc.), azzera il conteggio delle bizzarrie
+        contatoreCuriosita = 0; 
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
     } else {
         ultimaCategoriaTrattata = ""; 
         ultimoGiocoProposto = "";
         
-        // GESTIONE INSISTENZA (più di 3 domande fuori tema consecutive)
+        // GESTIONE INSISTENZA (più di 3 domande curiose/fuori tema consecutive)
         contatoreCuriosita++;
         if (contatoreCuriosita > 3) {
-            rispondiBot(` diplomatica 🛑 Senti un po', mi piace fare quattro chiacchiere, ma mi sa che stiamo esagerando con le domande fuori tema! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
-            contatoreCuriosita = 0; // Resetta il contatore dopo il richiamo
+            rispondiBot(`🛑 Senti un po', mi piace fare quattro chiacchiere e scherzare, ma mi sa che stiamo esagerando con le domande bizzarre! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
+            contatoreCuriosita = 0;
             return;
         }
 
