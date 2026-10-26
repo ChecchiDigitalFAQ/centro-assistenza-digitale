@@ -25,10 +25,9 @@ let appConfig = {
     ],
 
     frasiSimpaticheFuoriTema: [
-        "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda, ma sto imparando in fretta e a breve integrerò questa richiesta nel mio database! Per favore, prova a chiedermi qualcosa relativo al contesto scolastico, ai plessi o al mio ruolo.",
-        "🧭 Questa informazione non è ancora presente tra i miei archivi ufficiali, ma provvederò ad aggiornarmi al più presto! Nel frattempo, ti invito a formularmi una domanda attinente all'IIS \"Arturo Checchi\" o ai servizi di segreteria.",
-        "🔮 Non ho ancora una risposta precisa per questa richiesta, ma la annoto subito per integrarla a breve! Prova a chiedermi qualcosa inerente alla scuola, alla modulistica o all'organigramma dell'istituto.",
-        "🚀 Su questo argomento devo ancora studiare un po', e ti prometto che a breve aggiornerò i miei sistemi! Per adesso, potresti farmi una domanda relativa al contesto scolastico o ai ruoli della scuola?"
+        "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda. Prova a formularmi una domanda più precisa relativa all'organigramma, ai plessi o ai servizi dell'IIS \"Arturo Checchi\"!",
+        "🧭 Questa informazione non è presente tra i miei archivi ufficiali. Ti invito a utilizzare i pulsanti rapidi a lato o a farmi una domanda attinente alla scuola.",
+        "🔮 Non ho una risposta precisa per questa richiesta generica. Prova a chiedermi qualcosa di specifico, come i referenti di un progetto o i contatti dei plessi."
     ],
 
     dictionary: {
@@ -60,7 +59,7 @@ let appConfig = {
     faqs: [
         {
             "id": "INVALSI_RESPONSABILI",
-            "keywords": ["invalsi", "referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi"],
+            "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi", "invalsi"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
@@ -75,17 +74,17 @@ let appConfig = {
         },
         {
             "id": "ACCOGLIENZA_RESPONSABILI",
-            "keywords": ["accoglienza", "referenti accoglienza", "commissione accoglienza", "responsabili accoglienza"],
+            "keywords": ["referenti accoglienza", "commissione accoglienza", "responsabili accoglienza", "accoglienza"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**.\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
-            "keywords": ["mobilita", "team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero"],
+            "keywords": ["team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero", "mobilità", "mobilita"],
             "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "TEAM_DIGITALE_RESPONSABILI",
-            "keywords": ["team", "team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale"],
+            "keywords": ["team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale", "digitale"],
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
@@ -333,7 +332,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 1: RICERCA DIRETTA NELLE FAQ E ORGANIGRAMMA (Massima priorità)
+    // REGOLA 1: RICERCA DIRETTA NELLE FAQ CON SOGLIA RIGIDA (Evita falsi positivi)
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
@@ -350,7 +349,8 @@ function processUserQuery(query) {
         });
     });
 
-    if (highestScore >= 0.75 && bestMatchFaq) {
+    // Soglia innalzata a 0.85 per evitare che parole vaghe (es. "responsabile") attivino FAQ a caso
+    if (highestScore >= 0.85 && bestMatchFaq) {
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0;
@@ -518,23 +518,10 @@ function processUserQuery(query) {
         return;
     }
 
-    if (highestScore >= 0.35 && bestMatchFaq) {
-        inAttesaConfermaFaq = true;
-        faqCandidata = bestMatchFaq;
-        rispondiBot(`🤔 Analizzando la tua richiesta, ho la forte sensazione che tu stia cercando informazioni relative a **"${bestMatchFaq.id.replace(/_/g, ' ').toLowerCase()}"**.\n\nÈ questo quello che intendevi? Rispondi con **Sì** o **No**!`);
-        return;
-    }
-
+    // Se la somiglianza è bassa, evitiamo di forzare una FAQ a caso e diamo una risposta pulita fuori tema
     ultimaCategoriaTrattata = ""; 
     ultimoGiocoProposto = "";
     
-    contatoreCuriosita++;
-    if (contatoreCuriosita > 3) {
-        rispondiBot(`🛑 Senti un po', mi piace fare quattro chiacchiere, ma mi sa che stiamo esagerando con le domande fuori tema! Che ne dici se adesso ci dedichiamo a qualcosa di utile per la scuola, come i servizi digitali, i plessi o la modulistica dell'IIS "Arturo Checchi"? 🏫📚`);
-        contatoreCuriosita = 0;
-        return;
-    }
-
     let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
     indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
     rispondiBot(fraseCasuale);
