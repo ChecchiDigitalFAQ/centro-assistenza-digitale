@@ -142,6 +142,10 @@ let inAttesaSceltaTipoLaboratorio = false;
 let inAttesaSedeLaboratorioInformatica = false;
 let inAttesaSceltaOrganigramma = false;
 
+// Stato per gestire la scelta quando l'utente digita una singola parola ambigua (es. "team")
+let inAttesaSceltaParolaAmbiguita = false;
+let ultimaParolaDigitata = "";
+
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
 let indiceBarzelletta = 0;
@@ -202,7 +206,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Ordine di priorità corretto e blindato per evitare regressioni.
+ * Gestione delle parole ambigue con richiesta di chiarimento prima di procedere.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -226,8 +230,32 @@ function processUserQuery(query) {
         inAttesaSceltaTipoPlesso = false;
         inAttesaSceltaTipoLaboratorio = false;
         inAttesaSedeLaboratorioInformatica = false;
+        inAttesaSceltaParolaAmbiguita = false;
         rispondiBot("🤖 Perfetto! Se hai bisogno di altro o di altre informazioni sui servizi dell'IIS \"Arturo Checchi\", sono qui!");
         return;
+    }
+
+    // =========================================================================
+    // 0.1 GESTIONE STATO ATTIVO: SCELTA SU PAROLA AMBIGUA (es. "team")
+    // =========================================================================
+    if (inAttesaSceltaParolaAmbiguita) {
+        inAttesaSceltaParolaAmbiguita = false;
+        let parola = ultimaParolaDigitata;
+        ultimaParolaDigitata = "";
+
+        if (cleanQuery.includes("definizione") || cleanQuery.includes("significato") || cleanQuery.includes("cos'e") || cleanQuery.includes("definire") || cleanQuery.includes("spiegare")) {
+            if (appConfig.dictionary[parola]) {
+                rispondiBot(appConfig.dictionary[parola] + "\n\n*(Cos'altro vuoi chiedermi?)*");
+                return;
+            }
+        } else if (cleanQuery.includes("specifico") || cleanQuery.includes("organigramma") || cleanQuery.includes("scuola") || cleanQuery.includes("servizio") || cleanQuery.includes("ruolo") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile")) {
+            rispondiBot(`🤖 Va bene! Per quanto riguarda "${parola}", puoi chiedermi ad esempio i dettagli sui ruoli, sui servizi digitali o sui referenti scolastici associati.`);
+            return;
+        } else {
+            // Se l'utente risponde con qualcos'altro, proviamo a elaborarla normalmente
+            processUserQuery(query);
+            return;
+        }
     }
 
     // =========================================================================
@@ -253,6 +281,7 @@ function processUserQuery(query) {
         inAttesaSceltaTipoPlesso = false;
         inAttesaSceltaTipoLaboratorio = false;
         inAttesaSedeLaboratorioInformatica = false;
+        inAttesaSceltaParolaAmbiguita = false;
 
         ultimaCategoriaTrattata = matchedGlobalFaq.id;
         let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
@@ -280,30 +309,19 @@ function processUserQuery(query) {
     // =========================================================================
     if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
         inAttesaSceltaOrganigramma = true;
-        rispondiBadgeOrganigramma = "📋 Ti interessa sapere qualcosa **nello specifico** dall'organigramma (come responsabili, tutor o laboratori), oppure preferisci che ti rilasci il **PDF completo** da scaricare?";
-        rispondiBot(rispondiBadgeOrganigramma);
+        rispondiBot("📋 Ti interessa sapere qualcosa **nello specifico** dall'organigramma (come responsabili, tutor o laboratori), oppure preferisci che ti rilasci il **PDF completo** da scaricare?");
         return;
     }
 
     // =========================================================================
-    // 4. DIZIONARIO ENCICLOPEDICO E TERMINI SPECIFICI (es. "team" / "team digitale")
+    // 4. INTERCETTAZIONE PAROLE ISOLATE / AMBIGUE (es. "team")
     // =========================================================================
-    let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
-                                 cleanQuery.includes("cos'e") || 
-                                 cleanQuery.includes("cosa vuol dire") || 
-                                 cleanQuery.includes("definizione") || 
-                                 cleanQuery.includes("significato") ||
-                                 cleanQuery === "team" ||
-                                 cleanQuery.includes("team digitale");
-
-    if (isRichiestaDefinizione) {
-        for (const [term, def] of Object.entries(appConfig.dictionary)) {
-            if (cleanQuery.includes(term)) {
-                ultimaCategoriaTrattata = "DIZIONARIO";
-                rispondiBot(def + "\n\n*(Cos'altro vuoi chiedermi?)*");
-                return;
-            }
-        }
+    // Se l'utente digita esattamente una parola presente nel dizionario (es. "team")
+    if (appConfig.dictionary[cleanQuery]) {
+        inAttesaSceltaParolaAmbiguita = true;
+        ultimaParolaDigitata = cleanQuery;
+        rispondiBot(`📖 Ho trovato il termine **"${query}"**. Ti serve la **definizione** del termine o ti riferisci a qualcosa di **specifico** nell'ambito scolastico?`);
+        return;
     }
 
     // =========================================================================
@@ -392,7 +410,7 @@ function processUserQuery(query) {
     const paroleResponsabiliGenerico = ["responsabile", "responsabili"];
     if (paroleResponsabiliGenerico.includes(cleanQuery)) {
         inAttesaSceltaResponsabile = true;
-        rispondiBot("🤖 A quali responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
+        rispondiBot("🤖 A quaispecifichi responsabili ti riferisci? Vuoi conoscere i **responsabili di plesso** o i **responsabili di laboratorio**?");
         return;
     }
 
@@ -511,6 +529,8 @@ function resetChat() {
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
     inAttesaSceltaOrganigramma = false;
+    inAttesaSceltaParolaAmbiguita = false;
+    ultimaParolaDigitata = "";
     ultimaCategoriaTrattata = "";
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
