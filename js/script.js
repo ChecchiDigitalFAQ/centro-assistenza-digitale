@@ -55,6 +55,26 @@ let appConfig = {
     faqs: [
         // ORGANIGRAMMA A.S. 2026-2027
         {
+            "id": "INVALSI",
+            "keywords": ["invalsi"],
+            "responses": ["📊 Per quanto riguarda l'**Invalsi**, mi stai chiedendo la definizione generale dell'ente o vuoi sapere chi sono i referenti e la commissione interna all'IIS \"Arturo Checchi\"?\n\n*(Specifica se ti interessano i **responsabili** o la spiegazione!)*"]
+        },
+        {
+            "id": "INVALSI_RESPONSABILI",
+            "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi"]
+        },
+        {
+            "id": "ED_SALUTE",
+            "keywords": ["educazione alla salute", "salute", "benessere", "educazione alla salute e benessere", "ed. salute"],
+            "responses": ["💚 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), per l'area **Ed. Salute / Benessere a scuola** i riferimenti sono:\n- **Referente:** Catalano\n- **Commissione:** Canneri, Tognarelli, Panchetti"]
+        },
+        {
+            "id": "NIV",
+            "keywords": ["niv", "nucleo interno valutazione", "nucleo interno"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **NIV (Nucleo Interno Valutazione)** è composto da:\n- DS, Frediani, Bolzan, Donato"]
+        },
+        {
             "id": "ACCOGLIENZA",
             "keywords": ["accoglienza", "team accoglienza", "referente accoglienza", "commissione accoglienza"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**."]
@@ -101,8 +121,8 @@ let appConfig = {
         },
         {
             "id": "REFERENTI_SPECIALI",
-            "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta", "invalsi"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini\n- **Invalsi:** Frediani (Referente), Tosi e Mazzocchi (Commissione)"]
+            "keywords": ["bullismo", "cyberbullismo", "stranieri", "dsa", "bes", "studente atleta"],
+            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i principali referenti per i progetti:\n- **Bullismo e Cyberbullismo:** Stinco (Referente) con il team Menale, Frisone, Cimmelli, Palmieri e Federigi\n- **Alunni Stranieri:** Nazzi\n- **DSA / BES:** Canu\n- **Studente-Atleta:** Angelini"]
         },
         {
             "id": "SICUREZZA",
@@ -461,11 +481,24 @@ function processUserQuery(query) {
         }
     }
 
-    // MOTORE GLOBALE POTENZIATO DI INTERCETTAZIONE CON TOLERANCE TIPO LEVENSHTEIN (ERRORI DI BATTITURA)
+    // REGOLA UNIVERSALE PER TERMINI MONOPAROLA O AMBIGUI
+    // Se l'utente scrive una sola parola (es. "invalsi", "accoglienza", "sicurezza", ecc.), Arturo chiede il contesto anziché sparare risposte fisse.
+    if (!cleanQuery.includes(" ")) {
+        let matchingFaq = appConfig.faqs.find(faq => faq.keywords.some(kw => kw.includes(cleanQuery) || calcolaSomiglianzaStringa(cleanQuery, kw) >= 0.70));
+        if (matchingFaq) {
+            ultimaCategoriaTrattata = matchingFaq.id;
+            ultimoGiocoProposto = "";
+            contatoreCuriosita = 0;
+            rispondiBot(`🤔 Per quanto riguarda **"${cleanQuery}"**, mi stai chiedendo la definizione generale o vuoi sapere chi sono gli eventuali responsabili / referenti all'interno dell'istituto?\n\n*(Specificamelo pure per avere l'informazione esatta!)*`);
+            return;
+        }
+    }
+
+    // MOTORE GLOBALE CON LEVENSHTEIN PER GESTIRE TYPO E DOMANDE SIMILI
     let bestMatchFaq = null;
     let highestScore = 0;
 
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa; // helper
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
 
     appConfig.faqs.forEach(faq => {
         faq.keywords.forEach(kw => {
@@ -477,7 +510,6 @@ function processUserQuery(query) {
         });
     });
 
-    // Se c'è una corrispondenza esatta o fortissima (>= 0.80), rispondi direttamente
     if (highestScore >= 0.80 && bestMatchFaq) {
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
@@ -487,7 +519,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // Se c'è un errore di battitura o somiglianza media (tra 0.35 e 0.79), attiva la domanda di guida e conferma all'utente!
     if (highestScore >= 0.35 && bestMatchFaq) {
         inAttesaConfermaFaq = true;
         faqCandidata = bestMatchFaq;
@@ -510,7 +541,6 @@ function processUserQuery(query) {
     rispondiBot(fraseCasuale);
 }
 
-// Algoritmo di similitudine globale avanzato basato su caratteri e sottostringhe per gestire qualsiasi typo
 function calcolaSomiglianzaStringa(s1, s2) {
     if (s1 === s2) return 1.0;
     if (s1.includes(s2) || s2.includes(s1)) return 0.85;
@@ -526,7 +556,6 @@ function calcolaSomiglianzaStringa(s1, s2) {
         return 1.0;
     }
     
-    // Controllo edit distance semplificato (Levenshtein)
     let costs = new Array();
     for (let i = 0; i <= s1.length; i++) {
         let lastValue = i;
@@ -604,7 +633,6 @@ function resetChat() {
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
-        <puntamento></puntamento>
         <div class="message bot-message">
             <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
             <div class="message-content">
