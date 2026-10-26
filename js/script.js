@@ -60,7 +60,7 @@ let appConfig = {
     faqs: [
         {
             "id": "INVALSI_RESPONSABILI",
-            "keywords": ["referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi"],
+            "keywords": ["invalsi", "referenti invalsi", "commissione invalsi", "responsabili invalsi", "chi fa invalsi", "responsabile invalsi"],
             "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i referenti per l'**Invalsi** sono:\n- **Referente:** Frediani\n- **Commissione:** Tosi, Mazzocchi\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
@@ -75,17 +75,17 @@ let appConfig = {
         },
         {
             "id": "ACCOGLIENZA_RESPONSABILI",
-            "keywords": ["referenti accoglienza", "commissione accoglienza", "responsabili accoglienza"],
+            "keywords": ["accoglienza", "referenti accoglienza", "commissione accoglienza", "responsabili accoglienza"],
             "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il servizio di **Accoglienza** vede come Referente **Cerbioni**, con la Commissione composta da **Tosi e Di Modica**.\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI",
-            "keywords": ["team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero"],
+            "keywords": ["mobilita", "team mobilità", "team mobilita", "mobilità internazionale", "mobilita internazionale", "referenti mobilità", "commissione mobilità", "responsabili mobilità", "referenti estero"],
             "responses": ["🌍 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Mobilità Internazionale** è così composto:\n- **Referente:** Fruci\n- **Team:** Frediani, Arosio, Orlando, Montanelli e Paoletti\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
             "id": "TEAM_DIGITALE_RESPONSABILI",
-            "keywords": ["team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale"],
+            "keywords": ["team", "team digitale", "referenti digitale", "animatore digitale referenti", "responsabili digitale", "animatore digitale"],
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan e Turini\n- **Personale ATA (Assistenti Tecnici):** Vorraro e Ziino\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*"]
         },
         {
@@ -257,7 +257,6 @@ let appConfig = {
 
 let inAttesaSceltaForm = false;
 let inAttesaConfermaFaq = false; 
-let argomentoInSospeso = null;   // Memorizza l'argomento attivo in attesa di scelta (es. "invalsi", "team")
 let faqCandidata = null;         
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -329,43 +328,12 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    if (!inAttesaConfermaFaq && !inAttesaSceltaForm && !argomentoInSospeso) {
+    if (!inAttesaConfermaFaq && !inAttesaSceltaForm) {
         faqCandidata = null;
     }
 
     // =========================================================================
-    // REGOLA FISSA 1: GESTIONE DELLO STATO IN SOSPESO (Se c'è un argomento in attesa di scelta)
-    // =========================================================================
-    if (argomentoInSospeso) {
-        let arg = argomentoInSospeso;
-        argomentoInSospeso = null; // Consuma lo stato
-
-        // Controllo esplicito per la definizione
-        if (cleanQuery.includes("definizione") || cleanQuery.includes("cos'e") || cleanQuery.includes("significato") || cleanQuery.includes("definizione")) {
-            if (appConfig.dictionary[arg]) {
-                rispondiBot(appConfig.dictionary[arg] + "\n\n*(Ti è utile qualche altra informazione o posso aiutarti con altro?)*");
-                return;
-            }
-        } 
-        
-        // Controllo flessibile per i responsabili (se l'utente scrive "responsabile", "responsabili", "referenti", "chi", ecc.)
-        if (cleanQuery.includes("responsabil") || cleanQuery.includes("referent") || cleanQuery.includes("chi") || cleanQuery === "responsabile" || cleanQuery === "responsabili") {
-            let idFaqCercato = arg.toUpperCase() + "_RESPONSABILI";
-            if (arg === "mobilita") idFaqCercato = "TEAM_MOBILITA_INTERNAZIONALE_RESPONSABILI";
-            if (arg === "digitale") idFaqCercato = "TEAM_DIGITALE_RESPONSABILI";
-            
-            let faqResp = appConfig.faqs.find(f => f.id === idFaqCercato);
-            if (faqResp) {
-                rispondiBot(faqResp.responses[0]);
-                return;
-            }
-        }
-        
-        // Se l'utente scrive qualcos'altro, lo stato in sospeso decade e la query prosegue normalmente sotto.
-    }
-
-    // =========================================================================
-    // REGOLA FISSA 2: DOMANDE MIRATE E ORGANIGRAMMA (Frasi complete o composte)
+    // REGOLA 1: RICERCA DIRETTA NELLE FAQ E ORGANIGRAMMA (Massima priorità)
     // =========================================================================
     let bestMatchFaq = null;
     let highestScore = 0;
@@ -382,8 +350,7 @@ function processUserQuery(query) {
         });
     });
 
-    if (highestScore >= 0.80 && bestMatchFaq) {
-        argomentoInSospeso = null;
+    if (highestScore >= 0.75 && bestMatchFaq) {
         ultimaCategoriaTrattata = bestMatchFaq.id;
         ultimoGiocoProposto = "";
         contatoreCuriosita = 0;
@@ -393,20 +360,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA FISSA 3: PAROLE CHIAVE SECCHE (Giano: attivano la scelta bidirezionale)
-    // =========================================================================
-    const paroleChiaveGiano = ["invalsi", "team", "accoglienza", "mobilita", "digitale"];
-    if (paroleChiaveGiano.includes(cleanQuery)) {
-        argomentoInSospeso = cleanQuery;
-        let etichettaTermine = cleanQuery.charAt(0).toUpperCase() + cleanQuery.slice(1);
-        if (cleanQuery === "mobilita") etichettaTermine = "Mobilità Internazionale";
-        
-        rispondiBot(`🔍 Per quanto riguarda **"${etichettaTermine}"**, vuoi conoscere la **definizione** generale o sapere i **responsabili** all'interno dell'istituto?`);
-        return;
-    }
-
-    // =========================================================================
-    // REGOLA FISSA 4: RICHIESTA DI DEFINIZIONE ESPLICITA (Dizionario)
+    // REGOLA 2: RICHIESTA DI DEFINIZIONE ESPLICITA DAL DIZIONARIO
     // =========================================================================
     let isRichiestaDefinizione = cleanQuery.includes("cosa significa") || 
                                  cleanQuery.includes("cos'e") || 
@@ -426,7 +380,7 @@ function processUserQuery(query) {
         }
     }
 
-    // Gestione standard moduli, giochi, calcoli e fallback
+    // Gestione standard moduli, giochi, calcoli e conferme
     if (inAttesaConfermaFaq) {
         inAttesaConfermaFaq = false;
         if (cleanQuery === "si" || cleanQuery === "sì" || cleanQuery === "ok" || cleanQuery === "esatto" || cleanQuery === "certo") {
@@ -671,7 +625,6 @@ function appendMessage(text, sender) {
 function resetChat() {
     inAttesaSceltaForm = false;
     inAttesaConfermaFaq = false;
-    argomentoInSospeso = null;
     faqCandidata = null;
     ultimaCategoriaTrattata = "";
     ultimoGiocoProposto = "";
