@@ -269,7 +269,6 @@ let appConfig = {
     },
     {
       "id": "MARTE_LUNA",
-      "type": "school",
       "keywords": [
         "marte",
         "sulla luna",
@@ -465,14 +464,6 @@ function sendMessage() {
     }, 300);
 }
 
-// Funzione per inviare un messaggio direttamente simulando il clic dell'utente
-function sendDirectQuery(queryText) {
-    appendMessage(queryText, "user");
-    setTimeout(() => {
-        processUserQuery(queryText);
-    }, 300);
-}
-
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -547,15 +538,14 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA UNIVERSALE CON SCELTA MULTIPLA CLICCABILE
+    // 6. RICERCA MIRATA E PRECISA (Evita falsi positivi ed elenchi di massa)
     let risultatiTrovati = [];
 
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
-            let paroleKw = kw.toLowerCase().split(" ");
-            let matchParziale = paroleKw.some(parola => cleanQuery.includes(parola) && parola.length > 2);
-            
-            if (cleanQuery.includes(kw.toLowerCase().trim()) || matchParziale || cleanQuery.includes(faq.id.toLowerCase())) {
+            let kwClean = kw.toLowerCase().trim();
+            // Verifica corrispondenza esatta della keyword o se la query contiene parole chiave specifiche
+            if (cleanQuery === kwClean || cleanQuery.includes(kwClean)) {
                 if (!risultatiTrovati.some(f => f.id === faq.id)) {
                     risultatiTrovati.push(faq);
                 }
@@ -563,24 +553,41 @@ function processUserQuery(query) {
         }
     }
 
+    // Se non trova corrispondenze esatte con le keyword, prova un match parziale solo se la query è lunga abbastanza
+    if (risultatiTrovati.length === 0 && cleanQuery.length > 4) {
+        for (let faq of appConfig.faqs) {
+            for (let kw of faq.keywords) {
+                let paroleKw = kw.toLowerCase().split(" ");
+                let matchParziale = paroleKw.some(parola => cleanQuery.includes(parola) && parola.length > 3);
+                if (matchParziale) {
+                    if (!risultatiTrovati.some(f => f.id === faq.id)) {
+                        risultatiTrovati.push(faq);
+                    }
+                }
+            }
+        }
+    }
+
     if (!risultatiTrovati.length && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
-        let listaFormHtml = "📋 Certamente! Clicca su un modulo per aprirlo:<br><br>";
+        let listaFormHtml = "📋 Certamente! Ecco tutti i moduli disponibili:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
             let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            let primaKeyword = f.keywords[0];
-            listaFormHtml += `🔹 <a href='javascript:void(0);' onclick='sendDirectQuery("${primaKeyword}")' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>${titoloForm}</a><br><br>`;
+            let linkMatch = f.responses[0].match(/href='([^']+)'/);
+            let urlForm = linkMatch ? linkMatch[1] : '#';
+            listaFormHtml += `🔹 <a href='${urlForm}' target='_blank' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>${titoloForm}</a><br><br>`;
         });
         rispondiBot(listaFormHtml);
         return;
     }
 
-    // SE TROVA PIÙ RISULTATI SIMILI: Genera pulsanti cliccabili interattivi!
+    // SE TROVA PIÙ ELEMENTI SIMILI: Genera pulsanti che aprono DIRETTAMENTE il link nel browser
     if (risultatiTrovati.length > 1) {
-        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> simili. Clicca su quello che ti interessa:<br><br>`;
-        risultatiTrovati.forEach((f, index) => {
+        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> corrispondenti. Scegli quale aprire:<br><br>`;
+        risultatiTrovati.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            let keywordScelta = f.keywords[0]; // Prende la prima keyword utile per raffinare la ricerca
-            sceltaMultiplaHtml += `${index + 1}️⃣ <a href='javascript:void(0);' onclick='sendDirectQuery("${keywordScelta}")' style='background: #1e3a8a; color: white; padding: 6px 12px; border-radius: 6px; display: inline-block; margin: 4px 0; text-decoration: none; font-weight: bold;'>👉 ${titoloRisposta}</a><br>`;
+            let linkMatch = f.responses[0].match(/href='([^']+)'/);
+            let urlForm = linkMatch ? linkMatch[1] : '#';
+            sceltaMultiplaHtml += `👉 <a href='${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>${titoloRisposta}</a><br>`;
         });
         rispondiBot(sceltaMultiplaHtml);
         return;
