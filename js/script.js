@@ -45,7 +45,7 @@ let appConfig = {
     "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
     "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
     "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
-    "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connettere computer in tutto il mondo.",
+    "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
     "lim": "📖 **LIM:** Lavagna Interattiva Multimediale utilizzata nelle classi per la didattica visiva.",
     "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
     "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
@@ -62,7 +62,7 @@ let appConfig = {
         "piano lavoro itt"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/INSERISCI_LINK_LICEO_VERO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUQzZVMjRXUTZNVFdFR05ZSVJDWFdSMzUxMy4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
       ]
     },
     {
@@ -75,7 +75,7 @@ let appConfig = {
         "classi prime itt"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/INSERISCI_LINK_IPIA_VERO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
       ]
     },
     {
