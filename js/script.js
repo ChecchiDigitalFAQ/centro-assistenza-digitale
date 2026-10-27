@@ -81,7 +81,7 @@ let appConfig = {
         {
             "id": "ANIMATORE_DIGITALE",
             "keywords": ["animatore digitale", "chi è l'animatore digitale", "chi e l animatore digitale", "animatore"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Alfonso**\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Donato**\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_DIGITALE",
@@ -316,7 +316,7 @@ function processUserQuery(query) {
     // REGOLA 4: INTERCETTAZIONI MIRATE AD ALTA PRIORITÀ (Animatore e Plessi)
     // =========================================================================
     if (cleanQuery.includes("animatore digitale") || cleanQuery.includes("chi è l'animatore") || cleanQuery.includes("chi e l animatore")) {
-        rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Alfonso**\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Donato**\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
