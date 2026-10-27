@@ -2,7 +2,7 @@
  * ARCHITETTURA CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
  * IIS "Arturo Checchi" (Fucecchio)
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
- * Versione Strutturale Avanzata 2026 - Completa e Definitiva
+ * Versione Definitiva a Riscontro Esatto (Scalabile e Pulita)
  */
 
 let appConfig = {
@@ -28,12 +28,6 @@ let appConfig = {
         "🧩 **Indovinello:** Tutti ce l'hanno, tutti lo perdono, ma nessuno sa dove l'abbia messo. Che cos'è?\n*(Risposta: La memoria!)*",
         "🧩 **Indovinello:** Cammina senza piedi, vola senza ali e piange senza occhi. Che cos'è?\n*(Risposta: La nuvola!)*",
         "🧩 **Indovinello:** Se mi nomini mi distruggi. Chi sono?\n*(Risposta: Il silenzio!)*"
-    ],
-
-    frasiSimpaticheFuoriTema: [
-        "🌦️ Al momento non riesco a trovare una risposta concreta a questa specifica domanda. Prova a formularmi una domanda più precisa relativa all'organigramma, ai plessi o ai servizi dell'IIS \"Arturo Checchi\"!",
-        "🧭 Questa informazione non è presente tra i miei archivi ufficiali. Ti invito a utilizzare i pulsanti rapidi a lato o a farmi una domanda attinente alla scuola.",
-        "🔮 Non ho una risposta precisa per questa richiesta generica. Prova a chiedermi qualcosa di specifico, come i referenti di un progetto o i contatti dei plessi."
     ],
 
     dictionary: {
@@ -70,7 +64,7 @@ let appConfig = {
         },
         {
             "id": "TUTOR",
-            "keywords": ["tutor", "tuto", "professori tutor", "elenco tutor", "lista tutor", "chi sono i tutor", "tutor scolastici", "nomi tutor"],
+            "keywords": ["tutor", "professori tutor", "elenco tutor", "lista tutor", "chi sono i tutor", "tutor scolastici", "nomi tutor"],
             "responses": ["👥 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco dei **Docenti Tutor**:\n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
@@ -84,9 +78,14 @@ let appConfig = {
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Donato**\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
-            "id": "TEAM_DIGITALE",
-            "keywords": ["team digitale", "digitale", "piattaforme", "m365", "teams", "costituito il team", "fanno parte del team", "squadra del team"],
+            "id": "TEAM_DIGITALE_MEMBRI",
+            "keywords": ["chi fa parte del team digitale", "com'è costituito il team digitale", "come e costituito il team digitale", "squadra del team digitale", "componenti team digitale", "membri team digitale"],
             "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan, Turini\n- **Personale ATA:** Vorraro, Ziino\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "TEAM_DIGITALE_COMPiti",
+            "keywords": ["di cosa si occupa il team digitale", "cosa fa il team digitale", "compiti team digitale"],
+            "responses": ["💻 Per quanto riguarda il **Team Digitale** e i servizi di digitalizzazione e supporto tecnologico dell'IIS \"Arturo Checchi\", l'animatore digitale e il team gestiscono le piattaforme M365, i laboratori informatici e l'assistenza tecnica.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_BULLISMO",
@@ -122,6 +121,11 @@ let appConfig = {
             "id": "RESPONSABILI_LABORATORI_COMPLETO",
             "keywords": ["responsabili laboratori", "elenco laboratori", "lista laboratori", "tutti i laboratori", "responsabile laboratori", "laboratori e aree speciali"],
             "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
+            "id": "RESPONSABILI_PLESSI_GENERALI",
+            "keywords": ["responsabili di plesso", "responsabile di plesso", "tutti i plessi", "elenco plessi"],
+            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "COMMISSIONI_GENERALI",
@@ -176,20 +180,9 @@ let appConfig = {
     ]
 };
 
-let inAttesaSceltaResponsabile = false;
-let inAttesaSceltaTipoPlesso = false;
-let inAttesaSceltaTipoLaboratorio = false;
-let inAttesaSedeLaboratorioInformatica = false;
 let inAttesaSceltaOrganigramma = false;
 let inAttesaSceltaParolaAmbiguita = false;
 let ultimaParolaDigitata = "";
-
-let ultimaCategoriaTrattata = ""; 
-let ultimoGiocoProposto = ""; 
-let indiceBarzelletta = 0;
-let indiceIndovinello = 0;
-let indiceFraseSimpatica = 0;
-let contatoreCuriosita = 0; 
 
 document.addEventListener("DOMContentLoaded", () => {
     initAppCore();
@@ -243,7 +236,9 @@ function sendMessage() {
 }
 
 /**
- * MOTORE SEMANTICO STRUTTURALE DEFINITIVO A CASCATA
+ * MOTORE SEMANTICO A RISCONTRO ESATTO (ZERO FUORI TEMA)
+ * Controlla se la domanda dell'utente corrisponde esattamente alle parole chiave codificate.
+ * Se non trova nulla, risponde con cortesia invitando a cambiare domanda.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -253,28 +248,18 @@ function processUserQuery(query) {
         .replace(/[ìí]/g, "i")
         .replace(/[òó]/g, "o")
         .replace(/[ùú]/g, "u")
-        .replace(/[,!]/g, "")
+        .replace(/[,!?-]/g, " ")
         .replace(/\s+/g, " ")
         .trim();
 
-    // =========================================================================
-    // REGOLA 1: CHIUSURA / USCITA UNIVERSALE ("nulla", "grazie", "ok", ecc.)
-    // =========================================================================
+    // 1. Chiusura / Uscita
     const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
     if (paroleChiusura.includes(cleanQuery)) {
-        inAttesaSceltaOrganigramma = false;
-        inAttesaSceltaResponsabile = false;
-        inAttesaSceltaTipoPlesso = false;
-        inAttesaSceltaTipoLaboratorio = false;
-        inAttesaSedeLaboratorioInformatica = false;
-        inAttesaSceltaParolaAmbiguita = false;
         rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
         return;
     }
 
-    // =========================================================================
-    // REGOLA 2: SALUTO "CIAO" (Iniziale vs Finale)
-    // =========================================================================
+    // 2. Saluto "Ciao" (Iniziale vs Finale)
     if (cleanQuery === "ciao" || cleanQuery === "salve") {
         const chatBox = document.getElementById("chat-messages");
         const numeroMessaggiUtente = chatBox ? chatBox.querySelectorAll(".user-message").length : 1;
@@ -288,245 +273,26 @@ function processUserQuery(query) {
         }
     }
 
-    // =========================================================================
-    // REGOLA 3: GESTIONE PAROLE AMBIGUE IN ATTESA
-    // =========================================================================
-    if (inAttesaSceltaParolaAmbiguita) {
-        let parola = ultimaParolaDigitata;
-        inAttesaSceltaParolaAmbiguita = false;
-        ultimaParolaDigitata = "";
-        
-        if (cleanQuery.includes("digitale") || cleanQuery.includes("specifico") || cleanQuery.includes("organigramma") || cleanQuery.includes("servizio") || cleanQuery.includes("ruolo") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile")) {
-            rispondiBot(`💻 Per quanto riguarda il **servizio digitale e le piattaforme di collaborazione (Microsoft Teams)** all'IIS "Arturo Checchi", la piattaforma è integrata nel tenant M365 d'istituto per la didattica digitale integrata.\n\n*(Cos'altro vuoi chiedermi?)*`);
-            return;
-        }
-
-        if (cleanQuery.includes("definizione") || cleanQuery.includes("significato") || cleanQuery.includes("cos'e") || cleanQuery.includes("definire") || cleanQuery.includes("spiegare")) {
-            if (appConfig.dictionary[parola]) {
-                rispondiBot(appConfig.dictionary[parola] + "\n\n*(Cos'altro vuoi chiedermi?)*");
+    // 3. Controllo Esatto nelle FAQ (Scorciatoia pulita e scalabile)
+    for (let faq of appConfig.faqs) {
+        for (let kw of faq.keywords) {
+            // Se la query dell'utente contiene esattamente la keyword configurata
+            if (cleanQuery.includes(kw)) {
+                let resp = faq.responses[Math.floor(Math.random() * faq.responses.length)];
+                rispondiBot(resp);
                 return;
             }
-        } else {
-            processUserQuery(query);
-            return;
         }
     }
 
-    // =========================================================================
-    // REGOLA 4: INTERCETTAZIONI MIRATE AD ALTA PRIORITÀ (Animatore, Team e Plessi)
-    // =========================================================================
-    if (cleanQuery.includes("animatore digitale") || cleanQuery.includes("chi è l'animatore") || cleanQuery.includes("chi e l animatore")) {
-        rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Donato**\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("chi fa parte del team digitale") || cleanQuery.includes("com'è costituito") || cleanQuery.includes("come e costituito") || cleanQuery.includes("squadra del team") || cleanQuery.includes("componenti del team")) {
-        rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan, Turini\n- **Personale ATA:** Vorraro, Ziino\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("responsabili di plesso") || cleanQuery.includes("responsabile di plesso") || cleanQuery.includes("elenco plessi") || cleanQuery.includes("tutti i plessi")) {
-        rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("sede centrale") || cleanQuery.includes("viale gramsci") || cleanQuery.includes("responsabile centrale")) {
-        rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Responsabile della Sede Centrale** (Viale Gramsci) è: **Lalli**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("liceo") || cleanQuery.includes("via padre checchi")) {
-        rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Liceo** (Via Padre Checchi) sono: **Frediani, Frati e Canu**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery.includes("moda") || cleanQuery.includes("calzaturiero") || cleanQuery.includes("piazza vittorio veneto")) {
-        rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), i **Responsabili del Plesso Moda e Calzaturiero** (Piazza Vittorio Veneto) sono: **Galleni e Palmieri**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-
-    if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
-        inAttesaSceltaOrganigramma = true;
-        rispondiBot("📋 Ti interessa sapere qualcosa **nello specifico** dall'organigramma (come responsabili, tutor o laboratori), oppure preferisci che ti rilasci il **PDF completo** da scaricare?");
-        return;
-    }
-
-    if (inAttesaSceltaOrganigramma) {
-        inAttesaSceltaOrganigramma = false;
-        if (cleanQuery.includes("pdf") || cleanQuery.includes("scarica") || cleanQuery.includes("documento") || cleanQuery.includes("link") || cleanQuery.includes("intero") || cleanQuery.includes("completo") || cleanQuery.includes("si") || cleanQuery.includes("sì")) {
-            rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else {
-            rispondiBot("🤖 Va bene! Dimmi pure quale informazione specifica ti interessa conoscere dall'organigramma (es. *responsabili di plesso*, *tutor*, *figure di sicurezza* o *laboratori*).");
-            return;
-        }
-    }
-
-    // =========================================================================
-    // REGOLA 5: INTERCETTAZIONE LABORATORI SPECIFICI
-    // =========================================================================
-    if (cleanQuery.includes("modellistica 1")) {
-        rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("modellistica 2")) {
-        rispondiBot("🧵 Per il **Laboratorio di Modellistica 2** (Sede V. Veneto), il responsabile è: **Desideri**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("lim") || (cleanQuery.includes("calzaturiero") && cleanQuery.includes("laboratorio"))) {
-        rispondiBot("👞 Per il laboratorio **LIM/Calzaturiero** (Sede V. Veneto), il responsabile è: **Vaiani**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("palestra nuova")) {
-        rispondiBot("🏀 Per la **Palestra Nuova** (Sede Checchi), il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("palazzetto")) {
-        rispondiBot("🏟️ Per il **Palazzetto** (Sede Checchi), il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("fisica") || cleanQuery.includes("scienze")) {
-        rispondiBot("🔬 Per il **Laboratorio di Fisica/Scienze** (Sede Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("meccanica")) {
-        rispondiBot("⚙️ Per il **Laboratorio di Meccanica** (Sede Gramsci), il responsabile è: **Picciolo**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("impiantielettrici") || cleanQuery.includes("impianti elettrici")) {
-        rispondiBot("⚡ Per il **Laboratorio di Impiantielettrici** (Sede Gramsci), il responsabile è: **Cerrato**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("misureelettr") || cleanQuery.includes("misure elettriche")) {
-        rispondiBot("📊 Per il laboratorio **MisureElettr.** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("elettropneumatica")) {
-        rispondiBot("🔌 Per il **Laboratorio di Elettropneumatica** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("autocad")) {
-        rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("linguistico") || cleanQuery.includes("green")) {
-        rispondiBot("🌐 Per il **Laboratorio Linguistico/Green o Aula Green** (Sede Gramsci), i referenti sono: **D'Avico** (Linguistico/Green) e **Canneri** (Aula Green).\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("palestra") && cleanQuery.includes("gramsci")) {
-        rispondiBot("🏀 Per la **Palestra** (Sede Gramsci), il responsabile è: **Grassini**.\n\n*(Cos'altro vuoi chiedermi?)*");
-        return;
-    }
-    if (cleanQuery.includes("informatica") || cleanQuery.includes("informatico")) {
-        if (cleanQuery.includes("v. veneto") || cleanQuery.includes("veneto") || cleanQuery.includes("moda")) {
-            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo") || cleanQuery.includes("informatico 1") || cleanQuery.includes("informatico 2")) {
-            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        } else {
-            rispondiBot("💻 I laboratori di informatica sono presenti in più sedi: al **Plesso Moda (V. Veneto)** il responsabile è **Galleni**, mentre al **Liceo (Checchi)** i responsabili dei laboratori informatici 1 e 2 sono **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
-            return;
-        }
-    }
-    if (cleanQuery.includes("laboratorio") || cleanQuery.includes("laboratori")) {
-        let foundLab = appConfig.faqs.find(f => f.id === "RESPONSABILI_LABORATORI_COMPLETO");
-        if (foundLab) {
-            rispondiBot(foundLab.responses[0]);
-            return;
-        }
-    }
-
-    // =========================================================================
-    // REGOLA 6: DIZIONARIO (Parole singole)
-    // =========================================================================
+    // 4. Controllo Dizionario (Parole singole)
     if (appConfig.dictionary[cleanQuery]) {
-        inAttesaSceltaParolaAmbiguita = true;
-        ultimaParolaDigitata = cleanQuery;
-        rispondiBot(`📖 Ho trovato il termine **"${query}"**. Ti serve la **definizione** del termine o ti riferisci a qualcosa di **specifico** nell'ambito scolastico?`);
+        rispondiBot(appConfig.dictionary[cleanQuery] + "\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
-    // =========================================================================
-    // REGOLA 7: VERIFICA FAQ GLOBALI (Tramite Somiglianza)
-    // =========================================================================
-    let matchedGlobalFaq = null;
-    let highestGlobalScore = 0;
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestGlobalScore) {
-                highestGlobalScore = score;
-                matchedGlobalFaq = faq;
-            }
-        });
-    });
-
-    if (highestGlobalScore >= 0.82 && matchedGlobalFaq) {
-        inAttesaSceltaOrganigramma = false;
-        inAttesaSceltaParolaAmbiguita = false;
-        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
-        rispondiBot(resp);
-        return;
-    }
-
-    // =========================================================================
-    // REGOLA 8: CONTINUAZIONE E FALLBACK FINALE
-    // =========================================================================
-    const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
-    if (intentiContinuazione.includes(cleanQuery)) {
-        rispondiBot("🤖 Certamente! Dimmi pure, quale altra informazione ti serve o di quale servizio dell'IIS \"Arturo Checchi\" hai bisogno?");
-        return;
-    }
-
-    if (cleanQuery.length < 2) {
-        rispondiBot(`🤖 Non ho capito bene cosa intendi con "${query}". Prova a scrivermi una domanda completa o usa i pulsanti rapidi a lato!`);
-        return;
-    }
-
-    let fraseCasuale = appConfig.frasiSimpaticheFuoriTema[indiceFraseSimpatica];
-    indiceFraseSimpatica = (indiceFraseSimpatica + 1) % appConfig.frasiSimpaticheFuoriTema.length;
-    rispondiBot(fraseCasuale);
-}
-
-function calcolaSomiglianzaStringa(s1, s2) {
-    if (s1 === s2) return 1.0;
-    if (s1.includes(s2) || s2.includes(s1)) return 0.85;
-    
-    let longer = s1;
-    let shorter = s2;
-    if (s1.length < s2.length) {
-        longer = s2;
-        shorter = s1;
-    }
-    let longerLength = longer.length;
-    if (longerLength === 0) return 1.0;
-    
-    let costs = new Array();
-    for (let i = 0; i <= s1.length; i++) {
-        let lastValue = i;
-        for (let j = 0; j <= s2.length; j++) {
-            if (i === 0) {
-                costs[j] = j;
-            } else {
-                if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(i - 1) !== s2.charAt(j - 1)) {
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    }
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-        }
-        if (i > 0) {
-            costs[s2.length] = lastValue;
-        }
-    }
-    let editDistance = costs[s2.length];
-    return (longerLength - editDistance) / longerLength;
+    // 5. REGOLA DI FERRO: NESSUNA RISPOSTA CASUALE O FUORI TEMA
+    rispondiBot("🤖 Al momento non sono in grado di darti una risposta precisa su questo argomento. Prova a chiedermi qualcos'altro o utilizza i pulsanti rapidi a lato!");
 }
 
 function rispondiBot(testo) {
@@ -569,14 +335,6 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
-    inAttesaSceltaResponsabile = false;
-    inAttesaSceltaTipoPlesso = false;
-    inAttesaSceltaTipoLaboratorio = false;
-    inAttesaSedeLaboratorioInformatica = false;
-    inAttesaSceltaOrganigramma = false;
-    inAttesaSceltaParolaAmbiguita = false;
-    ultimaParolaDigitata = "";
-    ultimaCategoriaTrattata = "";
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
