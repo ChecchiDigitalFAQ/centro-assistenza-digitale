@@ -54,6 +54,7 @@ let appConfig = {
   "faqs": [
     {
       "id": "FORM_PIANO_LAVORO_LICEO",
+      "type": "form",
       "keywords": [
         "piano lavoro liceo",
         "piano annuale liceo",
@@ -66,6 +67,7 @@ let appConfig = {
     },
     {
       "id": "FORM_PIANO_LAVORO_IPIA",
+      "type": "form",
       "keywords": [
         "piano lavoro ipia",
         "piano annuale ipia",
@@ -79,6 +81,7 @@ let appConfig = {
     },
     {
       "id": "AIUTO",
+      "type": "school",
       "keywords": [
         "aiuto",
         "help",
@@ -93,6 +96,7 @@ let appConfig = {
     },
     {
       "id": "CHI_SEI",
+      "type": "school",
       "keywords": [
         "chi sei",
         "come ti chiami",
@@ -106,6 +110,7 @@ let appConfig = {
     },
     {
       "id": "DOVE_VIVI",
+      "type": "school",
       "keywords": [
         "dove vivi",
         "dove ti trovi",
@@ -118,6 +123,7 @@ let appConfig = {
     },
     {
       "id": "TI_VOLARE",
+      "type": "school",
       "keywords": [
         "ti piace volare",
         "sai volare",
@@ -129,6 +135,7 @@ let appConfig = {
     },
     {
       "id": "TI_FIDANZATO",
+      "type": "school",
       "keywords": [
         "hai un fidanzato",
         "hai una fidanzata",
@@ -141,6 +148,7 @@ let appConfig = {
     },
     {
       "id": "TI_FAME",
+      "type": "school",
       "keywords": [
         "hai fame",
         "mangi",
@@ -153,6 +161,7 @@ let appConfig = {
     },
     {
       "id": "TI_MUSICA",
+      "type": "school",
       "keywords": [
         "che musica ascolti",
         "ti piace la musica",
@@ -164,6 +173,7 @@ let appConfig = {
     },
     {
       "id": "TI_NUTELLA",
+      "type": "school",
       "keywords": [
         "ti piace la nutella",
         "nutella",
@@ -175,6 +185,7 @@ let appConfig = {
     },
     {
       "id": "TI_MARE",
+      "type": "school",
       "keywords": [
         "ti piace il mare",
         "mare",
@@ -186,6 +197,7 @@ let appConfig = {
     },
     {
       "id": "TI_ANIMALI",
+      "type": "school",
       "keywords": [
         "ti piacciono i cani",
         "ti piacciono i gatti",
@@ -197,6 +209,7 @@ let appConfig = {
     },
     {
       "id": "TI_PERSONE",
+      "type": "school",
       "keywords": [
         "ti piacciono le donne",
         "ti piacciono gli uomini",
@@ -208,6 +221,7 @@ let appConfig = {
     },
     {
       "id": "TI_DORMIRE",
+      "type": "school",
       "keywords": [
         "ti piace dormire",
         "ti addormenti",
@@ -220,6 +234,7 @@ let appConfig = {
     },
     {
       "id": "TI_SALUTO",
+      "type": "school",
       "keywords": [
         "ti saluto",
         "ti saluta"
@@ -230,6 +245,7 @@ let appConfig = {
     },
     {
       "id": "TI_AMO",
+      "type": "school",
       "keywords": [
         "ti amo",
         "ti voglio bene",
@@ -241,6 +257,7 @@ let appConfig = {
     },
     {
       "id": "TI_ODIO",
+      "type": "school",
       "keywords": [
         "ti odio",
         "ti stacco",
@@ -252,6 +269,7 @@ let appConfig = {
     },
     {
       "id": "MARTE_LUNA",
+      "type": "school",
       "keywords": [
         "marte",
         "sulla luna",
@@ -263,6 +281,7 @@ let appConfig = {
     },
     {
       "id": "BARZELLETTE",
+      "type": "school",
       "keywords": [
         "barzelletta",
         "fammi ridere",
@@ -277,6 +296,7 @@ let appConfig = {
     },
     {
       "id": "INDOVINELLO",
+      "type": "school",
       "keywords": [
         "indovinello",
         "indovinelli"
@@ -288,6 +308,7 @@ let appConfig = {
     },
     {
       "id": "CREATORE",
+      "type": "school",
       "keywords": [
         "chi ti ha creato",
         "creatore",
@@ -300,6 +321,7 @@ let appConfig = {
     },
     {
       "id": "DIRIGENZA",
+      "type": "school",
       "keywords": [
         "dirigenza",
         "preside",
@@ -312,6 +334,7 @@ let appConfig = {
     },
     {
       "id": "COLLABORATORI_DIRIGENTE",
+      "type": "school",
       "keywords": [
         "collaboratori",
         "collaboratore",
@@ -324,6 +347,7 @@ let appConfig = {
     },
     {
       "id": "SEDI_ISTITUTO",
+      "type": "school",
       "keywords": [
         "plessi",
         "quanti plessi",
@@ -337,6 +361,7 @@ let appConfig = {
     },
     {
       "id": "CONTATTI",
+      "type": "school",
       "keywords": [
         "contatti",
         "telefono",
@@ -350,6 +375,7 @@ let appConfig = {
     },
     {
       "id": "FORM_FOTOCOPIE",
+      "type": "form",
       "keywords": [
         "fotocopie",
         "form fotocopie",
@@ -362,6 +388,7 @@ let appConfig = {
     },
     {
       "id": "FORM_ESPERTI",
+      "type": "form",
       "keywords": [
         "esperti",
         "esperti esterni",
@@ -374,6 +401,7 @@ let appConfig = {
     },
     {
       "id": "SALUTO",
+      "type": "school",
       "keywords": [
         "ciao",
         "salve",
@@ -563,14 +591,15 @@ function processUserQuery(query) {
     let vuoleForm = cleanQuery.includes("form") || cleanQuery.includes("modulo") || cleanQuery.includes("richiesta") || cleanQuery.includes("compilare") || cleanQuery.includes("link");
 
     for (let faq of appConfig.faqs) {
-        if (vuoleForm && faq.id.startsWith("FORM_")) {
+        let isForm = faq.id.startsWith("FORM_") || faq.type === "form";
+        if (vuoleForm && isForm) {
             for (let kw of faq.keywords) {
                 if (cleanQuery.includes(kw.toLowerCase().trim())) {
                     matchedFaq = faq;
                     break;
                 }
             }
-        } else if (!vuoleForm && !faq.id.startsWith("FORM_")) {
+        } else if (!vuoleForm && !isForm) {
             for (let kw of faq.keywords) {
                 if (cleanQuery.includes(kw.toLowerCase().trim())) {
                     matchedFaq = faq;
