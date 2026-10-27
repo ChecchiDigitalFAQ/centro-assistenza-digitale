@@ -496,32 +496,9 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Gestione interattiva form (se in attesa)
-    if (inAttesaSceltaForm) {
-        inAttesaSceltaForm = false;
-        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
-            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
-            return;
-        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
-            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
-            return;
-        }
-    }
-
-    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
-        inAttesaSceltaForm = true;
-        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
-        return;
-    }
-
-    // 4. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE (anche con piccoli refusi)
+    // 3. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE
     let cercaSignificato = cleanQuery.includes("significa") || cleanQuery.includes("significhi") || cleanQuery.includes("cos e") || cleanQuery.includes("cose") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");
     
-    if (cercaSignificato && cleanQuery.includes("esperti")) {
-        rispondiBot("🤖 Al momento il termine 'esperti' mi è ancora sconosciuto come voce enciclopedica, ma ho registrato la tua richiesta: a breve lo avrò inserito nel mio dizionario!");
-        return;
-    }
-
     if (cercaSignificato) {
         let trovatoDizionario = false;
         for (const [term, def] of Object.entries(appConfig.dictionary)) {
@@ -537,7 +514,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. REGOLA DELLA PAROLA SINGOLA ISOLATA
+    // 4. REGOLA DELLA PAROLA SINGOLA ISOLATA
     const parole = cleanQuery.split(" ");
     if (parole.length === 1) {
         if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
@@ -555,7 +532,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 6. Gestione RADICI QUADRATE
+    // 5. Gestione RADICI QUADRATE e Calcoli
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -565,43 +542,15 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. Calcolatrice e conversioni base
-    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
-        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
-        if (!isNaN(num)) {
-            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
-            return;
-        }
-    }
-    if (cleanQuery.includes("quintale")) {
-        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
-        return;
-    }
-
-    // 8. Ricerca normale nel Dizionario per frasi
-    for (const [term, def] of Object.entries(appConfig.dictionary)) {
-        if (cleanQuery.includes(term)) {
-            rispondiBot(def);
-            return;
-        }
-    }
-
-    // 9. Ricerca FAQ (I form si attivano SOLO se l'utente menziona esplicitamente form/modulo/richiesta)
+    // 6. RICERCA INTELLIGENTE DINAMICA (Cerca prima tra i form e poi nelle FAQ normali)
     let matchedFaq = null;
-    let vuoleForm = cleanQuery.includes("form") || cleanQuery.includes("modulo") || cleanQuery.includes("richiesta") || cleanQuery.includes("compilare") || cleanQuery.includes("link");
 
+    // Tentativo 1: Cerca nei form se c'intravede una corrispondenza nelle keyword o nell'ID
     for (let faq of appConfig.faqs) {
         let isForm = faq.id.startsWith("FORM_") || faq.type === "form";
-        if (vuoleForm && isForm) {
+        if (isForm) {
             for (let kw of faq.keywords) {
-                if (cleanQuery.includes(kw.toLowerCase().trim())) {
-                    matchedFaq = faq;
-                    break;
-                }
-            }
-        } else if (!vuoleForm && !isForm) {
-            for (let kw of faq.keywords) {
-                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                if (cleanQuery.includes(kw.toLowerCase().trim()) || kw.toLowerCase().trim().includes(cleanQuery)) {
                     matchedFaq = faq;
                     break;
                 }
@@ -610,6 +559,18 @@ function processUserQuery(query) {
         if (matchedFaq) break;
     }
 
+    // Tentativo 2: Se l'utente chiede in modo generico un form o modulo
+    if (!matchedFaq && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
+        let listaFormHtml = "📋 Certamente! Ecco i moduli disponibili:<br><br>";
+        appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
+            let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
+            listaFormHtml += `🔹 ${titoloForm} (scrivi es. '${f.keywords[0]}')<br>`;
+        });
+        rispondiBot(listaFormHtml);
+        return;
+    }
+
+    // Tentativo 3: Cerca nelle FAQ standard
     if (!matchedFaq) {
         for (let faq of appConfig.faqs) {
             for (let kw of faq.keywords) {
@@ -622,13 +583,14 @@ function processUserQuery(query) {
         }
     }
 
+    // Se ha trovato una corrispondenza, restituisce la risposta
     if (matchedFaq) {
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
         return;
     }
 
-    // 10. SBARRAMENTO ONESTA FINALE
+    // 7. SBARRAMENTO ONESTA FINALE
     rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
