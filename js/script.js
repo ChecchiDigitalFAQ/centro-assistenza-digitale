@@ -16,28 +16,22 @@ let appConfig = {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
         "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
-        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
         "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
-        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
+        "antivirus": "📖 **Antivirus:** Software progettato per identificare, bloccare ed eliminare virus e malware dai sistemi informatici.",
         "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
         "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
         "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
-        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
-        "cloud": "📖 **Cloud:** Modello di erogazione di servizi informatici tramite Internet (archiviazione, elaborazione dati) da server remoti.",
+        "cloud": "📖 **Cloud:** Modello di erogazione di servizi informatici tramite Internet da server remoti.",
         "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
-        "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
+        "database": "📖 **Database:** Banca dati strutturata e organizzata di dati digitali consultabile.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
         "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
-        "e-learning": "📖 **E-learning:** Modalità di apprendimento che utilizza le tecnologie digitali e Internet per la didattica a distanza o integrata.",
-        "firewall": "📖 **Firewall:** Sistema di sicurezza di rete che monitora e filtra il traffico in entrata e in uscita in base a regole stabilite.",
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
-        "lim": "📖 **LIM:** Lavagna Interattiva Multimediale. Dispositivo elettronico a superficie touch utilizzato nelle classi per la didattica visiva.",
+        "lim": "📖 **LIM:** Lavagna Interattiva Multimediale utilizzata nelle classi per la didattica visiva.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "pixel": "📖 **Pixel:** Elemento più piccolo che compone un'immagine digitale sullo schermo.",
         "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
-        "stampante": "📖 **Stampante:** Dispositivo hardware che trasferisce dati digitali da un computer su carta.",
-        "tablet": "📖 **Tablet:** Dispositivo informatico portatile dotato di schermo touch screen."
+        "stampante": "📖 **Stampante:** Dispositivo hardware che trasferisce dati digitali su carta."
     },
 
     faqs: [
@@ -48,7 +42,7 @@ let appConfig = {
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo ti chiami", "comu ti chiami"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami"],
             "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
         },
         {
@@ -56,11 +50,10 @@ let appConfig = {
             "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
             "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
         },
-        // --- DOMANDE PERSONALI E CURIOSE AMPLIATE ---
         {
             "id": "TI_VOLARE",
             "keywords": ["ti piace volare", "sai volare", "vorresti volare"],
-            "responses": ["✈️ Volare? Non ho ali fisiche, ma i miei pacchetti di dati viaggiano alla velocità della luce attraverso le reti in fibra ottica: è il volo più bello che ci sia!"]
+            "responses": ["✈️ Volare? Non ho ali fisiche, ma i miei pacchetti di dati viaggiano alla velocità della luce attraverso le reti in fibra ottica!"]
         },
         {
             "id": "TI_FIDANZATO",
@@ -70,12 +63,12 @@ let appConfig = {
         {
             "id": "TI_FAME",
             "keywords": ["hai fame", "mangi", "cosa mangi", "hai sete"],
-            "responses": ["🍕 Fame no, ma non disdegno mai un buon flusso continuo di dati freschi e qualche megabyte di traffico web ben digerito!"]
+            "responses": ["🍕 Fame no, ma non disdegno mai un buon flusso continuo di dati freschi e qualche megabyte di traffico web!"]
         },
         {
             "id": "TI_MUSICA",
             "keywords": ["che musica ascolti", "ti piace la musica", "canzone preferita"],
-            "responses": ["🎶 Adoro la techno e la musica elettronica: mi ricordano il ticchettio ritmato dei processori al lavoro!"]
+            "responses": ["🎶 Adoro la musica elettronica e i bit ritmati: mi ricordano il ticchettio perfetto dei processori al lavoro!"]
         },
         {
             "id": "TI_NUTELLA",
@@ -89,7 +82,7 @@ let appConfig = {
         },
         {
             "id": "TI_ANIMALI",
-            "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali", "ti piacciono gli uccelli"],
+            "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali"],
             "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."]
         },
         {
@@ -117,7 +110,6 @@ let appConfig = {
             "keywords": ["ti odio", "ti stacco", "ti spengo"],
             "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."]
         },
-        // --- SPAZIO, BARZELLETTE E INDOVINELLI AMPLIATI ---
         {
             "id": "MARTE_LUNA",
             "keywords": ["marte", "sulla luna", "ci sei stato su marte"],
@@ -129,20 +121,17 @@ let appConfig = {
             "responses": [
                 "😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟",
                 "😄 Qual è il colmo per un informatico? Perdere la testa... e doverla riavviare!",
-                "😄 Il professore di matematica interroga: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!'",
-                "😄 Un alunno entra in classe con un ritardo spaventoso. Il professore: 'Si può sapere perché arrivi a quest'ora?!' E lui: 'Prof, c'era un cartello per strada che diceva: Scuola, rallentare! E io ho rallentato!'"
+                "😄 Il professore di matematica interroga: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!'"
             ]
         },
         {
             "id": "INDOVINELLO",
             "keywords": ["indovinello", "indovinelli"],
             "responses": [
-                "🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera / computer!)",
-                "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è? *(Risposta: Il buio!)*",
-                "🧩 **Indovinello:** Ha un solo occhio ma non ci vede. Che cos'è? *(Risposta: L'ago!)*"
+                "🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)",
+                "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è? *(Risposta: Il buio!)*"
             ]
         },
-        // --- SCUOLA E UFFICI ---
         {
             "id": "CREATORE",
             "keywords": ["chi ti ha creato", "creatore", "programmato", "sviluppato"],
@@ -150,7 +139,7 @@ let appConfig = {
         },
         {
             "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "chi e il preside", "chi e la preside", "dirigente scolastico", "preside del checchi"],
+            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico"],
             "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
@@ -161,14 +150,13 @@ let appConfig = {
         {
             "id": "SEDI_ISTITUTO",
             "keywords": ["plessi", "quanti plessi", "sedi", "sede centrale", "ite"],
-            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**), oltre alle altre sedi dell'istituto."]
+            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**)."]
         },
         {
             "id": "CONTATTI",
             "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
             "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
         },
-        // --- FORM SPECIFICI ---
         {
             "id": "FORM_FOTOCOPIE",
             "keywords": ["fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
@@ -251,7 +239,16 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Gestione interattiva quando l'utente scrive solo "form" o "modulo"
+    if (cleanQuery === "") return;
+
+    // 1. Chiusura / Uscita (incluso "ciao" o saluti finali di chiusura)
+    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "addio"];
+    if (paroleChiusura.includes(cleanQuery)) {
+        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
+        return;
+    }
+
+    // 2. Gestione interattiva form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -269,7 +266,30 @@ function processUserQuery(query) {
         return;
     }
 
-    // Gestione RADICI QUADRATE
+    // Spezzettiamo la query in parole per valutare la regola della parola singola
+    const parole = cleanQuery.split(" ");
+
+    // 3. REGOLA DELLA PAROLA SINGOLA ISOLATA (Se è una sola parola, escludiamo saluti o termini dizionario esatti)
+    if (parole.length === 1) {
+        // Controllo se è un saluto esatto
+        if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
+            let faqSaluto = appConfig.faqs.find(f => f.id === "SALUTO");
+            if (faqSaluto) {
+                rispondiBot(faqSaluto.responses[0]);
+                return;
+            }
+        }
+        // Controllo se è un termine esatto del dizionario
+        if (appConfig.dictionary[cleanQuery]) {
+            rispondiBot(appConfig.dictionary[cleanQuery]);
+            return;
+        }
+        // Altrimenti, attiva il bivio / richiesta di chiarimento per la parola singola
+        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${query}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
+        return;
+    }
+
+    // 4. Gestione RADICI QUADRATE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -279,7 +299,7 @@ function processUserQuery(query) {
         }
     }
 
-    // Calcolatrice e conversioni base
+    // 5. Calcolatrice e conversioni base
     if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -292,7 +312,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // Ricerca Dizionario
+    // 6. Ricerca Dizionario per frasi contenenti il termine
     for (const [term, def] of Object.entries(appConfig.dictionary)) {
         if (cleanQuery.includes(term)) {
             rispondiBot(def);
@@ -300,38 +320,27 @@ function processUserQuery(query) {
         }
     }
 
-    // Ricerca FAQ con tolleranza ai typo
+    // 7. Ricerca FAQ con corrispondenza solida
     let matchedFaq = null;
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            if (cleanQuery.includes(kw) || kw.includes(cleanQuery) || calcolaSomiglianza(cleanQuery, kw) > 0.65) {
+    for (let faq of appConfig.faqs) {
+        for (let kw of faq.keywords) {
+            let kwClean = kw.toLowerCase().trim();
+            if (cleanQuery.includes(kwClean)) {
                 matchedFaq = faq;
+                break;
             }
-        });
-    });
+        }
+        if (matchedFaq) break;
+    }
 
     if (matchedFaq) {
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
-    } else {
-        // Frase onesta concordata (Niente allucinazioni o risposte a caso)
-        appendMessage("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!", "bot");
+        return;
     }
-}
 
-// Funzione di somiglianza per i typo
-function calcolaSomiglianza(s1, s2) {
-    let parole1 = s1.split(" ");
-    let parole2 = s2.split(" ");
-    let matchCount = 0;
-    parole1.forEach(p1 => {
-        parole2.forEach(p2 => {
-            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
-                matchCount++;
-            }
-        });
-    });
-    return matchCount / Math.max(parole1.length, parole2.length);
+    // 8. REGOLA DI SBARRAMENTO ONESTA (Niente allucinazioni)
+    rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
 function rispondiBot(testo) {
