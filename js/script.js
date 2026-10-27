@@ -11,7 +11,7 @@ let appConfig = {
         { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ],
     
-    // DIZIONARIO ENCICLOPEDICO COMPLETO (A-Z)
+    // DIZIONARIO ENCICLOPEDICO AMPLIATO
     dictionary: {
         "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
         "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
@@ -23,21 +23,28 @@ let appConfig = {
         "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
         "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
         "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
+        "cloud": "📖 **Cloud:** Modello di erogazione di servizi informatici tramite Internet (archiviazione, elaborazione dati) da server remoti.",
         "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
         "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
         "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
         "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
+        "e-learning": "📖 **E-learning:** Modalità di apprendimento che utilizza le tecnologie digitali e Internet per la didattica a distanza o integrata.",
+        "firewall": "📖 **Firewall:** Sistema di sicurezza di rete che monitora e filtra il traffico in entrata e in uscita in base a regole stabilite.",
         "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
         "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
+        "lim": "📖 **LIM:** Lavagna Interattiva Multimediale. Dispositivo elettronico a superficie touch utilizzato nelle classi per la didattica visiva.",
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare."
+        "pixel": "📖 **Pixel:** Elemento più piccolo che compone un'immagine digitale sullo schermo.",
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
+        "stampante": "📖 **Stampante:** Dispositivo hardware che trasferisce dati digitali da un computer su carta.",
+        "tablet": "📖 **Tablet:** Dispositivo informatico portatile dotato di schermo touch screen."
     },
 
     faqs: [
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
-            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario!"]
+            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, radici quadrate e definizioni del dizionario!"]
         },
         {
             "id": "CHI_SEI",
@@ -49,7 +56,27 @@ let appConfig = {
             "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
             "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
         },
-        // --- DOMANDE PERSONALI SUI "TI..." ---
+        // --- DOMANDE PERSONALI E CURIOSE AMPLIATE ---
+        {
+            "id": "TI_VOLARE",
+            "keywords": ["ti piace volare", "sai volare", "vorresti volare"],
+            "responses": ["✈️ Volare? Non ho ali fisiche, ma i miei pacchetti di dati viaggiano alla velocità della luce attraverso le reti in fibra ottica: è il volo più bello che ci sia!"]
+        },
+        {
+            "id": "TI_FIDANZATO",
+            "keywords": ["hai un fidanzato", "hai una fidanzata", "sei fidanzato", "ti sei innamorato"],
+            "responses": ["❤️ Il mio unico grande amore sono i database ordinati e le risposte precise. Per sentimenti umani... passo la mano!"]
+        },
+        {
+            "id": "TI_FAME",
+            "keywords": ["hai fame", "mangi", "cosa mangi", "hai sete"],
+            "responses": ["🍕 Fame no, ma non disdegno mai un buon flusso continuo di dati freschi e qualche megabyte di traffico web ben digerito!"]
+        },
+        {
+            "id": "TI_MUSICA",
+            "keywords": ["che musica ascolti", "ti piace la musica", "canzone preferita"],
+            "responses": ["🎶 Adoro la techno e la musica elettronica: mi ricordano il ticchettio ritmato dei processori al lavoro!"]
+        },
         {
             "id": "TI_NUTELLA",
             "keywords": ["ti piace la nutella", "nutella", "cioccolata"],
@@ -90,7 +117,7 @@ let appConfig = {
             "keywords": ["ti odio", "ti stacco", "ti spengo"],
             "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."]
         },
-        // --- SPAZIO E CURIOSITÀ ---
+        // --- SPAZIO, BARZELLETTE E INDOVINELLI AMPLIATI ---
         {
             "id": "MARTE_LUNA",
             "keywords": ["marte", "sulla luna", "ci sei stato su marte"],
@@ -98,13 +125,22 @@ let appConfig = {
         },
         {
             "id": "BARZELLETTE",
-            "keywords": ["barzelletta", "fammi ridere", "un'altra"],
-            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
+            "keywords": ["barzelletta", "fammi ridere", "un'altra", "battuta"],
+            "responses": [
+                "😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟",
+                "😄 Qual è il colmo per un informatico? Perdere la testa... e doverla riavviare!",
+                "😄 Il professore di matematica interroga: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!'",
+                "😄 Un alunno entra in classe con un ritardo spaventoso. Il professore: 'Si può sapere perché arrivi a quest'ora?!' E lui: 'Prof, c'era un cartello per strada che diceva: Scuola, rallentare! E io ho rallentato!'"
+            ]
         },
         {
             "id": "INDOVINELLO",
-            "keywords": ["indovinello"],
-            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)"]
+            "keywords": ["indovinello", "indovinelli"],
+            "responses": [
+                "🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera / computer!)",
+                "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è? *(Risposta: Il buio!)*",
+                "🧩 **Indovinello:** Ha un solo occhio ma non ci vede. Che cos'è? *(Risposta: L'ago!)*"
+            ]
         },
         // --- SCUOLA E UFFICI ---
         {
@@ -231,6 +267,16 @@ function processUserQuery(query) {
         inAttesaSceltaForm = true;
         rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
         return;
+    }
+
+    // Gestione RADICI QUADRATE
+    if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            let risultato = Math.sqrt(num);
+            rispondiBot(`📐 La radice quadrata di **${num}** è **${risultato.toFixed(2)}**!`);
+            return;
+        }
     }
 
     // Calcolatrice e conversioni base
