@@ -1,3 +1,7 @@
+/**
+ * Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
+ * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
+ */
 let appConfig = {
   "quickButtons": [
     {
@@ -382,3 +386,292 @@ let appConfig = {
     }
   ]
 };
+
+let inAttesaSceltaForm = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+    initApp();
+    startClock();
+});
+
+function initApp() {
+    renderQuickButtons();
+    setupEventListeners();
+}
+
+function renderQuickButtons() {
+    const container = document.getElementById("faq-buttons-container");
+    if (!container) return;
+    container.innerHTML = "";
+    appConfig.quickButtons.forEach(btn => {
+        const buttonEl = document.createElement("button");
+        buttonEl.className = "quick-btn";
+        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label.replace(/^[^\s]+\s/, '')}`;
+        buttonEl.onclick = () => quickAction(btn.id);
+        container.appendChild(buttonEl);
+    });
+}
+
+function setupEventListeners() {
+    const chatForm = document.getElementById("chat-form");
+    if (chatForm) {
+        chatForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            sendMessage();
+        });
+    }
+    const newChatBtn = document.getElementById("new-chat-btn");
+    if (newChatBtn) {
+        newChatBtn.addEventListener("click", resetChat);
+    }
+}
+
+function sendMessage() {
+    const inputField = document.getElementById("user-input");
+    if (!inputField) return;
+    const message = inputField.value.trim();
+    if (message === "") return;
+
+    appendMessage(message, "user");
+    inputField.value = "";
+
+    setTimeout(() => {
+        processUserQuery(message);
+    }, 300);
+}
+
+function processUserQuery(query) {
+    let cleanQuery = query.toLowerCase()
+        .replace(/’/g, "'")
+        .replace(/[èé]/g, "e")
+        .replace(/[àá]/g, "a")
+        .replace(/[ìí]/g, "i")
+        .replace(/[òó]/g, "o")
+        .replace(/[ùú]/g, "u")
+        .replace(/^[?.,!]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    if (cleanQuery === "") return;
+
+    // 1. Chiusura / Uscita
+    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "addio"];
+    if (paroleChiusura.includes(cleanQuery)) {
+        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
+        return;
+    }
+
+    // 2. Controllo Orario
+    if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
+        const now = new Date();
+        rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
+        return;
+    }
+
+    // 3. Gestione interattiva form (se in attesa)
+    if (inAttesaSceltaForm) {
+        inAttesaSceltaForm = false;
+        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
+            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
+            return;
+        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
+            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
+            return;
+        }
+    }
+
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
+        inAttesaSceltaForm = true;
+        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
+        return;
+    }
+
+    // 4. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE (anche con piccoli refusi)
+    let cercaSignificato = cleanQuery.includes("significa") || cleanQuery.includes("significhi") || cleanQuery.includes("cos e") || cleanQuery.includes("cose") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");
+    
+    if (cercaSignificato && cleanQuery.includes("esperti")) {
+        rispondiBot("🤖 Al momento il termine 'esperti' mi è ancora sconosciuto come voce enciclopedica, ma ho registrato la tua richiesta: a breve lo avrò inserito nel mio dizionario!");
+        return;
+    }
+
+    if (cercaSignificato) {
+        let trovatoDizionario = false;
+        for (const [term, def] of Object.entries(appConfig.dictionary)) {
+            if (cleanQuery.includes(term)) {
+                rispondiBot(def);
+                trovatoDizionario = true;
+                break;
+            }
+        }
+        if (!trovatoDizionario) {
+            rispondiBot("🤖 Al momento questo termine mi è ancora sconosciuto, ma ho registrato la tua richiesta: a breve lo avrò inserito nel mio dizionario!");
+        }
+        return;
+    }
+
+    // 5. REGOLA DELLA PAROLA SINGOLA ISOLATA
+    const parole = cleanQuery.split(" ");
+    if (parole.length === 1) {
+        if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
+            let faqSaluto = appConfig.faqs.find(f => f.id === "SALUTO");
+            if (faqSaluto) {
+                rispondiBot(faqSaluto.responses[0]);
+                return;
+            }
+        }
+        if (appConfig.dictionary[cleanQuery]) {
+            rispondiBot(appConfig.dictionary[cleanQuery]);
+            return;
+        }
+        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${query}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
+        return;
+    }
+
+    // 6. Gestione RADICI QUADRATE
+    if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            let risultato = Math.sqrt(num);
+            rispondiBot(`📐 La radice quadrata di **${num}** è **${risultato.toFixed(2)}**!`);
+            return;
+        }
+    }
+
+    // 7. Calcolatrice e conversioni base
+    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
+            return;
+        }
+    }
+    if (cleanQuery.includes("quintale")) {
+        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
+        return;
+    }
+
+    // 8. Ricerca normale nel Dizionario per frasi
+    for (const [term, def] of Object.entries(appConfig.dictionary)) {
+        if (cleanQuery.includes(term)) {
+            rispondiBot(def);
+            return;
+        }
+    }
+
+    // 9. Ricerca FAQ (I form si attivano SOLO se l'utente menziona esplicitamente form/modulo/richiesta)
+    let matchedFaq = null;
+    let vuoleForm = cleanQuery.includes("form") || cleanQuery.includes("modulo") || cleanQuery.includes("richiesta") || cleanQuery.includes("compilare") || cleanQuery.includes("link");
+
+    for (let faq of appConfig.faqs) {
+        if (vuoleForm && faq.id.startsWith("FORM_")) {
+            for (let kw of faq.keywords) {
+                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                    matchedFaq = faq;
+                    break;
+                }
+            }
+        } else if (!vuoleForm && !faq.id.startsWith("FORM_")) {
+            for (let kw of faq.keywords) {
+                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                    matchedFaq = faq;
+                    break;
+                }
+            }
+        }
+        if (matchedFaq) break;
+    }
+
+    if (!matchedFaq) {
+        for (let faq of appConfig.faqs) {
+            for (let kw of faq.keywords) {
+                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                    matchedFaq = faq;
+                    break;
+                }
+            }
+            if (matchedFaq) break;
+        }
+    }
+
+    if (matchedFaq) {
+        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+        rispondiBot(resp);
+        return;
+    }
+
+    // 10. SBARRAMENTO ONESTA FINALE
+    rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
+}
+
+function rispondiBot(testo) {
+    appendMessage(testo, "bot");
+}
+
+function quickAction(id) {
+    let found = appConfig.faqs.find(f => f.id === id);
+    if (found) {
+        rispondiBot(found.responses[0]);
+    }
+}
+
+function appendMessage(text, sender) {
+    const chatBox = document.getElementById("chat-messages");
+    if (!chatBox) return;
+    
+    const messageDiv = document.createElement("div");
+    const isBot = (sender === "bot");
+    messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
+
+    const avatarDiv = document.createElement("div");
+    avatarDiv.classList.add("message-avatar");
+    avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
+
+    const bubble = document.createElement("div");
+    bubble.classList.add("message-content");
+    bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
+
+    if (isBot) {
+        messageDiv.appendChild(avatarDiv);
+        messageDiv.appendChild(bubble);
+    } else {
+        messageDiv.appendChild(bubble);
+        messageDiv.appendChild(avatarDiv);
+    }
+
+    chatBox.appendChild(messageDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function resetChat() {
+    inAttesaSceltaForm = false;
+    const chatBox = document.getElementById("chat-messages");
+    if (!chatBox) return;
+    chatBox.innerHTML = `
+        <div class="message bot-message">
+            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="message-content">
+                👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
+                Conversazione riavviata! Come posso aiutarti oggi?
+            </div>
+        </div>
+    `;
+}
+
+function startClock() {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    
+    function updateDateTime() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const dataFormattata = now.toLocaleDateString('it-IT', options);
+        const oraFormattata = now.toLocaleTimeString('it-IT');
+        
+        if (clockEl) {
+            clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
+        }
+    }
+    
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
