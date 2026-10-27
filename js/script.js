@@ -542,15 +542,17 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA INTELLIGENTE DINAMICA (Cerca prima tra i form e poi nelle FAQ normali)
+    // 6. RICERCA INTELLIGENTE DINAMICA E FLESSIBILE
     let matchedFaq = null;
 
-    // Tentativo 1: Cerca nei form se c'intravede una corrispondenza nelle keyword o nell'ID
     for (let faq of appConfig.faqs) {
         let isForm = faq.id.startsWith("FORM_") || faq.type === "form";
         if (isForm) {
             for (let kw of faq.keywords) {
-                if (cleanQuery.includes(kw.toLowerCase().trim()) || kw.toLowerCase().trim().includes(cleanQuery)) {
+                let paroleKw = kw.toLowerCase().split(" ");
+                let matchParziale = paroleKw.some(parola => cleanQuery.includes(parola) && parola.length > 2);
+                
+                if (cleanQuery.includes(kw.toLowerCase().trim()) || matchParziale || cleanQuery.includes(faq.id.toLowerCase())) {
                     matchedFaq = faq;
                     break;
                 }
@@ -559,18 +561,18 @@ function processUserQuery(query) {
         if (matchedFaq) break;
     }
 
-    // Tentativo 2: Se l'utente chiede in modo generico un form o modulo
+    // Se non ha trovato un form specifico ma l'utente chiede l'elenco dei form
     if (!matchedFaq && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
         let listaFormHtml = "📋 Certamente! Ecco i moduli disponibili:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
             let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            listaFormHtml += `🔹 ${titoloForm} (scrivi es. '${f.keywords[0]}')<br>`;
+            listaFormHtml += `🔹 ${titoloForm}<br>`;
         });
         rispondiBot(listaFormHtml);
         return;
     }
 
-    // Tentativo 3: Cerca nelle FAQ standard
+    // Cerca nelle FAQ standard se non è un form
     if (!matchedFaq) {
         for (let faq of appConfig.faqs) {
             for (let kw of faq.keywords) {
@@ -583,7 +585,6 @@ function processUserQuery(query) {
         }
     }
 
-    // Se ha trovato una corrispondenza, restituisce la risposta
     if (matchedFaq) {
         let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
         rispondiBot(resp);
