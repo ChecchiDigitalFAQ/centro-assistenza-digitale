@@ -24,10 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (tabId === "exportTab") {
             generateExportCode();
-            const savedToken = localStorage.getItem("gh_pat");
-            if (savedToken && document.getElementById("githubToken")) {
-                document.getElementById("githubToken").value = savedToken;
-            }
         }
     };
 
@@ -391,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.cancelEditFAQ = resetAdminForm;
 
-    // ESPORTAZIONE CODICE
+    // ESPORTAZIONE CODICE MANUALE
     window.generateExportCode = function () {
         const exportArea = document.getElementById("exportCode");
         if (!exportArea) return;
@@ -407,85 +403,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         exportArea.select();
         document.execCommand("copy");
-        alert("Codice aggiornato copiato negli appunti!");
+        alert("Codice aggiornato copiato negli appunti! Incollalo dentro js/script.js");
     };
 
-    // SINCRONIZZAZIONE AUTOMATICA VIA API GITHUB
-    window.syncToGitHub = async function() {
-        const tokenInput = document.getElementById("githubToken");
-        let token = tokenInput ? tokenInput.value.trim() : "";
-
-        if (!token) {
-            token = localStorage.getItem("gh_pat");
-        }
-
-        if (!token) {
-            token = prompt("Inserisci il tuo Personal Access Token di GitHub (ghp_...):");
-            if (token) token = token.trim();
-        }
-
-        if (!token) {
-            alert("Sincronizzazione annullata: Token non fornito.");
-            return;
-        }
-
-        if (token) {
-            localStorage.setItem("gh_pat", token);
-        }
-        if (tokenInput) tokenInput.value = token;
-
-        const repoOwner = "checchidigitalfaq";
-        const repoName = "centro-assistenza-digitale";
-        const filePath = "js/script.js";
-        const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`;
-
-        const newContent = "// Database FAQ, Pulsanti Rapidi e Dizionario integrato per Arturo 2.0\nlet appConfig = " + JSON.stringify(appConfig, null, 2) + ";";
-
-        try {
-            const getFileResponse = await fetch(apiUrl, {
-                headers: {
-                    "Authorization": `token ${token}`,
-                    "Accept": "application/vnd.github.v3+json"
-                }
-            });
-
-            if (!getFileResponse.ok) {
-                throw new Error("Impossibile recuperare lo stato del file da GitHub. Verifica il token o il nome del repository.");
-            }
-
-            const fileData = await getFileResponse.json();
-            const currentSha = fileData.sha;
-
-            const encoder = new TextEncoder();
-            const data = encoder.encode(newContent);
-            const base64Content = btoa(String.fromCharCode(...data));
-
-            const updateResponse = await fetch(apiUrl, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `token ${token}`,
-                    "Accept": "application/vnd.github.v3+json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    message: "Aggiornamento automatico configurazione da Admin Arturo 2.0",
-                    content: base64Content,
-                    sha: currentSha
-                })
-            });
-
-            if (updateResponse.ok) {
-                alert("🎉 Sincronizzazione riuscita! Il file script.js è stato aggiornato direttamente su GitHub ed è subito attivo.");
-            } else {
-                const errorData = await updateResponse.json();
-                alert("⚠️ Errore durante l'aggiornamento: " + (errorData.message || "Verifica i permessi del token."));
-            }
-        } catch (error) {
-            alert("❌ Errore di connessione o autenticazione: " + error.message);
-        }
-    };
-
-    // INIZIALIZZAZIONE COMPLETA
+    // INIZIALIZZAZIONE COMPLETA ADMIN
     setupEmojiPicker();
     updateFaqDatalist();
     updateDictDatalist();
