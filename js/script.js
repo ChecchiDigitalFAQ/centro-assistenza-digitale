@@ -75,7 +75,7 @@ let appConfig = {
         "classi prime itt"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
       ]
     },
     {
