@@ -56,7 +56,7 @@ let appConfig = {
         "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
         "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
         "invalsi": "📖 **INVALSI:** Istituto Nazionale per la Valutazione del Sistema Educativo di Istruzione e di Formazione, ente che valuta gli apprendimenti degli studenti.",
-        "team": "📖 **Team (Microsoft Teams):** Piattaforma di messaggistica e collaborazione utilizzata all'IIS \"Arturo Checchi\" per la didattica digitale integrata e le riunioni online.",
+        "team": "📖 **Team:** Gruppo di persone che lavorano insieme in modo coordinato per il raggiungimento di un obiettivo comune.",
         "accoglienza": "📖 **Accoglienza:** Servizio e insieme di attività volte a favorire l'inserimento e l'integrazione dei nuovi studenti.",
         "mobilita": "📖 **Mobilità Internazionale:** Insieme di progetti e programmi (es. Erasmus+) per esperienze formative all'estero.",
         "digitale": "📖 **Digitale:** Riferito all'uso di tecnologie informatiche e piattaforme cloud a supporto della didattica."
@@ -75,8 +75,8 @@ let appConfig = {
         },
         {
             "id": "SICUREZZA",
-            "keywords": ["sicurezza", "figure sicurezza", "aspp", "rls", "prevenzione e protezione", "responsabile sicurezza", "chi sono i responsabili", "responsabili"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], le **Figure di Sicurezza** e i principali ruoli dell'istituto sono:\n- **ASPP:** Palmieri[cite: 16]\n- **RLS:** Diazzi[cite: 16]\n\nPuoi anche chiedermi specificamente i **responsabili di plesso** o i **responsabili di laboratorio**!\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "keywords": ["sicurezza", "figure sicurezza", "aspp", "rls", "prevenzione e protezione", "responsabile sicurezza"],
+            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26)[cite: 14], le **Figure di Sicurezza** dell'istituto sono:\n- **ASPP:** Palmieri[cite: 16]\n- **RLS:** Diazzi[cite: 16]\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_LABORATORI_COMPLETO",
@@ -115,8 +115,18 @@ let appConfig = {
         },
         {
             "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "salve", "buongiorno", "buonasera"],
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "ciao", "salve", "buongiorno", "buonasera"],
             "responses": ["👋 Ciao! Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio! Come posso aiutarti oggi?"]
+        },
+        {
+            "id": "CONTATTI",
+            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
+            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
+        },
+        {
+            "id": "DIRIGENZA",
+            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico", "preside del checchi"],
+            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
         },
         {
             "id": "TI_ODIO",
@@ -131,10 +141,6 @@ let inAttesaSceltaTipoPlesso = false;
 let inAttesaSceltaTipoLaboratorio = false;
 let inAttesaSedeLaboratorioInformatica = false;
 let inAttesaSceltaOrganigramma = false;
-
-// Stato per gestire la scelta quando l'utente digita una singola parola ambigua (es. "team")
-let inAttesaSceltaParolaAmbiguita = false;
-let ultimaParolaDigitata = "";
 
 let ultimaCategoriaTrattata = ""; 
 let ultimoGiocoProposto = ""; 
@@ -196,7 +202,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestisce la distinzione tra "ciao" iniziale (benvenuto/disponibilità) e "ciao" finale (congedo).
+ * Macchina a stati flessibile per interpretare qualsiasi risposta negativa o colloquiale.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -211,119 +217,31 @@ function processUserQuery(query) {
         .trim();
 
     // =========================================================================
-    // 0. GESTIONE INTELLIGENTE DEL SALUTO "CIAO" (Iniziale vs Finale)
-    // =========================================================================
-    if (cleanQuery === "ciao" || cleanQuery === "salve") {
-        const chatBox = document.getElementById("chat-messages");
-        // Conta quanti messaggi ci sono nella chat (escludendo il benvenuto iniziale se del caso)
-        const numeroMessaggiUtente = chatBox ? chatBox.querySelectorAll(".user-message").length : 1;
-
-        if (numeroMessaggiUtente <= 1) {
-            // Ciao come saluto iniziale / apertura conversazione
-            rispondiBot("👋 Ciao! Sono **Arturo**, l'assistente virtuale dell'IIS \"Arturo Checchi\". Sono a tua completa disposizione: dimmi pure come posso aiutarti o di quale informazione hai bisogno per iniziare!");
-            return;
-        } else {
-            // Ciao come saluto finale / congedo
-            rispondiBot("👋 Ciao! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
-            return;
-        }
-    }
-
-    // =========================================================================
-    // 0.1 INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO
-    // =========================================================================
-    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
-    if (paroleChiusura.includes(cleanQuery)) {
-        inAttesaSceltaOrganigramma = false;
-        inAttesaSceltaResponsabile = false;
-        inAttesaSceltaTipoPlesso = false;
-        inAttesaSceltaTipoLaboratorio = false;
-        inAttesaSedeLaboratorioInformatica = false;
-        inAttesaSceltaParolaAmbiguita = false;
-        rispondiBot("🤖 Perfetto! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
-        return;
-    }
-
-    // =========================================================================
-    // 0.2 GESTIONE STATO ATTIVO: SCELTA SU PAROLA AMBIGUA (es. "team")
-    // =========================================================================
-    if (inAttesaSceltaParolaAmbiguita) {
-        let parola = ultimaParolaDigitata;
-        
-        if (cleanQuery.includes("digitale") || cleanQuery.includes("specifico") || cleanQuery.includes("organigramma") || cleanQuery.includes("servizio") || cleanQuery.includes("ruolo") || cleanQuery.includes("chi") || cleanQuery.includes("responsabile")) {
-            inAttesaSceltaParolaAmbiguita = false;
-            ultimaParolaDigitata = "";
-            rispondiBot(`💻 Per quanto riguarda il **servizio digitale e le piattaforme di collaborazione (Microsoft Teams)** all'IIS "Arturo Checchi", la piattaforma è integrata nel tenant M365 d'istituto per la didattica digitale integrata.\n\n*(Cos'altro vuoi chiedermi?)*`);
-            return;
-        }
-
-        inAttesaSceltaParolaAmbiguita = false;
-        ultimaParolaDigitata = "";
-
-        if (cleanQuery.includes("definizione") || cleanQuery.includes("significato") || cleanQuery.includes("cos'e") || cleanQuery.includes("definire") || cleanQuery.includes("spiegare")) {
-            if (appConfig.dictionary[parola]) {
-                rispondiBot(appConfig.dictionary[parola] + "\n\n*(Cos'altro vuoi chiedermi?)*");
-                return;
-            }
-        } else {
-            processUserQuery(query);
-            return;
-        }
-    }
-
-    // =========================================================================
-    // 1. VERIFICA PRIORITARIA FAQ GLOBALI
-    // =========================================================================
-    let matchedGlobalFaq = null;
-    let highestGlobalScore = 0;
-    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
-
-    appConfig.faqs.forEach(faq => {
-        faq.keywords.forEach(kw => {
-            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
-            if (score > highestGlobalScore) {
-                highestGlobalScore = score;
-                matchedGlobalFaq = faq;
-            }
-        });
-    });
-
-    if (highestGlobalScore >= 0.82 && matchedGlobalFaq) {
-        inAttesaSceltaOrganigramma = false;
-        inAttesaSceltaResponsabile = false;
-        inAttesaSceltaTipoPlesso = false;
-        inAttesaSceltaTipoLaboratorio = false;
-        inAttesaSedeLaboratorioInformatica = false;
-        inAttesaSceltaParolaAmbiguita = false;
-
-        ultimaCategoriaTrattata = matchedGlobalFaq.id;
-        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
-        rispondiBot(resp);
-        return;
-    }
-
-    if (cleanQuery.includes("team digitale") || cleanQuery.includes("animatore")) {
-        rispondiBot(`💻 Per quanto riguarda i **servizi digitali, le piattaforme e la didattica online (Microsoft Teams)** dell'IIS "Arturo Checchi", puoi fare riferimento ai servizi M365 gestiti dall'amministrazione e dai tecnici informatici.\n\n*(Cos'altro vuoi chiedermi?)*`);
-        return;
-    }
-
-    // =========================================================================
-    // 2. GESTIONE STATO ATTIVO: ORGANIGRAMMA
+    // 1. GESTIONE PRIORITARIA DELLO STATO ATTIVO: ORGANIGRAMMA
     // =========================================================================
     if (inAttesaSceltaOrganigramma) {
         inAttesaSceltaOrganigramma = false;
         
+        // Se l'utente chiede esplicitamente il PDF o il documento completo
         if (cleanQuery.includes("pdf") || cleanQuery.includes("scarica") || cleanQuery.includes("documento") || cleanQuery.includes("link") || cleanQuery.includes("intero") || cleanQuery.includes("completo") || cleanQuery.includes("si") || cleanQuery.includes("sì")) {
             rispondiBot("📄 Ecco il documento ufficiale dell'**Organigramma A.S. 2026-2027** in formato PDF:\n🔗 <a href='https://www.istitutochecchi.edu.it/download/821/organigramma/7168/organigramma-26-27-completo.pdf' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Scarica Organigramma Completo PDF</a>\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
-            rispondiBot("🤖 Va bene così! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
+            // Qualsiasi altra risposta (es. "no", "no grazie", "no va bene così", "nulla ciao", ecc.) 
+            // blocca il PDF e invita l'utente a digitare la specifica richiesta.
+            rispondiBot("🤖 Va bene! Dimmi pure quale informazione specifica ti interessa conoscere dall'organigramma (es. *responsabili di plesso*, *tutor*, *figure di sicurezza* o *laboratori*).");
             return;
         }
     }
 
+    // Reset preventivo degli altri stati attivi se l'utente cambia argomento
+    inAttesaSceltaResponsabile = false;
+    inAttesaSceltaTipoPlesso = false;
+    inAttesaSceltaTipoLaboratorio = false;
+    inAttesaSedeLaboratorioInformatica = false;
+
     // =========================================================================
-    // 3. INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
+    // 2. INTERCETTAZIONE DIRETTA PAROLA CHIAVE "ORGANIGRAMMA"
     // =========================================================================
     if (cleanQuery === "organigramma" || cleanQuery === "l'organigramma" || cleanQuery.includes("organigramma")) {
         inAttesaSceltaOrganigramma = true;
@@ -332,17 +250,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 4. INTERCETTAZIONE PAROLE ISOLATE / AMBIGUE (es. "team")
-    // =========================================================================
-    if (appConfig.dictionary[cleanQuery]) {
-        inAttesaSceltaParolaAmbiguita = true;
-        ultimaParolaDigitata = cleanQuery;
-        rispondiBot(`📖 Ho trovato il termine **"${query}"**. Ti serve la **definizione** del termine o ti riferisci a qualcosa di **specifico** nell'ambito scolastico?`);
-        return;
-    }
-
-    // =========================================================================
-    // 5. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
+    // 3. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
     // =========================================================================
     if (cleanQuery.includes("modellistica 1")) {
         rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
@@ -432,7 +340,31 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 6. VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
+    // 4. VERIFICA MATCHING FAQ GLOBALI (Tramite Somiglianza Stringa)
+    // =========================================================================
+    let matchedGlobalFaq = null;
+    let highestGlobalScore = 0;
+    appConfig.faqs.calcolaSomiglianzaStringa = calcolaSomiglianzaStringa;
+
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            let score = calcolaSomiglianzaStringa(cleanQuery, kw);
+            if (score > highestGlobalScore) {
+                highestGlobalScore = score;
+                matchedGlobalFaq = faq;
+            }
+        });
+    });
+
+    if (highestGlobalScore >= 0.85 && matchedGlobalFaq) {
+        ultimaCategoriaTrattata = matchedGlobalFaq.id;
+        let resp = matchedGlobalFaq.responses[Math.floor(Math.random() * matchedGlobalFaq.responses.length)];
+        rispondiBot(resp);
+        return;
+    }
+
+    // =========================================================================
+    // 5. VALIDAZIONE STRUTTURALE DEL CONTESTO (Parole singole/ambigue)
     // =========================================================================
     const paroleContestoMancante = ["referente", "referenti", "commissione", "commissioni", "chi"];
     if (paroleContestoMancante.includes(cleanQuery)) {
@@ -441,7 +373,7 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // 7. CONTINUAZIONE CONVERSAZIONALE
+    // 6. CONTINUAZIONE CONVERSAZIONALE
     // =========================================================================
     const intentiContinuazione = ["aiutami con altro", "aiutami", "altro", "si", "sì", "ok", "dimmi", "certo", "va bene", "prosegui"];
     if (intentiContinuazione.includes(cleanQuery)) {
@@ -546,8 +478,6 @@ function resetChat() {
     inAttesaSceltaTipoLaboratorio = false;
     inAttesaSedeLaboratorioInformatica = false;
     inAttesaSceltaOrganigramma = false;
-    inAttesaSceltaParolaAmbiguita = false;
-    ultimaParolaDigitata = "";
     ultimaCategoriaTrattata = "";
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
