@@ -2,7 +2,7 @@
  * ARCHITETTURA CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
  * IIS "Arturo Checchi" (Fucecchio)
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
- * Versione Strutturale Avanzata 2026 - Definitiva e Ottimizzata
+ * Versione Strutturale Avanzata 2026 - Completa e Definitiva
  */
 
 let appConfig = {
@@ -79,8 +79,13 @@ let appConfig = {
             "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le **Figure di Sicurezza** e i principali ruoli dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi\n\nPuoi anche chiedermi specificamente i **responsabili di plesso** o i **responsabili di laboratorio**!\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
+            "id": "ANIMATORE_DIGITALE",
+            "keywords": ["animatore digitale", "chi è l'animatore digitale", "chi e l animatore digitale", "animatore"],
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Alfonso**\n\n*(Cos'altro vuoi chiedermi?)*"]
+        },
+        {
             "id": "TEAM_DIGITALE",
-            "keywords": ["team digitale", "animatore digitale", "digitale", "piattaforme", "m365", "teams"],
+            "keywords": ["team digitale", "digitale", "piattaforme", "m365", "teams"],
             "responses": ["💻 Per quanto riguarda il **Team Digitale** e i servizi di digitalizzazione e supporto tecnologico dell'IIS \"Arturo Checchi\", l'animatore digitale e il team gestiscono le piattaforme M365, i laboratori informatici e l'assistenza tecnica.\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
@@ -239,7 +244,6 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DEFINITIVO A CASCATA
- * Regola universale: Priorità assoluta alle chiusure, poi ai saluti, poi ai plessi/laboratori mirati, poi alle FAQ.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -309,8 +313,13 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 4: INTERCETTAZIONI MIRATE AD ALTA PRIORITÀ (Plessi e Organigramma)
+    // REGOLA 4: INTERCETTAZIONI MIRATE AD ALTA PRIORITÀ (Animatore e Plessi)
     // =========================================================================
+    if (cleanQuery.includes("animatore digitale") || cleanQuery.includes("chi è l'animatore") || cleanQuery.includes("chi e l animatore")) {
+        rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Alfonso**\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+
     if (cleanQuery.includes("responsabili di plesso") || cleanQuery.includes("responsabile di plesso") || cleanQuery.includes("elenco plessi") || cleanQuery.includes("tutti i plessi")) {
         rispondiBot("🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
@@ -416,7 +425,6 @@ function processUserQuery(query) {
         }
     }
     if (cleanQuery.includes("laboratorio") || cleanQuery.includes("laboratori")) {
-        // Mostra direttamente la FAQ completa dei laboratori se cercata in modo generico
         let foundLab = appConfig.faqs.find(f => f.id === "RESPONSABILI_LABORATORI_COMPLETO");
         if (foundLab) {
             rispondiBot(foundLab.responses[0]);
