@@ -3,176 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pannello Amministrazione - Arturo 2.0</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Pannello Amministrazione - Arturo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .admin-container { max-width: 900px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: sans-serif; display: none; }
-        .admin-nav { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .admin-nav button { padding: 10px 15px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold; }
-        .admin-nav button.active { background: #0056b3; color: white; }
-        .tab-content { display: none; }
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: var(--bg); color: var(--text); padding: 20px; }
+
+        /* Schermata Login Password */
+        #loginOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8); display: flex; justify-content: center; align-items: center; z-index: 9999;
+        }
+        .login-box {
+            background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%; max-width: 400px; text-align: center;
+        }
+        .login-box h2 { margin-bottom: 20px; color: var(--primary); }
+        .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; }
+        .login-box button { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .login-box button:hover { background: var(--secondary); }
+
+        /* Layout Principale */
+        .admin-container { max-width: 1100px; margin: 0 auto; display: none; }
+        header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        header h1 { font-size: 1.5rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        
+        .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .nav-tab { padding: 12px 20px; background: white; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; color: #64748b; transition: all 0.2s; }
+        .nav-tab.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2); }
+
+        .tab-content { display: none; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .tab-content.active { display: block; }
+
+        /* Form e Campi */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .btn-primary { background: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .btn-secondary { background: #6c757d; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
-        .btn-danger { background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-        .btn-edit { background: #ffc107; color: #333; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        table, th, td { border: 1px solid #ddd; }
-        th, td { padding: 10px; text-align: left; }
-        th { background: #f4f4f4; }
+        .form-group.full { grid-column: span 2; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; }
+        .form-group textarea { resize: vertical; height: 100px; }
+
+        /* Bottoni */
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.9; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-secondary { background: #64748b; color: white; }
+
+        /* Tabelle */
+        .table-responsive { overflow-x: auto; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+        th { background: #f1f5f9; font-weight: 600; color: #475569; }
+        td code { background: #f1f5f9; padding: 3px 6px; border-radius: 4px; color: var(--primary); font-weight: bold; }
+
+        .actions-cell { display: flex; gap: 6px; }
+        .actions-cell button { padding: 6px 10px; font-size: 0.85rem; }
+
+        /* Sezione Export */
+        .export-box textarea { width: 100%; height: 250px; font-family: monospace; font-size: 0.9rem; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid var(--border); margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="admin-container" id="adminPanel">
-    <h1>⚙️ Pannello Gestione Arturo 2.0</h1>
-
-    <div class="admin-nav">
-        <button class="active" onclick="showTab('faqsTab', this)">❓ Gestione FAQ</button>
-        <button onclick="showTab('dictTab', this)">📖 Gestione Dizionario</button>
-        <button onclick="showTab('buttonsTab', this)">🔘 Pulsanti Rapidi</button>
-        <button onclick="showTab('exportTab', this)">🚀 Esporta Codice</button>
+    <!-- OVERLAY LOGIN PASSWORD -->
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2>🔒 Area Riservata Admin</h2>
+            <p style="margin-bottom: 15px; color: #64748b; font-size: 0.9rem;">Inserisci la password di sblocco</p>
+            <input type="password" id="adminPasswordInput" placeholder="Password..." onkeypress="checkLoginEnter(event)">
+            <button onclick="verifyAdminPassword()">Accedi al Pannello</button>
+        </div>
     </div>
 
-    <!-- SCHEDA 1: FAQ -->
-    <section id="faqsTab" class="tab-content active">
-        <h2 id="faqFormTitle">➕ Aggiungi / Modifica FAQ</h2>
-        <form id="faqForm" onsubmit="saveFAQ(event)">
-            <input type="hidden" id="faqIndex" value="-1">
-            <div class="form-group">
-                <label>ID FAQ / Form (es. FORM_RESET_PWD, ORARIO):</label>
-                <input type="text" id="faqId" required placeholder="Cerca o inserisci nuovo ID...">
-            </div>
-            <div class="form-group">
-                <label>Categoria / Tipo:</label>
-                <select id="faqType">
-                    <option value="school">Scuola / Didattica</option>
-                    <option value="form">Form / Modulo</option>
-                    <option value="personal">Personale</option>
-                    <option value="chat">Chat / Generico</option>
-                    <option value="moderation">Moderazione</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Parole Chiave (separate da virgola):</label>
-                <input type="text" id="faqKeywords" required placeholder="password, reset, credenziali">
-            </div>
-            <div class="form-group">
-                <label>Risposta del Bot:</label>
-                <textarea id="faqResponse" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn-primary" id="btnSaveFaq">💾 Salva FAQ</button>
-            <button type="button" class="btn-secondary" id="btnCancelEdit" style="display:none;" onclick="cancelEditFAQ()">Annulla Modifica</button>
-        </form>
+    <!-- PANNELLO PRINCIPALE -->
+    <div class="admin-container" id="adminPanel">
+        <header>
+            <h1><i class="fa-solid fa-robot"></i> Gestione Amministrativa - Arturo</h1>
+            <button class="btn btn-secondary" onclick="location.reload()"><i class="fa-solid fa-lock"></i> Blocca Pannello</button>
+        </header>
 
-        <hr style="margin: 20px 0;">
-        <h3>Elenco FAQ Esistenti</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Tipo</th>
-                    <th>Parole Chiave</th>
-                    <th>Risposta</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody id="faqsTableBody"></tbody>
-        </table>
-    </section>
-
-    <!-- SCHEDA 2: DIZIONARIO -->
-    <section id="dictTab" class="tab-content">
-        <h2>📖 Gestione Dizionario Termini</h2>
-        <form id="dictForm" onsubmit="saveDictTerm(event)">
-            <div class="form-group">
-                <label>Termine (es. registro, spaggiari):</label>
-                <input type="text" id="dictTerm" required>
-            </div>
-            <div class="form-group">
-                <label>Spiegazione / Definizione:</label>
-                <textarea id="dictDefinition" rows="3" required></textarea>
-            </div>
-            <button type="submit" class="btn-primary">💾 Aggiungi / Aggiorna Termine</button>
-        </form>
-
-        <hr style="margin: 20px 0;">
-        <h3>Termini in Dizionario</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Termine</th>
-                    <th>Definizione</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody id="dictTableBody"></tbody>
-        </table>
-    </section>
-
-    <!-- SCHEDA 3: PULSANTI RAPIDI -->
-    <section id="buttonsTab" class="tab-content">
-        <h2>🔘 Gestione Pulsanti Rapidi</h2>
-        <form id="buttonForm" onsubmit="saveQuickButton(event)">
-            <div class="form-group">
-                <label>Etichetta Pulsante (es. 🔑 Reset Password):</label>
-                <input type="text" id="btnLabel" required>
-            </div>
-            <div class="form-group">
-                <label>ID FAQ Associato (es. FORM_RESET_PWD):</label>
-                <input type="text" id="btnFaqId" required>
-            </div>
-            <button type="submit" class="btn-primary">💾 Salva Pulsante</button>
-        </form>
-
-        <hr style="margin: 20px 0;">
-        <h3>Pulsanti Attivi</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Etichetta</th>
-                    <th>ID FAQ Collegato</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody id="buttonsTableBody"></tbody>
-        </table>
-    </section>
-
-    <!-- SCHEDA 4: ESPORTAZIONE & AGGIORNAMENTO MANUALE -->
-    <section id="exportTab" class="tab-content">
-        <h2>🚀 Esportazione Configurazione</h2>
-        <p>Copia il codice aggiornato qui sotto e incollalo nel tuo file <code>js/script.js</code> per rendere operative le modifiche sul sito.</p>
-        
-        <button type="button" class="btn-primary" onclick="copyExportCode()">📋 Copia Codice Negli Appunti</button>
-
-        <hr style="margin: 20px 0;">
-
-        <div class="form-group">
-            <label>Anteprima Codice Generato:</label>
-            <textarea id="exportCode" rows="12" readonly style="width:100%; font-family:monospace; background:#f4f4f4;"></textarea>
+        <div class="nav-tabs">
+            <div class="nav-tab active" onclick="switchTab('faqTab', this)"><i class="fa-solid fa-comments"></i> Gestione FAQ</div>
+            <div class="nav-tab" onclick="switchTab('btnTab', this)"><i class="fa-solid fa-icons"></i> Gestione Pulsanti Rapidi</div>
+            <div class="nav-tab" onclick="switchTab('exportTab', this)"><i class="fa-solid fa-code"></i> Esporta Codice</div>
         </div>
-    </section>
-</div>
 
-<script src="js/script.js"></script>
-<script>
-    // PROTEZIONE CON PASSWORD PER L'ACCESSO ALL'ADMIN
-    document.addEventListener("DOMContentLoaded", function() {
-        const passwordImpostata = "arturo2026"; // Puoi cambiare qui la password che preferisci
-        let passwordInserita = prompt("🔒 Inserisci la password di accesso al Pannello Amministrazione:");
-        
-        if (passwordInserita === passwordImpostata) {
-            document.getElementById("adminPanel").style.display = "block";
-        } else {
-            alert("❌ Password errata! Accesso negato.");
-            window.location.href = "index.html"; // O reindirizza dove preferisci
-        }
-    });
-</script>
-<script src="js/admin.js"></script>
+        <!-- SCHEDA 1: FAQ -->
+        <div id="faqTab" class="tab-content active">
+            <h2 id="faqFormTitle" style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-plus-circle"></i> Aggiungi Nuova FAQ</h2>
+            
+            <form id="faqForm" onsubmit="handleFaqSubmit(event)">
+                <input type="hidden" id="faqEditIndex" value="-1">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>ID Univoco (es. FORM_FOTOCOPIE, ORARIO):</label>
+                        <input type="text" id="faqId" required placeholder="ID maiuscolo senza spazi">
+                    </div>
+                    <div class="form-group">
+                        <label>Parole Chiave (separate da virgola):</label>
+                        <input type="text" id="faqKeywords" required placeholder="fotocopie, stampa, carta">
+                    </div>
+                    <div class="form-group full">
+                        <label>Risposta del Bot:</label>
+                        <textarea id="faqResponse" required placeholder="Testo della risposta (puoi usare HTML o **grassetto**)..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success" id="faqSubmitBtn"><i class="fa-solid fa-save"></i> Salva FAQ</button>
+                <button type="button" class="btn btn-secondary" id="faqCancelBtn" style="display:none;" onclick="resetFaqForm()">Annulla</button>
+            </form>
+
+            <hr style="margin: 30px 0; border:0; border-top: 1px solid var(--border);">
+
+            <h3 style="margin-bottom: 15px;">Elenco FAQ Esistenti</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Parole Chiave</th>
+                            <th>Risposta</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faqTableBody">
+                        <!-- Caricato dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SCHEDA 2: PULSANTI RAPIDI -->
+        <div id="btnTab" class="tab-content">
+            <h2 id="btnFormTitle" style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-plus-circle"></i> Aggiungi Pulsante Rapido</h2>
+            
+            <form id="btnForm" onsubmit="handleBtnSubmit(event)">
+                <input type="hidden" id="btnEditIndex" value="-1">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Etichetta Pulsante (con icona o emoji):</label>
+                        <input type="text" id="btnLabel" required placeholder="🖨️ Richiesta Fotocopie">
+                    </div>
+                    <div class="form-group">
+                        <label>ID FAQ Collegato (es. FORM_FOTOCOPIE):</label>
+                        <input type="text" id="btnFaqId" required placeholder="ID della FAQ associata">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success" id="btnSubmitBtn"><i class="fa-solid fa-save"></i> Salva Pulsante</button>
+                <button type="button" class="btn btn-secondary" id="btnCancelBtn" style="display:none;" onclick="resetBtnForm()">Annulla</button>
+            </form>
+
+            <hr style="margin: 30px 0; border:0; border-top: 1px solid var(--border);">
+
+            <h3 style="margin-bottom: 15px;">Pulsanti Rapidi Attivi</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etichetta Visibile</th>
+                            <th>ID FAQ Collegato</th>
+                            <th>Azioni</th>
+                        </tr>
+                    </thead>
+                    <tbody id="btnTableBody">
+                        <!-- Caricato dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SCHEDA 3: ESPORTA -->
+        <div id="exportTab" class="tab-content export-box">
+            <h2 style="margin-bottom: 10px; color: var(--primary);"><i class="fa-solid fa-file-code"></i> Codice Pronto per `script.js`</h2>
+            <p style="color: #64748b; margin-bottom: 15px;">Copia questo codice e incollalo all'inizio del tuo file <code>js/script.js</code> per aggiornare definitivamente il bot.</p>
+            <button class="btn btn-success" onclick="copyExportCode()"><i class="fa-solid fa-copy"></i> Copia Negli Appunti</button>
+            <textarea id="exportArea" readonly></textarea>
+        </div>
+    </div>
+
+    <!-- Collegamento ai file script necessari -->
+    <script src="js/script.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>
