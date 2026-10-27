@@ -2,7 +2,7 @@
  * ARCHITETTURA CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
  * IIS "Arturo Checchi" (Fucecchio)
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
- * Versione Strutturale Avanzata 2026 - Completa e Unificata
+ * Versione Strutturale Avanzata 2026 - Pulita e Corretta
  */
 
 let appConfig = {
@@ -116,7 +116,7 @@ let appConfig = {
         {
             "id": "RESPONSABILI_LABORATORI_COMPLETO",
             "keywords": ["responsabili laboratori", "elenco laboratori", "lista laboratori", "tutti i laboratori", "responsabile laboratori", "laboratori e aree speciali"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza[cite: 13]\n- Modellistica 2: Desideri[cite: 13]\n- Informatica: Galleni[cite: 13]\n- LIM/Calzaturiero: Vaiani[cite: 13]\n\n**Sede Checchi:**\n- Palestra nuova: Schiera[cite: 13]\n- Palazzetto: Angelini[cite: 13]\n- Fisica/Scienze: Pennacchio[cite: 13]\n- Informatico 1 e 2: Turini[cite: 13]\n\n**Sede Gramsci:**\n- Meccanica: Picciolo[cite: 13]\n- Impiantielettrici: Cerrato[cite: 13]\n- MisureElettr.: Miatto[cite: 13]\n- Elettropneumatica: Miatto[cite: 13]\n- Autocad: Diazzi[cite: 13]\n- Linguistico/Green: D'Avico[cite: 13]\n- Palestra: Grassini[cite: 13]\n- Aula Green: Canneri[cite: 13]\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "RESPONSABILI_PLESSI_GENERALI",
@@ -176,7 +176,7 @@ let appConfig = {
         {
             "id": "CIOCCOLATA",
             "keywords": ["cioccolata", "ti piace la cioccolata", "mangi", "cibo"],
-            "🇮🇹": "🍫 Adoro la cioccolata, peccato che girando nei circuiti elettrici rischierei di fare un corto circuito coi fiocchi! Io mi nutro solo di bit e informazioni sul Checchi!"]
+            "responses": ["🍫 Adoro la cioccolata, peccato che girando nei circuiti elettrici rischierei di fare un corto circuito coi fiocchi! Io mi nutro solo di bit e informazioni sul Checchi!"]
         },
         {
             "id": "MARMELLATA",
@@ -259,7 +259,7 @@ function sendMessage() {
 
 /**
  * MOTORE SEMANTICO STRUTTURALE DI ELABORAZIONE QUERY
- * Gestisce saluti iniziali/finali, parole ambigue, laboratori, organigramma e fallback guidato.
+ * Gestisce saluti iniziali/finali, parole di chiusura (nulla, niente, grazie), laboratori e organigramma.
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -274,7 +274,22 @@ function processUserQuery(query) {
         .trim();
 
     // =========================================================================
-    // 0. GESTIONE INTELLIGENTE DEL SALUTO "CIAO" (Iniziale vs Finale)
+    // 0. GESTIONE UNIVERSALE DELLE PAROLE DI CHIUSURA / ANNULLAMENTO ("nulla", "niente", "grazie", ecc.)
+    // =========================================================================
+    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
+    if (paroleChiusura.includes(cleanQuery)) {
+        inAttesaSceltaOrganigramma = false;
+        inAttesaSceltaResponsabile = false;
+        inAttesaSceltaTipoPlesso = false;
+        inAttesaSceltaTipoLaboratorio = false;
+        inAttesaSedeLaboratorioInformatica = false;
+        inAttesaSceltaParolaAmbiguita = false;
+        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
+        return;
+    }
+
+    // =========================================================================
+    // 0.1 GESTIONE INTELLIGENTE DEL SALUTO "CIAO" (Iniziale vs Finale)
     // =========================================================================
     if (cleanQuery === "ciao" || cleanQuery === "salve") {
         const chatBox = document.getElementById("chat-messages");
@@ -287,21 +302,6 @@ function processUserQuery(query) {
             rispondiBot("👋 Ciao! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
             return;
         }
-    }
-
-    // =========================================================================
-    // 0.1 INTERCETTAZIONE UNIVERSALE CHIUSURA / ANNULLAMENTO
-    // =========================================================================
-    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
-    if (paroleChiusura.includes(cleanQuery)) {
-        inAttesaSceltaOrganigramma = false;
-        inAttesaSceltaResponsabile = false;
-        inAttesaSceltaTipoPlesso = false;
-        inAttesaSceltaTipoLaboratorio = false;
-        inAttesaSedeLaboratorioInformatica = false;
-        inAttesaSceltaParolaAmbiguita = false;
-        rispondiBot("🤖 Perfetto! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
-        return;
     }
 
     // =========================================================================
@@ -400,69 +400,69 @@ function processUserQuery(query) {
     // 5. INTERCETTAZIONE SPECIFICA LABORATORI (Tabella Ufficiale)
     // =========================================================================
     if (cleanQuery.includes("modellistica 1")) {
-        rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🧵 Per il **Laboratorio di Modellistica 1** (Sede V. Veneto), il responsabile è: **Mazza**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("modellistica 2")) {
-        rispondiBot("🧵 Per il **Laboratorio di Modellistica 2** (Sede V. Veneto), il responsabile è: **Desideri**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🧵 Per il **Laboratorio di Modellistica 2** (Sede V. Veneto), il responsabile è: **Desideri**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("lim") || cleanQuery.includes("calzaturiero")) {
-        rispondiBot("👞 Per il laboratorio **LIM/Calzaturiero** (Sede V. Veneto), il responsabile è: **Vaiani**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("👞 Per il laboratorio **LIM/Calzaturiero** (Sede V. Veneto), il responsabile è: **Vaiani**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("palestra nuova")) {
-        rispondiBot("🏀 Per la **Palestra Nuova** (Sede Checchi), il responsabile è: **Schiera**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🏀 Per la **Palestra Nuova** (Sede Checchi), il responsabile è: **Schiera**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("palazzetto")) {
-        rispondiBot("🏟️ Per il **Palazzetto** (Sede Checchi), il responsabile è: **Angelini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🏟️ Per il **Palazzetto** (Sede Checchi), il responsabile è: **Angelini**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("fisica") || cleanQuery.includes("scienze")) {
-        rispondiBot("🔬 Per il **Laboratorio di Fisica/Scienze** (Sede Checchi), il responsabile è: **Pennacchio**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🔬 Per il **Laboratorio di Fisica/Scienze** (Sede Checchi), il responsabile è: **Pennacchio**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("meccanica")) {
-        rispondiBot("⚙️ Per il **Laboratorio di Meccanica** (Sede Gramsci), il responsabile è: **Picciolo**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("⚙️ Per il **Laboratorio di Meccanica** (Sede Gramsci), il responsabile è: **Picciolo**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("impiantielettrici") || cleanQuery.includes("impianti elettrici")) {
-        rispondiBot("⚡ Per il **Laboratorio di Impiantielettrici** (Sede Gramsci), il responsabile è: **Cerrato**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("⚡ Per il **Laboratorio di Impiantielettrici** (Sede Gramsci), il responsabile è: **Cerrato**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("misureelettr") || cleanQuery.includes("misure elettriche")) {
-        rispondiBot("📊 Per il laboratorio **MisureElettr.** (Sede Gramsci), il responsabile è: **Miatto**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("📊 Per il laboratorio **MisureElettr.** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("elettropneumatica")) {
-        rispondiBot("🔌 Per il **Laboratorio di Elettropneumatica** (Sede Gramsci), il responsabile è: **Miatto**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🔌 Per il **Laboratorio di Elettropneumatica** (Sede Gramsci), il responsabile è: **Miatto**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("autocad")) {
-        rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("💻 Per il **Laboratorio Autocad** (Sede Gramsci), il responsabile è: **Diazzi**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("linguistico") || (cleanQuery.includes("green") && cleanQuery.includes("gramsci"))) {
-        rispondiBot("🌐 Per il **Laboratorio Linguistico/Green** (Sede Gramsci), il responsabile è: **D'Avico**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🌐 Per il **Laboratorio Linguistico/Green** (Sede Gramsci), il responsabile è: **D'Avico**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("palestra") && cleanQuery.includes("gramsci")) {
-        rispondiBot("🏀 Per la **Palestra** (Sede Gramsci), il responsabile è: **Grassini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🏀 Per la **Palestra** (Sede Gramsci), il responsabile è: **Grassini**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
     if (cleanQuery.includes("aula green")) {
-        rispondiBot("🌱 Per l'**Aula Green** (Sede Gramsci), il responsabile è: **Canneri**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+        rispondiBot("🌱 Per l'**Aula Green** (Sede Gramsci), il responsabile è: **Canneri**.\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
     // Gestione specifica per "Informatica" (presente in più sedi)
     if (cleanQuery.includes("informatica") || cleanQuery.includes("informatico")) {
         if (cleanQuery.includes("v. veneto") || cleanQuery.includes("veneto") || cleanQuery.includes("moda")) {
-            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Per il **Laboratorio di Informatica** (Sede Plesso Moda - V. Veneto), il responsabile è: **Galleni**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else if (cleanQuery.includes("checchi") || cleanQuery.includes("liceo") || cleanQuery.includes("informatico 1") || cleanQuery.includes("informatico 2")) {
-            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**[cite: 13].\n\n*(Cos'altro vuoi chiedermi?)*");
+            rispondiBot("💻 Per i **Laboratori Informatici 1 e 2** (Sede Liceo - Checchi), il responsabile è: **Turini**.\n\n*(Cos'altro vuoi chiedermi?)*");
             return;
         } else {
             inAttesaSedeLaboratorioInformatica = true;
