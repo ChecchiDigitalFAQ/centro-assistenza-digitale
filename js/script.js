@@ -45,7 +45,7 @@ let appConfig = {
     "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
     "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
     "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
-    "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
+    "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connettere computer in tutto il mondo.",
     "lim": "📖 **LIM:** Lavagna Interattiva Multimediale utilizzata nelle classi per la didattica visiva.",
     "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
     "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
@@ -59,10 +59,7 @@ let appConfig = {
         "piano lavoro liceo",
         "piano annuale liceo",
         "piano lavoro ite",
-        "piano lavoro itt",
-        "liceo",
-        "ite",
-        "itt"
+        "piano lavoro itt"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/INSERISCI_LINK_LICEO_VERO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
@@ -75,9 +72,7 @@ let appConfig = {
         "piano lavoro ipia",
         "piano annuale ipia",
         "classi prime ite",
-        "classi prime itt",
-        "ipia",
-        "prime"
+        "classi prime itt"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/INSERISCI_LINK_IPIA_VERO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
@@ -189,7 +184,6 @@ let appConfig = {
     },
     {
       "id": "TI_MARE",
-      "type": "school",
       "keywords": [
         "ti piace il mare",
         "mare",
@@ -201,7 +195,6 @@ let appConfig = {
     },
     {
       "id": "TI_ANIMALI",
-      "type": "school",
       "keywords": [
         "ti piacciono i cani",
         "ti piacciono i gatti",
@@ -213,7 +206,6 @@ let appConfig = {
     },
     {
       "id": "TI_PERSONE",
-      "type": "school",
       "keywords": [
         "ti piacciono le donne",
         "ti piacciono gli uomini",
@@ -225,7 +217,6 @@ let appConfig = {
     },
     {
       "id": "TI_DORMIRE",
-      "type": "school",
       "keywords": [
         "ti piace dormire",
         "ti addormenti",
@@ -238,7 +229,6 @@ let appConfig = {
     },
     {
       "id": "TI_SALUTO",
-      "type": "school",
       "keywords": [
         "ti saluto",
         "ti saluta"
@@ -249,7 +239,6 @@ let appConfig = {
     },
     {
       "id": "TI_AMO",
-      "type": "school",
       "keywords": [
         "ti amo",
         "ti voglio bene",
@@ -261,7 +250,6 @@ let appConfig = {
     },
     {
       "id": "TI_ODIO",
-      "type": "school",
       "keywords": [
         "ti odio",
         "ti stacco",
@@ -284,7 +272,6 @@ let appConfig = {
     },
     {
       "id": "BARZELLETTE",
-      "type": "school",
       "keywords": [
         "barzelletta",
         "fammi ridere",
@@ -310,7 +297,6 @@ let appConfig = {
     },
     {
       "id": "CREATORE",
-      "type": "school",
       "keywords": [
         "chi ti ha creato",
         "creatore",
@@ -323,7 +309,6 @@ let appConfig = {
     },
     {
       "id": "DIRIGENZA",
-      "type": "school",
       "keywords": [
         "dirigenza",
         "preside",
@@ -336,7 +321,6 @@ let appConfig = {
     },
     {
       "id": "COLLABORATORI_DIRIGENTE",
-      "type": "school",
       "keywords": [
         "collaboratori",
         "collaboratore",
@@ -349,7 +333,6 @@ let appConfig = {
     },
     {
       "id": "SEDI_ISTITUTO",
-      "type": "school",
       "keywords": [
         "plessi",
         "quanti plessi",
@@ -363,7 +346,6 @@ let appConfig = {
     },
     {
       "id": "CONTATTI",
-      "type": "school",
       "keywords": [
         "contatti",
         "telefono",
@@ -403,7 +385,6 @@ let appConfig = {
     },
     {
       "id": "SALUTO",
-      "type": "school",
       "keywords": [
         "ciao",
         "salve",
@@ -542,13 +523,26 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA SELETTIVA E MIRATA (Evita elenchi di massa per ricerche parziali)
-    let risultatiTrovati = [];
+    // 6. GESTIONE MIRATA ED ESCLUSIVA PER "PIANO DI LAVORO"
+    if (cleanQuery.includes("piano di lavoro") || cleanQuery.includes("piano lavoro") || cleanQuery.includes("piani di lavoro")) {
+        let risultatiForm = appConfig.faqs.filter(f => f.id === "FORM_PIANO_LAVORO_LICEO" || f.id === "FORM_PIANO_LAVORO_IPIA");
+        
+        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> per il piano di lavoro. Scegli quale aprire:<br><br>`;
+        risultatiForm.forEach((f) => {
+            let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
+            let linkMatch = f.responses[0].match(/href='([^']+)'/);
+            let urlForm = linkMatch ? linkMatch[1] : '#';
+            sceltaMultiplaHtml += `👉 <a href='${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>${titoloRisposta}</a><br>`;
+        });
+        rispondiBot(sceltaMultiplaHtml);
+        return;
+    }
 
+    // Ricerca standard per le altre FAQ (es. fotocopie, esperti, contatti, ecc.)
+    let risultatiTrovati = [];
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
             let kwClean = kw.toLowerCase().trim();
-            // Match solo se la query contiene la keyword per intero o corrisponde all'ID
             if (cleanQuery === kwClean || cleanQuery.includes(kwClean)) {
                 if (!risultatiTrovati.some(f => f.id === faq.id)) {
                     risultatiTrovati.push(faq);
@@ -570,9 +564,8 @@ function processUserQuery(query) {
         return;
     }
 
-    // SE TROVA PIÙ MODULI SIMILI (es. "piano di lavoro" che intercetta sia Liceo che IPIA):
     if (risultatiTrovati.length > 1) {
-        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> corrispondenti. Scegli quale aprire:<br><br>`;
+        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> corrispondenti. Scegli quale aprire:<br><br>`;
         risultatiTrovati.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
             let linkMatch = f.responses[0].match(/href='([^']+)'/);
