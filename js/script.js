@@ -1,7 +1,7 @@
 /**
  * MOTORE CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
  * IIS "Arturo Checchi" (Fucecchio)
- * Sviluppato da Luca Vorraro
+ * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
  */
 
 let appData = {
@@ -15,9 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
     startClock();
 });
 
-/**
- * Carica dinamicamente il file faq.json esterno
- */
 async function loadFAQData() {
     try {
         const response = await fetch('faq.json');
@@ -34,19 +31,18 @@ function renderQuickButtons() {
     if (!container) return;
     container.innerHTML = "";
     
-    // Pulsanti rapidi fissi basati sulle macro-aree principali della scuola
     const quickButtonsConfig = [
-        { id: "AIUTO", label: "Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
-        { id: "CONTATTI", label: "Contatti", icon: "fa-solid fa-address-book" },
-        { id: "DIRIGENZA", label: "Dirigenza", icon: "fa-solid fa-user-tie" },
-        { id: "SEGRETERIE", label: "Segreteria e Uffici", icon: "fa-solid fa-building-columns" },
-        { id: "MICROSOFT365", label: "Servizi Digitali", icon: "fa-solid fa-laptop-code" }
+        { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
+        { id: "CONTATTI", label: "📞 Contatti", icon: "fa-solid fa-address-book" },
+        { id: "DIRIGENZA", label: "👔 Dirigenza", icon: "fa-solid fa-user-tie" },
+        { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici", icon: "fa-solid fa-building-columns" },
+        { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
     ];
 
     quickButtonsConfig.forEach(btn => {
         const buttonEl = document.createElement("button");
         buttonEl.className = "quick-btn";
-        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label}`;
+        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label.replace(/^[^\s]+\s/, '')}`;
         buttonEl.onclick = () => quickAction(btn.id);
         container.appendChild(buttonEl);
     });
@@ -81,7 +77,7 @@ function sendMessage() {
 }
 
 /**
- * MOTORE LOGICO INTelligente CON REGOLE BLINDATE
+ * MOTORE LOGICO INTEGRATO DI ARTURO
  */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
@@ -97,44 +93,54 @@ function processUserQuery(query) {
 
     if (cleanQuery === "") return;
 
-    // Spezzettiamo la query in un array di parole
-    const parole = cleanQuery.split(" ");
-
-    // 1. REGINA DELLE REGOLE: La parola singola (es. "fotocopie")
-    if (parole.length === 1) {
-        let parolaSingola = parole[0];
-        // Esempio di gestione mirata della parola singola senza spammare risposte a caso
-        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${parolaSingola}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
+    // 1. Chiusura / Uscita
+    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
+    if (paroleChiusura.includes(cleanQuery)) {
+        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
         return;
     }
 
-    // 2. CONTROLLO FRASE NELLE FAQ (Insieme di parole)
-    let bestMatch = null;
-    let maxScore = 0;
+    // 2. Controllo Orario ("che ora è", "ora", "orario")
+    if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
+        const now = new Date();
+        rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
+        return;
+    }
 
+    // 3. Controllo Esatto nelle FAQ del file JSON (Saluti, Chi sei, Chi ti ha creato, Barzellette, Contatti, ecc.)
     for (let faq of appData.faqs) {
         for (let kw of faq.keywords) {
             let kwClean = kw.toLowerCase().trim();
-            // Se la query contiene la keyword o viceversa
             if (cleanQuery.includes(kwClean)) {
-                // Assegniamo un punteggio basato sulla lunghezza della keyword (keyword più specifiche vincono)
-                let score = kwClean.length;
-                if (score > maxScore) {
-                    maxScore = score;
-                    bestMatch = faq;
-                }
+                let resp = faq.responses[Math.floor(Math.random() * faq.responses.length)];
+                rispondiBot(resp);
+                return;
             }
         }
     }
 
-    // Se troviamo un riscontro solido nel database JSON
-    if (bestMatch && maxScore > 2) {
-        let randomResp = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
-        rispondiBot(randomResp);
+    // 4. Controllo Calcoli Matematici / Espressioni al volo (es. 15 * 4, radice, ecc.)
+    try {
+        // Sostituisci parole chiave matematiche se necessario o eval sicuro per espressioni numeriche
+        if (/^[0-9\+\-\*\/\.\(\)\s]+$/.test(query)) {
+            let risultato = eval(query);
+            rispondiBot(`🔢 Il risultato del calcolo è: **${risultato}**`);
+            return;
+        }
+    } catch (e) {
+        // Se non è un'espressione valida, prosegui
+    }
+
+    // 5. Spezzettiamo la query in parole per valutare la regola della parola singola
+    const parole = cleanQuery.split(" ");
+
+    // Se l'utente digita una sola parola ma non ha trovato riscontro nel JSON
+    if (parole.length === 1) {
+        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${query}"</strong>.<br>Non riconosco questo termine. Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
         return;
     }
 
-    // 3. REGOLA DI SBARRAMENTO ONESTA (Niente allucinazioni o rimandi inutili)
+    // 6. REGOLA DI SBARRAMENTO ONESTA (Se la frase ha più parole ma non c'è riscontro)
     rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
@@ -164,7 +170,6 @@ function appendMessage(text, sender) {
 
     const bubble = document.createElement("div");
     bubble.classList.add("message-content");
-    // Formattazione sicura dei grassetti e degli a capo
     bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
 
     if (isBot) {
