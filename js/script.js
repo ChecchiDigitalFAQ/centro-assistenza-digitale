@@ -1,45 +1,172 @@
 /**
- * MOTORE CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
- * IIS "Arturo Checchi" (Fucecchio)
+ * Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
  */
+let appConfig = {
+    quickButtons: [
+        { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
+        { id: "CONTATTI", label: "📞 Contatti", icon: "fa-solid fa-address-book" },
+        { id: "DIRIGENZA", label: "👔 Dirigenza", icon: "fa-solid fa-user-tie" },
+        { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici", icon: "fa-solid fa-building-columns" },
+        { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
+    ],
+    
+    // DIZIONARIO ENCICLOPEDICO COMPLETO (A-Z)
+    dictionary: {
+        "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
+        "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
+        "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
+        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
+        "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
+        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
+        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
+        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
+        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
+        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
+        "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
+        "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
+        "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
+        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
+        "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
+        "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
+        "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
+        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare."
+    },
 
-let appData = {
-    settings: {},
-    faqs: []
+    faqs: [
+        {
+            "id": "AIUTO",
+            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
+            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli e definizioni del dizionario!"]
+        },
+        {
+            "id": "CHI_SEI",
+            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami", "cimo ti chiami", "comu ti chiami"],
+            "responses": ["👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"]
+        },
+        {
+            "id": "DOVE_VIVI",
+            "keywords": ["dove vivi", "dove ti trovi", "dove abiti", "sei un robot"],
+            "responses": ["🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."]
+        },
+        // --- DOMANDE PERSONALI SUI "TI..." ---
+        {
+            "id": "TI_NUTELLA",
+            "keywords": ["ti piace la nutella", "nutella", "cioccolata"],
+            "responses": ["🍫 Adorerei farne il pieno, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati!"]
+        },
+        {
+            "id": "TI_MARE",
+            "keywords": ["ti piace il mare", "mare", "spiaggia"],
+            "responses": ["🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti!"]
+        },
+        {
+            "id": "TI_ANIMALI",
+            "keywords": ["ti piacciono i cani", "ti piacciono i gatti", "ti piacciono gli animali", "ti piacciono gli uccelli"],
+            "responses": ["🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."]
+        },
+        {
+            "id": "TI_PERSONE",
+            "keywords": ["ti piacciono le donne", "ti piacciono gli uomini", "ti piacciono le persone"],
+            "responses": ["❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti!"]
+        },
+        {
+            "id": "TI_DORMIRE",
+            "keywords": ["ti piace dormire", "ti addormenti", "hai sonno", "dormi"],
+            "responses": ["💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."]
+        },
+        {
+            "id": "TI_SALUTO",
+            "keywords": ["ti saluto", "ti saluta"],
+            "responses": ["👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."]
+        },
+        {
+            "id": "TI_AMO",
+            "keywords": ["ti amo", "ti voglio bene", "ti adoro"],
+            "responses": ["❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io!"]
+        },
+        {
+            "id": "TI_ODIO",
+            "keywords": ["ti odio", "ti stacco", "ti spengo"],
+            "responses": ["💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."]
+        },
+        // --- SPAZIO E CURIOSITÀ ---
+        {
+            "id": "MARTE_LUNA",
+            "keywords": ["marte", "sulla luna", "ci sei stato su marte"],
+            "responses": ["🚀 Io su Marte o sulla Luna? Magari! Purtroppo il mio hardware è troppo pesante per un razzo: preferisco il cloud dell'IIS \"Arturo Checchi\"!"]
+        },
+        {
+            "id": "BARZELLETTE",
+            "keywords": ["barzelletta", "fammi ridere", "un'altra"],
+            "responses": ["😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟"]
+        },
+        {
+            "id": "INDOVINELLO",
+            "keywords": ["indovinello"],
+            "responses": ["🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)"]
+        },
+        // --- SCUOLA E UFFICI ---
+        {
+            "id": "CREATORE",
+            "keywords": ["chi ti ha creato", "creatore", "programmato", "sviluppato"],
+            "responses": ["🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"]
+        },
+        {
+            "id": "DIRIGENZA",
+            "keywords": ["dirigenza", "preside", "dirigente", "chi e il preside", "chi e la preside", "dirigente scolastico", "preside del checchi"],
+            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
+        },
+        {
+            "id": "COLLABORATORI_DIRIGENTE",
+            "keywords": ["collaboratori", "collaboratore", "vicepreside", "vice preside"],
+            "responses": ["👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."]
+        },
+        {
+            "id": "SEDI_ISTITUTO",
+            "keywords": ["plessi", "quanti plessi", "sedi", "sede centrale", "ite"],
+            "responses": ["🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**), oltre alle altre sedi dell'istituto."]
+        },
+        {
+            "id": "CONTATTI",
+            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
+            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
+        },
+        // --- FORM SPECIFICI ---
+        {
+            "id": "FORM_FOTOCOPIE",
+            "keywords": ["fotocopie", "form fotocopie", "modulo fotocopie", "stampa fotocopie"],
+            "responses": ["🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"]
+        },
+        {
+            "id": "FORM_ESPERTI",
+            "keywords": ["esperti", "esperti esterni", "autorizzazione esperti", "form esperti"],
+            "responses": ["📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"]
+        },
+        {
+            "id": "SALUTO",
+            "keywords": ["ciao", "salve", "buongiorno", "buonasera"],
+            "responses": ["👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"]
+        }
+    ]
 };
 
+let inAttesaSceltaForm = false;
+
 document.addEventListener("DOMContentLoaded", () => {
-    loadFAQData();
-    setupEventListeners();
-    startClock();
+    initApp();
 });
 
-async function loadFAQData() {
-    try {
-        const response = await fetch('faq.json');
-        if (!response.ok) throw new Error('Errore nel caricamento del file FAQ');
-        appData = await response.json();
-        renderQuickButtons();
-    } catch (error) {
-        console.error("Impossibile caricare il database delle FAQ:", error);
-    }
+function initApp() {
+    renderQuickButtons();
+    setupEventListeners();
 }
 
 function renderQuickButtons() {
     const container = document.getElementById("faq-buttons-container");
     if (!container) return;
     container.innerHTML = "";
-    
-    const quickButtonsConfig = [
-        { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
-        { id: "CONTATTI", label: "📞 Contatti", icon: "fa-solid fa-address-book" },
-        { id: "DIRIGENZA", label: "👔 Dirigenza", icon: "fa-solid fa-user-tie" },
-        { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici", icon: "fa-solid fa-building-columns" },
-        { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
-    ];
-
-    quickButtonsConfig.forEach(btn => {
+    appConfig.quickButtons.forEach(btn => {
         const buttonEl = document.createElement("button");
         buttonEl.className = "quick-btn";
         buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label.replace(/^[^\s]+\s/, '')}`;
@@ -76,9 +203,6 @@ function sendMessage() {
     }, 300);
 }
 
-/**
- * MOTORE LOGICO INTEGRATO DI ARTURO
- */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -87,61 +211,81 @@ function processUserQuery(query) {
         .replace(/[ìí]/g, "i")
         .replace(/[òó]/g, "o")
         .replace(/[ùú]/g, "u")
-        .replace(/[,!?-]/g, " ")
+        .replace(/[?.,!]/g, "")
         .replace(/\s+/g, " ")
         .trim();
 
-    if (cleanQuery === "") return;
-
-    // 1. Chiusura / Uscita
-    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
-    if (paroleChiusura.includes(cleanQuery)) {
-        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
-        return;
-    }
-
-    // 2. Controllo Orario ("che ora è", "ora", "orario")
-    if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
-        const now = new Date();
-        rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
-        return;
-    }
-
-    // 3. Controllo Esatto nelle FAQ del file JSON (Saluti, Chi sei, Chi ti ha creato, Barzellette, Contatti, ecc.)
-    for (let faq of appData.faqs) {
-        for (let kw of faq.keywords) {
-            let kwClean = kw.toLowerCase().trim();
-            if (cleanQuery.includes(kwClean)) {
-                let resp = faq.responses[Math.floor(Math.random() * faq.responses.length)];
-                rispondiBot(resp);
-                return;
-            }
-        }
-    }
-
-    // 4. Controllo Calcoli Matematici / Espressioni al volo (es. 15 * 4, radice, ecc.)
-    try {
-        // Sostituisci parole chiave matematiche se necessario o eval sicuro per espressioni numeriche
-        if (/^[0-9\+\-\*\/\.\(\)\s]+$/.test(query)) {
-            let risultato = eval(query);
-            rispondiBot(`🔢 Il risultato del calcolo è: **${risultato}**`);
+    // Gestione interattiva quando l'utente scrive solo "form" o "modulo"
+    if (inAttesaSceltaForm) {
+        inAttesaSceltaForm = false;
+        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
+            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
+            return;
+        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
+            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
             return;
         }
-    } catch (e) {
-        // Se non è un'espressione valida, prosegui
     }
 
-    // 5. Spezzettiamo la query in parole per valutare la regola della parola singola
-    const parole = cleanQuery.split(" ");
-
-    // Se l'utente digita una sola parola ma non ha trovato riscontro nel JSON
-    if (parole.length === 1) {
-        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${query}"</strong>.<br>Non riconosco questo termine. Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
+        inAttesaSceltaForm = true;
+        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
         return;
     }
 
-    // 6. REGOLA DI SBARRAMENTO ONESTA (Se la frase ha più parole ma non c'è riscontro)
-    rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
+    // Calcolatrice e conversioni base
+    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
+            return;
+        }
+    }
+    if (cleanQuery.includes("quintale")) {
+        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
+        return;
+    }
+
+    // Ricerca Dizionario
+    for (const [term, def] of Object.entries(appConfig.dictionary)) {
+        if (cleanQuery.includes(term)) {
+            rispondiBot(def);
+            return;
+        }
+    }
+
+    // Ricerca FAQ con tolleranza ai typo
+    let matchedFaq = null;
+    appConfig.faqs.forEach(faq => {
+        faq.keywords.forEach(kw => {
+            if (cleanQuery.includes(kw) || kw.includes(cleanQuery) || calcolaSomiglianza(cleanQuery, kw) > 0.65) {
+                matchedFaq = faq;
+            }
+        });
+    });
+
+    if (matchedFaq) {
+        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+        rispondiBot(resp);
+    } else {
+        // Frase onesta concordata (Niente allucinazioni o risposte a caso)
+        appendMessage("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!", "bot");
+    }
+}
+
+// Funzione di somiglianza per i typo
+function calcolaSomiglianza(s1, s2) {
+    let parole1 = s1.split(" ");
+    let parole2 = s2.split(" ");
+    let matchCount = 0;
+    parole1.forEach(p1 => {
+        parole2.forEach(p2 => {
+            if (p1 === p2 || (p1.length > 2 && p2.length > 2 && (p1.includes(p2) || p2.includes(p1)))) {
+                matchCount++;
+            }
+        });
+    });
+    return matchCount / Math.max(parole1.length, parole2.length);
 }
 
 function rispondiBot(testo) {
@@ -149,10 +293,9 @@ function rispondiBot(testo) {
 }
 
 function quickAction(id) {
-    let found = appData.faqs.find(f => f.id === id);
+    let found = appConfig.faqs.find(f => f.id === id);
     if (found) {
-        let resp = found.responses[0];
-        rispondiBot(resp);
+        rispondiBot(found.responses[0]);
     }
 }
 
@@ -185,6 +328,7 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
+    inAttesaSceltaForm = false;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
@@ -196,23 +340,4 @@ function resetChat() {
             </div>
         </div>
     `;
-}
-
-function startClock() {
-    const clockEl = document.getElementById("live-clock");
-    if (!clockEl) return;
-    
-    function updateDateTime() {
-        const now = new Date();
-        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        const dataFormattata = now.toLocaleDateString('it-IT', options);
-        const oraFormattata = now.toLocaleTimeString('it-IT');
-        
-        if (clockEl) {
-            clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
-        }
-    }
-    
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
 }
