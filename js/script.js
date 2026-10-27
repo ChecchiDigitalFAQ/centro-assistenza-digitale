@@ -269,7 +269,6 @@ let appConfig = {
     },
     {
       "id": "MARTE_LUNA",
-      "type": "school",
       "keywords": [
         "marte",
         "sulla luna",
@@ -296,7 +295,6 @@ let appConfig = {
     },
     {
       "id": "INDOVINELLO",
-      "type": "school",
       "keywords": [
         "indovinello",
         "indovinelli"
@@ -396,7 +394,7 @@ let appConfig = {
         "form esperti"
       ],
       "responses": [
-        "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"
+        "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"
       ]
     },
     {
@@ -542,51 +540,48 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA INTELLIGENTE DINAMICA E FLESSIBILE
-    let matchedFaq = null;
+    // 6. RICERCA UNIVERSALE CON SCELTA MULTIPLA AUTOMATICA (Per qualsiasi similitudine o form multipli)
+    let risultatiTrovati = [];
 
     for (let faq of appConfig.faqs) {
-        let isForm = faq.id.startsWith("FORM_") || faq.type === "form";
-        if (isForm) {
-            for (let kw of faq.keywords) {
-                let paroleKw = kw.toLowerCase().split(" ");
-                let matchParziale = paroleKw.some(parola => cleanQuery.includes(parola) && parola.length > 2);
-                
-                if (cleanQuery.includes(kw.toLowerCase().trim()) || matchParziale || cleanQuery.includes(faq.id.toLowerCase())) {
-                    matchedFaq = faq;
-                    break;
+        for (let kw of faq.keywords) {
+            let paroleKw = kw.toLowerCase().split(" ");
+            let matchParziale = paroleKw.some(parola => cleanQuery.includes(parola) && parola.length > 2);
+            
+            if (cleanQuery.includes(kw.toLowerCase().trim()) || matchParziale || cleanQuery.includes(faq.id.toLowerCase())) {
+                if (!risultatiTrovati.some(f => f.id === faq.id)) {
+                    risultatiTrovati.push(faq);
                 }
             }
         }
-        if (matchedFaq) break;
     }
 
-    // Se non ha trovato un form specifico ma l'utente chiede l'elenco dei form
-    if (!matchedFaq && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
-        let listaFormHtml = "📋 Certamente! Ecco i moduli disponibili:<br><br>";
+    // Se l'utente chiede in modo generico un form o modulo senza specificare
+    if (!risultatiTrovati.length && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
+        let listaFormHtml = "📋 Certamente! Ecco tutti i moduli disponibili:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
             let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            listaFormHtml += `🔹 ${titoloForm}<br>`;
+            listaFormHtml += `🔹 **${titoloForm}**<br>`;
         });
         rispondiBot(listaFormHtml);
         return;
     }
 
-    // Cerca nelle FAQ standard se non è un form
-    if (!matchedFaq) {
-        for (let faq of appConfig.faqs) {
-            for (let kw of faq.keywords) {
-                if (cleanQuery.includes(kw.toLowerCase().trim())) {
-                    matchedFaq = faq;
-                    break;
-                }
-            }
-            if (matchedFaq) break;
-        }
+    // SE TROVA PIÙ RISULTATI SIMILI: Chiede all'utente quale scegliere!
+    if (risultatiTrovati.length > 1) {
+        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> che corrispondono alla tua richiesta. A quale ti riferisci?<br><br>`;
+        risultatiTrovati.forEach((f, index) => {
+            let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
+            sceltaMultiplaHtml += `${index + 1️⃣}️⃣ **${titoloRisposta}** (ID: <code>${f.id}</code>)<br>`;
+        });
+        sceltaMultiplaHtml += `<br>Per favore, sii più specifico nella richiesta (es. inserendo l'indirizzo o il nome esatto).`;
+        rispondiBot(sceltaMultiplaHtml);
+        return;
     }
 
-    if (matchedFaq) {
-        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+    // SE TROVA UN UNICO RISULTATO ESATTO: Lo restituisce direttamente
+    if (risultatiTrovati.length === 1) {
+        let resp = risultatiTrovati[0].responses[0];
         rispondiBot(resp);
         return;
     }
