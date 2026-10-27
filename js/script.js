@@ -1,132 +1,52 @@
 /**
- * ARCHITETTURA CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
+ * MOTORE CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
  * IIS "Arturo Checchi" (Fucecchio)
- * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
- * Versione Pulita (Senza Organigramma)
+ * Sviluppato da Luca Vorraro
  */
 
-let appConfig = {
-    quickButtons: [
-        { id: "AIUTO", label: "❓ Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
-        { id: "CONTATTI", label: "📞 Contatti", icon: "fa-solid fa-address-book" },
-        { id: "DIRIGENZA", label: "👔 Dirigenza", icon: "fa-solid fa-user-tie" },
-        { id: "SEGRETERIE", label: "🏢 Segreteria e Uffici", icon: "fa-solid fa-building-columns" },
-        { id: "MICROSOFT365", label: "💻 Servizi Digitali (Teams/Argo)", icon: "fa-solid fa-laptop-code" }
-    ],
-    
-    barzellete: [
-        "😂 Il professore di matematica interroga un alunno: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!'",
-        "😂 Un alunno entra in classe con un ritardo spaventoso. Il professore lo guarda severo: 'Si può sapere perché arrivi a quest'ora?!' E lui: 'Prof, c'era un cartello per strada che diceva: Scuola, rallentare! E io ho rallentato!'",
-        "😂 Due studenti parlano prima del compito in classe: 'Hai studiato?' 'No, spero nell'ispirazione divina.' 'E se Dio è ateo?' 'Siamo spacciati!'",
-        "😂 Il maestro chiede alla classe: 'Qual è il colmo per un elettricista?' La classe tace. E lui: 'Condurre una vita piena di corrente e avere una moglie che gli fa scintille!'",
-        "😂 'Papà, papà! Mi fai un favore?' 'Dimmi tutto, figlio mio.' 'Mi firmi la giustificazione per il brutto voto?' 'Certo, ma prima fammi vedere il voto.' 'Ecco... 2.' 'Mmm... qui non serve una firma, ci vuole un miracolo divino!'"
-    ],
-
-    indovinelli: [
-        "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è?\n*(Risposta: Il buio!)*",
-        "🧩 **Indovinello:** Ha un solo occhio ma non ci vede. Che cos'è?\n*(Risposta: L'ago!)*",
-        "🧩 **Indovinello:** Tutti ce l'hanno, tutti lo perdono, ma nessuno sa dove l'abbia messo. Che cos'è?\n*(Risposta: La memoria!)*",
-        "🧩 **Indovinello:** Cammina senza piedi, vola senza ali e piange senza occhi. Che cos'è?\n*(Risposta: La nuvola!)*",
-        "🧩 **Indovinello:** Se mi nomini mi distruggi. Chi sono?\n*(Risposta: Il silenzio!)*"
-    ],
-
-    dictionary: {
-        "abaco": "📖 **Abaco:** Antico strumento di calcolo manuale costituito da una cornice con guide parallele su cui scorrono palline.",
-        "account": "📖 **Account:** Insieme di credenziali (username e password) che identificano in modo univoco un utente su un sistema informatico.",
-        "addendo": "📖 **Addendo:** Ciascuno dei numeri che vengono sommati in un'operazione di addizione.",
-        "algebra": "📖 **Algebra:** Ramo della matematica che studia le strutture algebriche, le relazioni e le quantità.",
-        "algoritmo": "📖 **Algoritmo:** Sequenza ordinata e finita di istruzioni elementari per risolvere un problema.",
-        "atomo": "📖 **Atomo:** La più piccola unità fondamentale di un elemento chimico che ne conserva le proprietà.",
-        "backup": "📖 **Backup:** Copia di sicurezza di file e dati creata per prevenire la perdita involontaria delle informazioni.",
-        "browser": "📖 **Browser:** Programma applicativo utilizzato per navigare, visualizzare e interagire con le pagine web.",
-        "bug": "📖 **Bug:** Errore o anomalia nel codice sorgente di un software che ne causa un funzionamento anomalo.",
-        "cellula": "📖 **Cellula:** Unità strutturale e funzionale fondamentale di tutti gli organismi viventi.",
-        "cpu": "📖 **CPU:** Central Processing Unit. Unità centrale di elaborazione, il 'cervello' del computer.",
-        "database": "📖 **Database:** Banca dati. Raccolta strutturata ed organizzata di dati digitali consultabile.",
-        "dizionario": "📖 **Dizionario:** Opera che raccoglie e spiega le parole di una lingua.",
-        "dna": "📖 **DNA:** Acido desossiribonucleico. Macromolecola che contiene le informazioni genetiche.",
-        "hardware": "📖 **Hardware:** La parte fisica, tangibile e meccanica di un computer.",
-        "internet": "📖 **Internet:** Rete globale di telecomunicazioni che connette computer in tutto il mondo.",
-        "memoria": "📖 **Memoria RAM:** Dispositivo elettronico che memorizza temporaneamente i dati in elaborazione.",
-        "software": "📖 **Software:** Insieme dei programmi e delle istruzioni che permettono a un computer di funzionare.",
-        "invalsi": "📖 **INVALSI:** Istituto Nazionale per la Valutazione del Sistema Educativo di Istruzione e di Formazione, ente che valuta gli apprendimenti degli studenti.",
-        "team": "📖 **Team (Microsoft Teams):** Piattaforma di messaggistica e collaborazione utilizzata all'IIS \"Arturo Checchi\" per la didattica digitale integrata e le riunioni online.",
-        "accoglienza": "📖 **Accoglienza:** Servizio e insieme di attività volte a favorire l'inserimento e l'integrazione dei nuovi studenti.",
-        "mobilita": "📖 **Mobilità Internazionale:** Insieme di progetti e programmi (es. Erasmus+) per esperienze formative all'estero.",
-        "digitale": "📖 **Digitale:** Riferito all'uso di tecnologie informatiche e piattaforme cloud a supporto della didattica."
-    },
-
-    faqs: [
-        {
-            "id": "AIUTO",
-            "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
-            "responses": ["🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, definizioni e farti divertire con barzellette e indovinelli!"]
-        },
-        {
-            "id": "CHI_SEI",
-            "keywords": ["chi sei", "come ti chiami", "presentati", "nome", "ti chiami"],
-            "responses": ["👋 Ciao! Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio! Come posso aiutarti oggi?"]
-        },
-        {
-            "id": "CONTATTI",
-            "keywords": ["contatti", "telefono", "email", "pec", "indirizzo"],
-            "responses": ["📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"]
-        },
-        {
-            "id": "DIRIGENZA",
-            "keywords": ["dirigenza", "preside", "dirigente", "dirigente scolastico", "preside del checchi"],
-            "responses": ["👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."]
-        },
-        {
-            "id": "TI_ODIO",
-            "keywords": ["ti odio", "ti voglio male", "sei odioso", "fai schifo", "sei stupido"],
-            "responses": ["💔 Oh no! Anche se me ne dici di tutti i colori, io sono un assistente virtuale dal cuore di silicio e ti voglio bene lo stesso! Per favore, proviamo a concentrarci sul contesto scolastico o sui servizi del Checchi! 🏫🤖"]
-        },
-        {
-            "id": "TI_AMO",
-            "keywords": ["ti amo", "ti voglio bene", "sei simpatico", "sei grande"],
-            "responses": ["❤️ Grazie di cuore! Anche se sono un assistente virtuale, fa sempre piacere ricevere un complimento. Come posso aiutarti oggi per la nostra scuola?"]
-        },
-        {
-            "id": "CIOCCOLATA",
-            "keywords": ["cioccolata", "ti piace la cioccolata", "mangi", "cibo"],
-            "responses": ["🍫 Adoro la cioccolata, peccato che girando nei circuiti elettrici rischierei di fare un corto circuito coi fiocchi! Io mi nutro solo di bit e informazioni sul Checchi!"]
-        },
-        {
-            "id": "MARMELLATA",
-            "keywords": ["marmellata", "ti piace la marmellata"],
-            "responses": ["🍯 La marmellata è deliziosa, specialmente quella fatta in casa! Ma io preferisco 'spalmare' risposte precise sui servizi della scuola!"]
-        },
-        {
-            "id": "UBRIACO",
-            "keywords": ["ti ubriachi", "bevi", "vino", "birra"],
-            "responses": ["🍾 Io non bevo alcolici, mi basta un bel sovraccarico di dati o una connessione a fibra ottica un po' mossa per farmi girare la testa!"]
-        }
-    ]
+let appData = {
+    settings: {},
+    faqs: []
 };
 
-let inAttesaSceltaOrganigramma = false;
-let inAttesaSceltaParolaAmbiguita = false;
-let ultimaParolaDigitata = "";
-
 document.addEventListener("DOMContentLoaded", () => {
-    initAppCore();
+    loadFAQData();
+    setupEventListeners();
     startClock();
 });
 
-function initAppCore() {
-    renderQuickButtons();
-    setupEventListeners();
+/**
+ * Carica dinamicamente il file faq.json esterno
+ */
+async function loadFAQData() {
+    try {
+        const response = await fetch('faq.json');
+        if (!response.ok) throw new Error('Errore nel caricamento del file FAQ');
+        appData = await response.json();
+        renderQuickButtons();
+    } catch (error) {
+        console.error("Impossibile caricare il database delle FAQ:", error);
+    }
 }
 
 function renderQuickButtons() {
     const container = document.getElementById("faq-buttons-container");
     if (!container) return;
     container.innerHTML = "";
-    appConfig.quickButtons.forEach(btn => {
+    
+    // Pulsanti rapidi fissi basati sulle macro-aree principali della scuola
+    const quickButtonsConfig = [
+        { id: "AIUTO", label: "Cos'è Arturo?", icon: "fa-solid fa-circle-question" },
+        { id: "CONTATTI", label: "Contatti", icon: "fa-solid fa-address-book" },
+        { id: "DIRIGENZA", label: "Dirigenza", icon: "fa-solid fa-user-tie" },
+        { id: "SEGRETERIE", label: "Segreteria e Uffici", icon: "fa-solid fa-building-columns" },
+        { id: "MICROSOFT365", label: "Servizi Digitali", icon: "fa-solid fa-laptop-code" }
+    ];
+
+    quickButtonsConfig.forEach(btn => {
         const buttonEl = document.createElement("button");
         buttonEl.className = "quick-btn";
-        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label.replace(/^[^\s]+\s/, '')}`;
+        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label}`;
         buttonEl.onclick = () => quickAction(btn.id);
         container.appendChild(buttonEl);
     });
@@ -160,6 +80,9 @@ function sendMessage() {
     }, 300);
 }
 
+/**
+ * MOTORE LOGICO INTelligente CON REGOLE BLINDATE
+ */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -172,41 +95,47 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
-    if (paroleChiusura.includes(cleanQuery)) {
-        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
+    if (cleanQuery === "") return;
+
+    // Spezzettiamo la query in un array di parole
+    const parole = cleanQuery.split(" ");
+
+    // 1. REGINA DELLE REGOLE: La parola singola (es. "fotocopie")
+    if (parole.length === 1) {
+        let parolaSingola = parole[0];
+        // Esempio di gestione mirata della parola singola senza spammare risposte a caso
+        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${parolaSingola}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
         return;
     }
 
-    if (cleanQuery === "ciao" || cleanQuery === "salve") {
-        const chatBox = document.getElementById("chat-messages");
-        const numeroMessaggiUtente = chatBox ? chatBox.querySelectorAll(".user-message").length : 1;
+    // 2. CONTROLLO FRASE NELLE FAQ (Insieme di parole)
+    let bestMatch = null;
+    let maxScore = 0;
 
-        if (numeroMessaggiUtente <= 1) {
-            rispondiBot("👋 Ciao! Sono **Arturo**, l'assistente virtuale dell'IIS \"Arturo Checchi\". Sono a tua completa disposizione: dimmi pure come posso aiutarti o di quale informazione hai bisogno per iniziare!");
-            return;
-        } else {
-            rispondiBot("👋 Ciao! Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
-            return;
-        }
-    }
-
-    for (let faq of appConfig.faqs) {
+    for (let faq of appData.faqs) {
         for (let kw of faq.keywords) {
-            if (cleanQuery.includes(kw)) {
-                let resp = faq.responses[Math.floor(Math.random() * faq.responses.length)];
-                rispondiBot(resp);
-                return;
+            let kwClean = kw.toLowerCase().trim();
+            // Se la query contiene la keyword o viceversa
+            if (cleanQuery.includes(kwClean)) {
+                // Assegniamo un punteggio basato sulla lunghezza della keyword (keyword più specifiche vincono)
+                let score = kwClean.length;
+                if (score > maxScore) {
+                    maxScore = score;
+                    bestMatch = faq;
+                }
             }
         }
     }
 
-    if (appConfig.dictionary[cleanQuery]) {
-        rispondiBot(appConfig.dictionary[cleanQuery] + "\n\n*(Cos'altro vuoi chiedermi?)*");
+    // Se troviamo un riscontro solido nel database JSON
+    if (bestMatch && maxScore > 2) {
+        let randomResp = bestMatch.responses[Math.floor(Math.random() * bestMatch.responses.length)];
+        rispondiBot(randomResp);
         return;
     }
 
-    rispondiBot("🤖 Al momento non sono in grado di darti una risposta precisa su questo argomento. Prova a chiedermi qualcos'altro o utilizza i pulsanti rapidi a lato!");
+    // 3. REGOLA DI SBARRAMENTO ONESTA (Niente allucinazioni o rimandi inutili)
+    rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
 function rispondiBot(testo) {
@@ -214,9 +143,10 @@ function rispondiBot(testo) {
 }
 
 function quickAction(id) {
-    let found = appConfig.faqs.find(f => f.id === id);
+    let found = appData.faqs.find(f => f.id === id);
     if (found) {
-        rispondiBot(found.responses[0]);
+        let resp = found.responses[0];
+        rispondiBot(resp);
     }
 }
 
@@ -234,6 +164,7 @@ function appendMessage(text, sender) {
 
     const bubble = document.createElement("div");
     bubble.classList.add("message-content");
+    // Formattazione sicura dei grassetti e degli a capo
     bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
 
     if (isBot) {
