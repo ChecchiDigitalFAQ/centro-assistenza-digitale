@@ -269,6 +269,7 @@ let appConfig = {
     },
     {
       "id": "MARTE_LUNA",
+      "type": "school",
       "keywords": [
         "marte",
         "sulla luna",
@@ -295,6 +296,7 @@ let appConfig = {
     },
     {
       "id": "INDOVINELLO",
+      "type": "school",
       "keywords": [
         "indovinello",
         "indovinelli"
@@ -412,8 +414,6 @@ let appConfig = {
     }
   ]
 };
-
-let inAttesaSceltaForm = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -540,7 +540,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA UNIVERSALE CON SCELTA MULTIPLA AUTOMATICA (Per qualsiasi similitudine o form multipli)
+    // 6. RICERCA UNIVERSALE CON SCELTA MULTIPLA AUTOMATICA
     let risultatiTrovati = [];
 
     for (let faq of appConfig.faqs) {
@@ -556,7 +556,6 @@ function processUserQuery(query) {
         }
     }
 
-    // Se l'utente chiede in modo generico un form o modulo senza specificare
     if (!risultatiTrovati.length && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
         let listaFormHtml = "📋 Certamente! Ecco tutti i moduli disponibili:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
@@ -567,19 +566,17 @@ function processUserQuery(query) {
         return;
     }
 
-    // SE TROVA PIÙ RISULTATI SIMILI: Chiede all'utente quale scegliere!
     if (risultatiTrovati.length > 1) {
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> che corrispondono alla tua richiesta. A quale ti riferisci?<br><br>`;
         risultatiTrovati.forEach((f, index) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            sceltaMultiplaHtml += `${index + 1️⃣}️⃣ **${titoloRisposta}** (ID: <code>${f.id}</code>)<br>`;
+            sceltaMultiplaHtml += `${index + 1}️⃣ **${titoloRisposta}**<br>`;
         });
         sceltaMultiplaHtml += `<br>Per favore, sii più specifico nella richiesta (es. inserendo l'indirizzo o il nome esatto).`;
         rispondiBot(sceltaMultiplaHtml);
         return;
     }
 
-    // SE TROVA UN UNICO RISULTATO ESATTO: Lo restituisce direttamente
     if (risultatiTrovati.length === 1) {
         let resp = risultatiTrovati[0].responses[0];
         rispondiBot(resp);
@@ -630,7 +627,6 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
-    inAttesaSceltaForm = false;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     chatBox.innerHTML = `
