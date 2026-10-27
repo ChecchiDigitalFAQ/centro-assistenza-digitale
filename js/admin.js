@@ -35,9 +35,65 @@ function switchTab(tabId, element) {
 function initAdminPanel() {
     renderFaqTable();
     renderBtnTable();
+    setupFaqSmartSearch();
 }
 
-// --- GESTIONE FAQ ---
+// --- GESTIONE FAQ CON RICERCA INTELLIGENTE SULL'ID ---
+function setupFaqSmartSearch() {
+    const faqIdInput = document.getElementById("faqId");
+    if (!faqIdInput) return;
+
+    // Crea un datalist dinamico per i suggerimenti mentre si digita
+    let datalist = document.getElementById("faqIdSuggestions");
+    if (!datalist) {
+        datalist = document.createElement("datalist");
+        datalist.id = "faqIdSuggestions";
+        document.body.appendChild(datalist);
+        faqIdInput.setAttribute("list", "faqIdSuggestions");
+    }
+
+    updateFaqDatalistOptions();
+
+    // Ascolta la digitazione nell'ID per popolare in automatico se esiste già
+    faqIdInput.addEventListener("input", function() {
+        const typedId = this.value.trim().toUpperCase();
+        const existingIndex = appConfig.faqs.findIndex(f => f.id.toUpperCase() === typedId);
+
+        if (existingIndex !== -1) {
+            // Trovato! Popola i campi per la modifica
+            const faq = appConfig.faqs[existingIndex];
+            document.getElementById("faqEditIndex").value = existingIndex;
+            document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
+            document.getElementById("faqResponse").value = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
+
+            document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ Esistente (${faq.id})`;
+            document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
+            document.getElementById("faqCancelBtn").style.display = "inline-flex";
+        } else {
+            // Non esiste: si predispone per un nuovo inserimento
+            document.getElementById("faqEditIndex").value = "-1";
+            if (typedId.length > 0) {
+                document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Aggiungi Nuovo ID (${typedId})`;
+                document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-save"></i> Salva Nuova FAQ`;
+            } else {
+                resetFaqForm();
+            }
+        }
+    });
+}
+
+function updateFaqDatalistOptions() {
+    const datalist = document.getElementById("faqIdSuggestions");
+    if (!datalist || typeof appConfig === "undefined") return;
+    
+    datalist.innerHTML = "";
+    appConfig.faqs.forEach(faq => {
+        const option = document.createElement("option");
+        option.value = faq.id;
+        datalist.appendChild(option);
+    });
+}
+
 function renderFaqTable() {
     const tbody = document.getElementById("faqTableBody");
     if (!tbody || typeof appConfig === "undefined") return;
@@ -59,6 +115,7 @@ function renderFaqTable() {
         `;
         tbody.appendChild(tr);
     });
+    updateFaqDatalistOptions();
 }
 
 function handleFaqSubmit(e) {
@@ -68,17 +125,30 @@ function handleFaqSubmit(e) {
     const keywords = document.getElementById("faqKeywords").value.split(",").map(k => k.trim()).filter(k => k);
     const response = document.getElementById("faqResponse").value.trim();
 
+    if (!id || keywords.length === 0 || !response) {
+        alert("⚠️ Per favore compila tutti i campi.");
+        return;
+    }
+
     const newFaq = { id, keywords, responses: [response] };
 
     if (index >= 0) {
         appConfig.faqs[index] = newFaq;
+        alert("✅ FAQ aggiornata con successo!");
     } else {
-        appConfig.faqs.unshift(newFaq);
+        // Verifica ulteriore per evitare doppioni manuali
+        const checkDuplicate = appConfig.faqs.findIndex(f => f.id.toUpperCase() === id);
+        if (checkDuplicate !== -1) {
+            appConfig.faqs[checkDuplicate] = newFaq;
+            alert("✅ FAQ esistente sovrascritta con successo!");
+        } else {
+            appConfig.faqs.unshift(newFaq);
+            alert("✅ Nuova FAQ aggiunta con successo!");
+        }
     }
 
     renderFaqTable();
     resetFaqForm();
-    alert("✅ FAQ salvata con successo!");
 }
 
 function editFaq(index) {
@@ -98,6 +168,7 @@ function deleteFaq(index) {
     if (confirm("Vuoi davvero eliminare questa FAQ?")) {
         appConfig.faqs.splice(index, 1);
         renderFaqTable();
+        resetFaqForm();
     }
 }
 
@@ -133,19 +204,20 @@ function handleBtnSubmit(e) {
     e.preventDefault();
     const index = parseInt(document.getElementById("btnEditIndex").value, 10);
     const label = document.getElementById("btnLabel").value.trim();
-    const id = document.getElementById("btnFaqId").value.trim().toUpperCase();
+    const id = document.getElementById("faqId") ? document.getElementById("btnFaqId").value.trim().toUpperCase() : "";
 
     const newBtn = { id, label };
 
     if (index >= 0) {
         appConfig.quickButtons[index] = newBtn;
+        alert("✅ Pulsante aggiornato con successo!");
     } else {
         appConfig.quickButtons.push(newBtn);
+        alert("✅ Pulsante rapido aggiunto con successo!");
     }
 
     renderBtnTable();
     resetBtnForm();
-    alert("✅ Pulsante rapido salvato con successo!");
 }
 
 function editBtn(index) {
