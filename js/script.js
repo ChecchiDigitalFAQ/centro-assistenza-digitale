@@ -2,7 +2,7 @@
  * ARCHITETTURA CORE DI ARTURO - ASSISTENTE VIRTUALE UFFICIALE
  * IIS "Arturo Checchi" (Fucecchio)
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
- * Versione Definitiva a Riscontro Esatto (Scalabile e Pulita)
+ * Versione Pulita (Senza Organigramma)
  */
 
 let appConfig = {
@@ -57,81 +57,6 @@ let appConfig = {
     },
 
     faqs: [
-        {
-            "id": "ORIENTATORE",
-            "keywords": ["orientatore", "chi è l'orientatore", "chi e l orientatore", "orientatore scuola", "docente orientatore"],
-            "responses": ["🧭 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Orientatore** dell'istituto è:\n- **Frediani**\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TUTOR",
-            "keywords": ["tutor", "professori tutor", "elenco tutor", "lista tutor", "chi sono i tutor", "tutor scolastici", "nomi tutor"],
-            "responses": ["👥 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco dei **Docenti Tutor**:\n1. Nazzi\n2. Guarino\n3. Vaccaro\n4. Tortorella\n5. Desideri\n6. Senese\n7. Scardaccione\n8. Tamberi\n9. Cerbioni\n10. Menale\n11. Rasori\n12. Faraoni\n13. Frisone\n14. Galfano\n15. Sibione\n16. Canneri\n17. Tognarelli\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "SICUREZZA",
-            "keywords": ["sicurezza", "figure sicurezza", "aspp", "rls", "prevenzione e protezione", "responsabile sicurezza"],
-            "responses": ["🦺 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), le **Figure di Sicurezza** e i principali ruoli dell'istituto sono:\n- **ASPP:** Palmieri\n- **RLS:** Diazzi\n\nPuoi anche chiedermi specificamente i **responsabili di plesso** o i **responsabili di laboratorio**!\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "ANIMATORE_DIGITALE",
-            "keywords": ["animatore digitale", "chi è l'animatore digitale", "chi e l animatore digitale", "animatore"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Donato**\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_DIGITALE_MEMBRI",
-            "keywords": ["chi fa parte del team digitale", "com'è costituito il team digitale", "come e costituito il team digitale", "squadra del team digitale", "componenti team digitale", "membri team digitale"],
-            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan, Turini\n- **Personale ATA:** Vorraro, Ziino\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_DIGITALE_COMPiti",
-            "keywords": ["di cosa si occupa il team digitale", "cosa fa il team digitale", "compiti team digitale"],
-            "responses": ["💻 Per quanto riguarda il **Team Digitale** e i servizi di digitalizzazione e supporto tecnologico dell'IIS \"Arturo Checchi\", l'animatore digitale e il team gestiscono le piattaforme M365, i laboratori informatici e l'assistenza tecnica.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_BULLISMO",
-            "keywords": ["bullismo", "cyberbullismo", "team bullismo", "prevenzione bullismo"],
-            "responses": ["🛡️ Il **Team Anti-Bullismo e Cyberbullismo** dell'istituto si occupa di prevenzione, ascolto e gestione di eventuali criticità legate al benessere relazionale degli studenti.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "TEAM_MOBILITA",
-            "keywords": ["mobilità internazionale", "erasmus", "progetti europei", "estero"],
-            "responses": ["✈️ Il **Team per la Mobilità Internazionale** coordina i progetti europei e i programmi di mobilità (come Erasmus+) per offrire agli studenti opportunità di formazione all'estero.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "ACCOGLIENZA",
-            "keywords": ["accoglienza", "inserimento studenti", "nuovi studenti"],
-            "responses": ["🏫 Il servizio di **Accoglienza** dell'istituto promuove attività mirate a favorire il sereno inserimento e l'integrazione dei nuovi studenti nelle classi.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "INVALSI_REF",
-            "keywords": ["invalsi", "prove invalsi", "referente invalsi"],
-            "responses": ["📊 Per quanto riguarda le **Prove INVALSI**, l'istituto nomina appositi referenti e docenti coordinatori per la somministrazione e la gestione delle rilevazioni nazionali degli apprendimenti.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "ED_SALUTE",
-            "keywords": ["educazione alla salute", "salute", "benessere", "benessere a scuola"],
-            "responses": ["🍏 I progetti di **Educazione alla Salute e Benessere a Scuola** promuovono stili di vita sani, prevenzione e supporto psicopedagogico per gli studenti.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "NIV",
-            "keywords": ["niv", "nucleo interno valutazione", "valutazione"],
-            "responses": ["📋 Il **NIV (Nucleo Interno di Valutazione)** supporta la Dirigenza e il Collegio nel monitoraggio e nell'autovalutazione d'istituto.\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "RESPONSABILI_LABORATORI_COMPLETO",
-            "keywords": ["responsabili laboratori", "elenco laboratori", "lista laboratori", "tutti i laboratori", "responsabile laboratori", "laboratori e aree speciali"],
-            "responses": ["🔬 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco completo dei **Responsabili di Laboratorio e Aree Speciali**:\n\n**Sede V. Veneto:**\n- Modellistica 1: Mazza\n- Modellistica 2: Desideri\n- Informatica: Galleni\n- LIM/Calzaturiero: Vaiani\n\n**Sede Checchi:**\n- Palestra nuova: Schiera\n- Palazzetto: Angelini\n- Fisica/Scienze: Pennacchio\n- Informatico 1 e 2: Turini\n\n**Sede Gramsci:**\n- Meccanica: Picciolo\n- Impiantielettrici: Cerrato\n- MisureElettr.: Miatto\n- Elettropneumatica: Miatto\n- Autocad: Diazzi\n- Linguistico/Green: D'Avico\n- Palestra: Grassini\n- Aula Green: Canneri\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "RESPONSABILI_PLESSI_GENERALI",
-            "keywords": ["responsabili di plesso", "responsabile di plesso", "tutti i plessi", "elenco plessi"],
-            "responses": ["🏫 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco i **Responsabili di Plesso** dell'istituto:\n- **Sede Centrale (Viale Gramsci):** Lalli\n- **Liceo (Via Padre Checchi):** Frediani, Frati e Canu\n- **Plesso Moda e Calzaturiero (Piazza Vittorio Veneto):** Galleni e Palmieri\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
-        {
-            "id": "COMMISSIONI_GENERALI",
-            "keywords": ["elenco commissioni", "tutte le commissioni"],
-            "responses": ["📋 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), ecco l'elenco delle **Commissioni** scolastiche:\n- **Elettorale:** Galleni, Senese, Carli, Freschi\n- **Comitato di Valutazione:** Vaccaro, Cillerai, Vincenti, Lalli (supplente)\n- **Competizioni Scientifiche:** Tafi, Tamberi\n- **FSL:** Desideri, Frediani, Vaccaro, Vaiani, Forte, Schiera, Simoncini\n- **Orario:** Donato, Frisone / Menale (ADSS)\n- **Orientamento in entrata:** Paoletti, Angelini, Buti, Desideri, Lalli, Marino, Montanelli\n\n*(Cos'altro vuoi chiedermi?)*"]
-        },
         {
             "id": "AIUTO",
             "keywords": ["aiuto", "help", "cosa sai fare", "istruzioni", "cos'e arturo", "chi e arturo"],
@@ -235,11 +160,6 @@ function sendMessage() {
     }, 300);
 }
 
-/**
- * MOTORE SEMANTICO A RISCONTRO ESATTO (ZERO FUORI TEMA)
- * Controlla se la domanda dell'utente corrisponde esattamente alle parole chiave codificate.
- * Se non trova nulla, risponde con cortesia invitando a cambiare domanda.
- */
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -252,14 +172,12 @@ function processUserQuery(query) {
         .replace(/\s+/g, " ")
         .trim();
 
-    // 1. Chiusura / Uscita
     const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok"];
     if (paroleChiusura.includes(cleanQuery)) {
         rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
         return;
     }
 
-    // 2. Saluto "Ciao" (Iniziale vs Finale)
     if (cleanQuery === "ciao" || cleanQuery === "salve") {
         const chatBox = document.getElementById("chat-messages");
         const numeroMessaggiUtente = chatBox ? chatBox.querySelectorAll(".user-message").length : 1;
@@ -273,10 +191,8 @@ function processUserQuery(query) {
         }
     }
 
-    // 3. Controllo Esatto nelle FAQ (Scorciatoia pulita e scalabile)
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
-            // Se la query dell'utente contiene esattamente la keyword configurata
             if (cleanQuery.includes(kw)) {
                 let resp = faq.responses[Math.floor(Math.random() * faq.responses.length)];
                 rispondiBot(resp);
@@ -285,13 +201,11 @@ function processUserQuery(query) {
         }
     }
 
-    // 4. Controllo Dizionario (Parole singole)
     if (appConfig.dictionary[cleanQuery]) {
         rispondiBot(appConfig.dictionary[cleanQuery] + "\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
-    // 5. REGOLA DI FERRO: NESSUNA RISPOSTA CASUALE O FUORI TEMA
     rispondiBot("🤖 Al momento non sono in grado di darti una risposta precisa su questo argomento. Prova a chiedermi qualcos'altro o utilizza i pulsanti rapidi a lato!");
 }
 
