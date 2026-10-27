@@ -43,7 +43,6 @@ function setupFaqSmartSearch() {
     const faqIdInput = document.getElementById("faqId");
     if (!faqIdInput) return;
 
-    // Crea un datalist dinamico per i suggerimenti mentre si digita
     let datalist = document.getElementById("faqIdSuggestions");
     if (!datalist) {
         datalist = document.createElement("datalist");
@@ -54,13 +53,11 @@ function setupFaqSmartSearch() {
 
     updateFaqDatalistOptions();
 
-    // Ascolta la digitazione nell'ID per popolare in automatico se esiste già
     faqIdInput.addEventListener("input", function() {
         const typedId = this.value.trim().toUpperCase();
         const existingIndex = appConfig.faqs.findIndex(f => f.id.toUpperCase() === typedId);
 
         if (existingIndex !== -1) {
-            // Trovato! Popola i campi per la modifica
             const faq = appConfig.faqs[existingIndex];
             document.getElementById("faqEditIndex").value = existingIndex;
             document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
@@ -70,7 +67,6 @@ function setupFaqSmartSearch() {
             document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
             document.getElementById("faqCancelBtn").style.display = "inline-flex";
         } else {
-            // Non esiste: si predispone per un nuovo inserimento
             document.getElementById("faqEditIndex").value = "-1";
             if (typedId.length > 0) {
                 document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Aggiungi Nuovo ID (${typedId})`;
@@ -130,13 +126,17 @@ function handleFaqSubmit(e) {
         return;
     }
 
-    const newFaq = { id, keywords, responses: [response] };
+    const newFaq = { 
+        id, 
+        type: id.startsWith("FORM_") ? "form" : "school", 
+        keywords, 
+        responses: [response] 
+    };
 
     if (index >= 0) {
         appConfig.faqs[index] = newFaq;
         alert("✅ FAQ aggiornata con successo!");
     } else {
-        // Verifica ulteriore per evitare doppioni manuali
         const checkDuplicate = appConfig.faqs.findIndex(f => f.id.toUpperCase() === id);
         if (checkDuplicate !== -1) {
             appConfig.faqs[checkDuplicate] = newFaq;
@@ -204,7 +204,7 @@ function handleBtnSubmit(e) {
     e.preventDefault();
     const index = parseInt(document.getElementById("btnEditIndex").value, 10);
     const label = document.getElementById("btnLabel").value.trim();
-    const id = document.getElementById("faqId") ? document.getElementById("btnFaqId").value.trim().toUpperCase() : "";
+    const id = document.getElementById("btnFaqId").value.trim().toUpperCase();
 
     const newBtn = { id, label };
 
@@ -247,12 +247,23 @@ function resetBtnForm() {
     document.getElementById("btnCancelBtn").style.display = "none";
 }
 
-// --- ESPORTAZIONE CODICE ---
+// --- ESPORTAZIONE CODICE PERFETTA E PULITA ---
 function generateExportData() {
     const exportArea = document.getElementById("exportArea");
     if (!exportArea || typeof appConfig === "undefined") return;
 
-    exportArea.value = `let appConfig = ${JSON.stringify(appConfig, null, 2)};`;
+    let cleanConfig = {
+        quickButtons: appConfig.quickButtons || [],
+        dictionary: appConfig.dictionary || {},
+        faqs: (appConfig.faqs || []).map(faq => ({
+            id: faq.id,
+            type: faq.type || (faq.id.startsWith("FORM_") ? "form" : "school"),
+            keywords: Array.isArray(faq.keywords) ? faq.keywords : faq.keywords.split(",").map(k => k.trim()),
+            responses: Array.isArray(faq.responses) ? faq.responses : [faq.response || ""]
+        }))
+    };
+
+    exportArea.value = `let appConfig = ${JSON.stringify(cleanConfig, null, 2)};`;
 }
 
 function copyExportCode() {
