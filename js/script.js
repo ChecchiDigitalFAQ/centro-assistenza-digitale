@@ -296,7 +296,6 @@ let appConfig = {
     },
     {
       "id": "INDOVINELLO",
-      "type": "school",
       "keywords": [
         "indovinello",
         "indovinelli"
@@ -466,6 +465,14 @@ function sendMessage() {
     }, 300);
 }
 
+// Funzione per inviare un messaggio direttamente simulando il clic dell'utente
+function sendDirectQuery(queryText) {
+    appendMessage(queryText, "user");
+    setTimeout(() => {
+        processUserQuery(queryText);
+    }, 300);
+}
+
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -540,7 +547,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA UNIVERSALE CON SCELTA MULTIPLA AUTOMATICA
+    // 6. RICERCA UNIVERSALE CON SCELTA MULTIPLA CLICCABILE
     let risultatiTrovati = [];
 
     for (let faq of appConfig.faqs) {
@@ -557,22 +564,24 @@ function processUserQuery(query) {
     }
 
     if (!risultatiTrovati.length && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
-        let listaFormHtml = "📋 Certamente! Ecco tutti i moduli disponibili:<br><br>";
+        let listaFormHtml = "📋 Certamente! Clicca su un modulo per aprirlo:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
             let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            listaFormHtml += `🔹 **${titoloForm}**<br>`;
+            let primaKeyword = f.keywords[0];
+            listaFormHtml += `🔹 <a href='javascript:void(0);' onclick='sendDirectQuery("${primaKeyword}")' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>${titoloForm}</a><br><br>`;
         });
         rispondiBot(listaFormHtml);
         return;
     }
 
+    // SE TROVA PIÙ RISULTATI SIMILI: Genera pulsanti cliccabili interattivi!
     if (risultatiTrovati.length > 1) {
-        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> che corrispondono alla tua richiesta. A quale ti riferisci?<br><br>`;
+        let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> simili. Clicca su quello che ti interessa:<br><br>`;
         risultatiTrovati.forEach((f, index) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            sceltaMultiplaHtml += `${index + 1}️⃣ **${titoloRisposta}**<br>`;
+            let keywordScelta = f.keywords[0]; // Prende la prima keyword utile per raffinare la ricerca
+            sceltaMultiplaHtml += `${index + 1}️⃣ <a href='javascript:void(0);' onclick='sendDirectQuery("${keywordScelta}")' style='background: #1e3a8a; color: white; padding: 6px 12px; border-radius: 6px; display: inline-block; margin: 4px 0; text-decoration: none; font-weight: bold;'>👉 ${titoloRisposta}</a><br>`;
         });
-        sceltaMultiplaHtml += `<br>Per favore, sii più specifico nella richiesta (es. inserendo l'indirizzo o il nome esatto).`;
         rispondiBot(sceltaMultiplaHtml);
         return;
     }
