@@ -58,11 +58,14 @@ let appConfig = {
       "keywords": [
         "piano lavoro liceo",
         "piano annuale liceo",
-        "piano lavoro ite itt",
-        "piano liceo ite itt"
+        "piano lavoro ite",
+        "piano lavoro itt",
+        "liceo",
+        "ite",
+        "itt"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='INSERISCI_LINK_LICEO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/INSERISCI_LINK_LICEO_VERO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
       ]
     },
     {
@@ -73,10 +76,11 @@ let appConfig = {
         "piano annuale ipia",
         "classi prime ite",
         "classi prime itt",
-        "piano lavoro prime"
+        "ipia",
+        "prime"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='INSERISCI_LINK_IPIA' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/INSERISCI_LINK_IPIA_VERO' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
       ]
     },
     {
@@ -538,13 +542,13 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. RICERCA MIRATA E PRECISA (Evita falsi positivi ed elenchi di massa)
+    // 6. RICERCA SELETTIVA E MIRATA (Evita elenchi di massa per ricerche parziali)
     let risultatiTrovati = [];
 
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
             let kwClean = kw.toLowerCase().trim();
-            // Verifica corrispondenza esatta della keyword o se la query contiene parole chiave specifiche
+            // Match solo se la query contiene la keyword per intero o corrisponde all'ID
             if (cleanQuery === kwClean || cleanQuery.includes(kwClean)) {
                 if (!risultatiTrovati.some(f => f.id === faq.id)) {
                     risultatiTrovati.push(faq);
@@ -553,23 +557,9 @@ function processUserQuery(query) {
         }
     }
 
-    // Se non trova corrispondenze esatte con le keyword, prova un match parziale solo se la query è lunga abbastanza
-    if (risultatiTrovati.length === 0 && cleanQuery.length > 4) {
-        for (let faq of appConfig.faqs) {
-            for (let kw of faq.keywords) {
-                let paroleKw = kw.toLowerCase().split(" ");
-                let matchParziale = paroleKw.some(parola => cleanQuery.includes(parola) && parola.length > 3);
-                if (matchParziale) {
-                    if (!risultatiTrovati.some(f => f.id === faq.id)) {
-                        risultatiTrovati.push(faq);
-                    }
-                }
-            }
-        }
-    }
-
-    if (!risultatiTrovati.length && (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "modulistica")) {
-        let listaFormHtml = "📋 Certamente! Ecco tutti i moduli disponibili:<br><br>";
+    // Se l'utente scrive ESATTAMENTE "form" o "modulo" in modo generico
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
+        let listaFormHtml = "📋 Certamente! Clicca su un modulo per aprirlo direttamente:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
             let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
             let linkMatch = f.responses[0].match(/href='([^']+)'/);
@@ -580,7 +570,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // SE TROVA PIÙ ELEMENTI SIMILI: Genera pulsanti che aprono DIRETTAMENTE il link nel browser
+    // SE TROVA PIÙ MODULI SIMILI (es. "piano di lavoro" che intercetta sia Liceo che IPIA):
     if (risultatiTrovati.length > 1) {
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> corrispondenti. Scegli quale aprire:<br><br>`;
         risultatiTrovati.forEach((f) => {
