@@ -179,6 +179,7 @@ let inAttesaSceltaForm = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
+    startClock(); // Ripristinato l'avvio dell'orologio
 });
 
 function initApp() {
@@ -248,7 +249,14 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Gestione interattiva form
+    // 2. Controllo Orario ("che ora è", "ora", "orario")
+    if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
+        const now = new Date();
+        rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
+        return;
+    }
+
+    // 3. Gestione interattiva form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
         if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
@@ -269,7 +277,7 @@ function processUserQuery(query) {
     // Spezzettiamo la query in parole per valutare la regola della parola singola
     const parole = cleanQuery.split(" ");
 
-    // 3. REGOLA DELLA PAROLA SINGOLA ISOLATA (Se è una sola parola, escludiamo saluti o termini dizionario esatti)
+    // 4. REGOLA DELLA PAROLA SINGOLA ISOLATA
     if (parole.length === 1) {
         // Controllo se è un saluto esatto
         if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
@@ -289,7 +297,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. Gestione RADICI QUADRATE
+    // 5. Gestione RADICI QUADRATE
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -299,7 +307,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 5. Calcolatrice e conversioni base
+    // 6. Calcolatrice e conversioni base
     if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -312,7 +320,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 6. Ricerca Dizionario per frasi contenenti il termine
+    // 7. Ricerca Dizionario per frasi contenenti il termine
     for (const [term, def] of Object.entries(appConfig.dictionary)) {
         if (cleanQuery.includes(term)) {
             rispondiBot(def);
@@ -320,7 +328,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. Ricerca FAQ con corrispondenza solida
+    // 8. Ricerca FAQ con corrispondenza solida
     let matchedFaq = null;
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
@@ -339,7 +347,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 8. REGOLA DI SBARRAMENTO ONESTA (Niente allucinazioni)
+    // 9. REGOLA DI SBARRAMENTO ONESTA (Niente allucinazioni)
     rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
@@ -395,4 +403,23 @@ function resetChat() {
             </div>
         </div>
     `;
+}
+
+function startClock() {
+    const clockEl = document.getElementById("live-clock");
+    if (!clockEl) return;
+    
+    function updateDateTime() {
+        const now = new Date();
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        const dataFormattata = now.toLocaleDateString('it-IT', options);
+        const oraFormattata = now.toLocaleTimeString('it-IT');
+        
+        if (clockEl) {
+            clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
+        }
+    }
+    
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
 }
