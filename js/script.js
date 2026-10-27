@@ -256,6 +256,142 @@ function processUserQuery(query) {
         return;
     }
 
+    // 3. Gestione interattiva form (se in attesa)
+    if (inAttesaSceltaForm) {
+        inAttesaSceltaForm = false;
+        if (cleanQuery.includes("fotocopie") || cleanQuery.includes("stampa")) {
+            rispondiBot("🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>");
+            return;
+        } else if (cleanQuery.includes("esperti") || cleanQuery.includes("esterni")) {
+            rispondiBot("📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\Puoi compilare il modulo ufficiale al seguente link:\n🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>");
+            return;
+        }
+    }
+
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
+        inAttesaSceltaForm = true;
+        rispondiBot("📋 Certamente! A quale form o modulo ti riferisci?\n\n1️⃣ **Fotocopie**\n2️⃣ **Esperti Esterni**\n\nDimmi pure quale ti interessa!");
+        return;
+    }
+
+    // 4. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE ("cosa significa", "cos'è", ecc.)
+    let cercaSignificato = cleanQuery.includes("cosa significa") || cleanQuery.includes("cos e") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");
+    if (cercaSignificato) {
+        let trovatoDizionario = false;
+        for (const [term, def] of Object.entries(appConfig.dictionary)) {
+            if (cleanQuery.includes(term)) {
+                rispondiBot(def);
+                trovatoDizionario = true;
+                break;
+            }
+        }
+        if (!trovatoDizionario) {
+            rispondiBot("🤖 Al momento questo termine mi è ancora sconosciuto, ma ho registrato la tua richiesta: a breve lo avrò inserito nel mio dizionario!");
+        }
+        return;
+    }
+
+    // 5. REGOLA DELLA PAROLA SINGOLA ISOLATA
+    const parole = cleanQuery.split(" ");
+    if (parole.length === 1) {
+        if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
+            let faqSaluto = appConfig.faqs.find(f => f.id === "SALUTO");
+            if (faqSaluto) {
+                rispondiBot(faqSaluto.responses[0]);
+                return;
+            }
+        }
+        if (appConfig.dictionary[cleanQuery]) {
+            rispondiBot(appConfig.dictionary[cleanQuery]);
+            return;
+        }
+        rispondiBot(`🤔 Hai digitato la parola singola <strong>"${query}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
+        return;
+    }
+
+    // 6. Gestione RADICI QUADRATE
+    if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            let risultato = Math.sqrt(num);
+            rispondiBot(`📐 La radice quadrata di **${num}** è **${risultato.toFixed(2)}**!`);
+            return;
+        }
+    }
+
+    // 7. Calcolatrice e conversioni base
+    if (cleanQuery.includes("grammi") && cleanQuery.includes("kili")) {
+        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
+        if (!isNaN(num)) {
+            rispondiBot(`${num} chili equivalgono a **${num * 1000} grammi**!`);
+            return;
+        }
+    }
+    if (cleanQuery.includes("quintale")) {
+        rispondiBot("Un quintale equivale a **100 chili** (e quindi a **100.000 grammi**)!");
+        return;
+    }
+
+    // 8. Ricerca normale nel Dizionario per frasi
+    for (const [term, def] of Object.entries(appConfig.dictionary)) {
+        if (cleanQuery.includes(term)) {
+            rispondiBot(def);
+            return;
+        }
+    }
+
+    // 9. Ricerca FAQ (I form si attivano SOLO se l'utente menziona esplicitamente form/modulo/richiesta)
+    let matchedFaq = null;
+    let vuoleForm = cleanQuery.includes("form") || cleanQuery.includes("modulo") || cleanQuery.includes("richiesta") || cleanQuery.includes("compilare") || cleanQuery.includes("link");
+
+    for (let faq of appConfig.faqs) {
+        if (vuoleForm && faq.id.startsWith("FORM_")) {
+            for (let kw of faq.keywords) {
+                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                    matchedFaq = faq;
+                    break;
+                }
+            }
+        } else if (!vuoleForm && !faq.id.startsWith("FORM_")) {
+            for (let kw of faq.keywords) {
+                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                    matchedFaq = faq;
+                    break;
+                }
+            }
+        }
+        if (matchedFaq) break;
+    }
+
+    if (!matchedFaq) {
+        for (let faq of appConfig.faqs) {
+            for (let kw of faq.keywords) {
+                if (cleanQuery.includes(kw.toLowerCase().trim())) {
+                    matchedFaq = faq;
+                    break;
+                }
+            }
+            if (matchedFaq) break;
+        }
+    }
+
+    if (matchedFaq) {
+        let resp = matchedFaq.responses[Math.floor(Math.random() * matchedFaq.responses.length)];
+        rispondiBot(resp);
+        return;
+    }
+
+    // 10. SBARRAMENTO ONESTA FINALE
+    rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
+}
+
+    // 2. Controllo Orario
+    if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
+        const now = new Date();
+        rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
+        return;
+    }
+
     // 3. Gestione interattiva form
     if (inAttesaSceltaForm) {
         inAttesaSceltaForm = false;
