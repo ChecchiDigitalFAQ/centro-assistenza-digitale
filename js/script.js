@@ -85,8 +85,8 @@ let appConfig = {
         },
         {
             "id": "TEAM_DIGITALE",
-            "keywords": ["team digitale", "digitale", "piattaforme", "m365", "teams"],
-            "responses": ["💻 Per quanto riguarda il **Team Digitale** e i servizi di digitalizzazione e supporto tecnologico dell'IIS \"Arturo Checchi\", l'animatore digitale e il team gestiscono le piattaforme M365, i laboratori informatici e l'assistenza tecnica.\n\n*(Cos'altro vuoi chiedermi?)*"]
+            "keywords": ["team digitale", "digitale", "piattaforme", "m365", "teams", "costituito il team", "fanno parte del team", "squadra del team"],
+            "responses": ["💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan, Turini\n- **Personale ATA:** Vorraro, Ziino\n\n*(Cos'altro vuoi chiedermi?)*"]
         },
         {
             "id": "TEAM_BULLISMO",
@@ -313,10 +313,15 @@ function processUserQuery(query) {
     }
 
     // =========================================================================
-    // REGOLA 4: INTERCETTAZIONI MIRATE AD ALTA PRIORITÀ (Animatore e Plessi)
+    // REGOLA 4: INTERCETTAZIONI MIRATE AD ALTA PRIORITÀ (Animatore, Team e Plessi)
     // =========================================================================
     if (cleanQuery.includes("animatore digitale") || cleanQuery.includes("chi è l'animatore") || cleanQuery.includes("chi e l animatore")) {
         rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), l'**Animatore Digitale** dell'istituto è:\n- **Donato**\n\n*(Cos'altro vuoi chiedermi?)*");
+        return;
+    }
+
+    if (cleanQuery.includes("chi fa parte del team digitale") || cleanQuery.includes("com'è costituito") || cleanQuery.includes("come e costituito") || cleanQuery.includes("squadra del team") || cleanQuery.includes("componenti del team")) {
+        rispondiBot("💻 In base all'**ORGANIGRAMMA A.S. 2026-2027** (Delibere Collegio del 11.09.26 - 29.09.26), il **Team Digitale** è così composto:\n- **Animatore Digitale:** Donato\n- **Team:** Frediani, Bolzan, Turini\n- **Personale ATA:** Vorraro, Ziino\n\n*(Cos'altro vuoi chiedermi?)*");
         return;
     }
 
