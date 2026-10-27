@@ -6,7 +6,7 @@
     <title>Pannello Amministrazione - Arturo 2.0</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        .admin-container { max-width: 900px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: sans-serif; }
+        .admin-container { max-width: 900px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-family: sans-serif; display: none; }
         .admin-nav { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
         .admin-nav button { padding: 10px 15px; border: none; background: #f0f0f0; cursor: pointer; border-radius: 5px; font-weight: bold; }
         .admin-nav button.active { background: #0056b3; color: white; }
@@ -27,7 +27,7 @@
 </head>
 <body>
 
-<div class="admin-container">
+<div class="admin-container" id="adminPanel">
     <h1>⚙️ Pannello Gestione Arturo 2.0</h1>
 
     <div class="admin-nav">
@@ -142,30 +142,37 @@
         </table>
     </section>
 
-    <!-- SCHEDA 4: ESPORTAZIONE & SINCRONIZZAZIONE -->
+    <!-- SCHEDA 4: ESPORTAZIONE & AGGIORNAMENTO MANUALE -->
     <section id="exportTab" class="tab-content">
-        <h2>🚀 Sincronizzazione Diretta su GitHub</h2>
-        <p>Inserisci il tuo Token Personale GitHub per salvare le modifiche direttamente sul file <code>js/script.js</code> con un solo clic.</p>
+        <h2>🚀 Esportazione Configurazione</h2>
+        <p>Copia il codice aggiornato qui sotto e incollalo nel tuo file <code>js/script.js</code> per rendere operative le modifiche sul sito.</p>
         
-        <div class="form-group">
-            <label>Personal Access Token (PAT) GitHub:</label>
-            <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-            <small style="color:#666;">Il token viene salvato unicamente nella memoria del tuo browser per motivi di sicurezza.</small>
-        </div>
-
-        <button type="button" class="btn-primary" onclick="syncToGitHub()">💾 Salva e Pubblica su GitHub</button>
-        <button type="button" class="btn-secondary" onclick="copyExportCode()" style="margin-left:10px;">📋 Copia Codice Manuale</button>
+        <button type="button" class="btn-primary" onclick="copyExportCode()">📋 Copia Codice Negli Appunti</button>
 
         <hr style="margin: 20px 0;">
 
         <div class="form-group">
             <label>Anteprima Codice Generato:</label>
-            <textarea id="exportCode" rows="10" readonly style="width:100%; font-family:monospace; background:#f4f4f4;"></textarea>
+            <textarea id="exportCode" rows="12" readonly style="width:100%; font-family:monospace; background:#f4f4f4;"></textarea>
         </div>
     </section>
 </div>
 
 <script src="js/script.js"></script>
+<script>
+    // PROTEZIONE CON PASSWORD PER L'ACCESSO ALL'ADMIN
+    document.addEventListener("DOMContentLoaded", function() {
+        const passwordImpostata = "arturo2026"; // Puoi cambiare qui la password che preferisci
+        let passwordInserita = prompt("🔒 Inserisci la password di accesso al Pannello Amministrazione:");
+        
+        if (passwordInserita === passwordImpostata) {
+            document.getElementById("adminPanel").style.display = "block";
+        } else {
+            alert("❌ Password errata! Accesso negato.");
+            window.location.href = "index.html"; // O reindirizza dove preferisci
+        }
+    });
+</script>
 <script src="js/admin.js"></script>
 </body>
 </html>
