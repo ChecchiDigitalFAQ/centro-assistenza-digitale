@@ -108,6 +108,7 @@ let appConfig = {
         "credenziali m365",
         "password microsoft",
         "recupero password teams",
+        "Richiesta Credenziali e Accesso Microsoft 365",
         "password teams",
         "problemi accesso m365",
         "form richiesta password microsoft teams",
