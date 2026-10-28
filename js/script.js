@@ -59,9 +59,7 @@ let appConfig = {
         "piano lavoro liceo",
         "piano annuale liceo",
         "piano lavoro ite",
-        "piano lavoro itt",
-        "liceo",
-        "ite"
+        "piano lavoro itt"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUMlpWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl"
@@ -74,8 +72,7 @@ let appConfig = {
         "piano lavoro ipia",
         "piano annuale ipia",
         "classi prime ite",
-        "classi prime itt",
-        "ipia"
+        "classi prime itt"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUQzZVMjRXUTZNVFdFR05ZSVJDWFdSMzUxMy4u&route=shorturl"
@@ -187,6 +184,7 @@ let appConfig = {
     },
     {
       "id": "TI_MARE",
+      "type": "school",
       "keywords": [
         "ti piace il mare",
         "mare",
@@ -198,6 +196,7 @@ let appConfig = {
     },
     {
       "id": "TI_ANIMALI",
+      "type": "school",
       "keywords": [
         "ti piacciono i cani",
         "ti piacciono i gatti",
@@ -220,6 +219,7 @@ let appConfig = {
     },
     {
       "id": "TI_DORMIRE",
+      "type": "school",
       "keywords": [
         "ti piace dormire",
         "ti addormenti",
@@ -232,6 +232,7 @@ let appConfig = {
     },
     {
       "id": "TI_SALUTO",
+      "type": "school",
       "keywords": [
         "ti saluto",
         "ti saluta"
@@ -242,6 +243,7 @@ let appConfig = {
     },
     {
       "id": "TI_AMO",
+      "type": "school",
       "keywords": [
         "ti amo",
         "ti voglio bene",
@@ -275,6 +277,7 @@ let appConfig = {
     },
     {
       "id": "BARZELLETTE",
+      "type": "school",
       "keywords": [
         "barzelletta",
         "fammi ridere",
@@ -300,6 +303,7 @@ let appConfig = {
     },
     {
       "id": "CREATORE",
+      "type": "school",
       "keywords": [
         "chi ti ha creato",
         "creatore",
@@ -312,6 +316,7 @@ let appConfig = {
     },
     {
       "id": "DIRIGENZA",
+      "type": "school",
       "keywords": [
         "dirigenza",
         "preside",
@@ -324,6 +329,7 @@ let appConfig = {
     },
     {
       "id": "COLLABORATORI_DIRIGENTE",
+      "type": "school",
       "keywords": [
         "collaboratori",
         "collaboratore",
@@ -336,6 +342,7 @@ let appConfig = {
     },
     {
       "id": "SEDI_ISTITUTO",
+      "type": "school",
       "keywords": [
         "plessi",
         "quanti plessi",
@@ -349,6 +356,7 @@ let appConfig = {
     },
     {
       "id": "CONTATTI",
+      "type": "school",
       "keywords": [
         "contatti",
         "telefono",
@@ -455,9 +463,12 @@ function sendMessage() {
     }, 300);
 }
 
-// Funzione intelligente per trasformare qualsiasi link grezzo in un link cliccabile
+// Funzione intelligente che trasforma qualsiasi link grezzo in un link cliccabile
 function formatLinksInText(text) {
+    // Se nel testo c'è già un tag <a> scritto a mano, lo lasciamo com'è
     if (text.includes("<a href=")) return text;
+
+    // Altrimenti, cerca qualsiasi URL che inizia con http:// o https:// e lo trasforma in un link cliccabile
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(urlRegex, (url) => {
         return `<a href='${url}' target='_blank' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>🔗 Clicca qui per aprire il modulo</a>`;
@@ -583,6 +594,7 @@ function processUserQuery(query) {
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> per il piano di lavoro. Scegli quale aprire:<br><br>`;
         risultatiForm.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
+            // Estrae automaticamente il link dalla risposta (anche se è un URL grezzo)
             let linkMatch = f.responses[0].match(/(https?:\/\/[^\s]+)/);
             let urlForm = linkMatch ? linkMatch[1] : '#';
             sceltaMultiplaHtml += `👉 <a href='${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>${titoloRisposta}</a><br>`;
@@ -627,6 +639,7 @@ function processUserQuery(query) {
 }
 
 function rispondiBot(testo) {
+    // Applica la formattazione automatica dei link prima di inviare il messaggio
     let testoFormattato = formatLinksInText(testo);
     appendMessage(testoFormattato, "bot");
 }
