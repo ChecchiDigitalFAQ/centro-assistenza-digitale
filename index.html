@@ -85,7 +85,7 @@
                     <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
                     <div class="message-content">
                         👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
-                        Posso aiutarti con i termini del dizionario, informazioni scolastiche, calcoli matematici al volo o rispondere alle tue curiosità. Come posso aiutarti oggi?
+                        Posso aiutarti con i form, le informazioni sulla scuola o le risposte rapide. Come posso aiutarti oggi?
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
             <!-- Area Input e Invio Messaggi -->
             <div class="chat-input-container">
                 <form id="chat-form">
-                    <input type="text" id="user-input" placeholder="Scrivi una domanda, un termine o un'espressione (es. 15 * 4)..." autocomplete="off">
+                    <input type="text" id="user-input" placeholder="Scrivi una domanda o cerca un form (es. sostituzioni)..." autocomplete="off">
                     <button type="submit" id="send-btn">
                         <i class="fa-solid fa-paper-plane"></i> Invia
                     </button>
@@ -102,6 +102,133 @@
         </main>
     </div>
 
+    <!-- Caricamento Database -->
     <script src="js/script.js"></script>
+
+    <!-- Motore di Logica della Chat -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Orologio in tempo reale
+            function updateClock() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const clockEl = document.getElementById('live-clock');
+                if (clockEl) {
+                    clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeString}`;
+                }
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            // 2. Generazione Pulsanti Rapidi Sidebar
+            const buttonsContainer = document.getElementById('faq-buttons-container');
+            if (buttonsContainer && window.appConfig && window.appConfig.quickButtons) {
+                buttonsContainer.innerHTML = '';
+                window.appConfig.quickButtons.forEach(btn => {
+                    const buttonEl = document.createElement('button');
+                    buttonEl.className = 'quick-btn';
+                    buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label}`;
+                    buttonEl.addEventListener('click', () => {
+                        handleUserQuery(btn.id);
+                    });
+                    buttonsContainer.appendChild(buttonEl);
+                });
+            }
+
+            // 3. Gestione invio messaggi e ricerca
+            const chatForm = document.getElementById('chat-form');
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+
+            function appendMessage(sender, htmlContent) {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${sender === 'user' ? 'user-message' : 'bot-message'}`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.innerHTML = sender === 'user' ? '<i class="fa-solid fa-user"></i>' : '<i class="fa-solid fa-robot"></i>';
+                
+                const content = document.createElement('div');
+                content.className = 'message-content';
+                content.innerHTML = htmlContent;
+
+                if (sender === 'user') {
+                    msgDiv.appendChild(content);
+                    msgDiv.appendChild(avatar);
+                } else {
+                    msgDiv.appendChild(avatar);
+                    msgDiv.appendChild(content);
+                }
+
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function findAnswer(query) {
+                if (!window.appConfig || !window.appConfig.faqs) return null;
+                const cleanQuery = query.toLowerCase().trim();
+
+                // Controllo corrispondenza ID diretto (es. dai pulsanti)
+                const exactIdMatch = window.appConfig.faqs.find(f => f.id.toLowerCase() === cleanQuery);
+                if (exactIdMatch) return exactIdMatch.responses[0];
+
+                // Ricerca per parole chiave
+                for (let faq of window.appConfig.faqs) {
+                    if (faq.keywords && faq.keywords.some(kw => cleanQuery.includes(kw.toLowerCase()))) {
+                        return faq.responses[0];
+                    }
+                }
+
+                // Controllo dizionario
+                if (window.appConfig.dictionary) {
+                    for (let [word, definition] of Object.entries(window.appConfig.dictionary)) {
+                        if (cleanQuery.includes(word)) {
+                            return definition;
+                        }
+                    }
+                }
+
+                return "🤖 Non ho trovato una risposta specifica per la tua richiesta. Prova a digitare parole chiave come <strong>sostituzioni</strong>, <strong>permessi brevi</strong> o <strong>aiuto</strong>!";
+            }
+
+            if (chatForm) {
+                chatForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const text = userInput.value.trim();
+                    if (!text) return;
+
+                    appendMessage('user', text);
+                    userInput.value = '';
+
+                    setTimeout(() => {
+                        const response = findAnswer(text);
+                        appendMessage('bot', response);
+                    }, 400);
+                });
+            }
+
+            window.handleUserQuery = function(queryId) {
+                const response = findAnswer(queryId);
+                appendMessage('user', queryId);
+                setTimeout(() => {
+                    appendMessage('bot', response);
+                }, 400);
+            };
+
+            const newChatBtn = document.getElementById('new-chat-btn');
+            if (newChatBtn) {
+                newChatBtn.addEventListener('click', () => {
+                    chatMessages.innerHTML = `
+                        <div class="message bot-message">
+                            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
+                            <div class="message-content">
+                                👋 Conversazione riavviata! Come posso aiutarti oggi?
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        });
+    </script>
 </body>
 </html>
