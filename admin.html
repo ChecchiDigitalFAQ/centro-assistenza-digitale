@@ -104,10 +104,7 @@
 
         <!-- SCHEDA 1: FAQ -->
         <div id="faqTab" class="tab-content active">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 id="faqFormTitle" style="color: var(--primary); margin: 0;"><i class="fa-solid fa-plus-circle"></i> Aggiungi Nuova FAQ</h2>
-                <button type="button" class="btn btn-secondary" id="faqNewBtn" onclick="resetFaqForm()" style="display: none;"><i class="fa-solid fa-plus"></i> Crea Nuovo</button>
-            </div>
+            <h2 id="faqFormTitle" style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-plus-circle"></i> Aggiungi Nuova FAQ</h2>
             
             <form id="faqForm" onsubmit="handleFaqSubmit(event)">
                 <input type="hidden" id="faqEditIndex" value="-1">
@@ -117,15 +114,6 @@
                         <input type="text" id="faqId" required placeholder="ID maiuscolo senza spazi">
                     </div>
                     <div class="form-group">
-                        <label>Categoria Ufficiale:</label>
-                        <select id="faqCategory" class="form-control">
-                            <option value="form">📋 form (Moduli Microsoft Forms)</option>
-                            <option value="scuola">🏫 scuola (Informazioni e Uffici)</option>
-                            <option value="personali">👋 personali (Presentazioni, battute e indovinelli)</option>
-                            <option value="dizionario">📖 dizionario (Termini enciclopedici)</option>
-                        </select>
-                    </div>
-                    <div class="form-group full">
                         <label>Parole Chiave (separate da virgola):</label>
                         <input type="text" id="faqKeywords" required placeholder="fotocopie, stampa, carta">
                     </div>
@@ -134,34 +122,18 @@
                         <textarea id="faqResponse" required placeholder="Testo della risposta (puoi usare HTML o **grassetto**)..."></textarea>
                     </div>
                 </div>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button type="submit" class="btn btn-success" id="faqSubmitBtn"><i class="fa-solid fa-save"></i> Salva FAQ</button>
-                    <button type="button" class="btn btn-danger" id="faqDeleteInFormBtn" style="display:none;" onclick="deleteCurrentEditingFaq()"><i class="fa-solid fa-trash"></i> Elimina questa FAQ</button>
-                    <button type="button" class="btn btn-secondary" id="faqCancelBtn" style="display:none;" onclick="resetFaqForm()">Annulla</button>
-                </div>
+                <button type="submit" class="btn btn-success" id="faqSubmitBtn"><i class="fa-solid fa-save"></i> Salva FAQ</button>
+                <button type="button" class="btn btn-secondary" id="faqCancelBtn" style="display:none;" onclick="resetFaqForm()">Annulla</button>
             </form>
 
             <hr style="margin: 30px 0; border:0; border-top: 1px solid var(--border);">
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
-                <h3 style="margin: 0;">Elenco FAQ Esistenti</h3>
-                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                    <input type="text" id="faqTableSearch" placeholder="🔍 Cerca ID o parola chiave..." style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); width: 220px; font-size: 0.95rem;" oninput="renderFaqTable()">
-                    <select id="faqCategoryFilter" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.95rem;" onchange="renderFaqTable()">
-                        <option value="ALL">📁 Tutte le categorie</option>
-                        <option value="form">📋 form</option>
-                        <option value="scuola">🏫 scuola</option>
-                        <option value="personali">👋 personali</option>
-                        <option value="dizionario">📖 dizionario</option>
-                    </select>
-                </div>
-            </div>
-
+            <h3 style="margin-bottom: 15px;">Elenco FAQ Esistenti</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID & Categoria</th>
+                            <th>ID</th>
                             <th>Parole Chiave</th>
                             <th>Risposta</th>
                             <th>Azioni</th>
