@@ -1,3 +1,8 @@
+/**
+ * Pannello di Amministrazione - Arturo | IIS "Arturo Checchi"
+ * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
+ */
+
 // PASSWORD DI ACCESSO AL PANNELLO (Modificabile a piacimento)
 const ADMIN_PASSWORD = "arturo2026";
 
@@ -55,6 +60,8 @@ function setupFaqSmartSearch() {
 
     faqIdInput.addEventListener("input", function() {
         const typedId = this.value.trim().toUpperCase();
+        if (typeof appConfig === "undefined" || !appConfig.faqs) return;
+
         const existingIndex = appConfig.faqs.findIndex(f => f.id.toUpperCase() === typedId);
 
         if (existingIndex !== -1) {
@@ -80,7 +87,7 @@ function setupFaqSmartSearch() {
 
 function updateFaqDatalistOptions() {
     const datalist = document.getElementById("faqIdSuggestions");
-    if (!datalist || typeof appConfig === "undefined") return;
+    if (!datalist || typeof appConfig === "undefined" || !appConfig.faqs) return;
     
     datalist.innerHTML = "";
     appConfig.faqs.forEach(faq => {
@@ -92,7 +99,7 @@ function updateFaqDatalistOptions() {
 
 function renderFaqTable() {
     const tbody = document.getElementById("faqTableBody");
-    if (!tbody || typeof appConfig === "undefined") return;
+    if (!tbody || typeof appConfig === "undefined" || !appConfig.faqs) return;
 
     tbody.innerHTML = "";
     appConfig.faqs.forEach((faq, index) => {
@@ -183,7 +190,7 @@ function resetFaqForm() {
 // --- GESTIONE PULSANTI RAPIDI ---
 function renderBtnTable() {
     const tbody = document.getElementById("btnTableBody");
-    if (!tbody || typeof appConfig === "undefined") return;
+    if (!tbody || typeof appConfig === "undefined" || !appConfig.quickButtons) return;
 
     tbody.innerHTML = "";
     appConfig.quickButtons.forEach((btn, index) => {
