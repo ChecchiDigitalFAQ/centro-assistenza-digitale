@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Foglio di stile principale -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Stile di sicurezza per la visibilità dei messaggi -->
+    <style>
+        .message-content {
+            color: #1f2937 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -168,18 +176,15 @@
                 if (!window.appConfig || !window.appConfig.faqs) return null;
                 const cleanQuery = query.toLowerCase().trim();
 
-                // Controllo corrispondenza ID diretto (es. dai pulsanti)
                 const exactIdMatch = window.appConfig.faqs.find(f => f.id.toLowerCase() === cleanQuery);
                 if (exactIdMatch) return exactIdMatch.responses[0];
 
-                // Ricerca per parole chiave
                 for (let faq of window.appConfig.faqs) {
                     if (faq.keywords && faq.keywords.some(kw => cleanQuery.includes(kw.toLowerCase()))) {
                         return faq.responses[0];
                     }
                 }
 
-                // Controllo dizionario
                 if (window.appConfig.dictionary) {
                     for (let [word, definition] of Object.entries(window.appConfig.dictionary)) {
                         if (cleanQuery.includes(word)) {
