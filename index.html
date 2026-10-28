@@ -116,13 +116,16 @@
     <!-- Motore di Logica della Chat -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. Orologio in tempo reale
+            // 1. Orologio e Data in tempo reale
             function updateClock() {
                 const now = new Date();
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateString = now.toLocaleDateString('it-IT', options);
                 const timeString = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                
                 const clockEl = document.getElementById('live-clock');
                 if (clockEl) {
-                    clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${timeString}`;
+                    clockEl.innerHTML = `<i class="fa-regular fa-calendar"></i> ${dateString} - <i class="fa-regular fa-clock"></i> ${timeString}`;
                 }
             }
             setInterval(updateClock, 1000);
