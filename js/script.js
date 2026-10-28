@@ -26,8 +26,8 @@ let appConfig = {
     },
     {
       "id": "MICROSOFT365",
-      "label": "💻 Servizi Digitali (Teams/Argo)",
-      "icon": "fa-solid fa-laptop-code"
+      "label": "Moduli Digitali (Form)",
+      "icon": "fa-solid fa-clipboard-list"
     }
   ],
   "dictionary": {
@@ -509,6 +509,17 @@ let appConfig = {
       ],
       "responses": [
         "Orari Uffici (Viale Gramsci,7)\nORARIO DI APERTURA AL PUBBLICO DEGLI UFFICI DI SEGRETERIA:\n\nGli uffici di segreteria sono aperti per il ricevimento al pubblico Alunni, Famiglie e Personale Scolastico\n\nUff. DIDATTICA (Alunni)\n\nLunedì - dalle ore 14.00 alle ore 16.00\n\nMercoledì - Giovedì -  dalle ore 10.30 alle ore 13.00\n\nUff. PERSONALE\n\nLunedì - dalle ore 14.00 alle ore 16.00\n\nMercoledì - Giovedì -  dalle ore 10.30 alle ore 13.00\n\nUff. AMMINISTRATIVO\n\nLunedì - dalle ore 14.00 alle ore 16.00\n\nMercoledì - Giovedì -  dalle ore 10.30 alle ore 13.00"
+      ]
+    },
+    {
+      "id": "MICROSOFT365",
+      "type": "scuola",
+      "keywords": [
+        "digitali (form)",
+        "microsoft365"
+      ],
+      "responses": [
+        "Form"
       ]
     }
   ]
