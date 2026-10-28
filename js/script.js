@@ -1,6 +1,6 @@
 /**
- * Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
- * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
+ * Database FAQ, Pulsanti Rapidi e Dizionario per Arturo | IIS "Arturo Checchi"
+ * Aggiornato automaticamente dal pannello di amministrazione
  */
 let appConfig = {
   "quickButtons": [
@@ -52,6 +52,27 @@ let appConfig = {
     "stampante": "📖 **Stampante:** Dispositivo hardware che trasferisce dati digitali su carta."
   },
   "faqs": [
+    {
+      "id": "FORM_CREDENZIALI_M365",
+      "type": "form",
+      "keywords": [
+        "credenziali m365",
+        "password microsoft",
+        "recupero password teams",
+        "password teams",
+        "problemi accesso m365",
+        "form richiesta password microsoft teams",
+        "form richiesta password microsoft365",
+        "form richiesta password outlook",
+        "smarrimento password teams",
+        "form richiesta password office365",
+        "problema credenziali office365",
+        "form richiesta password teams"
+      ],
+      "responses": [
+        "🔑 <strong>Richiesta Credenziali e Accesso Microsoft 365 (Servizio riservato esclusivamente ai plessi Moda, Calzaturiero e Liceo):</strong><br><br>Questo modulo è dedicato al personale e agli studenti che riscontrano problemi di accesso alla piattaforma M365 (smarrimento password, cambio numero di telefono o blocchi vari).<br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=3-SZcscZ5EyOihqidSeYLj4zz1gGh1lHt6F4YBRjHN1UNUkzTFhEQTBGRDBBODg4QlkwTjkyRUM4Ry4u&route=shorturl"
+      ]
+    },
     {
       "id": "FORM_NOTEBOOK_BES",
       "type": "form",
@@ -432,7 +453,6 @@ let appConfig = {
   ]
 };
 
-// Variabile di stato per gestire l'attesa del nome del form
 let waitingForFormSelection = false;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -477,13 +497,9 @@ function sendMessage() {
     if (!inputField) return;
     const message = inputField.value.trim();
     if (message === "") return;
-
     appendMessage(message, "user");
     inputField.value = "";
-
-    setTimeout(() => {
-        processUserQuery(message);
-    }, 300);
+    setTimeout(() => { processUserQuery(message); }, 300);
 }
 
 function formatLinksInText(text) {
@@ -510,7 +526,6 @@ function processUserQuery(query) {
 
     if (waitingForFormSelection) {
         waitingForFormSelection = false;
-
         let formTrovato = null;
         for (let faq of appConfig.faqs) {
             if (faq.id.startsWith("FORM_") || faq.type === "form") {
@@ -522,7 +537,6 @@ function processUserQuery(query) {
                 }
             }
         }
-
         if (formTrovato) {
             rispondiBot(formTrovato.responses[0]);
         } else {
@@ -539,7 +553,6 @@ function processUserQuery(query) {
 
     if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli") {
         waitingForFormSelection = true;
-        
         let elencoNomiForm = "📋 A quale form desideri accedere? Ecco l'elenco dei moduli disponibili:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
             let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
@@ -557,7 +570,6 @@ function processUserQuery(query) {
     }
 
     let cercaSignificato = cleanQuery.includes("significa") || cleanQuery.includes("significhi") || cleanQuery.includes("cos e") || cleanQuery.includes("cose") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");
-    
     if (cercaSignificato) {
         let trovatoDizionario = false;
         for (const [term, def] of Object.entries(appConfig.dictionary)) {
@@ -577,15 +589,9 @@ function processUserQuery(query) {
     if (parole.length === 1) {
         if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
             let faqSaluto = appConfig.faqs.find(f => f.id === "SALUTO");
-            if (faqSaluto) {
-                rispondiBot(faqSaluto.responses[0]);
-                return;
-            }
+            if (faqSaluto) { rispondiBot(faqSaluto.responses[0]); return; }
         }
-        if (appConfig.dictionary[cleanQuery]) {
-            rispondiBot(appConfig.dictionary[cleanQuery]);
-            return;
-        }
+        if (appConfig.dictionary[cleanQuery]) { rispondiBot(appConfig.dictionary[cleanQuery]); return; }
         rispondiBot(`🤔 Hai digitato la parola singola <strong>"${query}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').`);
         return;
     }
@@ -601,7 +607,6 @@ function processUserQuery(query) {
 
     if (cleanQuery.includes("piano di lavoro") || cleanQuery.includes("piano lavoro") || cleanQuery.includes("piani di lavoro")) {
         let risultatiForm = appConfig.faqs.filter(f => f.id === "FORM_PIANO_LAVORO_LICEO" || f.id === "FORM_PIANO_LAVORO_IPIA");
-        
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> per il piano di lavoro. Scegli quale aprire:<br><br>`;
         risultatiForm.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
@@ -618,9 +623,7 @@ function processUserQuery(query) {
         for (let kw of faq.keywords) {
             let kwClean = kw.toLowerCase().trim();
             if (cleanQuery === kwClean || cleanQuery.includes(kwClean)) {
-                if (!risultatiTrovati.some(f => f.id === faq.id)) {
-                    risultatiTrovati.push(faq);
-                }
+                if (!risultatiTrovati.some(f => f.id === faq.id)) { risultatiTrovati.push(faq); }
             }
         }
     }
@@ -638,8 +641,7 @@ function processUserQuery(query) {
     }
 
     if (risultatiTrovati.length === 1) {
-        let resp = risultatiTrovati[0].responses[0];
-        rispondiBot(resp);
+        rispondiBot(risultatiTrovati[0].responses[0]);
         return;
     }
 
@@ -653,27 +655,21 @@ function rispondiBot(testo) {
 
 function quickAction(id) {
     let found = appConfig.faqs.find(f => f.id === id);
-    if (found) {
-        rispondiBot(found.responses[0]);
-    }
+    if (found) { rispondiBot(found.responses[0]); }
 }
 
 function appendMessage(text, sender) {
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
-    
     const messageDiv = document.createElement("div");
     const isBot = (sender === "bot");
     messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");
-
     const avatarDiv = document.createElement("div");
     avatarDiv.classList.add("message-avatar");
     avatarDiv.innerHTML = `<i class="${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>`;
-
     const bubble = document.createElement("div");
     bubble.classList.add("message-content");
     bubble.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, "<br>");
-
     if (isBot) {
         messageDiv.appendChild(avatarDiv);
         messageDiv.appendChild(bubble);
@@ -681,7 +677,6 @@ function appendMessage(text, sender) {
         messageDiv.appendChild(bubble);
         messageDiv.appendChild(avatarDiv);
     }
-
     chatBox.appendChild(messageDiv);
     chatBox.scrollTop = chatBox.scrollHeight;
 }
@@ -690,32 +685,19 @@ function resetChat() {
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     waitingForFormSelection = false;
-    chatBox.innerHTML = `
-        <div class="message bot-message">
-            <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
-            <div class="message-content">
-                👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS "Arturo Checchi".<br><br>
-                Conversazione riavviata! Come posso aiutarti oggi?
-            </div>
-        </div>
-    `;
+    chatBox.innerHTML = `<div class="message bot-message"><div class="message-avatar"><i class="fa-solid fa-robot"></i></div><div class="message-content">👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS \"Arturo Checchi\".<br><br>Conversazione riavviata! Come posso aiutarti oggi?</div></div>` ;
 }
 
 function startClock() {
     const clockEl = document.getElementById("live-clock");
     if (!clockEl) return;
-    
     function updateDateTime() {
         const now = new Date();
         const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
         const dataFormattata = now.toLocaleDateString('it-IT', options);
         const oraFormattata = now.toLocaleTimeString('it-IT');
-        
-        if (clockEl) {
-            clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`;
-        }
+        if (clockEl) { clockEl.innerHTML = `<i class="fa-regular fa-clock"></i> ${dataFormattata} - ${oraFormattata}`; }
     }
-    
     updateDateTime();
     setInterval(updateDateTime, 1000);
 }
