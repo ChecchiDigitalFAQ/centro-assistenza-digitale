@@ -26,7 +26,7 @@ let appConfig = {
     },
     {
       "id": "MICROSOFT365",
-      "label": "Moduli Digitali (Form)",
+      "label": "Moduli Digitali (form)",
       "icon": "fa-solid fa-clipboard-list"
     }
   ],
