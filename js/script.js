@@ -64,7 +64,7 @@ let appConfig = {
         "form notebook bes"
       ],
       "responses": [
-        "💻 <strong>Richiesta Notebook per Alunni BES (Questo Richiesta può essere effettuata solo per il Plesso Liceo):</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=3-SZcscZ5EyOihqidSeYLj4zz1gGh1lHt6F4YBRjHN1UQUJNWTJKQUo1SThDUzBSSVhRSFpRREVHNi4u&route=shorturl"
+        "💻 <strong>Richiesta Notebook per Alunni BES (Questa Richiesta può essere effettuata solo per il Plesso Liceo):</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=3-SZcscZ5EyOihqidSeYLj4zz1gGh1lHt6F4YBRjHN1UQUJNWTJKQUo1SThDUzBSSVhRSFpRREVHNi4u&route=shorturl"
       ]
     },
     {
