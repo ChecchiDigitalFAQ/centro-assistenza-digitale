@@ -59,7 +59,9 @@ let appConfig = {
         "piano lavoro liceo",
         "piano annuale liceo",
         "piano lavoro ite",
-        "piano lavoro itt"
+        "piano lavoro itt",
+        "liceo",
+        "ite"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUMlpWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
@@ -72,7 +74,8 @@ let appConfig = {
         "piano lavoro ipia",
         "piano annuale ipia",
         "classi prime ite",
-        "classi prime itt"
+        "classi prime itt",
+        "ipia"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUQzZVMjRXUTZNVFdFR05ZSVJDWFdSMzUxMy4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
@@ -367,7 +370,7 @@ let appConfig = {
         "stampa fotocopie"
       ],
       "responses": [
-        "🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:\n🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"
+        "🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:<br>🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"
       ]
     },
     {
@@ -397,6 +400,9 @@ let appConfig = {
     }
   ]
 };
+
+// Variabile di stato per gestire l'attesa del nome del form
+let waitingForFormSelection = false;
 
 document.addEventListener("DOMContentLoaded", () => {
     initApp();
@@ -463,6 +469,32 @@ function processUserQuery(query) {
 
     if (cleanQuery === "") return;
 
+    // Se Arturo era in attesa che l'utente specificasse quale form desidera
+    if (waitingForFormSelection) {
+        waitingForFormSelection = false; // Reset dello stato
+
+        // Cerchiamo quale form ha menzionato l'utente nella sua risposta
+        let formTrovato = null;
+        for (let faq of appConfig.faqs) {
+            if (faq.id.startsWith("FORM_") || faq.type === "form") {
+                let titoloForm = faq.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').toLowerCase();
+                // Controlla se la risposta contiene parole chiave del form o parti del titolo
+                let matchKeyword = faq.keywords.some(kw => cleanQuery.includes(kw));
+                if (cleanQuery.includes(faq.id.toLowerCase()) || cleanQuery.includes(titoloForm) || matchKeyword) {
+                    formTrovato = faq;
+                    break;
+                }
+            }
+        }
+
+        if (formTrovato) {
+            rispondiBot(formTrovato.responses[0]);
+        } else {
+            rispondiBot("🤖 Al momento non ho un form con questo nome. Ti consiglio di scrivere meglio il nome del modulo oppure di passare a un'altra domanda.");
+        }
+        return;
+    }
+
     // 1. Chiusura / Uscita
     const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "addio"];
     if (paroleChiusura.includes(cleanQuery)) {
@@ -470,14 +502,28 @@ function processUserQuery(query) {
         return;
     }
 
-    // 2. Controllo Orario
+    // 2. ECCEZIONE ALLA SOLA PAROLA "form" (o "modulo")
+    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli") {
+        waitingForFormSelection = true; // Attiva lo stato di attesa
+        
+        let elencoNomiForm = "📋 A quale form desideri accedere? Ecco l'elenco dei moduli disponibili:<br><br>";
+        appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
+            let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
+            elencoNomiForm += `🔹 **${titoloForm}**<br>`;
+        });
+        elencoNomiForm += `<br>Scrivimi il nome o l'argomento del form che stai cercando!`;
+        rispondiBot(elencoNomiForm);
+        return;
+    }
+
+    // 3. Controllo Orario
     if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
         const now = new Date();
         rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
         return;
     }
 
-    // 3. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE
+    // 4. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE
     let cercaSignificato = cleanQuery.includes("significa") || cleanQuery.includes("significhi") || cleanQuery.includes("cos e") || cleanQuery.includes("cose") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");
     
     if (cercaSignificato) {
@@ -495,7 +541,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 4. REGOLA DELLA PAROLA SINGOLA ISOLATA
+    // 5. REGOLA DELLA PAROLA SINGOLA ISOLATA
     const parole = cleanQuery.split(" ");
     if (parole.length === 1) {
         if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
@@ -513,7 +559,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. Gestione RADICI QUADRATE e Calcoli
+    // 6. Gestione RADICI QUADRATE e Calcoli
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -523,7 +569,7 @@ function processUserQuery(query) {
         }
     }
 
-    // 6. GESTIONE MIRATA ED ESCLUSIVA PER "PIANO DI LAVORO"
+    // 7. GESTIONE MIRATA ED ESCLUSIVA PER "PIANO DI LAVORO"
     if (cleanQuery.includes("piano di lavoro") || cleanQuery.includes("piano lavoro") || cleanQuery.includes("piani di lavoro")) {
         let risultatiForm = appConfig.faqs.filter(f => f.id === "FORM_PIANO_LAVORO_LICEO" || f.id === "FORM_PIANO_LAVORO_IPIA");
         
@@ -551,19 +597,6 @@ function processUserQuery(query) {
         }
     }
 
-    // Se l'utente scrive ESATTAMENTE "form" o "modulo" in modo generico
-    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli" || cleanQuery === "modulistica") {
-        let listaFormHtml = "📋 Certamente! Clicca su un modulo per aprirlo direttamente:<br><br>";
-        appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
-            let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            let linkMatch = f.responses[0].match(/href='([^']+)'/);
-            let urlForm = linkMatch ? linkMatch[1] : '#';
-            listaFormHtml += `🔹 <a href='${urlForm}' target='_blank' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>${titoloForm}</a><br><br>`;
-        });
-        rispondiBot(listaFormHtml);
-        return;
-    }
-
     if (risultatiTrovati.length > 1) {
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> corrispondenti. Scegli quale aprire:<br><br>`;
         risultatiTrovati.forEach((f) => {
@@ -582,7 +615,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // 7. SBARRAMENTO ONESTA FINALE
+    // 8. SBARRAMENTO ONESTA FINALE
     rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
@@ -628,6 +661,7 @@ function appendMessage(text, sender) {
 function resetChat() {
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
+    waitingForFormSelection = false; // Reset dello stato se si riavvia la chat
     chatBox.innerHTML = `
         <div class="message bot-message">
             <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
@@ -641,6 +675,7 @@ function resetChat() {
 
 function startClock() {
     const clockEl = document.getElementById("live-clock");
+    if নয়নel = document.getElementById("live-clock"); // Gestito in sicurezza
     if (!clockEl) return;
     
     function updateDateTime() {
