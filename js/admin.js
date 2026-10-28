@@ -57,6 +57,14 @@ function setupFaqSmartSearch() {
 
     faqIdInput.addEventListener("input", function() {
         const typedId = this.value.trim().toUpperCase();
+        
+        // Filtra automaticamente la tabella in base all'ID selezionato/digitato
+        const searchInput = document.getElementById("faqTableSearch");
+        if (searchInput) {
+            searchInput.value = typedId;
+            renderFaqTable();
+        }
+
         if (typeof appConfig === "undefined" || !appConfig.faqs) return;
 
         const existingIndex = appConfig.faqs.findIndex(f => f.id.toUpperCase() === typedId);
@@ -212,6 +220,13 @@ function editFaq(index) {
         catSelect.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola");
     }
 
+    // Sincronizza anche la ricerca nella tabella
+    const searchInput = document.getElementById("faqTableSearch");
+    if (searchInput) {
+        searchInput.value = faq.id;
+        renderFaqTable();
+    }
+
     document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ (${faq.id})`;
     document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
     document.getElementById("faqCancelBtn").style.display = "inline-flex";
@@ -244,6 +259,13 @@ function resetFaqForm() {
     document.getElementById("faqCancelBtn").style.display = "none";
     document.getElementById("faqDeleteInFormBtn").style.display = "none";
     document.getElementById("faqNewBtn").style.display = "none";
+    
+    // Ripristina la tabella rimuovendo il filtro di ricerca
+    const searchInput = document.getElementById("faqTableSearch");
+    if (searchInput) {
+        searchInput.value = "";
+        renderFaqTable();
+    }
 }
 
 // --- GESTIONE PULSANTI RAPIDI ---
