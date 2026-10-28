@@ -38,13 +38,33 @@ function switchTab(tabId, element) {
 }
 
 function initAdminPanel() {
+    ensureCategoryInputExists();
     renderFaqTable();
     renderBtnTable();
     setupFaqSmartSearch();
     setupCategoryFilterUI();
 }
 
-// --- AGGIUNTA FILTRO CATEGORIA NELL'INTERFACCIA ADMIN ---
+// --- AGGIUNTA CAMPO CATEGORIA NEL FORM FAQ SE NON ESISTE ---
+function ensureCategoryInputExists() {
+    const faqForm = document.getElementById("faqForm");
+    if (!faqForm || document.getElementById("faqCategory")) return;
+
+    // Crea un blocco input per la categoria prima della risposta o alla fine
+    const categoryDiv = document.createElement("div");
+    categoryDiv.className = "form-group";
+    categoryDiv.style.cssText = "margin-bottom: 15px;";
+    categoryDiv.innerHTML = `
+        <label for="faqCategory" style="font-weight: bold; display: block; margin-bottom: 5px;">Categoria (es. form, scuola, segreteria):</label>
+        <input type="text" id="faqCategory" class="form-control" placeholder="form" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+    `;
+    
+    // Inserisce il campo categoria prima della textarea della risposta
+    const responseField = document.getElementById("faqResponse")?.closest(".form-group") || faqForm.children[2];
+    faqForm.insertBefore(categoryDiv, responseField);
+}
+
+// --- FILTRO DINAMICO PER CATEGORIE NELLA TABELLA ---
 function setupCategoryFilterUI() {
     const container = document.querySelector("#faqTableBody")?.closest(".card") || document.getElementById("faqTableBody")?.parentElement;
     if (!container || document.getElementById("faqCategoryFilter")) return;
@@ -55,11 +75,30 @@ function setupCategoryFilterUI() {
         <label for="faqCategoryFilter" style="font-weight: bold; color: #1e3a8a;"><i class="fa-solid fa-filter"></i> Filtra per Categoria:</label>
         <select id="faqCategoryFilter" class="form-control" style="max-width: 250px; display: inline-block; padding: 6px; border-radius: 6px; border: 1px solid #ccc;" onchange="renderFaqTable()">
             <option value="ALL">🔍 Tutte le categorie</option>
-            <option value="form">📋 Solo Form</option>
-            <option value="school">🏫 Solo Scuola / Generali</option>
         </select>
     `;
     container.insertBefore(filterWrapper, document.getElementById("faqTableBody").parentElement);
+    updateCategoryDropdownOptions();
+}
+
+function updateCategoryDropdownOptions() {
+    const select = document.getElementById("faqCategoryFilter");
+    if (!select || typeof appConfig === "undefined" || !appConfig.faqs) return;
+
+    // Estrae tutte le categorie uniche presenti nelle FAQ
+    const categories = [...new Set(appConfig.faqs.map(f => f.type || (f.id.startsWith("FORM_") ? "form" : "school")))];
+    
+    const currentVal = select.value;
+    select.innerHTML = `<option value="ALL">🔍 Tutte le categorie (${appConfig.faqs.length})</option>`;
+    
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = `📁 ${cat.toUpperCase()}`;
+        select.appendChild(opt);
+    });
+
+    select.value = categories.includes(currentVal) ? currentVal : "ALL";
 }
 
 // --- GESTIONE FAQ CON RICERCA INTELLIGENTE SULL'ID ---
@@ -88,12 +127,18 @@ function setupFaqSmartSearch() {
             document.getElementById("faqEditIndex").value = existingIndex;
             document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
             document.getElementById("faqResponse").value = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
+            
+            const catInput = document.getElementById("faqCategory");
+            if (catInput) catInput.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
 
             document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ Esistente (${faq.id})`;
             document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
             document.getElementById("faqCancelBtn").style.display = "inline-flex";
         } else {
             document.getElementById("faqEditIndex").value = "-1";
+            const catInput = document.getElementById("faqCategory");
+            if (catInput && typedId.startsWith("FORM_")) catInput.value = "form";
+            
             if (typedId.length > 0) {
                 document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Aggiungi Nuovo ID (${typedId})`;
                 document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-save"></i> Salva Nuova FAQ`;
@@ -128,7 +173,6 @@ function renderFaqTable() {
     appConfig.faqs.forEach((faq, index) => {
         const faqType = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
         
-        // Se è attivo un filtro, mostra solo gli elementi di quella categoria
         if (selectedCategory !== "ALL" && faqType !== selectedCategory) {
             return;
         }
@@ -138,17 +182,19 @@ function renderFaqTable() {
         const respText = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
 
         tr.innerHTML = `
-            <td><code>${faq.id}</code></td>
+            <td><code>${faq.id}</code><br><small style="color: #666;">📁 ${faqType}</small></td>
             <td>${kwText}</td>
             <td>${respText}</td>
             <td class="actions-cell">
-                <button class="btn btn-warning" onclick="editFaq(${index})"><i class="fa-solid fa-pen"></i></button>
-                <button class="btn btn-danger" onclick="deleteFaq(${index})"><i class="fa-solid fa-trash"></i></button>
+                <button class="btn btn-warning" onclick="editFaq(${index})" title="Modifica"><i class="fa-solid fa-pen"></i></button>
+                <button class="btn btn-danger" onclick="deleteFaq(${index})" title="Elimina"><i class="fa-solid fa-trash"></i></button>
             </td>
         `;
         tbody.appendChild(tr);
     });
+    
     updateFaqDatalistOptions();
+    updateCategoryDropdownOptions();
 }
 
 function handleFaqSubmit(e) {
@@ -157,6 +203,8 @@ function handleFaqSubmit(e) {
     const id = document.getElementById("faqId").value.trim().toUpperCase();
     const keywords = document.getElementById("faqKeywords").value.split(",").map(k => k.trim()).filter(k => k);
     const response = document.getElementById("faqResponse").value.trim();
+    const catInput = document.getElementById("faqCategory");
+    const category = catInput && catInput.value.trim() ? catInput.value.trim().toLowerCase() : (id.startsWith("FORM_") ? "form" : "school");
 
     if (!id || keywords.length === 0 || !response) {
         alert("⚠️ Per favore compila tutti i campi.");
@@ -165,7 +213,7 @@ function handleFaqSubmit(e) {
 
     const newFaq = { 
         id, 
-        type: id.startsWith("FORM_") ? "form" : "school", 
+        type: category, 
         keywords, 
         responses: [response] 
     };
@@ -180,7 +228,7 @@ function handleFaqSubmit(e) {
             alert("✅ FAQ esistente sovrascritta con successo!");
         } else {
             appConfig.faqs.unshift(newFaq);
-            alert("✅ Nuova FAQ aggiunta con successo!");
+            alert("✅ Nuova FAQ aggiunta e categoria creata con successo!");
         }
     }
 
@@ -194,6 +242,9 @@ function editFaq(index) {
     document.getElementById("faqId").value = faq.id;
     document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
     document.getElementById("faqResponse").value = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
+    
+    const catInput = document.getElementById("faqCategory");
+    if (catInput) catInput.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
 
     document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ (${faq.id})`;
     document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
@@ -202,10 +253,11 @@ function editFaq(index) {
 }
 
 function deleteFaq(index) {
-    if (confirm("Vuoi davvero eliminare questa FAQ?")) {
+    if (confirm("Vuoi davvero eliminare definitivamente questa FAQ?")) {
         appConfig.faqs.splice(index, 1);
         renderFaqTable();
         resetFaqForm();
+        alert("🗑️ FAQ rimossa con successo!");
     }
 }
 
