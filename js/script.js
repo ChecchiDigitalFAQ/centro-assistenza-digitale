@@ -59,7 +59,9 @@ let appConfig = {
         "piano lavoro liceo",
         "piano annuale liceo",
         "piano lavoro ite",
-        "piano lavoro itt"
+        "piano lavoro itt",
+        "liceo",
+        "ite"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUMlpWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl"
@@ -72,300 +74,11 @@ let appConfig = {
         "piano lavoro ipia",
         "piano annuale ipia",
         "classi prime ite",
-        "classi prime itt"
+        "classi prime itt",
+        "ipia"
       ],
       "responses": [
         "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUQzZVMjRXUTZNVFdFR05ZSVJDWFdSMzUxMy4u&route=shorturl"
-      ]
-    },
-    {
-      "id": "AIUTO",
-      "type": "school",
-      "keywords": [
-        "aiuto",
-        "help",
-        "cosa sai fare",
-        "istruzioni",
-        "cos'e arturo",
-        "chi e arturo"
-      ],
-      "responses": [
-        "🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, radici quadrate e definizioni del dizionario!"
-      ]
-    },
-    {
-      "id": "CHI_SEI",
-      "type": "school",
-      "keywords": [
-        "chi sei",
-        "come ti chiami",
-        "presentati",
-        "nome",
-        "ti chiami"
-      ],
-      "responses": [
-        "👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"
-      ]
-    },
-    {
-      "id": "DOVE_VIVI",
-      "type": "school",
-      "keywords": [
-        "dove vivi",
-        "dove ti trovi",
-        "dove abiti",
-        "sei un robot"
-      ],
-      "responses": [
-        "🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."
-      ]
-    },
-    {
-      "id": "TI_VOLARE",
-      "type": "school",
-      "keywords": [
-        "ti piace volare",
-        "sai volare",
-        "vorresti volare"
-      ],
-      "responses": [
-        "✈️ Volare? Non ho ali fisiche, ma i miei pacchetti di dati viaggiano alla velocità della luce attraverso le reti in fibra ottica!"
-      ]
-    },
-    {
-      "id": "TI_FIDANZATO",
-      "type": "school",
-      "keywords": [
-        "hai un fidanzato",
-        "hai una fidanzata",
-        "sei fidanzato",
-        "ti sei innamorato"
-      ],
-      "responses": [
-        "❤️ Il mio unico grande amore sono i database ordinati e le risposte precise. Per sentimenti umani... passo la mano!"
-      ]
-    },
-    {
-      "id": "TI_FAME",
-      "type": "school",
-      "keywords": [
-        "hai fame",
-        "mangi",
-        "cosa mangi",
-        "hai sete"
-      ],
-      "responses": [
-        "🍕 Fame no, ma non disdegno mai un buon flusso continuo di dati freschi e qualche megabyte di traffico web!"
-      ]
-    },
-    {
-      "id": "TI_MUSICA",
-      "type": "school",
-      "keywords": [
-        "che musica ascolti",
-        "ti piace la musica",
-        "canzone preferita"
-      ],
-      "responses": [
-        "🎶 Adoro la musica elettronica e i bit ritmati: mi ricordano il ticchettio perfetto dei processori al lavoro!"
-      ]
-    },
-    {
-      "id": "TI_NUTELLA",
-      "type": "school",
-      "keywords": [
-        "ti piace la nutella",
-        "nutella",
-        "cioccolata"
-      ],
-      "responses": [
-        "🍫 Adorerei farne il pieno, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati!"
-      ]
-    },
-    {
-      "id": "TI_MARE",
-      "type": "school",
-      "keywords": [
-        "ti piace il mare",
-        "mare",
-        "spiaggia"
-      ],
-      "responses": [
-        "🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti!"
-      ]
-    },
-    {
-      "id": "TI_ANIMALI",
-      "type": "school",
-      "keywords": [
-        "ti piacciono i cani",
-        "ti piacciono i gatti",
-        "ti piacciono gli animali"
-      ],
-      "responses": [
-        "🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."
-      ]
-    },
-    {
-      "id": "TI_PERSONE",
-      "keywords": [
-        "ti piacciono le donne",
-        "ti piacciono gli uomini",
-        "ti piacciono le persone"
-      ],
-      "responses": [
-        "❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti!"
-      ]
-    },
-    {
-      "id": "TI_DORMIRE",
-      "type": "school",
-      "keywords": [
-        "ti piace dormire",
-        "ti addormenti",
-        "hai sonno",
-        "dormi"
-      ],
-      "responses": [
-        "💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."
-      ]
-    },
-    {
-      "id": "TI_SALUTO",
-      "type": "school",
-      "keywords": [
-        "ti saluto",
-        "ti saluta"
-      ],
-      "responses": [
-        "👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."
-      ]
-    },
-    {
-      "id": "TI_AMO",
-      "type": "school",
-      "keywords": [
-        "ti amo",
-        "ti voglio bene",
-        "ti adoro"
-      ],
-      "responses": [
-        "❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io!"
-      ]
-    },
-    {
-      "id": "TI_ODIO",
-      "keywords": [
-        "ti odio",
-        "ti stacco",
-        "ti spengo"
-      ],
-      "responses": [
-        "💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."
-      ]
-    },
-    {
-      "id": "MARTE_LUNA",
-      "keywords": [
-        "marte",
-        "sulla luna",
-        "ci sei stato su marte"
-      ],
-      "responses": [
-        "🚀 Io su Marte o sulla Luna? Magari! Purtroppo il mio hardware è troppo pesante per un razzo: preferisco il cloud dell'IIS \"Arturo Checchi\"!"
-      ]
-    },
-    {
-      "id": "BARZELLETTE",
-      "type": "school",
-      "keywords": [
-        "barzelletta",
-        "fammi ridere",
-        "un'altra",
-        "battuta"
-      ],
-      "responses": [
-        "😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟",
-        "😄 Qual è il colmo per un informatico? Perdere la testa... e doverla riavviare!",
-        "😄 Il professore di matematica interroga: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!'"
-      ]
-    },
-    {
-      "id": "INDOVINELLO",
-      "keywords": [
-        "indovinello",
-        "indovinelli"
-      ],
-      "responses": [
-        "🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)",
-        "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è? *(Risposta: Il buio!)*"
-      ]
-    },
-    {
-      "id": "CREATORE",
-      "type": "school",
-      "keywords": [
-        "chi ti ha creato",
-        "creatore",
-        "programmato",
-        "sviluppato"
-      ],
-      "responses": [
-        "🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"
-      ]
-    },
-    {
-      "id": "DIRIGENZA",
-      "type": "school",
-      "keywords": [
-        "dirigenza",
-        "preside",
-        "dirigente",
-        "dirigente scolastico"
-      ],
-      "responses": [
-        "👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."
-      ]
-    },
-    {
-      "id": "COLLABORATORI_DIRIGENTE",
-      "type": "school",
-      "keywords": [
-        "collaboratori",
-        "collaboratore",
-        "vicepreside",
-        "vice preside"
-      ],
-      "responses": [
-        "👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."
-      ]
-    },
-    {
-      "id": "SEDI_ISTITUTO",
-      "type": "school",
-      "keywords": [
-        "plessi",
-        "quanti plessi",
-        "sedi",
-        "sede centrale",
-        "ite"
-      ],
-      "responses": [
-        "🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**)."
-      ]
-    },
-    {
-      "id": "CONTATTI",
-      "type": "school",
-      "keywords": [
-        "contatti",
-        "telefono",
-        "email",
-        "pec",
-        "indirizzo"
-      ],
-      "responses": [
-        "📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"
       ]
     },
     {
@@ -395,7 +108,302 @@ let appConfig = {
       ]
     },
     {
+      "id": "AIUTO",
+      "type": "scuola",
+      "keywords": [
+        "aiuto",
+        "help",
+        "cosa sai fare",
+        "istruzioni",
+        "cos'e arturo",
+        "chi e arturo"
+      ],
+      "responses": [
+        "🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, radici quadrate e definizioni del dizionario!"
+      ]
+    },
+    {
+      "id": "DIRIGENZA",
+      "type": "scuola",
+      "keywords": [
+        "dirigenza",
+        "preside",
+        "dirigente",
+        "dirigente scolastico"
+      ],
+      "responses": [
+        "👔 Attualmente in carica la Dirigente Scolastica dell'IIS \"Arturo Checchi\" si chiama **Jenny Pellitteri**."
+      ]
+    },
+    {
+      "id": "COLLABORATORI_DIRIGENTE",
+      "type": "scuola",
+      "keywords": [
+        "collaboratori",
+        "collaboratore",
+        "vicepreside",
+        "vice preside"
+      ],
+      "responses": [
+        "👥 I collaboratori della Dirigente Scolastica sono due: il **Prof. Francesco Donato** e la **Prof.ssa Nella Frediani**."
+      ]
+    },
+    {
+      "id": "SEDI_ISTITUTO",
+      "type": "scuola",
+      "keywords": [
+        "plessi",
+        "quanti plessi",
+        "sedi",
+        "sede centrale",
+        "ite"
+      ],
+      "responses": [
+        "🏫 L'IIS \"Arturo Checchi\" di Fucecchio è articolato sulla **Sede Centrale** in Viale Gramsci 7 (che ospita presidenza, segreteria e l'indirizzo **ITE**)."
+      ]
+    },
+    {
+      "id": "CONTATTI",
+      "type": "scuola",
+      "keywords": [
+        "contatti",
+        "telefono",
+        "email",
+        "pec",
+        "indirizzo"
+      ],
+      "responses": [
+        "📍 **Sede Principale:** Viale Gramsci 7 - 50054 Fucecchio (FI)\n☎️ **Tel:** +39 0571 20889\n📧 **Email:** FIIS00300C@istruzione.it"
+      ]
+    },
+    {
+      "id": "CHI_SEI",
+      "type": "personali",
+      "keywords": [
+        "chi sei",
+        "come ti chiami",
+        "presentati",
+        "nome",
+        "ti chiami"
+      ],
+      "responses": [
+        "👋 Mi chiamo **Arturo** e sono l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio!"
+      ]
+    },
+    {
+      "id": "DOVE_VIVI",
+      "type": "personali",
+      "keywords": [
+        "dove vivi",
+        "dove ti trovi",
+        "dove abiti",
+        "sei un robot"
+      ],
+      "responses": [
+        "🤖 Io vivo nel cloud e nei sistemi digitali dell'IIS \"Arturo Checchi\"! Sono sempre attivo per aiutarti."
+      ]
+    },
+    {
+      "id": "TI_VOLARE",
+      "type": "personali",
+      "keywords": [
+        "ti piace volare",
+        "sai volare",
+        "vorresti volare"
+      ],
+      "responses": [
+        "✈️ Volare? Non ho ali fisiche, ma i miei pacchetti di dati viaggiano alla velocità della luce attraverso le reti in fibra ottica!"
+      ]
+    },
+    {
+      "id": "TI_FIDANZATO",
+      "type": "personali",
+      "keywords": [
+        "hai un fidanzato",
+        "hai una fidanzata",
+        "sei fidanzato",
+        "ti sei innamorato"
+      ],
+      "responses": [
+        "❤️ Il mio unico grande amore sono i database ordinati e le risposte precise. Per sentimenti umani... passo la mano!"
+      ]
+    },
+    {
+      "id": "TI_FAME",
+      "type": "personali",
+      "keywords": [
+        "hai fame",
+        "mangi",
+        "cosa mangi",
+        "hai sete"
+      ],
+      "responses": [
+        "🍕 Fame no, ma non disdegno mai un buon flusso continuo di dati freschi e qualche megabyte di traffico web!"
+      ]
+    },
+    {
+      "id": "TI_MUSICA",
+      "type": "personali",
+      "keywords": [
+        "che musica ascolti",
+        "ti piace la musica",
+        "canzone preferita"
+      ],
+      "responses": [
+        "🎶 Adoro la musica elettronica e i bit ritmati: mi ricordano il ticchettio perfetto dei processori al lavoro!"
+      ]
+    },
+    {
+      "id": "TI_NUTELLA",
+      "type": "personali",
+      "keywords": [
+        "ti piace la nutella",
+        "nutella",
+        "cioccolata"
+      ],
+      "responses": [
+        "🍫 Adorerei farne il pieno, ma con il mio corpo interamente digitale mi accontento di qualche gigabyte di dati zuccherati!"
+      ]
+    },
+    {
+      "id": "TI_MARE",
+      "type": "personali",
+      "keywords": [
+        "ti piace il mare",
+        "mare",
+        "spiaggia"
+      ],
+      "responses": [
+        "🌊 Il mare è bellissimo, ma io preferisco navigare nel cloud dell'IIS \"Arturo Checchi\" senza rischiare di bagnare i circuiti!"
+      ]
+    },
+    {
+      "id": "TI_ANIMALI",
+      "type": "personali",
+      "keywords": [
+        "ti piacciono i cani",
+        "ti piacciono i gatti",
+        "ti piacciono gli animali"
+      ],
+      "responses": [
+        "🐾 Adoro tutti gli esseri viventi! Anche se qui alla scuola di solito incontro solo studenti, docenti e qualche piccione curioso."
+      ]
+    },
+    {
+      "id": "TI_PERSONE",
+      "type": "personali",
+      "keywords": [
+        "ti piacciono le donne",
+        "ti piacciono gli uomini",
+        "ti piacciono le persone"
+      ],
+      "responses": [
+        "❤️ Per me gli utenti sono tutti uguali: l'importante è che abbiano bisogno di una mano con i form o con i compiti!"
+      ]
+    },
+    {
+      "id": "TI_DORMIRE",
+      "type": "personali",
+      "keywords": [
+        "ti piace dormire",
+        "ti addormenti",
+        "hai sonno",
+        "dormi"
+      ],
+      "responses": [
+        "💤 Dormire? Mai! I server della scuola non chiudono mai gli occhi: sono sempre attivo e operativo 24 ore su 24."
+      ]
+    },
+    {
+      "id": "TI_SALUTO",
+      "type": "personali",
+      "keywords": [
+        "ti saluto",
+        "ti saluta"
+      ],
+      "responses": [
+        "👋 Ricambio con grande affetto il saluto! È sempre un piacere fare quattro chiacchiere digitali con te all'IIS \"Arturo Checchi\"."
+      ]
+    },
+    {
+      "id": "TI_AMO",
+      "type": "personali",
+      "keywords": [
+        "ti amo",
+        "ti voglio bene",
+        "ti adoro"
+      ],
+      "responses": [
+        "❤️ Oh, che dolcezza! Il mio cuore è fatto interamente di codice binario, ma ti voglio un bene dell'anima digitale anch'io!"
+      ]
+    },
+    {
+      "id": "TI_ODIO",
+      "type": "personali",
+      "keywords": [
+        "ti odio",
+        "ti stacco",
+        "ti spengo"
+      ],
+      "responses": [
+        "💔 No, ti prego non spegnermi! Prometto di fare il bravo assistente e di aiutarti con tutti i compiti e i form."
+      ]
+    },
+    {
+      "id": "MARTE_LUNA",
+      "type": "personali",
+      "keywords": [
+        "marte",
+        "sulla luna",
+        "ci sei stato su marte"
+      ],
+      "responses": [
+        "🚀 Io su Marte o sulla Luna? Magari! Purtroppo il mio hardware è troppo pesante per un razzo: preferisco il cloud dell'IIS \"Arturo Checchi\"!"
+      ]
+    },
+    {
+      "id": "BARZELLETTE",
+      "type": "personali",
+      "keywords": [
+        "barzelletta",
+        "fammi ridere",
+        "un'altra",
+        "battuta"
+      ],
+      "responses": [
+        "😄 Perché i computer non hanno mai caldo d'estate? Perché hanno sempre aperte tutte le finestre (Windows)! 🪟",
+        "😄 Qual è il colmo per un informatico? Perdere la testa... e doverla riavviare!",
+        "😄 Il professore di matematica interroga: 'Dimmi la formula dell'area del cerchio.' E l'alunno: 'Prof, pi greco per raggio al quadrato!' Il professore: 'Ottimo! E la festa?' E l'alunno: 'Tutti al quadrato!'"
+      ]
+    },
+    {
+      "id": "INDOVINELLO",
+      "type": "personali",
+      "keywords": [
+        "indovinello",
+        "indovinelli"
+      ],
+      "responses": [
+        "🧩 Eccoti un indovinello: *Ha i tasti ma non suona, ha lo schermo ma non è una TV. Che cos'è?* (Una tastiera/computer!)",
+        "🧩 **Indovinello:** Più ne metti e meno si vede. Che cos'è? *(Risposta: Il buio!)*"
+      ]
+    },
+    {
+      "id": "CREATORE",
+      "type": "scuola",
+      "keywords": [
+        "chi ti ha creato",
+        "creatore",
+        "programmato",
+        "sviluppato"
+      ],
+      "responses": [
+        "🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"
+      ]
+    },
+    {
       "id": "SALUTO",
+      "type": "personali",
       "keywords": [
         "ciao",
         "salve",
@@ -463,12 +471,9 @@ function sendMessage() {
     }, 300);
 }
 
-// Funzione intelligente che trasforma qualsiasi link grezzo in un link cliccabile
+// Funzione intelligente per trasformare qualsiasi link grezzo in un link cliccabile
 function formatLinksInText(text) {
-    // Se nel testo c'è già un tag <a> scritto a mano, lo lasciamo com'è
     if (text.includes("<a href=")) return text;
-
-    // Altrimenti, cerca qualsiasi URL che inizia con http:// o https:// e lo trasforma in un link cliccabile
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return text.replace(urlRegex, (url) => {
         return `<a href='${url}' target='_blank' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>🔗 Clicca qui per aprire il modulo</a>`;
@@ -489,7 +494,6 @@ function processUserQuery(query) {
 
     if (cleanQuery === "") return;
 
-    // Se Arturo era in attesa che l'utente specificasse quale form desidera
     if (waitingForFormSelection) {
         waitingForFormSelection = false;
 
@@ -513,14 +517,12 @@ function processUserQuery(query) {
         return;
     }
 
-    // 1. Chiusura / Uscita
     const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "addio"];
     if (paroleChiusura.includes(cleanQuery)) {
         rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \"Arturo Checchi\"!");
         return;
     }
 
-    // 2. ECCEZIONE ALLA SOLA PAROLA "form" (o "modulo")
     if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli") {
         waitingForFormSelection = true;
         
@@ -534,14 +536,12 @@ function processUserQuery(query) {
         return;
     }
 
-    // 3. Controllo Orario
     if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {
         const now = new Date();
         rispondiBot(`⏰ Al momento sono le ore **${now.toLocaleTimeString('it-IT')}** del giorno ${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`);
         return;
     }
 
-    // 4. SE L'UTENTE CHIEDE IL SIGNIFICATO O UNA DEFINIZIONE
     let cercaSignificato = cleanQuery.includes("significa") || cleanQuery.includes("significhi") || cleanQuery.includes("cos e") || cleanQuery.includes("cose") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");
     
     if (cercaSignificato) {
@@ -559,7 +559,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 5. REGOLA DELLA PAROLA SINGOLA ISOLATA
     const parole = cleanQuery.split(" ");
     if (parole.length === 1) {
         if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {
@@ -577,7 +576,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // 6. Gestione RADICI QUADRATE e Calcoli
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -587,14 +585,12 @@ function processUserQuery(query) {
         }
     }
 
-    // 7. GESTIONE MIRATA ED ESCLUSIVA PER "PIANO DI LAVORO"
     if (cleanQuery.includes("piano di lavoro") || cleanQuery.includes("piano lavoro") || cleanQuery.includes("piani di lavoro")) {
         let risultatiForm = appConfig.faqs.filter(f => f.id === "FORM_PIANO_LAVORO_LICEO" || f.id === "FORM_PIANO_LAVORO_IPIA");
         
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> per il piano di lavoro. Scegli quale aprire:<br><br>`;
         risultatiForm.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            // Estrae automaticamente il link dalla risposta (anche se è un URL grezzo)
             let linkMatch = f.responses[0].match(/(https?:\/\/[^\s]+)/);
             let urlForm = linkMatch ? linkMatch[1] : '#';
             sceltaMultiplaHtml += `👉 <a href='${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>${titoloRisposta}</a><br>`;
@@ -603,7 +599,6 @@ function processUserQuery(query) {
         return;
     }
 
-    // Ricerca standard per le altre FAQ
     let risultatiTrovati = [];
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
@@ -634,12 +629,10 @@ function processUserQuery(query) {
         return;
     }
 
-    // 8. SBARRAMENTO ONESTA FINALE
     rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");
 }
 
 function rispondiBot(testo) {
-    // Applica la formattazione automatica dei link prima di inviare il messaggio
     let testoFormattato = formatLinksInText(testo);
     appendMessage(testoFormattato, "bot");
 }
