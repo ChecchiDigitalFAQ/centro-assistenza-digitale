@@ -38,28 +38,31 @@ function switchTab(tabId, element) {
 }
 
 function initAdminPanel() {
-    ensureCategoryInputExists();
+    ensureCategorySelectExists();
     renderFaqTable();
     renderBtnTable();
     setupFaqSmartSearch();
     setupCategoryFilterUI();
 }
 
-// --- AGGIUNTA CAMPO CATEGORIA NEL FORM FAQ SE NON ESISTE ---
-function ensureCategoryInputExists() {
+// --- AGGIUNTA MENU A TENDINA BLOCCATO PER LE MACRO-CATEGORIE NEL FORM ---
+function ensureCategorySelectExists() {
     const faqForm = document.getElementById("faqForm");
     if (!faqForm || document.getElementById("faqCategory")) return;
 
-    // Crea un blocco input per la categoria prima della risposta o alla fine
     const categoryDiv = document.createElement("div");
     categoryDiv.className = "form-group";
     categoryDiv.style.cssText = "margin-bottom: 15px;";
     categoryDiv.innerHTML = `
-        <label for="faqCategory" style="font-weight: bold; display: block; margin-bottom: 5px;">Categoria (es. form, scuola, segreteria):</label>
-        <input type="text" id="faqCategory" class="form-control" placeholder="form" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        <label for="faqCategory" style="font-weight: bold; display: block; margin-bottom: 5px;">Categoria Ufficiale:</label>
+        <select id="faqCategory" class="form-control" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+            <option value="form">📋 form (Moduli Microsoft Forms)</option>
+            <option value="scuola">🏫 scuola (Informazioni e Uffici)</option>
+            <option value="personali">👋 personali (Presentazioni, battute e indovinelli)</option>
+            <option value="dizionario">📖 dizionario (Termini enciclopedici)</option>
+        </select>
     `;
     
-    // Inserisce il campo categoria prima della textarea della risposta
     const responseField = document.getElementById("faqResponse")?.closest(".form-group") || faqForm.children[2];
     faqForm.insertBefore(categoryDiv, responseField);
 }
@@ -73,32 +76,15 @@ function setupCategoryFilterUI() {
     filterWrapper.style.cssText = "margin-bottom: 15px; display: flex; align-items: center; gap: 10px;";
     filterWrapper.innerHTML = `
         <label for="faqCategoryFilter" style="font-weight: bold; color: #1e3a8a;"><i class="fa-solid fa-filter"></i> Filtra per Categoria:</label>
-        <select id="faqCategoryFilter" class="form-control" style="max-width: 250px; display: inline-block; padding: 6px; border-radius: 6px; border: 1px solid #ccc;" onchange="renderFaqTable()">
+        <select id="faqCategoryFilter" class="form-control" style="max-width: 280px; display: inline-block; padding: 6px; border-radius: 6px; border: 1px solid #ccc;" onchange="renderFaqTable()">
             <option value="ALL">🔍 Tutte le categorie</option>
+            <option value="form">📋 form</option>
+            <option value="scuola">🏫 scuola</option>
+            <option value="personali">👋 personali</option>
+            <option value="dizionario">📖 dizionario</option>
         </select>
     `;
     container.insertBefore(filterWrapper, document.getElementById("faqTableBody").parentElement);
-    updateCategoryDropdownOptions();
-}
-
-function updateCategoryDropdownOptions() {
-    const select = document.getElementById("faqCategoryFilter");
-    if (!select || typeof appConfig === "undefined" || !appConfig.faqs) return;
-
-    // Estrae tutte le categorie uniche presenti nelle FAQ
-    const categories = [...new Set(appConfig.faqs.map(f => f.type || (f.id.startsWith("FORM_") ? "form" : "school")))];
-    
-    const currentVal = select.value;
-    select.innerHTML = `<option value="ALL">🔍 Tutte le categorie (${appConfig.faqs.length})</option>`;
-    
-    categories.forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = `📁 ${cat.toUpperCase()}`;
-        select.appendChild(opt);
-    });
-
-    select.value = categories.includes(currentVal) ? currentVal : "ALL";
 }
 
 // --- GESTIONE FAQ CON RICERCA INTELLIGENTE SULL'ID ---
@@ -121,6 +107,7 @@ function setupFaqSmartSearch() {
         if (typeof appConfig === "undefined" || !appConfig.faqs) return;
 
         const existingIndex = appConfig.faqs.findIndex(f => f.id.toUpperCase() === typedId);
+        const catSelect = document.getElementById("faqCategory");
 
         if (existingIndex !== -1) {
             const faq = appConfig.faqs[existingIndex];
@@ -128,16 +115,22 @@ function setupFaqSmartSearch() {
             document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
             document.getElementById("faqResponse").value = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
             
-            const catInput = document.getElementById("faqCategory");
-            if (catInput) catInput.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
+            if (catSelect) {
+                catSelect.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola");
+            }
 
             document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ Esistente (${faq.id})`;
             document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
             document.getElementById("faqCancelBtn").style.display = "inline-flex";
         } else {
             document.getElementById("faqEditIndex").value = "-1";
-            const catInput = document.getElementById("faqCategory");
-            if (catInput && typedId.startsWith("FORM_")) catInput.value = "form";
+            if (catSelect) {
+                if (typedId.startsWith("FORM_")) {
+                    catSelect.value = "form";
+                } else if (typedId === "CHI_SEI" || typedId.includes("TI_") || typedId === "AIUTO") {
+                    catSelect.value = "personali";
+                }
+            }
             
             if (typedId.length > 0) {
                 document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Aggiungi Nuovo ID (${typedId})`;
@@ -171,7 +164,7 @@ function renderFaqTable() {
     tbody.innerHTML = "";
     
     appConfig.faqs.forEach((faq, index) => {
-        const faqType = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
+        const faqType = faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola");
         
         if (selectedCategory !== "ALL" && faqType !== selectedCategory) {
             return;
@@ -182,7 +175,7 @@ function renderFaqTable() {
         const respText = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
 
         tr.innerHTML = `
-            <td><code>${faq.id}</code><br><small style="color: #666;">📁 ${faqType}</small></td>
+            <td><code>${faq.id}</code><br><small style="color: #1e3a8a; font-weight: bold;">📁 [${faqType}]</small></td>
             <td>${kwText}</td>
             <td>${respText}</td>
             <td class="actions-cell">
@@ -194,7 +187,6 @@ function renderFaqTable() {
     });
     
     updateFaqDatalistOptions();
-    updateCategoryDropdownOptions();
 }
 
 function handleFaqSubmit(e) {
@@ -203,8 +195,8 @@ function handleFaqSubmit(e) {
     const id = document.getElementById("faqId").value.trim().toUpperCase();
     const keywords = document.getElementById("faqKeywords").value.split(",").map(k => k.trim()).filter(k => k);
     const response = document.getElementById("faqResponse").value.trim();
-    const catInput = document.getElementById("faqCategory");
-    const category = catInput && catInput.value.trim() ? catInput.value.trim().toLowerCase() : (id.startsWith("FORM_") ? "form" : "school");
+    const catSelect = document.getElementById("faqCategory");
+    const category = catSelect ? catSelect.value : (id.startsWith("FORM_") ? "form" : "scuola");
 
     if (!id || keywords.length === 0 || !response) {
         alert("⚠️ Per favore compila tutti i campi.");
@@ -228,7 +220,7 @@ function handleFaqSubmit(e) {
             alert("✅ FAQ esistente sovrascritta con successo!");
         } else {
             appConfig.faqs.unshift(newFaq);
-            alert("✅ Nuova FAQ aggiunta e categoria creata con successo!");
+            alert("✅ Nuova FAQ aggiunta con successo nella categoria corretta!");
         }
     }
 
@@ -243,8 +235,10 @@ function editFaq(index) {
     document.getElementById("faqKeywords").value = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
     document.getElementById("faqResponse").value = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
     
-    const catInput = document.getElementById("faqCategory");
-    if (catInput) catInput.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
+    const catSelect = document.getElementById("faqCategory");
+    if (catSelect) {
+        catSelect.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola");
+    }
 
     document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ (${faq.id})`;
     document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
@@ -346,7 +340,7 @@ function generateExportData() {
         dictionary: appConfig.dictionary || {},
         faqs: (appConfig.faqs || []).map(faq => ({
             id: faq.id,
-            type: faq.type || (faq.id.startsWith("FORM_") ? "form" : "school"),
+            type: faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola"),
             keywords: Array.isArray(faq.keywords) ? faq.keywords : faq.keywords.split(",").map(k => k.trim()),
             responses: Array.isArray(faq.responses) ? faq.responses : [faq.response || ""]
         }))
