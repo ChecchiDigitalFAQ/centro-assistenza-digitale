@@ -41,6 +41,25 @@ function initAdminPanel() {
     renderFaqTable();
     renderBtnTable();
     setupFaqSmartSearch();
+    setupCategoryFilterUI();
+}
+
+// --- AGGIUNTA FILTRO CATEGORIA NELL'INTERFACCIA ADMIN ---
+function setupCategoryFilterUI() {
+    const container = document.querySelector("#faqTableBody")?.closest(".card") || document.getElementById("faqTableBody")?.parentElement;
+    if (!container || document.getElementById("faqCategoryFilter")) return;
+
+    const filterWrapper = document.createElement("div");
+    filterWrapper.style.cssText = "margin-bottom: 15px; display: flex; align-items: center; gap: 10px;";
+    filterWrapper.innerHTML = `
+        <label for="faqCategoryFilter" style="font-weight: bold; color: #1e3a8a;"><i class="fa-solid fa-filter"></i> Filtra per Categoria:</label>
+        <select id="faqCategoryFilter" class="form-control" style="max-width: 250px; display: inline-block; padding: 6px; border-radius: 6px; border: 1px solid #ccc;" onchange="renderFaqTable()">
+            <option value="ALL">🔍 Tutte le categorie</option>
+            <option value="form">📋 Solo Form</option>
+            <option value="school">🏫 Solo Scuola / Generali</option>
+        </select>
+    `;
+    container.insertBefore(filterWrapper, document.getElementById("faqTableBody").parentElement);
 }
 
 // --- GESTIONE FAQ CON RICERCA INTELLIGENTE SULL'ID ---
@@ -101,8 +120,19 @@ function renderFaqTable() {
     const tbody = document.getElementById("faqTableBody");
     if (!tbody || typeof appConfig === "undefined" || !appConfig.faqs) return;
 
+    const filterSelect = document.getElementById("faqCategoryFilter");
+    const selectedCategory = filterSelect ? filterSelect.value : "ALL";
+
     tbody.innerHTML = "";
+    
     appConfig.faqs.forEach((faq, index) => {
+        const faqType = faq.type || (faq.id.startsWith("FORM_") ? "form" : "school");
+        
+        // Se è attivo un filtro, mostra solo gli elementi di quella categoria
+        if (selectedCategory !== "ALL" && faqType !== selectedCategory) {
+            return;
+        }
+
         const tr = document.createElement("tr");
         const kwText = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
         const respText = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
