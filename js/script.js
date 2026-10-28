@@ -64,7 +64,7 @@ let appConfig = {
         "ite"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUMlpWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo Liceo, ITE e ITT</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti Indirizzo Liceo, ITE e ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUMlpWOVQwWFpLWFZJVVNNV0ZaVzhMNzgyNi4u&route=shorturl"
       ]
     },
     {
@@ -78,7 +78,7 @@ let appConfig = {
         "ipia"
       ],
       "responses": [
-        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUQzZVMjRXUTZNVFdFR05ZSVJDWFdSMzUxMy4u&route=shorturl' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Compila Modulo IPIA e Classi Prime</a>"
+        "📋 <strong>Piano di Lavoro Annuale Docenti IPIA e Classi Prime ITE/ITT:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUQzZVMjRXUTZNVFdFR05ZSVJDWFdSMzUxMy4u&route=shorturl"
       ]
     },
     {
@@ -370,7 +370,7 @@ let appConfig = {
         "stampa fotocopie"
       ],
       "responses": [
-        "🖨️ **Richiesta Fotocopie:**\n\nPuoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:<br>🔗 <a href='https://forms.cloud.microsoft/e/PKygPpxkAQ' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Richiesta Fotocopie</a>"
+        "🖨️ **Richiesta Fotocopie:**<br><br>Puoi inoltrare la richiesta di stampa fotocopie tramite il Form dedicato:<br>https://forms.cloud.microsoft/e/PKygPpxkAQ"
       ]
     },
     {
@@ -383,7 +383,7 @@ let appConfig = {
         "form esperti"
       ],
       "responses": [
-        "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**\n\nPuoi accedere e compilare il modulo ufficiale al seguente link:<br>🔗 <a href='https://forms.cloud.microsoft/e/jvGm4wwcz4' target='_blank' style='color: #1e3a8a; font-weight: bold;'>Apri Form Autorizzazione Esperti Esterni</a>"
+        "📋 **Richiesta Autorizzazione Ingresso Esperti Esterni:**<br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/e/jvGm4wwcz4"
       ]
     },
     {
@@ -455,6 +455,15 @@ function sendMessage() {
     }, 300);
 }
 
+// Funzione intelligente per trasformare qualsiasi link grezzo in un link cliccabile
+function formatLinksInText(text) {
+    if (text.includes("<a href=")) return text;
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, (url) => {
+        return `<a href='${url}' target='_blank' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>🔗 Clicca qui per aprire il modulo</a>`;
+    });
+}
+
 function processUserQuery(query) {
     let cleanQuery = query.toLowerCase()
         .replace(/’/g, "'")
@@ -471,14 +480,12 @@ function processUserQuery(query) {
 
     // Se Arturo era in attesa che l'utente specificasse quale form desidera
     if (waitingForFormSelection) {
-        waitingForFormSelection = false; // Reset dello stato
+        waitingForFormSelection = false;
 
-        // Cerchiamo quale form ha menzionato l'utente nella sua risposta
         let formTrovato = null;
         for (let faq of appConfig.faqs) {
             if (faq.id.startsWith("FORM_") || faq.type === "form") {
                 let titoloForm = faq.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').toLowerCase();
-                // Controlla se la risposta contiene parole chiave del form o parti del titolo
                 let matchKeyword = faq.keywords.some(kw => cleanQuery.includes(kw));
                 if (cleanQuery.includes(faq.id.toLowerCase()) || cleanQuery.includes(titoloForm) || matchKeyword) {
                     formTrovato = faq;
@@ -490,7 +497,7 @@ function processUserQuery(query) {
         if (formTrovato) {
             rispondiBot(formTrovato.responses[0]);
         } else {
-            rispondiBot("🤖 Al momento non ho un form con questo nome. Ti consiglio di scrivere meglio il nome del modulo oppure di passare a un'altra domanda.");
+            rispondiBot("🤖 Al momento non ho un form con questo nome. Ti consiglio di scrivere meglio il form oppure di passare a un'altra domanda.");
         }
         return;
     }
@@ -504,7 +511,7 @@ function processUserQuery(query) {
 
     // 2. ECCEZIONE ALLA SOLA PAROLA "form" (o "modulo")
     if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli") {
-        waitingForFormSelection = true; // Attiva lo stato di attesa
+        waitingForFormSelection = true;
         
         let elencoNomiForm = "📋 A quale form desideri accedere? Ecco l'elenco dei moduli disponibili:<br><br>";
         appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {
@@ -576,7 +583,7 @@ function processUserQuery(query) {
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più moduli</strong> per il piano di lavoro. Scegli quale aprire:<br><br>`;
         risultatiForm.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            let linkMatch = f.responses[0].match(/href='([^']+)'/);
+            let linkMatch = f.responses[0].match(/(https?:\/\/[^\s]+)/);
             let urlForm = linkMatch ? linkMatch[1] : '#';
             sceltaMultiplaHtml += `👉 <a href='${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>${titoloRisposta}</a><br>`;
         });
@@ -584,7 +591,7 @@ function processUserQuery(query) {
         return;
     }
 
-    // Ricerca standard per le altre FAQ (es. fotocopie, esperti, contatti, ecc.)
+    // Ricerca standard per le altre FAQ
     let risultatiTrovati = [];
     for (let faq of appConfig.faqs) {
         for (let kw of faq.keywords) {
@@ -601,7 +608,7 @@ function processUserQuery(query) {
         let sceltaMultiplaHtml = `🔍 Ho trovato <strong>più elementi</strong> corrispondenti. Scegli quale aprire:<br><br>`;
         risultatiTrovati.forEach((f) => {
             let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();
-            let linkMatch = f.responses[0].match(/href='([^']+)'/);
+            let linkMatch = f.responses[0].match(/(https?:\/\/[^\s]+)/);
             let urlForm = linkMatch ? linkMatch[1] : '#';
             sceltaMultiplaHtml += `👉 <a href='${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>${titoloRisposta}</a><br>`;
         });
@@ -620,7 +627,8 @@ function processUserQuery(query) {
 }
 
 function rispondiBot(testo) {
-    appendMessage(testo, "bot");
+    let testoFormattato = formatLinksInText(testo);
+    appendMessage(testoFormattato, "bot");
 }
 
 function quickAction(id) {
@@ -661,7 +669,7 @@ function appendMessage(text, sender) {
 function resetChat() {
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
-    waitingForFormSelection = false; // Reset dello stato se si riavvia la chat
+    waitingForFormSelection = false;
     chatBox.innerHTML = `
         <div class="message bot-message">
             <div class="message-avatar"><i class="fa-solid fa-robot"></i></div>
@@ -675,7 +683,6 @@ function resetChat() {
 
 function startClock() {
     const clockEl = document.getElementById("live-clock");
-    if নয়নel = document.getElementById("live-clock"); // Gestito in sicurezza
     if (!clockEl) return;
     
     function updateDateTime() {
