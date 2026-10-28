@@ -190,42 +190,66 @@
                         <label>ID FAQ Collegato (Generato Automaticamente):</label>
                         <input type="text" id="btnFaqId" required placeholder="es. NOME_PULSANTE">
                     </div>
-                    <div class="form-group full">
-                        <label>🎨 Scegli un'Icona dall'Assortimento:</label>
+<div class="form-group full">
+                        <label>🎨 Scegli un'Icona:</label>
                         <select id="btnIconSelect" class="form-control" onchange="document.getElementById('btnIconInput').value = this.value">
-                            <optgroup label="🏫 Scuola e Uffici">
-                                <option value="fa-solid fa-building-columns">🏢 Segreteria e Uffici / Edificio</option>
-                                <option value="fa-solid fa-graduation-cap">🎓 Didattica e Diplomati</option>
-                                <option value="fa-solid fa-user-tie">👔 Dirigenza e Preside</option>
-                                <option value="fa-solid fa-chalkboard-user">👨‍🏫 Docenti e Lezioni</option>
-                                <option value="fa-solid fa-users">👥 Collaboratori e Personale</option>
-                                <option value="fa-solid fa-school">🏫 Istituto e Plessi</option>
-                                <option value="fa-solid fa-id-card">🪪 Tesserini e Identità</option>
-                            </optgroup>
-                            <optgroup label="💻 Informatica e Digitali">
-                                <option value="fa-solid fa-laptop-code">💻 Servizi Digitali e PC</option>
-                                <option value="fa-solid fa-key">🔑 Credenziali e Password</option>
-                                <option value="fa-solid fa-print">🖨️ Stampanti e Fotocopie</option>
-                                <option value="fa-solid fa-network-wired">🌐 Reti e Connessioni</option>
-                                <option value="fa-solid fa-shield-halved">🛡️ Sicurezza informatica</option>
-                                <option value="fa-solid fa-database">🗄️ Database e Archivi</option>
-                            </optgroup>
-                            <optgroup label="📄 Modulistica e Documenti">
-                                <option value="fa-solid fa-file-lines">📄 Modulistica generale</option>
-                                <option value="fa-solid fa-file-pdf">📑 Documenti PDF</option>
-                                <option value="fa-solid fa-clipboard-list">📋 Piani di lavoro e Registri</option>
-                                <option value="fa-solid fa-folder-open">📂 Archivio circolari</option>
-                                <option value="fa-solid fa-pen-nib">✒️ Moduli e Firme</option>
-                            </optgroup>
-                            <optgroup label="📚 Cultura e Utilità">
-                                <option value="fa-solid fa-book">📖 Dizionario e Libri</option>
-                                <option value="fa-solid fa-circle-question">❓ Domanda / Aiuto</option>
-                                <option value="fa-solid fa-address-book">📞 Contatti e Rubrica</option>
-                                <option value="fa-solid fa-calendar-days">📅 Orari e Calendario</option>
-                                <option value="fa-solid fa-clock">⏰ Orario e Turni</option>
-                                <option value="fa-solid fa-bullhorn">📢 Avvisi e News</option>
-                                <option value="fa-solid fa-map-location-dot">📍 Sedi e Mappe</option>
-                            </optgroup>
+                            <!-- Scuola e Uffici -->
+                            <option value="fa-solid fa-building-columns">🏢 Edificio / Uffici</option>
+                            <option value="fa-solid fa-graduation-cap">🎓 Diploma / Tocco</option>
+                            <option value="fa-solid fa-user-tie">👔 Dirigente</option>
+                            <option value="fa-solid fa-chalkboard-user">👨‍🏫 Docente</option>
+                            <option value="fa-solid fa-users">👥 Gruppo / Persone</option>
+                            <option value="fa-solid fa-school">🏫 Scuola</option>
+                            <option value="fa-solid fa-id-card">🪪 Badge / Tessera</option>
+                            <option value="fa-solid fa-child-reaching">🎒 Studente / Ragazzo</option>
+                            <option value="fa-solid fa-award">🏆 Premio / Merito</option>
+                            
+                            <!-- Informatica e Digitali -->
+                            <option value="fa-solid fa-laptop-code">💻 Computer / Tech</option>
+                            <option value="fa-solid fa-desktop">🖥️ Postazione PC</option>
+                            <option value="fa-solid fa-key">🔑 Chiave / Password</option>
+                            <option value="fa-solid fa-print">🖨️ Stampante</option>
+                            <option value="fa-solid fa-network-wired">🌐 Rete</option>
+                            <option value="fa-solid fa-shield-halved">🛡️ Sicurezza</option>
+                            <option value="fa-solid fa-database">🗄️ Database</option>
+                            <option value="fa-solid fa-microchip">🛜 Hardware / Chip</option>
+                            <option value="fa-solid fa-server">🖧 Server</option>
+                            <option value="fa-solid fa-wifi">📶 Wi-Fi / Connessione</option>
+                            <option value="fa-solid fa-bug">🐛 Bug / Errore</option>
+
+                            <!-- Modulistica e Documenti -->
+                            <option value="fa-solid fa-file-lines">📄 Documento</option>
+                            <option value="fa-solid fa-file-pdf">📑 PDF</option>
+                            <option value="fa-solid fa-clipboard-list">📋 Modulo / Lista</option>
+                            <option value="fa-solid fa-folder-open">📂 Cartella</option>
+                            <option value="fa-solid fa-pen-nib">✒️ Penna / Firma</option>
+                            <option value="fa-solid fa-file-circle-check">✅ Modulo Approvato</option>
+                            <option value="fa-solid fa-file-signature">✍️ Firma digitale</option>
+
+                            <!-- Cultura e Utilità -->
+                            <option value="fa-solid fa-book">📖 Libro / Dizionario</option>
+                            <option value="fa-solid fa-circle-question">❓ Domanda</option>
+                            <option value="fa-solid fa-address-book">📞 Contatti</option>
+                            <option value="fa-solid fa-calendar-days">📅 Calendario</option>
+                            <option value="fa-solid fa-clock">⏰ Orologio</option>
+                            <option value="fa-solid fa-bullhorn">📢 Avviso</option>
+                            <option value="fa-solid fa-map-location-dot">📍 Posizione</option>
+                            <option value="fa-solid fa-book-open">📖 Libro aperto</option>
+                            <option value="fa-solid fa-pen-to-square">📝 Modifica / Scrivi</option>
+                            <option value="fa-solid fa-phone">📞 Telefono</option>
+                            <option value="fa-solid fa-envelope">✉️ Email</option>
+
+                            <!-- Strumenti, Laboratorio e Varie -->
+                            <option value="fa-solid fa-screwdriver-wrench">🛠️ Strumenti / Manutenzione</option>
+                            <option value="fa-solid fa-flask">🧪 Laboratorio / Chimica</option>
+                            <option value="fa-solid fa-atom">⚛️ Scienza / Atomo</option>
+                            <option value="fa-solid fa-gears">⚙️ Impostazioni / Ingranaggi</option>
+                            <option value="fa-solid fa-toolbox">🧰 Valigetta attrezzi</option>
+                            <option value="fa-solid fa-lightbulb">💡 Idea / Soluzione</option>
+                            <option value="fa-solid fa-star">⭐ Preferito / Importante</option>
+                            <option value="fa-solid fa-heart">❤️ Cuore / Mi piace</option>
+                            <option value="fa-solid fa-circle-info">ℹ️ Informazioni</option>
+                            <option value="fa-solid fa-triangle-exclamation">⚠️ Attenzione / Avviso</option>
                         </select>
                     </div>
                     <div class="form-group full">
