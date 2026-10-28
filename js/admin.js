@@ -39,10 +39,10 @@ function switchTab(tabId, element) {
 
 function initAdminPanel() {
     ensureCategorySelectExists();
+    setupCategoryFilterUI();
     renderFaqTable();
     renderBtnTable();
     setupFaqSmartSearch();
-    setupCategoryFilterUI();
 }
 
 // --- AGGIUNTA MENU A TENDINA BLOCCATO PER LE MACRO-CATEGORIE NEL FORM ---
@@ -220,7 +220,7 @@ function handleFaqSubmit(e) {
             alert("✅ FAQ esistente sovrascritta con successo!");
         } else {
             appConfig.faqs.unshift(newFaq);
-            alert("✅ Nuova FAQ aggiunta con successo nella categoria corretta!");
+            alert("✅ Nuova FAQ aggiunta con successo!");
         }
     }
 
