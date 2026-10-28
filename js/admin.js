@@ -3,7 +3,7 @@
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
  */
 
-// PASSWORD DI ACCESSO AL PANNELLO (Modificabile a piacimento)
+// PASSWORD DI ACCESSO AL PANNELLO
 const ADMIN_PASSWORD = "arturo2026";
 
 function verifyAdminPassword() {
@@ -38,53 +38,9 @@ function switchTab(tabId, element) {
 }
 
 function initAdminPanel() {
-    ensureCategorySelectExists();
-    setupCategoryFilterUI();
     renderFaqTable();
     renderBtnTable();
     setupFaqSmartSearch();
-}
-
-// --- AGGIUNTA MENU A TENDINA BLOCCATO PER LE MACRO-CATEGORIE NEL FORM ---
-function ensureCategorySelectExists() {
-    const faqForm = document.getElementById("faqForm");
-    if (!faqForm || document.getElementById("faqCategory")) return;
-
-    const categoryDiv = document.createElement("div");
-    categoryDiv.className = "form-group";
-    categoryDiv.style.cssText = "margin-bottom: 15px;";
-    categoryDiv.innerHTML = `
-        <label for="faqCategory" style="font-weight: bold; display: block; margin-bottom: 5px;">Categoria Ufficiale:</label>
-        <select id="faqCategory" class="form-control" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
-            <option value="form">📋 form (Moduli Microsoft Forms)</option>
-            <option value="scuola">🏫 scuola (Informazioni e Uffici)</option>
-            <option value="personali">👋 personali (Presentazioni, battute e indovinelli)</option>
-            <option value="dizionario">📖 dizionario (Termini enciclopedici)</option>
-        </select>
-    `;
-    
-    const responseField = document.getElementById("faqResponse")?.closest(".form-group") || faqForm.children[2];
-    faqForm.insertBefore(categoryDiv, responseField);
-}
-
-// --- FILTRO DINAMICO PER CATEGORIE NELLA TABELLA ---
-function setupCategoryFilterUI() {
-    const container = document.querySelector("#faqTableBody")?.closest(".card") || document.getElementById("faqTableBody")?.parentElement;
-    if (!container || document.getElementById("faqCategoryFilter")) return;
-
-    const filterWrapper = document.createElement("div");
-    filterWrapper.style.cssText = "margin-bottom: 15px; display: flex; align-items: center; gap: 10px;";
-    filterWrapper.innerHTML = `
-        <label for="faqCategoryFilter" style="font-weight: bold; color: #1e3a8a;"><i class="fa-solid fa-filter"></i> Filtra per Categoria:</label>
-        <select id="faqCategoryFilter" class="form-control" style="max-width: 280px; display: inline-block; padding: 6px; border-radius: 6px; border: 1px solid #ccc;" onchange="renderFaqTable()">
-            <option value="ALL">🔍 Tutte le categorie</option>
-            <option value="form">📋 form</option>
-            <option value="scuola">🏫 scuola</option>
-            <option value="personali">👋 personali</option>
-            <option value="dizionario">📖 dizionario</option>
-        </select>
-    `;
-    container.insertBefore(filterWrapper, document.getElementById("faqTableBody").parentElement);
 }
 
 // --- GESTIONE FAQ CON RICERCA INTELLIGENTE SULL'ID ---
@@ -129,6 +85,8 @@ function setupFaqSmartSearch() {
                     catSelect.value = "form";
                 } else if (typedId === "CHI_SEI" || typedId.includes("TI_") || typedId === "AIUTO") {
                     catSelect.value = "personali";
+                } else {
+                    catSelect.value = "scuola";
                 }
             }
             
@@ -330,7 +288,7 @@ function resetBtnForm() {
     document.getElementById("btnCancelBtn").style.display = "none";
 }
 
-// --- ESPORTAZIONE CODICE PERFETTA E PULITA ---
+// --- ESPORTAZIONE CODICE ---
 function generateExportData() {
     const exportArea = document.getElementById("exportArea");
     if (!exportArea || typeof appConfig === "undefined") return;
