@@ -129,12 +129,10 @@ function renderFaqTable() {
     appConfig.faqs.forEach((faq, index) => {
         const faqType = faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola");
         
-        // Filtro per categoria
         if (selectedCategory !== "ALL" && faqType !== selectedCategory) {
             return;
         }
 
-        // Filtro per ricerca testuale (ID o parole chiave)
         const kwText = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
         const respText = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
         
@@ -325,7 +323,7 @@ function generateExportData() {
         dictionary: appConfig.dictionary || {},
         faqs: (appConfig.faqs || []).map(faq => ({
             id: faq.id,
-            type: faq.type || (faq.id.startsWith("FORM_") ?="form" : "scuola"),
+            type: faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola"),
             keywords: Array.isArray(faq.keywords) ? faq.keywords : faq.keywords.split(",").map(k => k.trim()),
             responses: Array.isArray(faq.responses) ? faq.responses : [faq.response || ""]
         }))
