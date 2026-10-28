@@ -58,7 +58,6 @@ function setupFaqSmartSearch() {
     faqIdInput.addEventListener("input", function() {
         const typedId = this.value.trim().toUpperCase();
         
-        // Filtra automaticamente la tabella in base all'ID selezionato/digitato
         const searchInput = document.getElementById("faqTableSearch");
         if (searchInput) {
             searchInput.value = typedId;
@@ -358,7 +357,7 @@ function resetBtnForm() {
     document.getElementById("btnCancelBtn").style.display = "none";
 }
 
-// --- ESPORTAZIONE CODICE CON CONTROLLO INTEGRITÀ ---
+// --- ESPORTAZIONE E DOWNLOAD AUTOMATICO DEL FILE SCRIPT.JS ---
 function generateExportData() {
     const exportArea = document.getElementById("exportArea");
     if (!exportArea || typeof appConfig === "undefined") return;
@@ -392,15 +391,67 @@ function generateExportData() {
 
     try {
         const jsonString = JSON.stringify(cleanConfig, null, 2);
-        exportArea.value = `let appConfig = ${jsonString};`;
+        
+        // Generiamo il codice completo di script.js combinando la configurazione e il motore della chat
+        const fullScriptContent = `/**\n * Database FAQ, Pulsanti Rapidi e Dizionario per Arturo | IIS "Arturo Checchi"\n * Aggiornato automaticamente dal pannello di amministrazione\n */\nlet appConfig = ${jsonString};\n\n` + 
+        `let waitingForFormSelection = false;\n\ndocument.addEventListener("DOMContentLoaded", () => {\n    initApp();\n    startClock();\n});\n\n` +
+        `function initApp() {\n    renderQuickButtons();\n    setupEventListeners();\n}\n\n` +
+        `function renderQuickButtons() {\n    const container = document.getElementById("faq-buttons-container");\n    if (!container) return;\n    container.innerHTML = "";\n    appConfig.quickButtons.forEach(btn => {\n        const buttonEl = document.createElement("button");\n        buttonEl.className = "quick-btn";\n        buttonEl.innerHTML = \`<i class="\${btn.icon}"></i> \${btn.label.replace(/^[^\\s]+\\s/, '')}\`;\n        buttonEl.onclick = () => quickAction(btn.id);\n        container.appendChild(buttonEl);\n    });\n}\n\n` +
+        `function setupEventListeners() {\n    const chatForm = document.getElementById("chat-form");\n    if (chatForm) {\n        chatForm.addEventListener("submit", (e) => {\n            e.preventDefault();\n            sendMessage();\n        });\n    }\n    const newChatBtn = document.getElementById("new-chat-btn");\n    if (newChatBtn) {\n        newChatBtn.addEventListener("click", resetChat);\n    }\n}\n\n` +
+        `function sendMessage() {\n    const inputField = document.getElementById("user-input");\n    if (!inputField) return;\n    const message = inputField.value.trim();\n    if (message === "") return;\n    appendMessage(message, "user");\n    inputField.value = "";\n    setTimeout(() => { processUserQuery(message); }, 300);\n}\n\n` +
+        `function formatLinksInText(text) {\n    if (text.includes("<a href=")) return text;\n    const urlRegex = /(https?:\\/\\/[^\\s]+)/g;\n    return text.replace(urlRegex, (url) => {\n        return \`<a href='\${url}' target='_blank' style='color: #1e3a8a; font-weight: bold; text-decoration: underline;'>🔗 Clicca qui per aprire il modulo</a>\`;\n    });\n}\n\n` +
+        `function processUserQuery(query) {\n    let cleanQuery = query.toLowerCase()\n        .replace(/’/g, "'")\n        .replace(/[èé]/g, "e")\n        .replace(/[àá]/g, "a")\n        .replace(/[ìí]/g, "i")\n        .replace(/[òó]/g, "o")\n        .replace(/[ùú]/g, "u")\n        .replace(/^[?.,!]/g, "")\n        .replace(/\\s+/g, " ")\n        .trim();\n\n` +
+        `    if (cleanQuery === "") return;\n\n` +
+        `    if (waitingForFormSelection) {\n        waitingForFormSelection = false;\n        let formTrovato = null;\n        for (let faq of appConfig.faqs) {\n            if (faq.id.startsWith("FORM_") || faq.type === "form") {\n                let titoloForm = faq.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').toLowerCase();\n                let matchKeyword = faq.keywords.some(kw => cleanQuery.includes(kw));\n                if (cleanQuery.includes(faq.id.toLowerCase()) || cleanQuery.includes(titoloForm) || matchKeyword) {\n                    formTrovato = faq;\n                    break;\n                }\n            }\n        }\n        if (formTrovato) {\n            rispondiBot(formTrovato.responses[0]);\n        } else {\n            rispondiBot("🤖 Al momento non ho un form con questo nome. Ti consiglio di scrivere meglio il form oppure di passare a un'altra domanda.");\n        }\n        return;\n    }\n\n` +
+        `    const paroleChiusura = ["niente", "nulla", "grazie", "no grazie", "no va bene cosi", "va bene cosi", "ok", "addio"];\n` +
+        `    if (paroleChiusura.includes(cleanQuery)) {\n        rispondiBot("👋 Spero di esserti stato utile. Quando vuoi sono sempre pronto a fornirti nuove informazioni sui servizi dell'IIS \\"Arturo Checchi\\"!");\n        return;\n    }\n\n` +
+        `    if (cleanQuery === "form" || cleanQuery === "modulo" || cleanQuery === "moduli") {\n        waitingForFormSelection = true;\n        let elencoNomiForm = "📋 A quale form desideri accedere? Ecco l'elenco dei moduli disponibili:<br><br>";\n        appConfig.faqs.filter(f => f.id.startsWith("FORM_") || f.type === "form").forEach((f) => {\n            let titoloForm = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();\n            elencoNomiForm += \`🔹 **\${titoloForm}**<br>\`;\n        });\n        elencoNomiForm += \`<br>Scrivimi il nome o l'argomento del form che stai cercando!\`;\n        rispondiBot(elencoNomiForm);\n        return;\n    }\n\n` +
+        `    if (cleanQuery.includes("che ora e") || cleanQuery === "ora" || cleanQuery.includes("orario attuale")) {\n        const now = new Date();\n        rispondiBot(\`⏰ Al momento sono le ore **\${now.toLocaleTimeString('it-IT')}** del giorno \${now.toLocaleDateString('it-IT', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.\`);\n        return;\n    }\n\n` +
+        `    let cercaSignificato = cleanQuery.includes("significa") || cleanQuery.includes("significhi") || cleanQuery.includes("cos e") || cleanQuery.includes("cose") || cleanQuery.includes("definizione") || cleanQuery.includes("significato");\n` +
+        `    if (cercaSignificato) {\n        let trovatoDizionario = false;\n        for (const [term, def] of Object.entries(appConfig.dictionary)) {\n            if (cleanQuery.includes(term)) {\n                rispondiBot(def);\n                trovatoDizionario = true;\n                break;\n            }\n        }\n        if (!trovatoDizionario) {\n            rispondiBot("🤖 Al momento questo termine mi è ancora sconosciuto, ma ho registrato la tua richiesta: a breve lo avrò inserito nel mio dizionario!");\n        }\n        return;\n    }\n\n` +
+        `    const parole = cleanQuery.split(" ");\n` +
+        `    if (parole.length === 1) {\n        if (["ciao", "salve", "buongiorno", "buonasera"].includes(cleanQuery)) {\n            let faqSaluto = appConfig.faqs.find(f => f.id === "SALUTO");\n            if (faqSaluto) { rispondiBot(faqSaluto.responses[0]); return; }\n        }\n        if (appConfig.dictionary[cleanQuery]) { rispondiBot(appConfig.dictionary[cleanQuery]); return; }\n        rispondiBot(\`🤔 Hai digitato la parola singola <strong>"\${query}"</strong>.<br>Necessiti del form per la richiesta o desideri conoscere informazioni generali su questo argomento? Per favore, prova a formulare una richiesta più mirata (es. 'modulo fotocopie' o 'orario segreteria').\`);\n        return;\n    }\n\n` +
+        `    if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {\n        let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));\n        if (!isNaN(num)) {\n            let risultato = Math.sqrt(num);\n            rispondiBot(\`📐 La radice quadrata di **\${num}** è **\${risultato.toFixed(2)}**!\`);\n            return;\n        }\n    }\n\n` +
+        `    if (cleanQuery.includes("piano di lavoro") || cleanQuery.includes("piano lavoro") || cleanQuery.includes("piani di lavoro")) {\n        let risultatiForm = appConfig.faqs.filter(f => f.id === "FORM_PIANO_LAVORO_LICEO" || f.id === "FORM_PIANO_LAVORO_IPIA");\n        let sceltaMultiplaHtml = \`🔍 Ho trovato <strong>più moduli</strong> per il piano di lavoro. Scegli quale aprire:<br><br>\`;\n        risultatiForm.forEach((f) => {\n            let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();\n            let linkMatch = f.responses[0].match(/(https?:\\/\\/[^\\s]+)/);\n            let urlForm = linkMatch ? linkMatch[1] : '#';\n            sceltaMultiplaHtml += \`👉 <a href='\${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>\${titoloRisposta}</a><br>\`;\n        });\n        rispondiBot(sceltaMultiplaHtml);\n        return;\n    }\n\n` +
+        `    let risultatiTrovati = [];\n    for (let faq of appConfig.faqs) {\n        for (let kw of faq.keywords) {\n            let kwClean = kw.toLowerCase().trim();\n            if (cleanQuery === kwClean || cleanQuery.includes(kwClean)) {\n                if (!risultatiTrovati.some(f => f.id === faq.id)) { risultatiTrovati.push(faq); }\n            }\n        }\n    }\n\n` +
+        `    if (risultatiTrovati.length > 1) {\n        let sceltaMultiplaHtml = \`🔍 Ho trovato <strong>più elementi</strong> corrispondenti. Scegli quale aprire:<br><br>\`;\n        risultatiTrovati.forEach((f) => {\n            let titoloRisposta = f.responses[0].split(":")[0].replace(/<[^>]*>?/gm, '').trim();\n            let linkMatch = f.responses[0].match(/(https?:\\/\\/[^\\s]+)/);\n            let urlForm = linkMatch ? linkMatch[1] : '#';\n            sceltaMultiplaHtml += \`👉 <a href='\${urlForm}' target='_blank' style='background: #1e3a8a; color: white; padding: 8px 14px; border-radius: 6px; display: inline-block; margin: 6px 0; text-decoration: none; font-weight: bold;'>\${titoloRisposta}</a><br>\`;\n        });\n        rispondiBot(sceltaMultiplaHtml);\n        return;\n    }\n\n` +
+        `    if (risultatiTrovati.length === 1) {\n        rispondiBot(risultatiTrovati[0].responses[0]);\n        return;\n    }\n\n` +
+        `    rispondiBot("🤖 Hmm, non ho capito bene la domanda. Ti ricordo che <strong>Arturo non è un'intelligenza artificiale</strong>, ma un assistente virtuale programmato per darti informazioni precise sul nostro istituto.<br><br>A questo punto ti consiglio di usare altri tipi di informazioni, ma <strong>ti prometto che a breve sarò in condizioni di darti anche questo tipo di risposta</strong>!");\n}\n\n` +
+        `function rispondiBot(testo) {\n    let testoFormattato = formatLinksInText(testo);\n    appendMessage(testoFormattato, "bot");\n}\n\n` +
+        `function quickAction(id) {\n    let found = appConfig.faqs.find(f => f.id === id);\n    if (found) { rispondiBot(found.responses[0]); }\n}\n\n` +
+        `function appendMessage(text, sender) {\n    const chatBox = document.getElementById("chat-messages");\n    if (!chatBox) return;\n    const messageDiv = document.createElement("div");\n    const isBot = (sender === "bot");\n    messageDiv.classList.add("message", isBot ? "bot-message" : "user-message");\n    const avatarDiv = document.createElement("div");\n    avatarDiv.classList.add("message-avatar");\n    avatarDiv.innerHTML = \`<i class="\${isBot ? "fa-solid fa-robot" : "fa-solid fa-user"}"></i>\`;\n    const bubble = document.createElement("div");\n    bubble.classList.add("message-content");\n    bubble.innerHTML = text.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>').replace(/\\n/g, "<br>");\n    if (isBot) {\n        messageDiv.appendChild(avatarDiv);\n        messageDiv.appendChild(bubble);\n    } else {\n        messageDiv.appendChild(bubble);\n        messageDiv.appendChild(avatarDiv);\n    }\n    chatBox.appendChild(messageDiv);\n    chatBox.scrollTop = chatBox.scrollHeight;\n}\n\n` +
+        `function resetChat() {\n    const chatBox = document.getElementById("chat-messages");\n    if (!chatBox) return;\n    waitingForFormSelection = false;\n    chatBox.innerHTML = \`<div class="message bot-message"><div class="message-avatar"><i class="fa-solid fa-robot"></i></div><div class="message-content">👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS \\"Arturo Checchi\\".<br><br>Conversazione riavviata! Come posso aiutarti oggi?</div></div>\` ;\n}\n\n` +
+        `function startClock() {\n    const clockEl = document.getElementById("live-clock");\n    if (!clockEl) return;\n    function updateDateTime() {\n        const now = new Date();\n        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };\n        const dataFormattata = now.toLocaleDateString('it-IT', options);\n        const oraFormattata = now.toLocaleTimeString('it-IT');\n        if (clockEl) { clockEl.innerHTML = \`<i class="fa-regular fa-clock"></i> \${dataFormattata} - \${oraFormattata}\`; }\n    }\n    updateDateTime();\n    setInterval(updateDateTime, 1000);\n}\n`;
+
+        exportArea.value = fullScriptContent;
     } catch (err) {
-        exportArea.value = `❌ Errore critico durante la generazione del JSON: ${err.message}`;
+        exportArea.value = `❌ Errore critico durante la generazione dello script: ${err.message}`;
     }
+}
+
+function downloadScriptFile() {
+    const exportArea = document.getElementById("exportArea");
+    if (!exportArea || exportArea.value.startsWith("❌")) {
+        alert("⚠️ Genera prima un codice valido prima di scaricare il file!");
+        return;
+    }
+
+    const blob = new Blob([exportArea.value], { type: "text/javascript;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "script.js";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    alert("📥 File 'script.js' scaricato con successo! Ora puoi caricarlo direttamente su GitHub.");
 }
 
 function copyExportCode() {
     const exportArea = document.getElementById("exportArea");
     exportArea.select();
     document.execCommand("copy");
-    alert("📋 Codice copiato negli appunti! Incollalo dentro js/script.js per aggiornare il bot.");
+    alert("📋 Codice copiato negli appunti!");
 }
