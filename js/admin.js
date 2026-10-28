@@ -3,7 +3,6 @@
  * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
  */
 
-// PASSWORD DI ACCESSO AL PANNELLO
 const ADMIN_PASSWORD = "arturo2026";
 
 function verifyAdminPassword() {
@@ -24,7 +23,6 @@ function checkLoginEnter(e) {
     }
 }
 
-// GESTIONE SCHEDE (TABS)
 function switchTab(tabId, element) {
     document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
     document.querySelectorAll(".nav-tab").forEach(tab => tab.classList.remove("active"));
@@ -43,7 +41,6 @@ function initAdminPanel() {
     setupFaqSmartSearch();
 }
 
-// --- GESTIONE FAQ CON RICERCA INTELLIGENTE SULL'ID ---
 function setupFaqSmartSearch() {
     const faqIdInput = document.getElementById("faqId");
     if (!faqIdInput) return;
@@ -60,6 +57,14 @@ function setupFaqSmartSearch() {
 
     faqIdInput.addEventListener("input", function() {
         const typedId = this.value.trim().toUpperCase();
+        
+        // Filtra automaticamente la tabella in base all'ID selezionato/digitato
+        const searchInput = document.getElementById("faqTableSearch");
+        if (searchInput) {
+            searchInput.value = typedId;
+            renderFaqTable();
+        }
+
         if (typeof appConfig === "undefined" || !appConfig.faqs) return;
 
         const existingIndex = appConfig.faqs.findIndex(f => f.id.toUpperCase() === typedId);
@@ -78,6 +83,8 @@ function setupFaqSmartSearch() {
             document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ Esistente (${faq.id})`;
             document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
             document.getElementById("faqCancelBtn").style.display = "inline-flex";
+            document.getElementById("faqDeleteInFormBtn").style.display = "inline-flex";
+            document.getElementById("faqNewBtn").style.display = "inline-flex";
         } else {
             document.getElementById("faqEditIndex").value = "-1";
             if (catSelect) {
@@ -93,6 +100,9 @@ function setupFaqSmartSearch() {
             if (typedId.length > 0) {
                 document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Aggiungi Nuovo ID (${typedId})`;
                 document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-save"></i> Salva Nuova FAQ`;
+                document.getElementById("faqCancelBtn").style.display = "inline-flex";
+                document.getElementById("faqDeleteInFormBtn").style.display = "none";
+                document.getElementById("faqNewBtn").style.display = "inline-flex";
             } else {
                 resetFaqForm();
             }
@@ -118,6 +128,9 @@ function renderFaqTable() {
 
     const filterSelect = document.getElementById("faqCategoryFilter");
     const selectedCategory = filterSelect ? filterSelect.value : "ALL";
+    
+    const searchInput = document.getElementById("faqTableSearch");
+    const searchQuery = searchInput ? searchInput.value.trim().toLowerCase() : "";
 
     tbody.innerHTML = "";
     
@@ -128,10 +141,19 @@ function renderFaqTable() {
             return;
         }
 
-        const tr = document.createElement("tr");
         const kwText = Array.isArray(faq.keywords) ? faq.keywords.join(", ") : faq.keywords;
         const respText = Array.isArray(faq.responses) ? faq.responses[0] : faq.response;
+        
+        if (searchQuery !== "") {
+            const matchId = faq.id.toLowerCase().includes(searchQuery);
+            const matchKw = kwText.toLowerCase().includes(searchQuery);
+            const matchResp = respText.toLowerCase().includes(searchQuery);
+            if (!matchId && !matchKw && !matchResp) {
+                return;
+            }
+        }
 
+        const tr = document.createElement("tr");
         tr.innerHTML = `
             <td><code>${faq.id}</code><br><small style="color: #1e3a8a; font-weight: bold;">📁 [${faqType}]</small></td>
             <td>${kwText}</td>
@@ -198,9 +220,18 @@ function editFaq(index) {
         catSelect.value = faq.type || (faq.id.startsWith("FORM_") ? "form" : "scuola");
     }
 
+    // Sincronizza anche la ricerca nella tabella
+    const searchInput = document.getElementById("faqTableSearch");
+    if (searchInput) {
+        searchInput.value = faq.id;
+        renderFaqTable();
+    }
+
     document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Modifica FAQ (${faq.id})`;
     document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-sync"></i> Aggiorna FAQ`;
     document.getElementById("faqCancelBtn").style.display = "inline-flex";
+    document.getElementById("faqDeleteInFormBtn").style.display = "inline-flex";
+    document.getElementById("faqNewBtn").style.display = "inline-flex";
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -213,12 +244,28 @@ function deleteFaq(index) {
     }
 }
 
+function deleteCurrentEditingFaq() {
+    const index = parseInt(document.getElementById("faqEditIndex").value, 10);
+    if (index >= 0) {
+        deleteFaq(index);
+    }
+}
+
 function resetFaqForm() {
     document.getElementById("faqForm").reset();
     document.getElementById("faqEditIndex").value = "-1";
     document.getElementById("faqFormTitle").innerHTML = `<i class="fa-solid fa-plus-circle"></i> Aggiungi Nuova FAQ`;
     document.getElementById("faqSubmitBtn").innerHTML = `<i class="fa-solid fa-save"></i> Salva FAQ`;
     document.getElementById("faqCancelBtn").style.display = "none";
+    document.getElementById("faqDeleteInFormBtn").style.display = "none";
+    document.getElementById("faqNewBtn").style.display = "none";
+    
+    // Ripristina la tabella rimuovendo il filtro di ricerca
+    const searchInput = document.getElementById("faqTableSearch");
+    if (searchInput) {
+        searchInput.value = "";
+        renderFaqTable();
+    }
 }
 
 // --- GESTIONE PULSANTI RAPIDI ---
