@@ -1,3 +1,7 @@
+/**
+ * Database FAQ, Pulsanti Rapidi e Dizionario ENCICLOPEDICO per Arturo | IIS "Arturo Checchi"
+ * Sviluppato da Luca Vorraro (Assistente Tecnico Informatico)
+ */
 let appConfig = {
   "quickButtons": [
     {
@@ -61,7 +65,7 @@ let appConfig = {
         "ore eccedenti"
       ],
       "responses": [
-        "📋 <strong>REGISTRAZIONE SOSTITUZIONI RETRIBUITE E RECUPERO PERMESSI BREVI:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=... https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUREsyREdRWVVJNEc3M0gzS0JRQVdOTzBMRy4u&route=shorturl"
+        "📋 <strong>REGISTRAZIONE SOSTITUZIONI RETRIBUITE E RECUPERO PERMESSI BREVI:</strong><br><br>Puoi accedere e compilare il modulo ufficiale al seguente link:<br>https://forms.cloud.microsoft/pages/responsepage.aspx?id=3-SZcscZ5EyOihqidSeYLg9vqf31MM9HsWOwwYY6x4tUREsyREdRWVVJNEc3M0gzS0JRQVdOTzBMRy4u&route=shorturl"
       ]
     },
     {
