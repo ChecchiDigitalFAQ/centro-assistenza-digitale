@@ -499,6 +499,17 @@ let appConfig = {
       "responses": [
         "👋 Ciao! Sono **Arturo**, l'assistente digitale ufficiale dell'IIS \"Arturo Checchi\" di Fucecchio. Come posso aiutarti oggi?"
       ]
+    },
+    {
+      "id": "SEGRETERIE",
+      "type": "scuola",
+      "keywords": [
+        "segreteria e uffici",
+        "segreterie"
+      ],
+      "responses": [
+        "Orari Uffici (Viale Gramsci,7)\nORARIO DI APERTURA AL PUBBLICO DEGLI UFFICI DI SEGRETERIA:\n\nGli uffici di segreteria sono aperti per il ricevimento al pubblico Alunni, Famiglie e Personale Scolastico\n\nUff. DIDATTICA (Alunni)\n\nLunedì - dalle ore 14.00 alle ore 16.00\n\nMercoledì - Giovedì -  dalle ore 10.30 alle ore 13.00\n\nUff. PERSONALE\n\nLunedì - dalle ore 14.00 alle ore 16.00\n\nMercoledì - Giovedì -  dalle ore 10.30 alle ore 13.00\n\nUff. AMMINISTRATIVO\n\nLunedì - dalle ore 14.00 alle ore 16.00\n\nMercoledì - Giovedì -  dalle ore 10.30 alle ore 13.00"
+      ]
     }
   ]
 };
@@ -732,13 +743,14 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
+    link = null;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     waitingForFormSelection = false;
-    chatBox.innerHTML = `<div class="message bot-message"><div class="message-avatar"><i class="fa-solid fa-robot"></i></div><div class="message-content">👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS \"Arturo Checchi\".<br><br>Conversazione riavviata! Come posso aiutarti oggi?</div></div>` ;
+    chatBox.innerHTML = `<div class="message bot-message"><div class="message-avatar"><i class="fa-solid fa-robot"></i></div><div class="message-content">👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS \"Arturo Checchi\".<br><br>Conversazione riavviata! Come posso aiutarti oggi?</div></div>`;
 }
 
-function startClock() {
+    function startClock() {
     const clockEl = document.getElementById("live-clock");
     if (!clockEl) return;
     function updateDateTime() {
