@@ -175,24 +175,44 @@
             </div>
         </div>
 
-        <!-- SCHEDA 2: PULSANTI RAPIDI -->
+        <!-- SCHEDA 2: PULSANTI RAPIDI POTENZIATA -->
         <div id="btnTab" class="tab-content">
-            <h2 id="btnFormTitle" style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-plus-circle"></i> Aggiungi Pulsante Rapido</h2>
+            <h2 id="btnFormTitle" style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-plus-circle"></i> Aggiungi o Modifica Pulsante Rapido</h2>
             
             <form id="btnForm" onsubmit="handleBtnSubmit(event)">
                 <input type="hidden" id="btnEditIndex" value="-1">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label>Etichetta Pulsante (con icona o emoji):</label>
+                        <label>Etichetta Visibile del Pulsante:</label>
                         <input type="text" id="btnLabel" required placeholder="🖨️ Richiesta Fotocopie">
                     </div>
                     <div class="form-group">
-                        <label>ID FAQ Collegato (es. FORM_FOTOCOPIE):</label>
-                        <input type="text" id="btnFaqId" required placeholder="ID della FAQ associata">
+                        <label>ID FAQ Collegato:</label>
+                        <input type="text" id="btnFaqId" required placeholder="es. FORM_FOTOCOPIE">
+                    </div>
+                    <div class="form-group full">
+                        <label>🎨 Scegli un'Icona Rapida (FontAwesome):</label>
+                        <select id="btnIconSelect" class="form-control" onchange="document.getElementById('btnIconInput').value = this.value">
+                            <option value="fa-solid fa-circle-question">❓ Domanda / Aiuto</option>
+                            <option value="fa-solid fa-address-book">📞 Contatti</option>
+                            <option value="fa-solid fa-user-tie">👔 Dirigenza</option>
+                            <option value="fa-solid fa-building-columns">🏢 Segreteria e Uffici</option>
+                            <option value="fa-solid fa-laptop-code">💻 Servizi Digitali</option>
+                            <option value="fa-solid fa-print">🖨️ Stampa e Fotocopie</option>
+                            <option value="fa-solid fa-file-lines">📄 Modulistica generale</option>
+                            <option value="fa-solid fa-key">🔑 Credenziali e Accessi</option>
+                            <option value="fa-solid fa-book">📖 Dizionario / Libri</option>
+                        </select>
+                    </div>
+                    <div class="form-group full">
+                        <label>Classe Icona CSS (modificabile o automatica):</label>
+                        <input type="text" id="btnIconInput" required value="fa-solid fa-circle-question">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success" id="btnSubmitBtn"><i class="fa-solid fa-save"></i> Salva Pulsante</button>
-                <button type="button" class="btn btn-secondary" id="btnCancelBtn" style="display:none;" onclick="resetBtnForm()">Annulla</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="submit" class="btn btn-success" id="btnSubmitBtn"><i class="fa-solid fa-save"></i> Salva Pulsante</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancelBtn" style="display:none;" onclick="resetBtnForm()">Annulla</button>
+                </div>
             </form>
 
             <hr style="margin: 30px 0; border:0; border-top: 1px solid var(--border);">
@@ -202,7 +222,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Etichetta Visibile</th>
+                            <th>Etichetta & Icona</th>
                             <th>ID FAQ Collegato</th>
                             <th>Azioni</th>
                         </tr>
