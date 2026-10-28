@@ -62,6 +62,7 @@
         .btn-warning { background: var(--warning); color: white; }
         .btn-danger { background: var(--danger); color: white; }
         .btn-secondary { background: #64748b; color: white; }
+        .btn-download { background: #0d9488; color: white; }
 
         /* Tabelle */
         .table-responsive { overflow-x: auto; margin-top: 20px; }
@@ -216,8 +217,13 @@
         <!-- SCHEDA 3: ESPORTA -->
         <div id="exportTab" class="tab-content export-box">
             <h2 style="margin-bottom: 10px; color: var(--primary);"><i class="fa-solid fa-file-code"></i> Codice Pronto per `script.js`</h2>
-            <p style="color: #64748b; margin-bottom: 15px;">Copia questo codice e incollalo all'inizio del tuo file <code>js/script.js</code> per aggiornare definitivamente il bot.</p>
-            <button class="btn btn-success" onclick="copyExportCode()"><i class="fa-solid fa-copy"></i> Copia Negli Appunti</button>
+            <p style="color: #64748b; margin-bottom: 15px;">Usa i pulsanti sottostanti per copiare il codice negli appunti o scaricare direttamente il file aggiornato per GitHub[cite: 2].</p>
+            
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+                <button class="btn btn-success" onclick="copyExportCode()"><i class="fa-solid fa-copy"></i> Copia Negli Appunti</button>
+                <button class="btn btn-download" onclick="downloadScriptFile()"><i class="fa-solid fa-download"></i> Scarica script.js</button>
+            </div>
+
             <textarea id="exportArea" readonly></textarea>
         </div>
     </div>
