@@ -184,29 +184,53 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Etichetta Visibile del Pulsante:</label>
-                        <input type="text" id="btnLabel" required placeholder="🏢 Segreteria e Uffici">
+                        <input type="text" id="btnLabel" required placeholder="🏫 Nome Pulsante">
                     </div>
                     <div class="form-group">
                         <label>ID FAQ Collegato (Generato Automaticamente):</label>
-                        <input type="text" id="btnFaqId" required placeholder="es. SEGRETERIE">
+                        <input type="text" id="btnFaqId" required placeholder="es. NOME_PULSANTE">
                     </div>
                     <div class="form-group full">
-                        <label>🎨 Scegli un'Icona Rapida (FontAwesome):</label>
+                        <label>🎨 Scegli un'Icona dall'Assortimento:</label>
                         <select id="btnIconSelect" class="form-control" onchange="document.getElementById('btnIconInput').value = this.value">
-                            <option value="fa-solid fa-circle-question">❓ Domanda / Aiuto</option>
-                            <option value="fa-solid fa-address-book">📞 Contatti</option>
-                            <option value="fa-solid fa-user-tie">👔 Dirigenza</option>
-                            <option value="fa-solid fa-building-columns">🏢 Segreteria e Uffici</option>
-                            <option value="fa-solid fa-laptop-code">💻 Servizi Digitali</option>
-                            <option value="fa-solid fa-print">🖨️ Stampa e Fotocopie</option>
-                            <option value="fa-solid fa-file-lines">📄 Modulistica generale</option>
-                            <option value="fa-solid fa-key">🔑 Credenziali e Accessi</option>
-                            <option value="fa-solid fa-book">📖 Dizionario / Libri</option>
+                            <optgroup label="🏫 Scuola e Uffici">
+                                <option value="fa-solid fa-building-columns">🏢 Segreteria e Uffici / Edificio</option>
+                                <option value="fa-solid fa-graduation-cap">🎓 Didattica e Diplomati</option>
+                                <option value="fa-solid fa-user-tie">👔 Dirigenza e Preside</option>
+                                <option value="fa-solid fa-chalkboard-user">👨‍🏫 Docenti e Lezioni</option>
+                                <option value="fa-solid fa-users">👥 Collaboratori e Personale</option>
+                                <option value="fa-solid fa-school">🏫 Istituto e Plessi</option>
+                                <option value="fa-solid fa-id-card">🪪 Tesserini e Identità</option>
+                            </optgroup>
+                            <optgroup label="💻 Informatica e Digitali">
+                                <option value="fa-solid fa-laptop-code">💻 Servizi Digitali e PC</option>
+                                <option value="fa-solid fa-key">🔑 Credenziali e Password</option>
+                                <option value="fa-solid fa-print">🖨️ Stampanti e Fotocopie</option>
+                                <option value="fa-solid fa-network-wired">🌐 Reti e Connessioni</option>
+                                <option value="fa-solid fa-shield-halved">🛡️ Sicurezza informatica</option>
+                                <option value="fa-solid fa-database">🗄️ Database e Archivi</option>
+                            </optgroup>
+                            <optgroup label="📄 Modulistica e Documenti">
+                                <option value="fa-solid fa-file-lines">📄 Modulistica generale</option>
+                                <option value="fa-solid fa-file-pdf">📑 Documenti PDF</option>
+                                <option value="fa-solid fa-clipboard-list">📋 Piani di lavoro e Registri</option>
+                                <option value="fa-solid fa-folder-open">📂 Archivio circolari</option>
+                                <option value="fa-solid fa-pen-nib">✒️ Moduli e Firme</option>
+                            </optgroup>
+                            <optgroup label="📚 Cultura e Utilità">
+                                <option value="fa-solid fa-book">📖 Dizionario e Libri</option>
+                                <option value="fa-solid fa-circle-question">❓ Domanda / Aiuto</option>
+                                <option value="fa-solid fa-address-book">📞 Contatti e Rubrica</option>
+                                <option value="fa-solid fa-calendar-days">📅 Orari e Calendario</option>
+                                <option value="fa-solid fa-clock">⏰ Orario e Turni</option>
+                                <option value="fa-solid fa-bullhorn">📢 Avvisi e News</option>
+                                <option value="fa-solid fa-map-location-dot">📍 Sedi e Mappe</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group full">
-                        <label>Classe Icona CSS:</label>
-                        <input type="text" id="btnIconInput" required value="fa-solid fa-circle-question">
+                        <label>Classe Icona CSS (Generata in automatico):</label>
+                        <input type="text" id="btnIconInput" required readonly value="fa-solid fa-building-columns" style="background: #f1f5f9; color: #64748b; cursor: not-allowed;">
                     </div>
                     <div class="form-group full">
                         <label>💬 Risposta del Bot associata al Pulsante:</label>
