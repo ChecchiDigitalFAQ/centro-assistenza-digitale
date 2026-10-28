@@ -175,7 +175,7 @@
             </div>
         </div>
 
-        <!-- SCHEDA 2: PULSANTI RAPIDI POTENZIATA -->
+<!-- SCHEDA 2: PULSANTI RAPIDI POTENZIATA -->
         <div id="btnTab" class="tab-content">
             <h2 id="btnFormTitle" style="margin-bottom: 20px; color: var(--primary);"><i class="fa-solid fa-plus-circle"></i> Aggiungi o Modifica Pulsante Rapido</h2>
             
@@ -184,11 +184,11 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Etichetta Visibile del Pulsante:</label>
-                        <input type="text" id="btnLabel" required placeholder="🖨️ Richiesta Fotocopie">
+                        <input type="text" id="btnLabel" required placeholder="🏢 Segreteria e Uffici">
                     </div>
                     <div class="form-group">
-                        <label>ID FAQ Collegato:</label>
-                        <input type="text" id="btnFaqId" required placeholder="es. FORM_FOTOCOPIE">
+                        <label>ID FAQ Collegato (Generato Automaticamente):</label>
+                        <input type="text" id="btnFaqId" required placeholder="es. SEGRETERIE">
                     </div>
                     <div class="form-group full">
                         <label>🎨 Scegli un'Icona Rapida (FontAwesome):</label>
@@ -205,12 +205,16 @@
                         </select>
                     </div>
                     <div class="form-group full">
-                        <label>Classe Icona CSS (modificabile o automatica):</label>
+                        <label>Classe Icona CSS:</label>
                         <input type="text" id="btnIconInput" required value="fa-solid fa-circle-question">
+                    </div>
+                    <div class="form-group full">
+                        <label>💬 Risposta del Bot associata al Pulsante:</label>
+                        <textarea id="btnResponseText" required placeholder="Scrivi qui cosa deve rispondere Arturo quando l'utente clicca questo pulsante..."></textarea>
                     </div>
                 </div>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button type="submit" class="btn btn-success" id="btnSubmitBtn"><i class="fa-solid fa-save"></i> Salva Pulsante</button>
+                    <button type="submit" class="btn btn-success" id="btnSubmitBtn"><i class="fa-solid fa-save"></i> Salva Pulsante e Risposta</button>
                     <button type="button" class="btn btn-secondary" id="btnCancelBtn" style="display:none;" onclick="resetBtnForm()">Annulla</button>
                 </div>
             </form>
@@ -223,7 +227,7 @@
                     <thead>
                         <tr>
                             <th>Etichetta & Icona</th>
-                            <th>ID FAQ Collegato</th>
+                            <th>Risposta Collegata</th>
                             <th>Azioni</th>
                         </tr>
                     </thead>
