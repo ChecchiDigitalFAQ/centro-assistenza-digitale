@@ -205,7 +205,7 @@ let appConfig = {
         "chi e arturo"
       ],
       "responses": [
-        "🤖 **Arturo** è l'assistente virtuale ufficiale dell'**IIS \"Arturo Checchi\"** di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, radici quadrate e definizioni del dizionario!"
+        "🤖 **Arturo** è l'assistente virtuale ufficiale dell'<strong>IIS \"Arturo Checchi\"</strong> di Fucecchio. Posso aiutarti con i form, le informazioni sulla scuola, calcoli, radici quadrate e definizioni del dizionario!"
       ]
     },
     {
@@ -484,7 +484,7 @@ let appConfig = {
         "sviluppato"
       ],
       "responses": [
-        "🤖 Sono stato ideato e creato presso l'**IIS \"Arturo Checchi\"** di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"
+        "🤖 Sono stato ideato e creato presso l'<strong>IIS \"Arturo Checchi\"</strong> di Fucecchio dal Tecnico Informatico **Luca Vorraro**!"
       ]
     },
     {
@@ -544,7 +544,8 @@ function renderQuickButtons() {
     appConfig.quickButtons.forEach(btn => {
         const buttonEl = document.createElement("button");
         buttonEl.className = "quick-btn";
-        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label.replace(/^[^\s]+\s/, '')}`;
+        // Mostra l'etichetta completa senza tagliare la prima parola
+        buttonEl.innerHTML = `<i class="${btn.icon}"></i> ${btn.label}`;
         buttonEl.onclick = () => quickAction(btn.id);
         container.appendChild(buttonEl);
     });
@@ -668,6 +669,7 @@ function processUserQuery(query) {
         return;
     }
 
+    // ==================== REINTEGRO CALCOLI MATEMATICI ====================
     if (cleanQuery.includes("radice quadrata") || cleanQuery.includes("radice")) {
         let num = parseFloat(cleanQuery.replace(/[^0-9.]/g, ""));
         if (!isNaN(num)) {
@@ -676,6 +678,21 @@ function processUserQuery(query) {
             return;
         }
     }
+
+    // Controllo calcoli matematici generali di base (es. 5+5, 10*2, ecc.)
+    let mathRegex = /^[\d\s\+\-\*\/\(\)\.]+$/;
+    if (mathRegex.test(cleanQuery) && /\d/.test(cleanQuery)) {
+        try {
+            let calcoloRisultato = Function('"use strict";return (' + cleanQuery + ')')();
+            if (!isNaN(calcoloRisultato) && isFinite(calcoloRisultato)) {
+                rispondiBot(`🧮 Il risultato di **${query}** è **${calcoloRisultato}**!`);
+                return;
+            }
+        } catch (e) {
+            // Se c'è un errore di sintassi matematica prosegue con la normale ricerca
+        }
+    }
+    // ======================================================================
 
     if (cleanQuery.includes("piano di lavoro") || cleanQuery.includes("piano lavoro") || cleanQuery.includes("piani di lavoro")) {
         let risultatiForm = appConfig.faqs.filter(f => f.id === "FORM_PIANO_LAVORO_LICEO" || f.id === "FORM_PIANO_LAVORO_IPIA");
@@ -754,14 +771,13 @@ function appendMessage(text, sender) {
 }
 
 function resetChat() {
-    link = null;
     const chatBox = document.getElementById("chat-messages");
     if (!chatBox) return;
     waitingForFormSelection = false;
     chatBox.innerHTML = `<div class="message bot-message"><div class="message-avatar"><i class="fa-solid fa-robot"></i></div><div class="message-content">👋 Ciao! Sono <strong>Arturo</strong>, il tuo assistente virtuale ufficiale dell'IIS \"Arturo Checchi\".<br><br>Conversazione riavviata! Come posso aiutarti oggi?</div></div>`;
 }
 
-    function startClock() {
+function startClock() {
     const clockEl = document.getElementById("live-clock");
     if (!clockEl) return;
     function updateDateTime() {
